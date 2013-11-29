@@ -38,7 +38,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	public ConsoleWindow(OB_Workspace workspace){
 		super("コンソール");
 		this.ws = workspace;
-	    this.setBounds(200, 200, 200, 400);
+	    this.setBounds(200, 200, 300, 400);
 	    this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    this.add(init());
 	    this.setVisible(true);
@@ -73,7 +73,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		JPanel center = new JPanel();
 		console = new JTextArea();
 		console.setEditable(false);
-		console.setPreferredSize(new Dimension(200, 200));
+		console.setPreferredSize(new Dimension(300, 200));
 		center.add(console);
 		body.add(center, BorderLayout.CENTER);
 		
@@ -82,7 +82,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		String[] columnNames = {"変数名", "値"};
 		tableModel = new DefaultTableModel(columnNames, 0);
 		JTable valiableTable = new JTable(tableModel);
-		valiableTable.setPreferredSize(new Dimension(100, 150));
+		valiableTable.setPreferredSize(new Dimension(300, 150));
 		south.add(valiableTable);
 		body.add(south, BorderLayout.SOUTH);
 		

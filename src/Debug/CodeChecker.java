@@ -21,6 +21,9 @@ public class CodeChecker {
 	private ArrayList<Variable> variableList;
 	
 	private Iterable<RenderableBlock> blockList;
+	
+	//イベント処理スタック
+	private EventStack eventStack;
 		
 	CodeChecker(Iterable<RenderableBlock> blockList){
 		//init
@@ -31,15 +34,22 @@ public class CodeChecker {
 	public void runTheCode() throws ErrorException{
 		RenderableBlock runBlock = findStartBlock();
 		long afterBlockId = runBlock.getBlock().getAfterBlockID();
+		ArrayList<RenderableBlock> runBlockList = new ArrayList<RenderableBlock>();
+		runBlockList.add(runBlock);
 		
 		while(afterBlockId != Block.NULL){
 			runBlock = getRenderableBlock(afterBlockId);
 			
-			println(runBlock.getBlock().getGenusName());
+			//debug
+			//println(runBlock.getBlock().getGenusName());
+			
+			runBlockList.add(runBlock);
 			
 			//次のポインタへ
 			afterBlockId = runBlock.getBlock().getAfterBlockID();
 		}
+		eventStack = new EventStack(runBlockList);
+		System.out.println(eventStack);
 		
 	}
 	

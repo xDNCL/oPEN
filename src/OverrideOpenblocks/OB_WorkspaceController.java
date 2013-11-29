@@ -284,7 +284,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     protected void createAndShowGUI() {
         frame = new JFrame("BlockEducation Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 500, 500);
+        frame.setBounds(100, 100, 700, 500);
         frame.add(topPane(), BorderLayout.PAGE_START);
         frame.add(getWorkspacePanel(), BorderLayout.CENTER);
         frame.add(getButtonPanel(), BorderLayout.SOUTH);

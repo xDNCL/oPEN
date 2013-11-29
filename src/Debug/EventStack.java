@@ -9,13 +9,22 @@ public class EventStack {
 		
 	private ArrayList<RenderableBlock> runBlockList;
 	
-	EventStack(ArrayList<RenderableBlock> runBlockList){
-		for(int i=runBlockList.size()-1; i > 0; i--){
-			this.setEventBlock(runBlockList.get(i));
+	EventStack(ArrayList<RenderableBlock> runList){
+		this.runBlockList = new ArrayList<RenderableBlock>();
+		//ƒXƒ^ƒbƒN‚É‹t‡‚É‹l‚ßž‚Þ
+		for(int i=runList.size()-1; i >= 0; i--){
+			this.setEventBlock(runList.get(i));
 		}
 	}
 	
 	public RenderableBlock getEventBlock(){
+		int pointer = runBlockList.size()-1;
+		RenderableBlock event = this.runBlockList.get(pointer);
+		runBlockList.remove(pointer);
+		return event;
+	}
+	
+	public RenderableBlock showNextEventBlock(){
 		return this.runBlockList.get(runBlockList.size()-1);
 	}
 	
@@ -28,14 +37,15 @@ public class EventStack {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		return runBlockList.size() == 0 ? true : false;
+		return this.runBlockList.size() == 0 ? true : false;
 	}
 	
 	
 	@Override
 	public String toString(){
 		String result = "";
-		for(RenderableBlock rb: this.runBlockList){
+		for(int i=this.runBlockList.size()-1; i>=0 ; i--){
+			RenderableBlock rb = runBlockList.get(i);
 			result += "BlockID:"+rb.getBlockID()
 					+"\nGenusName:"+rb.getGenus()
 					+"\n";
