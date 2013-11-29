@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+CodeText = コードそのもの
+
+<CodeText>専用タグ
+@param _val		接続先の値を取得する
+@param _label	自身のラベル（ブロック本体のラベル）の値を取得する
+@param _preval 	<PreText> を各行頭につけた状態で、接続先の値を取得する
+@param _br		任意の場所で改行
+
+<PreCode>専用タグ
+@param _t		タブ挿入
+
+共通タグ
+@param _space	半角スペース挿入
+
+@param @ 区切り文字
+
+ -->
+<BlockEducationCode>
+	<BlockCodes>
+	    
+	    <BlockCode name="start">
+	        <CodeText>
+	            @public class BlockEducation{ @_br
+	            @public static void main(String[] args){ @_br
+	            @_preval
+	            @} @_br
+	            @}
+	        </CodeText>
+	        <PreText>
+	            @_t
+	        </PreText>
+	    </BlockCode>
+	    
+	    <BlockCode name="repeat-if">
+	        <CodeText>
+	            @while( @_val @){ @_br
+	            @_preval
+	            @}
+	        </CodeText>
+	       	<PreText>
+	       	    @_t
+	       	</PreText>
+	    </BlockCode>
+	    
+	    <BlockCode name="if">
+	        <CodeText>
+	            @もし @_val @ならば @_br
+	            @_preval @_br
+	            @を実行する
+	        </CodeText>
+	        <PreText>
+	            @_space @_space @| @_space
+	        </PreText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="ifelse">
+	        <CodeText>
+	            @もし @_val @ならば @_br
+	            @_preval @_br
+	            @を実行し、そうでなければ @_br
+	            @_preval @_br
+	            @を実行する
+	        </CodeText>
+	        <PreText>
+	            @_space @_space @| @_space
+	        </PreText>
+	    </BlockCode>
+	    
+	    <BlockCode name="substitution-number">
+	        <CodeText>
+	            @_label @← @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="substitution-string">
+	        <CodeText>
+	            @_label @← @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="sum">
+	        <CodeText>
+	            @( @_val @+ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="difference">
+	        <CodeText>
+     	        @( @_val @- @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="quotient">
+	        <CodeText>
+ 	       		@( @_val @/ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="product">
+	        <CodeText>
+	            @( @_val @* @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="surplus">
+	        <CodeText>
+	            @( @_val @% @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="setInt">
+	        <CodeText>
+	            @整数 @_space @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="setDouble">
+	        <CodeText>
+	            @実数 @_space @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="setString">
+	        <CodeText>
+	            @文字列 @_space @_val
+	        </CodeText>
+	    </BlockCode>	    
+	    
+	    <BlockCode name="setLong">
+	        <CodeText>
+	            @長整数 @_space @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="variable-Number">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="variable-String">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="lessthan">
+	        <CodeText>
+	            @( @_val @＜ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="greaterthan">
+	        <CodeText>
+	            @( @_val @＞ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	        
+	    <BlockCode name="equals">
+	        <CodeText>
+	            @( @_val @= @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="number">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="string">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="print-number">
+	        <CodeText>
+	            @_val @を改行なしで表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="print-string">
+	        <CodeText>
+	            @「 @_val @」を改行無しで表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="println-number">
+	        <CodeText>
+	            @_val @ を表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="println-string">
+	        <CodeText>
+	            @「 @_val @」を表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="keyboard-input-number">
+	        <CodeText>
+	            @input()
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="keyboard-input-string">
+	        <CodeText>
+	            @input()
+	        </CodeText>
+	    </BlockCode>
+	    
+	</BlockCodes>
+</BlockEducationCode>

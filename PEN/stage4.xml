@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+<Output>
+    <FilePath>resources/PEN.xml</FilePath>
+    <FileExtends>.pen</FileExtends>
+</Output>
+<BlockDrawerSets>
+<BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
+			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
+			    <BlockGenusMember>start</BlockGenusMember>
+			    <BlockGenusMember>repeat-if</BlockGenusMember>
+			    <BlockGenusMember>if</BlockGenusMember>
+			    <BlockGenusMember>ifelse</BlockGenusMember>
+				<BlockGenusMember>equals</BlockGenusMember>
+				<BlockGenusMember>greater-than</BlockGenusMember>
+				<BlockGenusMember>less-than</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
+				<BlockGenusMember>sum</BlockGenusMember>
+				<BlockGenusMember>difference</BlockGenusMember>
+				<BlockGenusMember>quotient</BlockGenusMember>
+				<BlockGenusMember>product</BlockGenusMember>
+				<BlockGenusMember>surplus</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="宣言・代入" button-color="132 204 201" type="factory">
+				<BlockGenusMember>setInt</BlockGenusMember>
+				<BlockGenusMember>substitution-number</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
+				<BlockGenusMember>print-number</BlockGenusMember>
+				<BlockGenusMember>print-string</BlockGenusMember>
+				<BlockGenusMember>println-number</BlockGenusMember>
+				<BlockGenusMember>println-string</BlockGenusMember>
+				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="値・変数" type="factory" button-color="255 242 0">
+			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>string</BlockGenusMember>
+			    <BlockGenusMember>variable-Number</BlockGenusMember>
+			</BlockDrawer>
+</BlockDrawerSet>
+</BlockDrawerSets>
+</root>

@@ -1,0 +1,97 @@
+#
+start:
+$
+
+#
+repeat:
+@ の間,\n
+@
+を繰り返す\n
+$
+
+#
+repeat-if:
+@ の間,\n
+@
+を繰り返す\n
+$
+
+#
+if:
+もし @ ならば\n
+@
+を実行する\n
+$
+
+#
+ifelse:
+もし @ ならば\n
+@
+を実行し, そうでなければ\n
+@
+を実行する\n
+$
+
+#
+lessthan:
+(@ < @)
+$
+
+#
+greaterthan:
+(@ > @)
+
+#
+equals:
+(@ == @)
+$
+
+#
+sum:
+(@ + @)
+$
+
+#
+difference:
+(@ - @)
+$
+
+#
+quotient:
+(@ / @)
+$
+
+#
+product:
+(@ * @)
+$
+
+#
+substitution-number:
+← @\n
+$
+
+#
+substitution-string:
+← @\n
+$
+
+#
+setInt:
+変数 @\n
+$
+
+#
+print-number:
+@ を表示する\n
+$
+
+#
+variable-Number:
+x
+$
+
+#
+keyboard-input-number:
+input()
+$

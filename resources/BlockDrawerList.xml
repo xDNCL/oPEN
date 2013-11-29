@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+<!-- ここからいじる -->
+	<BlockDrawerSets>	
+		<BlockDrawerSet name="factory" type="stack" location="southwest" window-per-drawer="no" drawer-draggable="no" >
+			<BlockDrawer name="Setup and Run" type="factory" is-open="yes" button-color="173 0 0">
+				<BlockGenusMember>setup</BlockGenusMember>
+				<BlockGenusMember>forever</BlockGenusMember>
+				<BlockGenusMember>runforsometime</BlockGenusMember>
+				<BlockGenusMember>runonce</BlockGenusMember>
+				<BlockGenusMember>clear-all</BlockGenusMember>
+				<BlockGenusMember>clear-everyone</BlockGenusMember>
+				<BlockGenusMember>clear-patches</BlockGenusMember>
+				<BlockGenusMember>set-score</BlockGenusMember>
+				<BlockGenusMember>score</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="移動系ブロック" type="factory" button-color="247 0 0">
+				<BlockGenusMember>fd</BlockGenusMember>
+				<BlockGenusMember>bk</BlockGenusMember>
+				<BlockGenusMember>lt</BlockGenusMember>
+				<BlockGenusMember>rt</BlockGenusMember>
+				<BlockGenusMember>up</BlockGenusMember>
+				<BlockGenusMember>down</BlockGenusMember>
+				<BlockGenusMember>setxy</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="制御系ブロック" type="factory" button-color="255 173 0">
+				<BlockGenusMember>if</BlockGenusMember>
+				<BlockGenusMember>ifelse</BlockGenusMember>
+				<BlockGenusMember>repeat</BlockGenusMember>
+				<BlockGenusMember>and</BlockGenusMember>
+				<BlockGenusMember>or</BlockGenusMember>
+				<BlockGenusMember>not</BlockGenusMember>
+				<BlockGenusMember>equals</BlockGenusMember>
+				<BlockGenusMember>lessthan</BlockGenusMember>
+				<BlockGenusMember>true</BlockGenusMember>
+				<BlockGenusMember>false</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="Controls" type="factory" button-color="255 235 0">
+				<BlockGenusMember>keyboard-up</BlockGenusMember>
+				<BlockGenusMember>keyboard-space</BlockGenusMember>
+				<BlockGenusMember>joy-xaxis</BlockGenusMember>
+				<BlockGenusMember>joy-yaxis</BlockGenusMember>
+				<BlockGenusMember>joy-radius</BlockGenusMember>
+				<BlockGenusMember>joy-angle</BlockGenusMember>
+				<BlockGenusMember>dpad-angle</BlockGenusMember>
+				<BlockGenusMember>joy-button1?</BlockGenusMember>
+				<BlockGenusMember>joy-button2?</BlockGenusMember>
+				<BlockGenusMember>joy-button3?</BlockGenusMember>
+				<BlockGenusMember>joy-button4?</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="Terrain" type="factory" button-color="120 255 0">
+				<BlockGenusMember>stamp</BlockGenusMember>
+				<BlockGenusMember>pc</BlockGenusMember>
+				<BlockGenusMember>stomp</BlockGenusMember>
+				<BlockGenusMember>yank</BlockGenusMember>
+				<BlockGenusMember>patch-height</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="Traits" type="factory" button-color="0 255 254">
+				<BlockGenusMember>who</BlockGenusMember>
+				<BlockGenusMember>setc</BlockGenusMember>
+				<BlockGenusMember>color</BlockGenusMember>
+				<BlockGenusMember>setshape</BlockGenusMember>
+				<BlockGenusMember>shape</BlockGenusMember>
+				<BlockGenusMember>setbreed</BlockGenusMember>
+				<BlockGenusMember>breed</BlockGenusMember>
+				<BlockGenusMember>seth</BlockGenusMember>
+				<BlockGenusMember>heading</BlockGenusMember>
+				<BlockGenusMember>penup</BlockGenusMember>
+				<BlockGenusMember>pendown</BlockGenusMember>
+				<BlockGenusMember>pendown?</BlockGenusMember>
+				<BlockGenusMember>setscale</BlockGenusMember>
+				<BlockGenusMember>scale</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="テキスト系ブロック" type="factory" button-color="45 201 255">
+				<BlockGenusMember>string</BlockGenusMember>
+				<BlockGenusMember>say</BlockGenusMember>
+				<BlockGenusMember>set-status</BlockGenusMember>
+				<BlockGenusMember>to-string</BlockGenusMember>
+				<BlockGenusMember>string-append</BlockGenusMember>
+				<BlockGenusMember>equals</BlockGenusMember>
+				<BlockGenusMember>not-equals</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="数学系ブロック" type="factory" button-color="102 129 255">
+				<BlockGenusMember>number</BlockGenusMember>
+				<BlockGenusMember>pi</BlockGenusMember>
+				<BlockGenusMember>e</BlockGenusMember>
+				<BlockGenusMember>sum</BlockGenusMember>
+				<BlockGenusMember>difference</BlockGenusMember>
+				<BlockGenusMember>product</BlockGenusMember>
+				<BlockGenusMember>quotient</BlockGenusMember>
+				<BlockGenusMember>equals</BlockGenusMember>
+				<BlockGenusMember>not-equals</BlockGenusMember>
+				<BlockGenusMember>lessthan</BlockGenusMember>
+				<BlockGenusMember>greaterthan</BlockGenusMember>
+				<BlockGenusMember>lessthanorequalto</BlockGenusMember>
+				<BlockGenusMember>greaterthanorequalto</BlockGenusMember>
+				<BlockGenusMember>atan</BlockGenusMember>
+				<BlockGenusMember>random</BlockGenusMember>
+				<BlockGenusMember>round</BlockGenusMember>
+				<BlockGenusMember>int</BlockGenusMember>
+				<BlockGenusMember>min</BlockGenusMember>
+				<BlockGenusMember>max</BlockGenusMember>
+				<BlockGenusMember>remainder</BlockGenusMember>
+				<BlockGenusMember>power</BlockGenusMember>
+				<BlockGenusMember>abs</BlockGenusMember>
+				<BlockGenusMember>sqrt</BlockGenusMember>
+				<BlockGenusMember>sin</BlockGenusMember>
+				<BlockGenusMember>cos</BlockGenusMember>
+				<BlockGenusMember>tan</BlockGenusMember>
+				<BlockGenusMember>asin</BlockGenusMember>
+				<BlockGenusMember>acos</BlockGenusMember>
+				<BlockGenusMember>log</BlockGenusMember>
+				<BlockGenusMember>ln</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="Procedure" type="factory" button-color="177 10 255">
+				<BlockGenusMember>procedure</BlockGenusMember>
+				<BlockGenusMember>proc-param-number</BlockGenusMember>
+				<BlockGenusMember>proc-param-string</BlockGenusMember>
+				<BlockGenusMember>proc-param-boolean</BlockGenusMember>
+				<BlockGenusMember>proc-param-list</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="カラー系ブロック" type="factory" button-color="255 155 64">
+				<BlockGenusMember>setc</BlockGenusMember>
+				<BlockGenusMember>random-color</BlockGenusMember>
+				<BlockGenusMember>blue</BlockGenusMember>
+				<BlockGenusMember>cyan</BlockGenusMember>
+				<BlockGenusMember>green</BlockGenusMember>
+				<BlockGenusMember>lime</BlockGenusMember>
+				<BlockGenusMember>magenta</BlockGenusMember>
+				<BlockGenusMember>orange</BlockGenusMember>
+				<BlockGenusMember>pink</BlockGenusMember>
+				<BlockGenusMember>purple</BlockGenusMember>
+				<BlockGenusMember>red</BlockGenusMember>
+				<BlockGenusMember>sky</BlockGenusMember>
+				<BlockGenusMember>turquoise</BlockGenusMember>
+				<BlockGenusMember>white</BlockGenusMember>
+				<BlockGenusMember>yellow</BlockGenusMember>
+				<BlockGenusMember>brown</BlockGenusMember>
+				<BlockGenusMember>gray</BlockGenusMember>
+				<BlockGenusMember>black</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="すぺしゃる系ブロック" type="factory" button-color="255 255 255">
+			    <BlockGenusMember>special</BlockGenusMember>
+			    <BlockGenusMember>test</BlockGenusMember>
+			</BlockDrawer>			    
+			<!-- Shapes are automatically loaded as blocks in the Shapes drawer
+				 (see slcodeblocks.ShapeBlocksGenerator for details)  -->
+			<!-- Sound blocks reside in the auto-generated String drawer.  
+				 (see slcodeblocks.SoundBlocksGenerator for details)  -->
+		</BlockDrawerSet>
+	</BlockDrawerSets>
+</root>	
+	<!-- ここまで -->
+	

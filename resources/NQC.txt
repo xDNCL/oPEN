@@ -1,0 +1,99 @@
+#
+start:
+task main(){@}
+$
+
+#
+lessthan:
+(@ < @)
+$
+
+#
+greaterthan:
+(@ > @)
+
+#
+equals:
+(@ == @)
+$
+
+#
+if:
+if( @ ){
+@
+}
+$
+
+#
+ifelse:
+if( @ ){
+@
+}else{
+@
+}
+$
+
+#
+repeat:
+for(int i=0; i<@; i++){
+@
+}
+$
+
+#
+number:
+$
+
+#
+out-a:
+A@
+$
+
+#
+out-b:
+B@
+$
+
+#out-c:
+C@
+$
+
+#
+motor-on-fwd:
+OnFwd(OUT_@ , @);
+$
+
+#
+motor-on-rev:
+OnRev(OUT_@ , @);
+$
+
+#
+sensor-input-port1:
+Sensor(IN_1)
+$
+
+#
+sensor-input-port2:
+Sensor(IN_2)
+$
+
+#
+sensor-input-port3:
+Sensor(IN_3)
+$
+
+#
+sensor-input-port4:
+Sensor(IN_4)
+$
+
+#
+motor-off:
+Off(OUT_@);
+$
+
+#
+wait:
+Wait(@);
+$
