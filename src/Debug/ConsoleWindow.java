@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -73,8 +74,10 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		JPanel center = new JPanel();
 		console = new JTextArea();
 		console.setEditable(false);
-		console.setPreferredSize(new Dimension(300, 200));
-		center.add(console);
+//		console.setPreferredSize(new Dimension(300, 200));
+		JScrollPane scroll= new JScrollPane(console);
+		scroll.setPreferredSize(new Dimension(300, 200));
+		center.add(scroll);
 		body.add(center, BorderLayout.CENTER);
 		
 		//SouthPane
@@ -98,7 +101,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	}
 
 	public void runDebug(){
-		CodeChecker codeChecker = new CodeChecker(this.ws.getRenderableBlocks());
+		CodeChecker codeChecker = new CodeChecker(this.ws);
 		try {
 			consoleClear();
 			codeChecker.runTheCode();

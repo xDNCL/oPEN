@@ -3,11 +3,16 @@ package Debug;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import OverrideOpenblocks.OB_Workspace;
+
 import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.codeblocks.BlockConnector;
+import edu.mit.blocks.codeblocks.BlockGenus;
 import edu.mit.blocks.renderable.RenderableBlock;
 
 public class CodeChecker {
 
+	private final boolean DEBUG = true;
 	/**
 	 * startBlockはブロック名で検索
 	 */
@@ -24,33 +29,63 @@ public class CodeChecker {
 	
 	//イベント処理スタック
 	private EventStack eventStack;
+	
+	private OB_Workspace ws;
 		
-	CodeChecker(Iterable<RenderableBlock> blockList){
+	CodeChecker(OB_Workspace workspace){
 		//init
-		this.blockList = blockList;
+		this.ws = workspace;
+		this.blockList = ws.getRenderableBlocks();
 		this.variableList = new ArrayList<Variable>();
 	}
 	
 	public void runTheCode() throws ErrorException{
-		RenderableBlock runBlock = findStartBlock();
-		long afterBlockId = runBlock.getBlock().getAfterBlockID();
+		RenderableBlock runRenderableBlock = findStartBlock();
 		ArrayList<RenderableBlock> runBlockList = new ArrayList<RenderableBlock>();
-		runBlockList.add(runBlock);
 		
-		while(afterBlockId != Block.NULL){
-			runBlock = getRenderableBlock(afterBlockId);
-			
-			//debug
-			//println(runBlock.getBlock().getGenusName());
-			
-			runBlockList.add(runBlock);
-			
-			//次のポインタへ
-			afterBlockId = runBlock.getBlock().getAfterBlockID();
-		}
+		//再帰処理
+		runBlockList = this.getAllRunBlocks(runRenderableBlock, runBlockList);
+		
 		eventStack = new EventStack(runBlockList);
-		System.out.println(eventStack);
+		if(DEBUG) System.out.println(eventStack);
 		
+	}
+	
+	private ArrayList<RenderableBlock> getAllRunBlocks(RenderableBlock rb, ArrayList<RenderableBlock> list){		
+		Block block = rb.getBlock();
+		if(DEBUG) System.out.println("genus name:"+block.getGenusName());
+		
+		//先にコネクター処理
+		if(block.getNumSockets() > 0){
+			for(int i=0; i<block.getNumSockets(); i++){
+				BlockConnector blockConnector = block.getSocketAt(i);
+				RenderableBlock nextBlock = getRenderableBlock(blockConnector.getBlockID());
+				
+				//コネクターに接続されているブロックのBlockGenusを取得
+				BlockGenus genus = ws.getEnv().getGenusWithName(nextBlock.getGenus());
+				
+				//BlockGenus内のデータから<command, function, data, variable, procedure, param>の選別
+				if(genus.isDataBlock()){
+					continue;
+				}
+				if(genus.isFunctionBlock()){
+					list = getAllRunBlocks(nextBlock, list);
+				}
+				if(genus.isCommandBlock()){
+					list = getAllRunBlocks(nextBlock, list);
+				}
+				
+			}
+		}
+		
+		//コネクター処理が終わったら自身を処理
+		list.add(rb);
+		
+		//次のブロックがあれば次へ、なければ終了
+		if(block.getAfterBlockID() != Block.NULL){
+			list = getAllRunBlocks(getRenderableBlock(block.getAfterBlockID()), list);
+		}
+		return list;
 	}
 	
 	private RenderableBlock getRenderableBlock(long id){
