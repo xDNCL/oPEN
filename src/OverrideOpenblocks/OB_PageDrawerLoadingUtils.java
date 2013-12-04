@@ -176,6 +176,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
         }
     }
 
+    
     public static void loadBlockDrawerSets(Workspace workspace, Element root, FactoryManager manager) {
     	    	
         Pattern attrExtractor = Pattern.compile("\"(.*)\"");
@@ -214,7 +215,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
                         }
 
                         manager.addStaticDrawer(drawerName, buttonColor);
-
+                        
                         //get block genuses in drawer and create blocks
                         NodeList drawerBlocks = drawerNode.getChildNodes();
                         Node blockNode;
@@ -228,7 +229,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
                                 //don't link factory blocks to their stubs because they will
                                 //forever remain inside the drawer and never be active
                                 newBlock = new Block(workspace, genusName, false);
-                                drawerRBs.add(new FactoryRenderableBlock(workspace, manager, newBlock.getBlockID()));
+                                drawerRBs.add(new OB_FactoryRenderableBlock(workspace, manager, newBlock.getBlockID()));
                             }
                         }
                         manager.addStaticBlocks(drawerRBs, drawerName);

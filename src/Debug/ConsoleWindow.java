@@ -20,20 +20,25 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import Debug.CodeChecker.ErrorException;
+//import Debug.CodeChecker.ErrorException;
 import OverrideOpenblocks.OB_Workspace;
 
 
 public class ConsoleWindow extends JFrame implements ActionListener{
 		
+	private static final long serialVersionUID = 1L;
+
 	private OB_Workspace ws;
 	
+	//変数テーブル
 	private DefaultTableModel tableModel;
 	
+	//ボタン群
 	private JButton reset;
 	private JButton oneStep;
 	private JButton allStep;
 	
+	//テキスト出力先。標準出力として扱う。
 	private JTextArea console;
 	
 	public ConsoleWindow(OB_Workspace workspace){
@@ -101,13 +106,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	}
 
 	public void runDebug(){
-		CodeChecker codeChecker = new CodeChecker(this.ws);
-		try {
-			consoleClear();
-			codeChecker.runTheCode();
-		} catch (ErrorException e) {
-
-		}
+		//to do
 	}
 	
 	

@@ -370,6 +370,8 @@ public class OB_WorkspaceController extends WorkspaceController{
         //o—ÍŒ¾Œê‚Ìİ’è‚ğ”²‚«o‚·
         setOutputLanguage(blockDrawerRoot);
         
+        
+        
         workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
         workspaceLoaded = true;
     }

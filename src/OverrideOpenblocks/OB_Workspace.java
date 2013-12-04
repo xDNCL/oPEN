@@ -148,11 +148,11 @@ public class OB_Workspace extends Workspace {
 	    	loadWorkspaceFrom(newRoot, originalLangRoot);
 	    		    	
 	    	if(newRoot != null){
-	            PageDrawerLoadingUtils.loadBlockDrawerSets(this, blockDrawerRoot, factory);
-	            PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
+	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, blockDrawerRoot, factory);
+	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
 	    	}
 	    	else{
-	            PageDrawerLoadingUtils.loadBlockDrawerSets(this, blockDrawerRoot, factory);
+	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, blockDrawerRoot, factory);
 	    	}
 	    	
 	    }

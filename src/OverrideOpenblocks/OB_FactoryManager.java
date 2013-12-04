@@ -9,6 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.codeblocks.BlockStub;
+import edu.mit.blocks.renderable.FactoryRenderableBlock;
 import edu.mit.blocks.renderable.RenderableBlock;
 import edu.mit.blocks.workspace.*;
 import edu.mit.blocks.codeblockutil.CGraphite;
@@ -33,6 +35,60 @@ public class OB_FactoryManager extends FactoryManager{
 		
 	}
 	
+	@Override
+    public void workspaceEventOccurred(WorkspaceEvent event) {
+        //THIS ENTIRE METHOD IS A HACK!
+        //PLEASE CHANGE WITH CAUTION
+        //IT DOES SOME PREETY STRANGE THINGS
+        if (event.getEventType() == WorkspaceEvent.BLOCK_ADDED) {
+            if (event.getSourceWidget() instanceof Page) {
+                Page page = (Page) event.getSourceWidget();
+                Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
+                //block may not be null if this is a block added event
+                if (block.hasStubs()) {
+                    for (BlockStub stub : block.getFreshStubs()) {
+                        this.addDynamicBlock(
+                                new OB_FactoryRenderableBlock(event.getWorkspace(), this, stub.getBlockID()),
+                                page.getPageDrawer());
+                    }
+                }
+            }
+        } else if (event.getEventType() == WorkspaceEvent.BLOCK_REMOVED) {
+            //may not be removing a null stanc eof block, so DO NOT check for it
+            Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
+            if (block.hasStubs()) {
+                for (Long stub : BlockStub.getStubsOfParent(event.getWorkspace(), block)) {
+                    RenderableBlock rb = workspace.getEnv().getRenderableBlock(stub);
+                    if (rb != null && !rb.getBlockID().equals(Block.NULL)
+                            && rb.getParentWidget() != null && rb.getParentWidget().equals(this)) {
+                        //rb.getParent() should not be null
+                        rb.getParent().remove(rb);
+                        rb.setParentWidget(null);
+
+                    }
+                }
+            }
+            this.relayoutBlocks();
+        } else if (event.getEventType() == WorkspaceEvent.BLOCK_MOVED) {
+            Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
+            if (block != null && block.hasStubs()) {
+                for (Long stub : BlockStub.getStubsOfParent(event.getWorkspace() ,block)) {
+                    RenderableBlock rb = workspace.getEnv().getRenderableBlock(stub);
+                    if (rb != null && !rb.getBlockID().equals(Block.NULL)
+                            && rb.getParentWidget() != null && rb.getParentWidget().equals(this)) {
+                        //rb.getParent() should not be null
+                        rb.getParent().remove(rb);
+                        rb.setParentWidget(null);
+
+                    }
+                }
+                this.relayoutBlocks();
+            }
+
+        } else if (event.getEventType() == WorkspaceEvent.PAGE_RENAMED) {
+            //this.relayoutBlocks();
+        }
+    }
 	
 	@Override
 	public JComponent getJComponent(){
