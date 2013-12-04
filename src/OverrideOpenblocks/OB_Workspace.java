@@ -61,6 +61,13 @@ public class OB_Workspace extends Workspace {
 	    
 	    protected BlockCanvas blockcanvas = new BlockCanvas(this);
 	    
+	    // the environment wrapps all the components of a workspace (Blocks, RenderableBlocks, BlockStubs, BlockGenus)
+	    protected static final OB_WorkspaceEnvironment env = new OB_WorkspaceEnvironment();
+	    
+	    @Override
+	    public OB_WorkspaceEnvironment getEnv() {
+	        return this.env;
+	    }
 	    
 	    private OB_FactoryManager factory;
 	    
@@ -158,6 +165,8 @@ public class OB_Workspace extends Workspace {
 	    }
 	    
 	    
+
+	    
 	    OB_FactoryManager debug;
 	    public void debug(){
 	    	debug.debug();
@@ -173,6 +182,12 @@ public class OB_Workspace extends Workspace {
 	    	
 	    	
 	    	
+	    }
+	    
+	    
+	    @Override
+	    public String toString(){
+	    	return "m9(^„D^)";
 	    }
 
 	    

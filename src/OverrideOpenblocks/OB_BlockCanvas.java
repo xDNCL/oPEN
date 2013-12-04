@@ -57,7 +57,7 @@ public class OB_BlockCanvas extends BlockCanvas{
 
         //load pages, page drawers, and their blocks from save file
         //PageDrawerManager.loadPagesAndDrawers(root);
-        PageDrawerLoadingUtils.loadPagesAndDrawers(workspace, root, workspace.getFactoryManager());
+        OB_PageDrawerLoadingUtils.loadPagesAndDrawers(workspace, root, workspace.getFactoryManager());
 
         final NodeList pagesRoot = root.getElementsByTagName("Pages");
         if (pagesRoot != null && pagesRoot.getLength() > 0) {

@@ -177,7 +177,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
     }
 
     
-    public static void loadBlockDrawerSets(Workspace workspace, Element root, FactoryManager manager) {
+    public static void loadBlockDrawerSets(OB_Workspace workspace, Element root, FactoryManager manager) {
     	    	
         Pattern attrExtractor = Pattern.compile("\"(.*)\"");
         Matcher nameMatcher;
