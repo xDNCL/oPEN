@@ -8,12 +8,9 @@
 <BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
 			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
 			    <BlockGenusMember>start</BlockGenusMember>
-			    <BlockGenusMember>repeat-if</BlockGenusMember>
 			    <BlockGenusMember>if</BlockGenusMember>
 			    <BlockGenusMember>ifelse</BlockGenusMember>
 				<BlockGenusMember>equals</BlockGenusMember>
-				<BlockGenusMember>greater-than</BlockGenusMember>
-				<BlockGenusMember>less-than</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
 				<BlockGenusMember>sum</BlockGenusMember>
