@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import edu.mit.blocks.codeblocks.Block;
+
 //import Debug.CodeChecker.ErrorException;
 import OverrideOpenblocks.OB_Workspace;
 
@@ -106,7 +108,9 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	}
 
 	public void runDebug(){
-		//to do
+		for(Block block: this.ws.getBlocks()){
+			System.out.println(block);
+		}
 	}
 	
 	

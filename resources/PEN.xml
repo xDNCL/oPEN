@@ -109,7 +109,7 @@ CodeText = コードそのもの
 	        </CodeText>
 	    </BlockCode>	
 	    
-		</BlockCode>
+	
 		<BlockCode name="print">
 		<CodeText>no code</CodeText>
 		<PreText/>

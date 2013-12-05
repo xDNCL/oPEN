@@ -2,10 +2,9 @@ package OverrideOpenblocks;
 
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblocks.BlockConnector;
-import edu.mit.blocks.codeblocks.BlockGenus;
 import edu.mit.blocks.workspace.Workspace;
 
-public class OB_Block extends Block{
+public class OB_Block extends edu.mit.blocks.codeblocks.OB_Block{
 
 	private OB_Workspace workspace;
 	
@@ -15,9 +14,11 @@ public class OB_Block extends Block{
 
     public OB_Block(Workspace workspace, String genusName, boolean linkToStubs) { 	
         super(workspace, genusName, linkToStubs);
-        System.out.println(genusName);
      }
 
+    protected OB_Block(Block block){
+    	super(block.getWorkspace(), block.getGenusName(), block.getBlockLabel());
+    }
 
     
     /**
@@ -65,11 +66,26 @@ public class OB_Block extends Block{
     }
 
     private OB_Block getBlock(long id){
+    	Block block = this.workspace.getEnv().getBlock(id);
+    	
+    	if(block == null){
+    		return null;
+    	}
+    	
     	if(this.workspace.getEnv().getBlock(id) instanceof OB_Block){
     		return (OB_Block)this.workspace.getEnv().getBlock(id);
     	}
-    	
-    	return null;
+    	else{
+    		OB_Block newBlock = new OB_Block(block);
+    		
+    		return newBlock;
+    	}
     }
+    
+    
 
+    @Override
+    public String toString(){
+    	return "OB_Block:: name is -"+this.getGenusName();
+    }
 }
