@@ -22,6 +22,7 @@ public class OB_WorkspaceEnvironment extends WorkspaceEnvironment{
 
     @Override
     public Block getBlock(Long blockID) {
+//    	System.out.println("Env get block is"+this.allBlocks.get(blockID));
         return this.allBlocks.get(blockID);
     }
 

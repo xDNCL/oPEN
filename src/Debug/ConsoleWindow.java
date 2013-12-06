@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -22,7 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 import edu.mit.blocks.codeblocks.Block;
 
-//import Debug.CodeChecker.ErrorException;
+import OverrideOpenblocks.OB_Block;
+import OverrideOpenblocks.OB_Block.Variable;
 import OverrideOpenblocks.OB_Workspace;
 
 
@@ -33,7 +35,21 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	private OB_Workspace ws;
 	
 	//変数テーブル
-	private DefaultTableModel tableModel;
+	private static final String[] columnNames = {"変数名", "値"};
+	private static DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+	private static JTable valiableTable = new JTable(tableModel);
+	
+	public static void setVariableTable(ArrayList<Variable> list){
+		tableModel = new DefaultTableModel(columnNames, 0);
+		valiableTable.setModel(tableModel);
+		
+		for(Variable v: list){
+			String[] val = {v.getName(), v.getValue()};
+			tableModel.addRow(val);
+		}
+		valiableTable.revalidate();
+		valiableTable.repaint();
+	}
 	
 	//ボタン群
 	private JButton reset;
@@ -89,9 +105,6 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		
 		//SouthPane
 		JPanel south = new JPanel();
-		String[] columnNames = {"変数名", "値"};
-		tableModel = new DefaultTableModel(columnNames, 0);
-		JTable valiableTable = new JTable(tableModel);
 		valiableTable.setPreferredSize(new Dimension(300, 150));
 		south.add(valiableTable);
 		body.add(south, BorderLayout.SOUTH);
@@ -109,7 +122,19 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 
 	public void runDebug(){
 		for(Block block: this.ws.getBlocks()){
-			System.out.println(block);
+			if(block.getGenusName().equals("start")){
+				if(block instanceof OB_Block){
+					try{
+					OB_Block tmp = (OB_Block)block;
+					tmp.runBlock();
+					return;
+					}
+					catch(Exception e){
+						e.printStackTrace();
+						System.err.println("--program error--");
+					}
+				}
+			}
 		}
 	}
 	

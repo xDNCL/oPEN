@@ -12,6 +12,9 @@ public class BlockRunException extends Exception{
 	public static final int BOOLEAN = 1;
 	public static final int NO_VARIABLE = 2;
 	public static final int TRANSLATION_MISSING = 3;
+	public static final int NO_NAME = 4;
+	public static final int DUPLICATION = 5;
+	
 	
 	public BlockRunException(Block block){
 		this(block, UNEXPECTED);
@@ -19,6 +22,7 @@ public class BlockRunException extends Exception{
 	
 	public BlockRunException(Block block, int error){
 		super();
+		System.out.println("Error block is "+block.getGenusName() + ":: Error Number is" + error);
 		
 	}
 	
