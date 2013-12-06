@@ -582,7 +582,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		private ConsoleWindow cWindow;
 		
 		DebugAction() {
-			super("デバッグ");
+			super("実行ウィンドウ");
 	    }
 
 	    @Override

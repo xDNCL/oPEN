@@ -89,7 +89,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		allStep = new JButton("é¿çs");
 		allStep.addActionListener(this);
 		north.add(reset);
-		north.add(oneStep);
+//		north.add(oneStep);
 		north.add(allStep);
 		body.add(north, BorderLayout.NORTH);
 		
