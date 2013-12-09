@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -24,7 +26,6 @@ import javax.swing.table.DefaultTableModel;
 import edu.mit.blocks.codeblocks.Block;
 
 import OverrideOpenblocks.OB_Block;
-import OverrideOpenblocks.OB_Block.Variable;
 import OverrideOpenblocks.OB_Workspace;
 
 
@@ -39,14 +40,16 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	private static DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 	private static JTable valiableTable = new JTable(tableModel);
 	
-	public static void setVariableTable(ArrayList<Variable> list){
+	public static void setVariableTable(Hashtable<String, Object> list){
 		tableModel = new DefaultTableModel(columnNames, 0);
 		valiableTable.setModel(tableModel);
 		
-		for(Variable v: list){
-			String[] val = {v.getName(), v.getValue()};
-			tableModel.addRow(val);
+		for (Enumeration<String> e = list.keys(); e.hasMoreElements();){
+			 String key = e.nextElement();
+			 String[] val = {key, list.get(key).toString()};
+			 tableModel.addRow(val);
 		}
+
 		valiableTable.revalidate();
 		valiableTable.repaint();
 	}
@@ -118,6 +121,7 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	
 	public void consoleClear(){
 		this.console.setText("");
+		setVariableTable(new Hashtable<String, Object>());
 	}
 
 	public void runDebug(){
@@ -141,9 +145,14 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == allStep){
+		if(e.getSource() == this.allStep){
+			consoleClear();
 			runDebug();
 			//To Do
+		}
+		
+		if(e.getSource() == this.reset){
+			consoleClear();
 		}
 		
 	}
