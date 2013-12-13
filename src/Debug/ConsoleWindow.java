@@ -8,18 +8,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,24 +28,25 @@ import OverrideOpenblocks.OB_Block;
 import OverrideOpenblocks.OB_Workspace;
 
 
-public class ConsoleWindow extends JFrame implements ActionListener{
+public class ConsoleWindow implements ActionListener{
 		
-	private static final long serialVersionUID = 1L;
-
 	private OB_Workspace ws;
 	
 	//変数テーブル
 	private static final String[] columnNames = {"変数名", "値"};
-	private static DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+	private static final String[][] dummy = {{"", ""}};
+	private static DefaultTableModel tableModel = new DefaultTableModel(dummy, columnNames);
 	private static JTable valiableTable = new JTable(tableModel);
 	
 	public static void setVariableTable(Hashtable<String, Object> list){
-		tableModel = new DefaultTableModel(columnNames, 0);
+		tableModel = new DefaultTableModel(dummy, columnNames);
 		valiableTable.setModel(tableModel);
 		
+		
 		for (Enumeration<String> e = list.keys(); e.hasMoreElements();){
-			 String key = e.nextElement();
-			 String[] val = {key, list.get(key).toString()};
+			 Object key = e.nextElement();
+			 Object value = list.get(key.toString());
+			 String[] val = {key.toString(), value.toString()};
 			 tableModel.addRow(val);
 		}
 
@@ -59,23 +59,45 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 	private JButton oneStep;
 	private JButton allStep;
 	
+	//ウィンドウモード用
+	private JFrame frame;
+	
+	//中身
+	private JComponent body;
+	
 	//テキスト出力先。標準出力として扱う。
 	private JTextArea console;
-	
-	public ConsoleWindow(OB_Workspace workspace){
-		super("コンソール");
+		
+	public ConsoleWindow(OB_Workspace workspace, boolean isWindow){
 		this.ws = workspace;
-	    this.setBounds(200, 200, 300, 400);
-	    this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-	    this.add(init());
-	    this.setVisible(true);
+		
+		if(isWindow){
+			frame = new JFrame("コンソール");
+		    frame.setBounds(200, 200, 300, 400);
+		    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		    body = init();
+		    frame.add(body);
+		    frame.setVisible(true);
+		}
+		else{
+			frame = null;
+			body = init();
+		}
 	}
+	
+	public JComponent getBody(){
+		return body;
+	}
+
 	
 	public void reload(OB_Workspace workspace){
 		this.ws = workspace;
 		consoleClear();
-		this.setVisible(true);
-		//To Do
+		
+		if(frame != null){
+			frame.setVisible(true);
+		}
+			//To Do
 	}
 	
 	
@@ -98,18 +120,24 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		
 		//CenterPane
 		JPanel center = new JPanel();
+		JLabel consoleLabel = new JLabel("実行結果");
+		center.setLayout(new BorderLayout());
 		console = new JTextArea();
 		console.setEditable(false);
 //		console.setPreferredSize(new Dimension(300, 200));
 		JScrollPane scroll= new JScrollPane(console);
 		scroll.setPreferredSize(new Dimension(300, 200));
-		center.add(scroll);
+		center.add(consoleLabel, BorderLayout.NORTH);
+		center.add(scroll, BorderLayout.CENTER);
 		body.add(center, BorderLayout.CENTER);
 		
 		//SouthPane
 		JPanel south = new JPanel();
+		south.setLayout(new BorderLayout());
+		JLabel variableLabel = new JLabel("変数名とその値");
 		valiableTable.setPreferredSize(new Dimension(300, 150));
-		south.add(valiableTable);
+		south.add(variableLabel, BorderLayout.NORTH);
+		south.add(valiableTable, BorderLayout.CENTER);
 		body.add(south, BorderLayout.SOUTH);
 		
 		//標準出力先を変更
@@ -134,8 +162,9 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 					return;
 					}
 					catch(Exception e){
-						e.printStackTrace();
-						System.err.println("--program error--");
+						//debug用
+//						e.printStackTrace();
+//						System.err.println("--program error--");
 					}
 				}
 			}
@@ -153,6 +182,10 @@ public class ConsoleWindow extends JFrame implements ActionListener{
 		
 		if(e.getSource() == this.reset){
 			consoleClear();
+			//reset Hightlight
+			for(Block block :this.ws.getBlocks()){
+				block.getWorkspace().getEnv().getRenderableBlock(block.getBlockID()).resetHighlight();
+			}
 		}
 		
 	}

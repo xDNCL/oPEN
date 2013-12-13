@@ -77,7 +77,8 @@ public class OB_WorkspaceController extends WorkspaceController{
     private JFrame frame;
     
     //追加
-    private JPanel ob_workspacePanel;
+    private ConsoleWindow console = new ConsoleWindow(workspace, false);    
+    
     //プロパティファイル
     private static LoadProperty lp = new LoadProperty(PROPERTY_PATH);
     
@@ -140,7 +141,7 @@ public class OB_WorkspaceController extends WorkspaceController{
                 lastDirectory = selectedFile.getParentFile();
                 String selectedPath = selectedFile.getPath();
                 loadFreshWorkspace();
-                System.out.println(selectedPath);
+//                System.out.println(selectedPath);
                 loadProjectFromPath(selectedPath);
             }
         }
@@ -196,7 +197,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 
     public void setSelectedFile(File selectedFile) {
         this.selectedFile = selectedFile;
-        System.out.println(selectedFile.getPath());
+//        System.out.println(selectedFile.getPath());
         frame.setTitle("BlockEducation - "+selectedFile.getPath());
     }
 
@@ -284,10 +285,11 @@ public class OB_WorkspaceController extends WorkspaceController{
     protected void createAndShowGUI() {
         frame = new JFrame("BlockEducation Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 700, 500);
+        frame.setBounds(100, 100, 900, 500);
         frame.add(topPane(), BorderLayout.PAGE_START);
         frame.add(getWorkspacePanel(), BorderLayout.CENTER);
         frame.add(getButtonPanel(), BorderLayout.SOUTH);
+        frame.add(console.getBody(), BorderLayout.EAST);
         frame.setVisible(true);
     }
     
@@ -390,7 +392,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 			    	if(properties.getNodeName().equals("FilePath")){
 			    		this.outputLanguagePath = properties.getTextContent();
-			    		System.out.println(this.outputLanguagePath);
+//			    		System.out.println(this.outputLanguagePath);
 			    	}
 			    	
 			    	if(properties.getNodeName().equals("FileExtends")){
@@ -588,7 +590,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	if(cWindow == null){
-	    		cWindow = new ConsoleWindow(workspace);
+	    		cWindow = new ConsoleWindow(workspace, true);
 	    	}
 	    	else{
 	    		cWindow.reload(workspace);
