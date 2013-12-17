@@ -2,8 +2,8 @@ package OverrideOpenblocks;
 
 import java.util.Hashtable;
 
-import Debug.BlockRunException;
-import Debug.ConsoleWindow;
+import Exe.BlockRunException;
+import Exe.ConsoleWindow;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.workspace.Workspace;
 
