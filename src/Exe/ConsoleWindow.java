@@ -1,6 +1,7 @@
 package Exe;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.renderable.RenderableBlock;
 
 import OverrideOpenblocks.OB_Block;
 import OverrideOpenblocks.OB_Workspace;
@@ -152,23 +154,27 @@ public class ConsoleWindow implements ActionListener{
 		setVariableTable(new Hashtable<String, Object>());
 	}
 
-	public void runDebug(){
+	public void runBlock() throws BlockRunException{
+		OB_Block start = null;
 		for(Block block: this.ws.getBlocks()){
 			if(block.getGenusName().equals("start")){
 				if(block instanceof OB_Block){
-					try{
-					OB_Block tmp = (OB_Block)block;
-					tmp.runBlock();
-					return;
+					if(start == null){
+						start = (OB_Block)block;
 					}
-					catch(Exception e){
-						//debug用
-//						e.printStackTrace();
-//						System.err.println("--program error--");
+					else{
+						throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
 					}
 				}
 			}
 		}
+		start.runBlock();
+	}
+	
+	//to do
+	//コード吐く前にエラーがないかチェックするべき？
+	public static boolean checkCode(){
+		return true;
 	}
 	
 	
@@ -176,20 +182,21 @@ public class ConsoleWindow implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == this.allStep){
 			consoleClear();
-			runDebug();
+			try{
+				runBlock();
+			}catch(Exception ex){
+				//実行がうまく行かなかったときの動作。特になし。
+			}
 			//To Do
 		}
 		
 		if(e.getSource() == this.reset){
 			consoleClear();
 			//reset Hightlight
-			for(Block block :this.ws.getBlocks()){
-				block.getWorkspace().getEnv().getRenderableBlock(block.getBlockID()).resetHighlight();
-			}
+			BlockRunException.blinkOff();
 		}
 		
 	}
-	
 	
 	
 	

@@ -3,11 +3,16 @@ package Exe;
 import java.awt.Color;
 
 import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.renderable.RenderableBlock;
 
 public class BlockRunException extends Exception{
 
 	private static final long serialVersionUID = 1L;
+	
+	//エラーブロックのハイライト点滅用
+	private static BlinkBlock brinkBlock;
 
+	
 	//Error type
 	public static final int UNEXPECTED = -1;
 	public static final int NULL_BLOCK = 0;
@@ -19,20 +24,25 @@ public class BlockRunException extends Exception{
 	public static final int CAST_ERROR = 6;
 	public static final int BLOCK_IS_NULL = 7;
 	
+	
+	//エラーの原因となるブロックが見つからないとき(block == null)のコンストラクタ
+	public BlockRunException(String comment){
+		System.out.println(comment);
+	}
+	
 	public BlockRunException(Block block){
 		this(block, UNEXPECTED);
 	}
 	
 	public BlockRunException(Block block, String comment){
 		super();
+		highlight(block.getWorkspace().getEnv().getRenderableBlock(block.getBlockID()));
 		System.out.println(comment);
 	}
 	
 	public BlockRunException(Block block, int error){
 		super();
-		
-		//highlight
-		block.getWorkspace().getEnv().getRenderableBlock(block.getBlockID()).setBlockHighlightColor(Color.RED);
+		highlight(block.getWorkspace().getEnv().getRenderableBlock(block.getBlockID()));
 		//debug
 //		System.out.println("Error block is "+block.getGenusName() + ":: Error Number is" + error);
 		errorComment(block, error);
@@ -78,6 +88,51 @@ public class BlockRunException extends Exception{
 			
 			
 		}
+	}
+	
+	private void highlight(RenderableBlock block){
+		blinkOff();
+		brinkBlock = new BlinkBlock(block);
+		brinkBlock.start();
+	}
+	
+	public static void blinkOff(){
+		if(brinkBlock != null){
+			brinkBlock.offBrink();
+			brinkBlock = null;
+		}
+	}
+	
+	private static class BlinkBlock extends Thread{
+		
+		private final RenderableBlock block;
+		private boolean brinkOn;
+		private int SLEEP_TIME = 800;// msec
+		
+		BlinkBlock(RenderableBlock block){
+			this.block = block;
+			brinkOn = true;
+		}
+		
+		public void run(){
+			try{
+			while(brinkOn){
+				block.setBlockHighlightColor(Color.RED);
+				sleep(SLEEP_TIME);
+				block.resetHighlight();
+				sleep(SLEEP_TIME);
+			}
+			}catch(Exception e){
+				this.offBrink();
+			}
+		}
+		
+		public void offBrink(){
+			this.brinkOn = false;
+			this.SLEEP_TIME = 0;
+		}
+		
+		
 	}
 	
 	

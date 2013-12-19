@@ -560,13 +560,13 @@ public class OB_WorkspaceController extends WorkspaceController{
 		    	DocumentBuilder docbuilder = dbfactory.newDocumentBuilder();
 		    	Document doc = docbuilder.parse(new ByteArrayInputStream(code.getBytes("UTF-8")));
 		    	
-		        OutputCode outputCode = new OutputCode(doc);
-		        ToCode toCode = new ToCode(outputCode.getBrockStringArray(outputLanguagePath), outputCode.getBlockList());
-		        CodeWritter codeWritter = new CodeWritter(toCode.connectionAllBlockCode());
-		        codeWritter.writting("testfile", outputDomain);
+//		        OutputCode outputCode = new OutputCode(doc);
+//		        ToCode toCode = new ToCode(outputCode.getBrockStringArray(outputLanguagePath), outputCode.getBlockList());
+//		        CodeWritter codeWritter = new CodeWritter(toCode.connectionAllBlockCode());
+//		        codeWritter.writting("testfile", outputDomain);
 		        
 		        //debugÇ≈Ç´Ç†Ç™Ç¡ÇΩÉRÅ[ÉhÇìfÇ≠
-		        System.out.println(codeWritter.getCode());
+//		        System.out.println(codeWritter.getCode());
 		        
 	    	}catch(Exception err){
 	    		err.printStackTrace();

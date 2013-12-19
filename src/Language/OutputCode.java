@@ -20,139 +20,132 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import OverrideOpenblocks.OB_Workspace;
+
 public class OutputCode {
-    	private Document document;
+//    	private Document document;
     	public static final String NULL_STRING = "";
     	private final String[] FILE_PATH = {"resources/JAVA.txt", "resources/NQC.txt"};
     	
+    	
+    	private OB_Workspace workspace;
     	/**
     	 * @param REMOVE 読飛ばす文字群
     	 */
     	private final char[] REMOVE = {' ', '\t', '\n'};
+    	
+    	public OutputCode(OB_Workspace workspace){
+    		this.workspace = workspace;
+    	}
     
-    	public OutputCode(Document doc){
-    		this.document = doc;
-    		XMLParse();
-    	}
-    	
-    	private void XMLParse(){
-            Node root = document.getDocumentElement();
-            NodeList pagesList = root.getChildNodes();
-            for(int a=0; a<pagesList.getLength(); a++){
-            	Node pages = pagesList.item(a);
-            	
-            	if("Pages".equals(pages.getNodeName())){
-            		NodeList PageList = pages.getChildNodes();
-            		for(int b=0; b<PageList.getLength(); b++){
-            			Node page = PageList.item(b);
-            			
-            			if("Page".equals(page.getNodeName())){
-            				NodeList pageBlocksList = page.getChildNodes();
-            				for(int c=0; c<pageBlocksList.getLength(); c++){
-            					Node pageBlocks = pageBlocksList.item(c);
-            					
-            					if("PageBlocks".equals(pageBlocks.getNodeName())){
-            						NodeList blockList = pageBlocks.getChildNodes();
-            						for(int d=0; d<blockList.getLength(); d++){
-            							Node block = blockList.item(d);
-            							
-            							/**ここからBlock操作**/
-            						
-            							if("Block".equals(block.getNodeName())){
-            								NamedNodeMap blockInfomation = block.getAttributes();
-            								
-            								//名前とid取得
-            								String blockName = blockInfomation.getNamedItem("genus-name").getNodeValue();
-            								int blockId=-1;
-            								ArrayList<ConnectorInfo> conId = new ArrayList<ConnectorInfo>();
-            								int nextId=-1;
-            								int beforeId =-1;
-            								String label="";
-            								
-            								
-            								String id = blockInfomation.getNamedItem("id").getNodeValue();
-//	            								System.err.println("debug::BlockID::"+id);
-            								if(!(id == null)){
-            									blockId = Integer.parseInt(id);
-            								}
-            								
-            								NodeList blockInfoList = block.getChildNodes();
-            								for(int i=0; i<blockInfoList.getLength(); i++){
-            									Node blockInfo = blockInfoList.item(i);
-            									
-            									if("Sockets".equals(blockInfo.getNodeName())){
-            										NodeList socketList = blockInfo.getChildNodes();
-            										int conNum=0;//コネクションの箇所の順番：上から１、２、３
-            										
-            										for(int z=0; z<socketList.getLength(); z++){
-            											Node socket = socketList.item(z);
-            											
-            											if("BlockConnector".equals(socket.getNodeName())){
-            												NamedNodeMap socketInfomation = socket.getAttributes(); 
-            											
-            												String conType = socketInfomation.getNamedItem("connector-type").getNodeValue();
-            												String conBlock = socketInfomation.getNamedItem("con-block-id") != null ?
-            														socketInfomation.getNamedItem("con-block-id").getNodeValue(): "-1";
-           													
-            												conId.add(new ConnectorInfo(conNum++, conType, Integer.parseInt(conBlock)));
-            												
-            											}           											 
-            										}
-            									}
-            									
-//	            									if("Plug".equals(blockInfo.getNodeName())){
-//	            										NodeList plugList = blockInfo.getChildNodes();
-//	            										for(int y=0; y<plugList.getLength(); y++){
-//	            											Node plug = plugList.item(y);
-//	            											
-//	            											if("BlockConnector".equals(plug.getNodeName())){
-//	            												NamedNodeMap plugInfomation = plug.getAttributes();
-//	            												
-//	            												nextId = plugInfomation.getNamedItem("con-block-id") != null ? 
-//	            														Integer.parseInt(plugInfomation.getNamedItem("con-block-id").getNodeValue()): -1;
-//	            												
-//	            											}
-//	            										}
-//	            									}
-            									if("AfterBlockId".equals(blockInfo.getNodeName())){
-            										nextId = Integer.parseInt(blockInfo.getTextContent());
-            									}
-            									
-            									if("BeforeBlockID".equals(blockInfo.getNodeName())){
-            										beforeId = Integer.parseInt(blockInfo.getTextContent());
-            									}
-            									
-            									if("Label".equals(blockInfo.getNodeName())){
-            										label = blockInfo.getTextContent();
-            									}
-            								}
-            								
-            								BlockData blockdata = new BlockData(blockName, blockId, conId, nextId, beforeId, label);
-            								this.addBlockData(blockdata);
-            							}
-            						}
-            					}
-            				}
-            			}
-            		}
-            	}
-            }
-        }           
-
-    	private ArrayList<BlockData> blockDataList;
-    	
-    	private void addBlockData(BlockData data){
-    		if(blockDataList == null){
-    			blockDataList = new ArrayList<BlockData>();
-    		}
-    		
-    		blockDataList.add(data);
-    	}
-    	
-    	public ArrayList<BlockData> getBlockList(){
-    		return blockDataList;
-    	}
-    	
+//    	public OutputCode(Document doc){
+//    		this.document = doc;
+//    		XMLParse();
+//    	}
+//    	
+//    	private void XMLParse(){
+//            Node root = document.getDocumentElement();
+//            NodeList pagesList = root.getChildNodes();
+//            for(int a=0; a<pagesList.getLength(); a++){
+//            	Node pages = pagesList.item(a);
+//            	
+//            	if("Pages".equals(pages.getNodeName())){
+//            		NodeList PageList = pages.getChildNodes();
+//            		for(int b=0; b<PageList.getLength(); b++){
+//            			Node page = PageList.item(b);
+//            			
+//            			if("Page".equals(page.getNodeName())){
+//            				NodeList pageBlocksList = page.getChildNodes();
+//            				for(int c=0; c<pageBlocksList.getLength(); c++){
+//            					Node pageBlocks = pageBlocksList.item(c);
+//            					
+//            					if("PageBlocks".equals(pageBlocks.getNodeName())){
+//            						NodeList blockList = pageBlocks.getChildNodes();
+//            						for(int d=0; d<blockList.getLength(); d++){
+//            							Node block = blockList.item(d);
+//            							
+//            							/**ここからBlock操作**/
+//            						
+//            							if("Block".equals(block.getNodeName())){
+//            								NamedNodeMap blockInfomation = block.getAttributes();
+//            								
+//            								//名前とid取得
+//            								String blockName = blockInfomation.getNamedItem("genus-name").getNodeValue();
+//            								int blockId=-1;
+//            								ArrayList<ConnectorInfo> conId = new ArrayList<ConnectorInfo>();
+//            								int nextId=-1;
+//            								int beforeId =-1;
+//            								String label="";
+//            								
+//            								
+//            								String id = blockInfomation.getNamedItem("id").getNodeValue();
+////	            								System.err.println("debug::BlockID::"+id);
+//            								if(!(id == null)){
+//            									blockId = Integer.parseInt(id);
+//            								}
+//            								
+//            								NodeList blockInfoList = block.getChildNodes();
+//            								for(int i=0; i<blockInfoList.getLength(); i++){
+//            									Node blockInfo = blockInfoList.item(i);
+//            									
+//            									if("Sockets".equals(blockInfo.getNodeName())){
+//            										NodeList socketList = blockInfo.getChildNodes();
+//            										int conNum=0;//コネクションの箇所の順番：上から１、２、３
+//            										
+//            										for(int z=0; z<socketList.getLength(); z++){
+//            											Node socket = socketList.item(z);
+//            											
+//            											if("BlockConnector".equals(socket.getNodeName())){
+//            												NamedNodeMap socketInfomation = socket.getAttributes(); 
+//            											
+//            												String conType = socketInfomation.getNamedItem("connector-type").getNodeValue();
+//            												String conBlock = socketInfomation.getNamedItem("con-block-id") != null ?
+//            														socketInfomation.getNamedItem("con-block-id").getNodeValue(): "-1";
+//           													
+//            												conId.add(new ConnectorInfo(conNum++, conType, Integer.parseInt(conBlock)));
+//            												
+//            											}           											 
+//            										}
+//            									}
+//            									
+////	            									if("Plug".equals(blockInfo.getNodeName())){
+////	            										NodeList plugList = blockInfo.getChildNodes();
+////	            										for(int y=0; y<plugList.getLength(); y++){
+////	            											Node plug = plugList.item(y);
+////	            											
+////	            											if("BlockConnector".equals(plug.getNodeName())){
+////	            												NamedNodeMap plugInfomation = plug.getAttributes();
+////	            												
+////	            												nextId = plugInfomation.getNamedItem("con-block-id") != null ? 
+////	            														Integer.parseInt(plugInfomation.getNamedItem("con-block-id").getNodeValue()): -1;
+////	            												
+////	            											}
+////	            										}
+////	            									}
+//            									if("AfterBlockId".equals(blockInfo.getNodeName())){
+//            										nextId = Integer.parseInt(blockInfo.getTextContent());
+//            									}
+//            									
+//            									if("BeforeBlockID".equals(blockInfo.getNodeName())){
+//            										beforeId = Integer.parseInt(blockInfo.getTextContent());
+//            									}
+//            									
+//            									if("Label".equals(blockInfo.getNodeName())){
+//            										label = blockInfo.getTextContent();
+//            									}
+//            								}
+//            								
+//            								BlockData blockdata = new BlockData(blockName, blockId, conId, nextId, beforeId, label);
+//            								this.addBlockData(blockdata);
+//            							}
+//            						}
+//            					}
+//            				}
+//            			}
+//            		}
+//            	}
+//            }
+//        }               	
 //	    	private String getLanguage(Language lang){
 //	    		setEncoding(filePath[lang.ordinal()]);
 //	    	}
@@ -234,7 +227,7 @@ public class OutputCode {
     	    						preText = codeInfo.getTextContent();
     	    					}
     						}
-    						this.blockString.add(new BlockString(blockName, codeDivide(code), codeDivide(preText)));
+//    						this.blockString.add(new BlockString(blockName, codeDivide(code), codeDivide(preText)));
     					}
     				}
     			}			
@@ -364,25 +357,25 @@ public class OutputCode {
 //    	}
     	
  
-    	@Override
-    	public String toString(){
-    		String s="***Block Infomation***\n";
-    		
-    		ArrayList<BlockData> blockList = getBlockList();
-    		
-    		for(BlockData blockData: blockList){
-    			s += "BlockName::"+blockData.getName()+"\n";
-    			s += "BlockID::"+blockData.getId()+"\n";
-    			for(ConnectorInfo ci: blockData.getConnectionList()){
-        			s += "BlockSocketConnectionID::"+ci.getId()+"  ";
-        			s += "ConnectionNumber::"+ci.getconNum()+"  ";
-    				s += "ConnectorType::"+ci.getType()+"  ";
-    				s += "ConnectionID::"+Integer.toString(ci.getId())+"\n";
-    			}
-    			s += "NextBlockID::"+blockData.getNextId()+"\n\n";
-    		}
-    		return s;
-    	}
+//    	@Override
+//    	public String toString(){
+//    		String s="***Block Infomation***\n";
+//    		
+//    		ArrayList<BlockData> blockList = getBlockList();
+//    		
+//    		for(BlockData blockData: blockList){
+//    			s += "BlockName::"+blockData.getName()+"\n";
+//    			s += "BlockID::"+blockData.getId()+"\n";
+//    			for(ConnectorInfo ci: blockData.getConnectionList()){
+//        			s += "BlockSocketConnectionID::"+ci.getId()+"  ";
+//        			s += "ConnectionNumber::"+ci.getconNum()+"  ";
+//    				s += "ConnectorType::"+ci.getType()+"  ";
+//    				s += "ConnectionID::"+Integer.toString(ci.getId())+"\n";
+//    			}
+//    			s += "NextBlockID::"+blockData.getNextId()+"\n\n";
+//    		}
+//    		return s;
+//    	}
     	
 }
 
