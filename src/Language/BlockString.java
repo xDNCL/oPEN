@@ -5,17 +5,15 @@ public class BlockString {
 	private String name;
 	private String[] code;
 	private String[] preCode;
-	private int connectorNum;
 	
-	public BlockString(String name, String[] code, final int connectorNum){
-		this(name, code, connectorNum, null);
+	public BlockString(String name, String[] code){
+		this(name, code, null);
 	}
 	
-	public BlockString(String name, String[] code, final int connectorNum, String[] preCode){
+	public BlockString(String name, String[] code, String[] preCode){
 		this.name = name;
 		this.code = code;
 		this.preCode = preCode;
-		this.connectorNum = connectorNum;
 	}
 	
 	protected String getName(){
@@ -25,11 +23,7 @@ public class BlockString {
 	protected int getCodeLength(){
 		return this.code.length;
 	}
-	
-	protected int getConnectorNum(){
-		return this.connectorNum;
-	}
-	
+		
 	protected String getCode(int index){
 		return this.code[index];
 	}

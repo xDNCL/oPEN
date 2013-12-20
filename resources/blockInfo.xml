@@ -567,7 +567,7 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="である限り" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="の間" connector-kind="socket" connector-type="boolean"></BlockConnector>
 				<BlockConnector label="実行する" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -1045,7 +1045,7 @@ BlockGenuses are first loaded.
 		
 		<!-- LOGIC -->
 		
-		<BlockGenus name="if" kind="command" initlabel="条件" color="255 80 0">
+		<BlockGenus name="if" kind="command" initlabel="条件分岐" color="255 80 0">
 			<description>
 				<text>
 					もし <arg n="1"/> が真（true）ならば、<arg n="2"/>に続くブロックを実行します。
@@ -1059,7 +1059,7 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="ならば" connector-kind="socket" connector-type="boolean"></BlockConnector>
 				<BlockConnector label="真(true)" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -1085,7 +1085,7 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="ならば" connector-kind="socket" connector-type="boolean"></BlockConnector>
 				<BlockConnector label="真(true)" connector-kind="socket" connector-type="cmd"></BlockConnector>
 				<BlockConnector label="偽(else)" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>

@@ -229,7 +229,6 @@ CodeText = コードそのもの
 	        </CodeText>
 	    </BlockCode>
 	    
-		</BlockCode>
 		<BlockCode name="true">
 		<CodeText>no code</CodeText>
 		<PreText/>
@@ -473,7 +472,6 @@ CodeText = コードそのもの
 	        </CodeText>
 	    </BlockCode>
 	    
-		</BlockCode>
 		<BlockCode name="greaterthanorequalto">
 		<CodeText>no code</CodeText>
 		<PreText/>

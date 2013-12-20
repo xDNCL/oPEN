@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -60,6 +61,10 @@ public class ConsoleWindow implements ActionListener{
 	private JButton reset;
 	private JButton oneStep;
 	private JButton allStep;
+	
+	//
+	private static JTextField inputForm;
+	private static boolean inputFlag = false;
 	
 	//ウィンドウモード用
 	private JFrame frame;
@@ -138,8 +143,17 @@ public class ConsoleWindow implements ActionListener{
 		south.setLayout(new BorderLayout());
 		JLabel variableLabel = new JLabel("変数名とその値");
 		valiableTable.setPreferredSize(new Dimension(300, 150));
+		JLabel inputFormLabel = new JLabel("入力フォーム");
+		inputForm = new JTextField(20);
+		inputForm.addActionListener(this);
+		JPanel inputFormBase = new JPanel();
+		
+		inputFormBase.add(inputFormLabel);
+		inputFormBase.add(inputForm);
 		south.add(variableLabel, BorderLayout.NORTH);
 		south.add(valiableTable, BorderLayout.CENTER);
+		south.add(inputFormBase, BorderLayout.SOUTH);
+		
 		body.add(south, BorderLayout.SOUTH);
 		
 		//標準出力先を変更
@@ -153,22 +167,34 @@ public class ConsoleWindow implements ActionListener{
 		this.console.setText("");
 		setVariableTable(new Hashtable<String, Object>());
 	}
+	
+	private BlockRun blockRun = null;
+	private boolean runNow = false;
 
-	public void runBlock() throws BlockRunException{
-		OB_Block start = null;
-		for(Block block: this.ws.getBlocks()){
-			if(block.getGenusName().equals("start")){
-				if(block instanceof OB_Block){
-					if(start == null){
-						start = (OB_Block)block;
-					}
-					else{
-						throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
+	public void runBlock() throws BlockRunException{	
+		if(!runNow){
+			OB_Block start = null;
+			for(Block block: this.ws.getBlocks()){
+				if(block.getGenusName().equals("start")){
+					if(block instanceof OB_Block){
+						if(start == null){
+							start = (OB_Block)block;
+						}
+						else{
+							throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
+						}
 					}
 				}
 			}
+			blockRun = new BlockRun(start);
+			runNow = true;
+			blockRun.start();
 		}
-		start.runBlock();
+	}
+	
+	public static void getTextFieldForcus(){
+		inputForm.requestFocus();
+		inputFlag = true;
 	}
 	
 	//to do
@@ -192,12 +218,44 @@ public class ConsoleWindow implements ActionListener{
 		
 		if(e.getSource() == this.reset){
 			consoleClear();
-			//reset Hightlight
+			blockRun = null;
+			//reset Highlight
 			BlockRunException.blinkOff();
 		}
 		
+		if(e.getSource() == inputForm && inputFlag){
+			//文字入力処理
+		}
 	}
 	
+	/**
+	 * ブロックの実行を並列処理
+	 * @author shuhara
+	 *
+	 */
+	public class BlockRun extends Thread{
+		
+		final OB_Block start;
+		
+		BlockRun(OB_Block block){
+			this.start = block;
+		}
+		
+		public void run(){
+			try {
+				start.runBlock();
+			}catch(BlockRunException e1) {
+				//実行時エラー
+			}catch(Exception e2){
+				//強制終了
+			}finally{
+				//実行終了
+				runNow = false;
+			}
+			
+		}
+		
+	}
 	
 	
 	public class JTextAreaStream extends OutputStream {

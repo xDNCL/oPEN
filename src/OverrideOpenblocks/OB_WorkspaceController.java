@@ -48,6 +48,8 @@ import edu.mit.blocks.workspace.Workspace;
 
 public class OB_WorkspaceController extends WorkspaceController{
 	
+	private final static String TEST_FILE = "TestFile";
+	
 	private static OB_Workspace workspace = new OB_Workspace();
 	
 	private final int YES = 0;
@@ -61,9 +63,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     private static String blockDataPath;
     private String outputLanguagePath;
     private String outputDomain;
-	
-	private boolean isWorkspacePanelInitialized = false;
-	
+		
     //flag to indicate if a new lang definition file has been set
     private boolean langDefDirty = true;
 
@@ -114,11 +114,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         //Output
         OutputAction outputAction = new OutputAction();
         buttonPanel.add(new JButton(outputAction));
-        //DebugWindow
-        DebugAction debugAction = new DebugAction();
-        buttonPanel.add(new JButton(debugAction));
-        
-        
+                
         return buttonPanel;
     }
 	
@@ -550,55 +546,32 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-	   
-//	    	debug();
-	    	String code = getSaveString();
-//	    	System.err.println("debug::"+code+"debugEND");
 	    	
-	    	try{
-		    	DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
-		    	DocumentBuilder docbuilder = dbfactory.newDocumentBuilder();
-		    	Document doc = docbuilder.parse(new ByteArrayInputStream(code.getBytes("UTF-8")));
-		    	
-//		        OutputCode outputCode = new OutputCode(doc);
-//		        ToCode toCode = new ToCode(outputCode.getBrockStringArray(outputLanguagePath), outputCode.getBlockList());
-//		        CodeWritter codeWritter = new CodeWritter(toCode.connectionAllBlockCode());
-//		        codeWritter.writting("testfile", outputDomain);
+	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
+
+	        if (value == null || value.equals("")){
+	        	System.out.println("ソースコード出力を中断しました。");
+	        	return;
+	        }else{
+	        	try{
+		        OutputCode outputCode = new OutputCode(workspace);
+		        outputCode.loadCodeFile(outputLanguagePath);
 		        
-		        //debugできあがったコードを吐く
-//		        System.out.println(codeWritter.getCode());
-		        
-	    	}catch(Exception err){
-	    		err.printStackTrace();
-	    	}
+	        	if(value.contains(".")){
+	        		outputCode.writteCode(value);
+	        	}
+	        	else{
+	        		outputCode.writteCode(TEST_FILE+outputDomain);
+	        	}
+			        //debugできあがったコードを吐く
+	//		        System.err.println(outputCode.getCode());
+			        
+		    	}catch(Exception err){
+		    		err.printStackTrace();
+		    	}
+	        }
 	    }
     }
     
-    /**
-     * Action bound to "Output" action.
-     */
-    private class DebugAction extends AbstractAction {
-    	
-		private static final long serialVersionUID = 1L;
-		
-		private ConsoleWindow cWindow;
-		
-		DebugAction() {
-			super("実行ウィンドウ");
-	    }
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-	    	if(cWindow == null){
-	    		cWindow = new ConsoleWindow(workspace, true);
-	    	}
-	    	else{
-	    		cWindow.reload(workspace);
-	    	}
-	    }
-    }
-
-
-	
 }
 

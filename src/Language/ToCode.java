@@ -2,6 +2,12 @@ package Language;
 
 import java.util.ArrayList;
 
+import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.codeblocks.BlockConnector;
+
+import Exe.BlockRunException;
+import OverrideOpenblocks.OB_Workspace;
+
 
 public class ToCode {
 	
@@ -18,11 +24,8 @@ public class ToCode {
 	private ArrayList<BlockString> blockCodeStringList;
 	
 	//workspace上のブロックの情報
-	private ArrayList<BlockData> blockDataList;
-	
-	//出力用プロパティ設定
-	private PropertyFile propertyFile;
-	
+	private OB_Workspace workspace;
+		
 	//コマンド系文字列
 	private final String VAL = "_val";
 	private final String PREVAL = "_preval";
@@ -31,20 +34,31 @@ public class ToCode {
 	private final String SPACE = "_space";
 	private final String TAB = "_t";
 	
-	public ToCode(ArrayList<BlockString> blockCodeStringList, ArrayList<BlockData> blockDataList){
+	public ToCode(ArrayList<BlockString> blockCodeStringList, OB_Workspace workspace){
 		this.blockCodeStringList = blockCodeStringList;
-		this.blockDataList = blockDataList;
-		this.propertyFile = new PropertyFile();
+		this.workspace = workspace;
 	}
 	
-	public String connectionAllBlockCode(){
-//		System.out.println(blockData);
-		BlockData block = searchBlockData(firstSearchBlockName);
+	public String connectionAllBlockCode() throws BlockRunException{
+		Block first = null;
+		for(Block block: this.workspace.getBlocks()){
+			if(block.getGenusName().equals(this.firstSearchBlockName)){
+				if(first == null){
+					first = block;
+				}
+				else{
+					throw new BlockRunException(block, "プログラム開始のブロックが重複しています。");
+				}	
+			}
+		}
 		
+		if(first == null){
+			throw new BlockRunException("プログラム開始のブロックが見つかりません。");
+		}
 		//プログラム開始のブロック情報を取得
-		BlockString matchBlock = searchBlockCodeString(block.getName());
+		BlockString matchBlock = searchBlockCodeString(first.getGenusName());
 		if(matchBlock == null){
-			return ("//Not found -> "+block.getName());
+			return ("//Not found -> "+first.getGenusName());
 		}
 		
 		ArrayList<String[]> indentList = new ArrayList<String[]>();
@@ -52,19 +66,19 @@ public class ToCode {
 			indentList.add(matchBlock.getPreCode());
 		}
 		
-		return iterative(block, indentList);
+		return iterative(first, indentList);
 	}
 	
 		
-	private String iterative(BlockData block, ArrayList<String[]> indentList){
+	private String iterative(Block block, ArrayList<String[]> indentList)throws BlockRunException{
 		String result = "";
 		
 		//ブロック情報を取得
-		BlockString matchBlock = searchBlockCodeString(block.getName());
+		BlockString matchBlock = searchBlockCodeString(block.getGenusName());
 		
 		//該当するブロック情報がない場合は「見つからない」という旨の表記に置き換える
 		if(matchBlock == null){
-			result += ("//Not found -> "+block.getName()+br());
+			result += ("//Not found -> "+block.getGenusName()+br());
 		}
 		
 		//見つかった場合はコード変換開始
@@ -75,33 +89,43 @@ public class ToCode {
 			for(String code: codes){
 				//コネクターに接続されているブロックの値取得
 				if(code.equals(VAL)){
-					ConnectorInfo ci = block.getConnectorInfo(connectorNum++);
+					BlockConnector bc = null;
+					try{
+						bc = block.getSocketAt(connectorNum++);
+					}catch(Exception e){
+						throw new BlockRunException("BlockConnector情報の取得に失敗しました。");
+					}
 					
 					//コネクターが存在しない場合
-					if(ci == null){
+					if(bc == null){
 						System.err.println("not found connector:"+block);
 					}
 					
 					//接続無し
-					if(ci.getId() == -1 ){
+					if(bc.getBlockID() == Block.NULL){
 	
 					}
 					//接続有り
 					else{
-						result += iterative(searchBlockData(ci.getId()), indentList);
+						result += iterative(this.workspace.getEnv().getBlock(bc.getBlockID()), indentList);
 					}
 				}
 				
 				//コネクターに接続されているブロックの値を、インデントベルを１つ上げて取得
 				else if(code.equals(PREVAL)){
-					ConnectorInfo ci = block.getConnectorInfo(connectorNum++);
+					BlockConnector bc = null;
+					try{
+						bc = block.getSocketAt(connectorNum++);
+					}catch(Exception e){
+						throw new BlockRunException("BlockConnector情報の取得に失敗しました。");
+					}
 					
-					if(ci == null){
+					if(bc == null){
 						System.err.println("not found connector:"+block);
 					}
 					
 					//接続無し
-					if(ci.getId() == -1 ){
+					if(bc.getBlockID() == Block.NULL){
 						
 					}
 					//接続有り
@@ -110,14 +134,14 @@ public class ToCode {
 						String[] indentCode = matchBlock.getPreCode();
 						indentList.add(indentCode);
 						result += translationForPreCode(indentCode);
-						result += iterative(searchBlockData(ci.getId()), indentList);
+						result += iterative(this.workspace.getEnv().getBlock(bc.getBlockID()), indentList);
 						indentList.remove(indentList.size()-1);
 					}
 				}
 					
 				//ラベルの値取得	
 				else if(code.equals(LABEL)){
-					result += block.getLabel();
+					result += block.getBlockLabel();
 				}
 				
 				//改行コマンド処理
@@ -139,10 +163,10 @@ public class ToCode {
 		}
 		
 		//次に接続されているブロックの処理へ
-		if(block.getNextId() != -1){
+		if(block.getAfterBlockID() != Block.NULL){
 			result += br();
 			result += getIndent(indentList);
-			result += iterative(searchBlockData(block.getNextId()), indentList);
+			result += iterative(this.workspace.getEnv().getBlock(block.getAfterBlockID()), indentList);
 		}
 		
 		return result;
@@ -198,53 +222,7 @@ public class ToCode {
 	}
 	
 	
-	/**
-	 *  対応するブロックがソケットに挿入されていない場合、可能な限り自動補完する
-	 * 	private final String[] connectorTypes = {"cmd", "boolean", "number"}
-	 * @param ci ブロックにある１ソケットの情報
-	 * @return 補完する文字列
-	 */
-	private String codeComplement(ConnectorInfo ci){		
-		String connectorType = ci.getType();
-	
-		if(!this.propertyFile.complementFlag()){
-			return "";
-		}
 		
-		if(connectorType.equals(CONNECTOR_TYPES[0])){
-			return "/**non command**/";
-		}
-		if(connectorType.equals(CONNECTOR_TYPES[1])){
-			return "true";
-		}
-		if(connectorType.equals(CONNECTOR_TYPES[2])){
-			return "1";
-		}
-		
-		return "";
-	}
-	
-	//Search
-	private BlockData searchBlockData(String name){
-		for(BlockData bd: this.blockDataList){
-			if(name.equals(bd.getName())){
-				return bd;
-			}
-		}
-		return null;
-	}
-	
-	private BlockData searchBlockData(int id){
-		if(id == -1) return null;
-		
-		for(BlockData bd: this.blockDataList){
-			if(id == bd.getId()){
-				return bd;
-			}
-		}
-		return null;
-	}
-	
 	private BlockString searchBlockCodeString(String name){
 		for(BlockString bs:this.blockCodeStringList){
 			if(name.equals(bs.getName())){
@@ -254,8 +232,5 @@ public class ToCode {
 		return null;
 	}
 	
-	private void connectorNotFoundError(){
-		System.err.println("Connector is Not Found");
-	}
 
 }
