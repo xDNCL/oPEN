@@ -63,6 +63,8 @@ public class OB_WorkspaceController extends WorkspaceController{
     private static String blockDataPath;
     private String outputLanguagePath;
     private String outputDomain;
+    
+    private boolean showButton = false;
 		
     //flag to indicate if a new lang definition file has been set
     private boolean langDefDirty = true;
@@ -112,8 +114,10 @@ public class OB_WorkspaceController extends WorkspaceController{
         
         //加筆
         //Output
-        OutputAction outputAction = new OutputAction();
-        buttonPanel.add(new JButton(outputAction));
+        if(showButton){
+	        OutputAction outputAction = new OutputAction();
+	        buttonPanel.add(new JButton(outputAction));
+        }
                 
         return buttonPanel;
     }
@@ -386,13 +390,25 @@ public class OB_WorkspaceController extends WorkspaceController{
 		    	for(int i=0; i<outputChildren.getLength(); i++){
 		    		Node properties = outputChildren.item(i);
 
-			    	if(properties.getNodeName().equals("FilePath")){
+			    	if(properties.getNodeName().equals("Language")){
 			    		this.outputLanguagePath = properties.getTextContent();
+			    		if(this.outputLanguagePath.equals("NULL")){
+			    			showButton = false;
+			    		}
 //			    		System.out.println(this.outputLanguagePath);
 			    	}
 			    	
-			    	if(properties.getNodeName().equals("FileExtends")){
+			    	if(properties.getNodeName().equals("FileNameExtention")){
 			    		this.outputDomain = properties.getTextContent();
+			    	}
+			    	
+			    	if(properties.getNodeName().equals("OutputButton")){
+			    		if(properties.getTextContent().equals("ON")){
+			    			showButton = true;
+			    		}
+			    		else{
+			    			showButton = false;
+			    		}
 			    	}
 		    	}
 	    	}
@@ -460,7 +476,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		    	OB_WorkspaceController wc = new OB_WorkspaceController();
 		        wc.setLangDefFilePath(lp.getBlockAllDataAddress());
 		        wc.loadFreshWorkspace();
-		        wc.getWorkspace().loadBlockEducationModule();
+//		        wc.getWorkspace().loadBlockEducationModule();
             }
         });
     }
@@ -567,7 +583,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	//		        System.err.println(outputCode.getCode());
 			        
 		    	}catch(Exception err){
-		    		err.printStackTrace();
+		    		System.out.println("出力言語に関するファイルが見つかりません");
 		    	}
 	        }
 	    }

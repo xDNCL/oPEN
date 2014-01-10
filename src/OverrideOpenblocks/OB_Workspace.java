@@ -59,7 +59,7 @@ public class OB_Workspace extends Workspace {
 	    
 //	    private OB_FactoryManager factory;
 	    
-	    protected BlockCanvas blockcanvas = new BlockCanvas(this);
+	    protected OB_BlockCanvas blockcanvas = new OB_BlockCanvas(this);
 	    
 	    // the environment wrapps all the components of a workspace (Blocks, RenderableBlocks, BlockStubs, BlockGenus)
 	    protected static final OB_WorkspaceEnvironment env = new OB_WorkspaceEnvironment();
@@ -139,8 +139,8 @@ public class OB_Workspace extends Workspace {
 	            blockCanvas.loadSaveString(newRoot);
 	            //load the block drawers specified in the file (may contain
 	            //custom drawers) and/or the lang def file if the contents specify
-//	            PageDrawerLoadingUtils.loadBlockDrawerSets(this, originalLangRoot, factory);
-//	            PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
+//	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, originalLangRoot, factory);
+//	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
 	            loadWorkspaceSettings(newRoot);
 	        } else {
 	            //load from original language/workspace root specification

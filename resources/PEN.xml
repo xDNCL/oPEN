@@ -172,8 +172,8 @@ CodeText = コードそのもの
 		</BlockCode>
 		
 		<BlockCode name="start">
-			<CodeText></CodeText>
-			<PreText/>
+			<CodeText>@_preval</CodeText>
+			<PreText></PreText>
 		</BlockCode>
 		
 		<BlockCode name="setter">
@@ -192,7 +192,7 @@ CodeText = コードそのもの
 		<BlockCode name="repeat-if">
 	        <CodeText>
 	            @_val @の間, @_br
-	            @_preval @_br
+	            @_preval
 	            @を繰り返す
 	        </CodeText>
 	       	<PreText>
@@ -337,7 +337,7 @@ CodeText = コードそのもの
 	    <BlockCode name="if">
 	        <CodeText>
 	            @もし @_val @ならば @_br
-	            @_preval @_br
+	            @_preval
 	            @を実行する
 	        </CodeText>
 	        <PreText>
@@ -348,9 +348,9 @@ CodeText = コードそのもの
 	   	<BlockCode name="ifelse">
 	        <CodeText>
 	            @もし @_val @ならば @_br
-	            @_preval @_br
+	            @_preval 
 	            @を実行し、そうでなければ @_br
-	            @_preval @_br
+	            @_preval
 	            @を実行する
 	        </CodeText>
 	        <PreText>

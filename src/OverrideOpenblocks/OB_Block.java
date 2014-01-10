@@ -1,10 +1,21 @@
 package OverrideOpenblocks;
 
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import Exe.BlockRunException;
 import Exe.ConsoleWindow;
 import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.codeblocks.BlockConnector;
+import edu.mit.blocks.codeblocks.BlockStub;
 import edu.mit.blocks.workspace.Workspace;
 
 public class OB_Block extends Block{
@@ -12,7 +23,6 @@ public class OB_Block extends Block{
 	protected static Hashtable<String, Object> variableTable = new Hashtable<String, Object>();
 	private final int STOP = 10000;
 	
-	//•Ï”ƒe[ƒuƒ‹‚Ì‰Šú‰»—p
 	void resetAll(){
 		variableTable .clear();
 	}
@@ -23,7 +33,6 @@ public class OB_Block extends Block{
 	
 	
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	 * @param workspace
 	 * @param genusName
 	 * @param label
@@ -36,17 +45,29 @@ public class OB_Block extends Block{
     public OB_Block(Workspace workspace, String genusName, boolean linkToStubs) { 	
         super(workspace, genusName, linkToStubs);
      }
+    
+    public OB_Block(Workspace workspace, Long id, String genusName, String label, boolean b) {
+		super(workspace, id, genusName, label, b);
+	}
+
 
     protected OB_Block(Block block){
     	super(block.getWorkspace(), block.getGenusName(), block.getBlockLabel());
     }
     
+    public OB_Block(Workspace workspace, String genusName) {
+        this(workspace, genusName, workspace.getEnv().getGenusWithName(genusName).getInitialLabel());
+    }
+    
+    
+    
     ///////
     //exe//
     ///////
     
-    /**
-     * ƒRƒ}ƒ“ƒhƒuƒƒbƒN‚Ìˆ—‚ğ‹Lq
+   
+    
+	/**
      */
     public void runBlock() throws BlockRunException{
 //    	System.out.println("now:"+this.getGenusName());
@@ -55,7 +76,7 @@ public class OB_Block extends Block{
 	    		resetAll();
 	    	}
 	    	
-	    	//•Ï”éŒ¾
+	    	//set Value
 	    	if(this.getGenusName().equals("setInt")){
 	    		String name = this.getBlock(this.getSocketAt(0).getBlockID()).getBlockLabel();
 	    		createVariable(name, new Integer(0));
@@ -73,7 +94,7 @@ public class OB_Block extends Block{
 	    		createVariable(name, new Boolean(true));
 	    	}
 	    	
-	    	//•W€o—ÍŒn
+	    	//System i/o
 	    	if(this.getGenusName().equals("print-number")){
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 	    		System.out.print(value);
@@ -90,8 +111,9 @@ public class OB_Block extends Block{
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 	    		System.out.println(value.toString());
 	    	}
+
 	    	
-	    	//‘ã“üŒn
+	    	//assigned Variable
 	    	if(this.getGenusName().equals("substitution-number")){
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 	    		this.setVariavle(this.getBlockLabel(), value);
@@ -101,7 +123,7 @@ public class OB_Block extends Block{
 	    		this.setVariavle(this.getBlockLabel(), value);
 	    	}
 	    	
-	    	//§ŒäŒn
+	    	//Control
 	    	if(this.getGenusName().equals("if")){
 	    		boolean value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
 	    		if(value == true){
@@ -141,7 +163,7 @@ public class OB_Block extends Block{
 		   			value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
 	    		}
 	    		if(count >= STOP){
-	    			throw new BlockRunException(this, "”ñí’â~B–³ŒÀƒ‹[ƒv‚ª”­¶‚µ‚½‰Â”\«‚ª‚ ‚è‚Ü‚·B");
+	    			throw new BlockRunException(this, "ç„¡é™ãƒ«ãƒ¼ãƒ—ãŒç™ºç”Ÿã—ãŸå¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚");
 	    		}
 	    	}
 	    	
@@ -157,14 +179,13 @@ public class OB_Block extends Block{
 	//    	System.out.println(this.getGenusName()+" is clear.");
 			this.next().runBlock();
     	}catch(NullPointerException e1){
-    		//null = ƒuƒƒbƒN‚ªƒRƒlƒNƒ^[‚ÉÚ‘±‚³‚ê‚Ä‚¢‚È‚¢
+    		//null = no Block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
     	
     }
     
 	/**
-	 * ƒuƒƒbƒN‚Ì‚Â’l‚ğ•Ô‚·ƒƒ\ƒbƒhB®”Œ^A•‚“®¬”“_Œ^A•¶š—ñŒ^–â‚í‚¸A•¶š—ñ‚Æ‚µ‚Ä•Ô‚·iˆµ‚¤jB
 	 * @return Returns the value as a String
 	 * @throws BlockRunException 
 	 */
@@ -210,6 +231,18 @@ public class OB_Block extends Block{
 	    			 return new Double(Math.random() * Double.valueOf(value.toString())); 
 	    		 }
 	    	}
+	    	if(this.getGenusName().equals("keyboard-input-number")){
+	    		System.out.println("wait");
+	    		ConsoleWindow.getTextFieldForcus();
+	    		try {
+					wait();
+				} catch (InterruptedException e) {
+					//to do
+				}
+	    		System.out.println("run");
+	    		return ConsoleWindow.getInputformText();
+	    	}
+	    	
 	    	
 	    	//if this block is calculation
 	    	if(this.getGenusName().equals("sum")){
@@ -239,17 +272,16 @@ public class OB_Block extends Block{
 	    	
 	    	
     	}catch(NullPointerException e1){
-    		//null = ƒuƒƒbƒN‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢B
+    		// null = no connection Block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
     	
-    	//ƒuƒƒbƒN‚ª‘¶İ‚µ‚È‚¢ê‡
     		throw new BlockRunException(this);
     }
     
     /**
-     * Booleanƒƒ\ƒbƒh—p
-     * boolean connector—p
+     * Booleanï¿½ï½½ï¿½ï½½ï¿½ï½½\ï¿½ï½½bï¿½ï½½hï¿½ï½½p
+     * boolean connectorï¿½ï½½p
      * @return boolean
      */
     public boolean evaluateBoolean() throws BlockRunException{
@@ -298,7 +330,7 @@ public class OB_Block extends Block{
 	    				getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
     	}catch(NullPointerException e1){
-    		//null = ƒuƒƒbƒN‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢
+    		//null = no connection block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
     	//add other...
@@ -320,8 +352,6 @@ public class OB_Block extends Block{
     		return (OB_Block)workspace.getEnv().getBlock(id);
     	}
     	else{
-    		//Block Connector(Line250)‚Åì‚ç‚ê‚½ƒuƒƒbƒN‚ÍA
-    		//ƒTƒuƒNƒ‰ƒX‚ÌƒuƒƒbƒN‚Å‚Í‚È‚¢‚Ì‚ÅA‚±‚±‚ÅƒTƒuƒNƒ‰ƒX‚Æ‚µ‚Äì‚è’¼‚·B
     		OB_Block newBlock = new OB_Block(block);
     		return newBlock;
     	}
@@ -362,8 +392,7 @@ public class OB_Block extends Block{
        					variableTable.put(name, Double.valueOf(value.toString()));
        				}
        				else{
-       					//IntegerŒ^‚Ü‚½‚ÍLongŒ^‚ÉDoubleŒ^‚ğƒLƒƒƒXƒg‚µ‚½Û‚ÌƒGƒ‰[
-       					throw new BlockRunException(this, "‚±‚±‚ÉÀ”Œ^‚Í‘ã“ü‚Å‚«‚Ü‚¹‚ñB");
+       					throw new BlockRunException(this, "ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾‰è¶£ï½¿ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½^ï¿½ï½½ï¾æ‰˜ï½¿ï½½ï¿½ï½½ï¾…ã‚‘ï½¿ï½½ï¿½ï½½ï¾œã‚‘ï½¿ï½½ï¿½ï½½ï¿½ï½½B");
        				}
        			}
        			else if(value instanceof Long){
@@ -374,8 +403,8 @@ public class OB_Block extends Block{
        					variableTable.put(name, Double.valueOf(value.toString()));
        				}
        				else{
-       					//IntegerŒ^‚ÉLongŒ^‚ğƒLƒƒƒXƒg‚µ‚½Û‚ÌƒGƒ‰[
-       					throw new BlockRunException(this, "®”Œ^‚ÉLongŒ^‚Í‘ã“ü‚Å‚«‚Ü‚¹‚ñB");
+       					//Integerï¿½ï½½^ï¿½ï½½ï¿½ï½½Longï¿½ï½½^ï¿½ï½½ï¿½ï½½ï¿½ï½½Lï¿½ï½½ï¿½ï½½ï¿½ï½½Xï¿½ï½½gï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾›ã®ã‚¨ï¿½ï½½ï¿½ï½½ï¿½ï½½[
+       					throw new BlockRunException(this, "ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½^ï¿½ï½½ï¿½ï½½Longï¿½ï½½^ï¿½ï½½ï¾æ‰˜ï½¿ï½½ï¿½ï½½ï¾…ã‚‘ï½¿ï½½ï¿½ï½½ï¾œã‚‘ï½¿ï½½ï¿½ï½½ï¿½ï½½B");
        				}
        			}
        			else if(value instanceof Integer){
@@ -389,12 +418,12 @@ public class OB_Block extends Block{
        					variableTable.put(name, Long.valueOf(value.toString()));
        				}
        			}
-       			//•Ï”ƒe[ƒuƒ‹‚ğ‰æ–Ê‚É”½‰f
+       			//ï¿½ï½½ï¾æ’°ï½¿ï½½ï¿½ï½½eï¿½ï½½[ï¿½ï½½uï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾Šã«è²»ï½¿ï½½ï¿½ï½½f
        			ConsoleWindow.setVariableTable(variableTable);
        		}catch(BlockRunException e){
        			throw new BlockRunException(this, BlockRunException.CAST_ERROR);
        		}
-       		//‹N‚±‚Á‚Ä‚Í‚È‚ç‚È‚¢Exception
+       		//ï¿½ï½½Nï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾„ã¯ãªã‚‘ï½¿ï½½ï¾ˆã‚‘ï½¿ï½½Exception
        		catch(Exception e){
        			throw new BlockRunException(this, BlockRunException.UNEXPECTED);
        		}
@@ -445,7 +474,7 @@ public class OB_Block extends Block{
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
     	if(a instanceof String || b instanceof String){
-    		//•¶š—ñ‚Ì”äŠr•s‰Â
+    		//ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¿½ï½½ï¾Œè²»ï½¿ï½½rï¿½ï½½sï¿½ï½½ï¿½ï½½
     		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     	}
     	else if(a instanceof Double || b instanceof Double) {
@@ -617,6 +646,203 @@ public class OB_Block extends Block{
     	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
         
+    /**
+     * Loads Block information from the specified node and return a Block
+     * instance with the loaded information
+     * @param workspace The workspace in use
+     * @param node Node cantaining desired information
+     * @return Block instance containing loaded information
+     */
+    public static OB_Block loadBlockFrom(Workspace workspace, Node node, HashMap<Long, Long> idMapping){
+        OB_Block block = null;
+        Long id = null;
+        String genusName = null;
+        String label = null;
+        String pagelabel = null;
+        String badMsg = null;
+        Long beforeID = null;
+        Long afterID = null;
+        BlockConnector plug = null;
+        ArrayList<BlockConnector> sockets = new ArrayList<BlockConnector>();
+        HashMap<String, String> blockLangProperties = null;
+        boolean hasFocus = false;
+
+        //stub information if this node contains a stub
+        boolean isStubBlock = false;
+        String stubParentName = null;
+        String stubParentGenus = null;
+        Pattern attrExtractor = Pattern.compile("\"(.*)\"");
+        Matcher nameMatcher;
+
+        if (node.getNodeName().equals("BlockStub")) {
+            isStubBlock = true;
+            Node blockNode = null;
+            NodeList stubChildren = node.getChildNodes();
+            for (int j = 0; j < stubChildren.getLength(); j++) {
+                Node infoNode = stubChildren.item(j);
+                if (infoNode.getNodeName().equals("StubParentName")) {
+                    stubParentName = infoNode.getTextContent();
+                } else if (infoNode.getNodeName().equals("StubParentGenus")) {
+                    stubParentGenus = infoNode.getTextContent();
+                } else if (infoNode.getNodeName().equals("Block")) {
+                    blockNode = infoNode;
+                }
+            }
+            node = blockNode;
+        }
+
+        if (node.getNodeName().equals("Block")) {
+            //load attributes
+            nameMatcher = attrExtractor.matcher(node.getAttributes().getNamedItem("id").toString());
+            if (nameMatcher.find()) {
+                id = translateLong(workspace, Long.parseLong(nameMatcher.group(1)), idMapping);
+            }
+            nameMatcher = attrExtractor.matcher(node.getAttributes().getNamedItem("genus-name").toString());
+            if (nameMatcher.find()) {
+                genusName = nameMatcher.group(1);
+            }
+            //load optional items
+            Node opt_item = node.getAttributes().getNamedItem("has-focus");
+            if (opt_item != null) {
+                nameMatcher = attrExtractor.matcher(opt_item.toString());
+                if (nameMatcher.find()) //will be true
+                {
+                    hasFocus = nameMatcher.group(1).equals("yes") ? true : false;
+                }
+            }
+
+            //load elements
+            NodeList children = node.getChildNodes();
+            Node child;
+            for (int i = 0; i < children.getLength(); i++) {
+                child = children.item(i);
+                if (child.getNodeName().equals("Label")) {
+                    label = child.getTextContent();
+                } else if (child.getNodeName().equals("PageLabel")) {
+                    pagelabel = child.getTextContent();
+                } else if (child.getNodeName().equals("CompilerErrorMsg")) {
+                    badMsg = child.getTextContent();
+                } else if (child.getNodeName().equals("BeforeBlockId")) {
+                    beforeID = translateLong(workspace, Long.parseLong(child.getTextContent()), idMapping);
+                } else if (child.getNodeName().equals("AfterBlockId")) {
+                    afterID = translateLong(workspace, Long.parseLong(child.getTextContent()), idMapping);
+                } else if (child.getNodeName().equals("Plug")) {
+                    NodeList plugs = child.getChildNodes(); //there should only one child
+                    Node plugNode;
+                    for (int j = 0; j < plugs.getLength(); j++) {
+                        plugNode = plugs.item(j);
+                        if (plugNode.getNodeName().equals("BlockConnector")) {
+                            plug = BlockConnector.loadBlockConnector(workspace, plugNode, idMapping);
+                        }
+                    }
+                } else if (child.getNodeName().equals("Sockets")) {
+                    NodeList socketNodes = child.getChildNodes();
+                    Node socketNode;
+                    for (int k = 0; k < socketNodes.getLength(); k++) {
+                        socketNode = socketNodes.item(k);
+                        if (socketNode.getNodeName().equals("BlockConnector")) {
+                            sockets.add(BlockConnector.loadBlockConnector(workspace, socketNode, idMapping));
+                        }
+                    }
+                } else if (child.getNodeName().equals("LangSpecProperties")) {
+                    blockLangProperties = new HashMap<String, String>();
+                    NodeList propertyNodes = child.getChildNodes();
+                    Node propertyNode;
+                    String key = null;
+                    String value = null;
+                    for (int m = 0; m < propertyNodes.getLength(); m++) {
+                        propertyNode = propertyNodes.item(m);
+                        if (propertyNode.getNodeName().equals("LangSpecProperty")) {
+                            nameMatcher = attrExtractor.matcher(propertyNode.getAttributes().getNamedItem("key").toString());
+                            if (nameMatcher.find()) //will be true
+                            {
+                                key = nameMatcher.group(1);
+                            }
+                            opt_item = propertyNode.getAttributes().getNamedItem("value");
+                            if (opt_item != null) {
+                                nameMatcher = attrExtractor.matcher(opt_item.toString());
+                                if (nameMatcher.find()) //will be true
+                                {
+                                    value = nameMatcher.group(1);
+                                }
+                            } else {
+                                value = propertyNode.getTextContent();
+                            }
+                            if (key != null && value != null) {
+                                blockLangProperties.put(key, value);/*
+                                if(key.equals("xml"))
+                                System.err.println("VALUE OF XML: "+value);*/
+                                key = null;
+                                value = null;
+                            }
+                        }
+                    }
+                }
+            }
+
+            assert genusName != null && id != null : "Block did not contain required info id: " + id + " genus: " + genusName;
+            //create block or block stub instance
+            if (!isStubBlock) {
+                if (label == null) {
+                    block = new OB_Block(workspace, id, genusName, workspace.getEnv().getGenusWithName(genusName).getInitialLabel(), true);
+                } else {
+                    block = new OB_Block(workspace, id, genusName, label, true);
+                }
+            } else {
+                assert label != null : "Loading a block stub, but has a null label!";
+                block = (OB_Block)Block.loadBlockFrom(workspace, node, idMapping);
+            }
+
+            if (plug != null) {
+                // Some callers can change before/after/plug types. We have
+                // to synchronize so that we never have both.
+                assert beforeID == null && afterID == null;
+                block.plug = plug;
+                block.removeBeforeAndAfter();
+            }
+
+            if (sockets.size() > 0) {
+            	block.sockets = sockets;
+            }
+
+            if (beforeID != null) {
+                block.before.setConnectorBlockID(beforeID);
+            }
+            if (afterID != null) {
+                block.after.setConnectorBlockID(afterID);
+            }
+            if (pagelabel != null) {
+                block.pageLabel = pagelabel;
+            }
+            if (badMsg != null) {
+                block.isBad = true;
+                block.badMsg = badMsg;
+            }
+            block.hasFocus = hasFocus;
+
+            //load language dependent properties
+            if (blockLangProperties != null && !blockLangProperties.isEmpty()) {
+                block.properties = blockLangProperties;
+            }
+
+            return block;
+        }
+
+        return null;
+    }
+//
+//    void setSockets(List<BlockConnector> sockets){
+//    	super.sockets = sockets;
+//    }
+//
+//    void setProperties(HashMap<String, String> properties){
+//    	super.properties = properties;
+//    }
+//    
+    void removeBeforeAndAfter(){
+    	super.after = null;
+    	super.before = null;
+    }
     //////////
     //other//
     /////////

@@ -39,6 +39,16 @@ public class BlockString {
 		return null;
 	}
 	
+	protected int getConnectorNum(){
+		int count = 0;
+		for(String str: this.code){
+			if(str.equals("_val") || str.equals("_preval")){
+				count++;
+			}
+		}
+		return count;
+	}
+	
 
 	@Override
 	public String toString(){

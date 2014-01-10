@@ -52,10 +52,11 @@ public class OutputCode {
     	public void writteCode(String outFileFullName){
     		ToCode toCode = new ToCode(this.blockString, this.workspace);
     		try{
-    			this.code = toCode.connectionAllBlockCode();
+    			this.code = toCode.getCode();
     		}catch(BlockRunException e1){
     			System.out.println("コード作成に失敗しました。");
     		}catch(Exception e2){
+    			e2.printStackTrace();
     			System.out.println("予期せぬエラーが発生したため、コード作成に失敗しました。");
     		}
     		CodeWritter codeWritter = new CodeWritter(this.getCode());
@@ -72,7 +73,7 @@ public class OutputCode {
     	public void writteCode(String location, String outFileFullName){
     		ToCode toCode = new ToCode(this.blockString, this.workspace);
     		try{
-    			this.code = toCode.connectionAllBlockCode();
+    			this.code = toCode.getCode();
     		}catch(BlockRunException e1){
     			System.out.println("コード作成に失敗しました。");
     		}catch(Exception e2){

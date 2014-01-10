@@ -66,6 +66,10 @@ public class ConsoleWindow implements ActionListener{
 	private static JTextField inputForm;
 	private static boolean inputFlag = false;
 	
+	public static String getInputformText(){
+		return inputForm.getText();
+	}
+	
 	//ウィンドウモード用
 	private JFrame frame;
 	
@@ -186,6 +190,7 @@ public class ConsoleWindow implements ActionListener{
 					}
 				}
 			}
+//			if(start == null) {System.out.println("out"); return;};
 			blockRun = new BlockRun(start);
 			runNow = true;
 			blockRun.start();
@@ -224,7 +229,8 @@ public class ConsoleWindow implements ActionListener{
 		}
 		
 		if(e.getSource() == inputForm && inputFlag){
-			//文字入力処理
+			inputFlag = false;
+			blockRun.notify();
 		}
 	}
 	
@@ -247,7 +253,7 @@ public class ConsoleWindow implements ActionListener{
 			}catch(BlockRunException e1) {
 				//実行時エラー
 			}catch(Exception e2){
-				//強制終了
+				e2.printStackTrace();
 			}finally{
 				//実行終了
 				runNow = false;

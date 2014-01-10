@@ -95,7 +95,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
             // whether pages should show a control to collapse them or not
             boolean collapsiblePages = getBooleanValue(pagesNode, "collapsible-pages");
 
-            Page page;
+            OB_Page page;
             NodeList pages = pagesNode.getChildNodes();
             Node pageNode;
             String pageName;
@@ -113,7 +113,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
                     pageDrawer = getNodeValue(pageNode, "page-drawer");
                     pageInFullView = getBooleanValue(pageNode, "page-infullview");
                     pageId = getNodeValue(pageNode, "page-id");
-                    page = new Page(workspace, pageName, pageWidth, 0, pageDrawer, pageInFullView, pageColor, collapsiblePages);
+                    page = new OB_Page(workspace, pageName, pageWidth, 0, pageDrawer, pageInFullView, pageColor, collapsiblePages);
                     page.setPageId(pageId);
 
                     NodeList pageNodes = pageNode.getChildNodes();
@@ -134,7 +134,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
                                     if (genusMember.getNodeName().equals("BlockGenusMember")) {
                                         genusName = genusMember.getTextContent();
                                         assert workspace.getEnv().getGenusWithName(genusName) != null : "Unknown BlockGenus: " + genusName;
-                                        Block block = new Block(workspace, genusName);
+                                        Block block = new OB_Block(workspace, genusName);
                                         drawerBlocks.add(new FactoryRenderableBlock(workspace, manager, block.getBlockID()));
                                     }
                                 }
