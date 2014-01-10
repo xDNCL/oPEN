@@ -71,13 +71,16 @@ public class ToCode {
 		
 		//コネクタ先のブロック取得
 		ArrayList<ArrayList<String>> connectorCodeList = new ArrayList<ArrayList<String>>();
+		ArrayList<ArrayList<Block>> connectionBlocks = new ArrayList<ArrayList<Block>>();
+		
 		for(int i=0; i<block.getNumSockets(); i++){
 			BlockConnector bc = block.getSocketAt(i);
 			connectorCodeList.add(iterative(workspace.getEnv().getBlock(bc.getBlockID())));
+			connectionBlocks.add(getBlockList(bc));
 		}
 		
 		//ブロック名からブロックコードを取得
-		BlockString matchBlock = searchBlockCodeString(block.getGenusName(), connectorCodeList);
+		BlockString matchBlock = searchBlockCodeString(block.getGenusName(), connectionBlocks);
 		
 		//コード生成　１要素＝１行のコード
 		ArrayList<String> codeLine = new ArrayList<String>();
@@ -183,7 +186,7 @@ public class ToCode {
 	 * ・・・以下略・・・
 	 * @return
 	 */
-	private BlockString searchBlockCodeString(String name, ArrayList<ArrayList<String>> connecotorList){
+	private BlockString searchBlockCodeString(String name, ArrayList<ArrayList<Block>> connectionBlocks){
 		
 		/** ここに特殊処理するブロック名と、その処理内容を記述する **/
 //		if(name.equals("")){
@@ -203,5 +206,19 @@ public class ToCode {
 		return null;
 	}
 	
+	private ArrayList<Block> getBlockList(BlockConnector connector){
+		ArrayList<Block> blockList = new ArrayList<Block>();
+		Block connectedBlock = workspace.getEnv().getBlock(connector.getBlockID());
+		while(connectedBlock.getAfterBlockID() != Block.NULL){
+			blockList.add(connectedBlock);
+			for(int i=0; i<connectedBlock.getNumSockets(); i++){
+				for(Block block: getBlockList(connectedBlock.getSocketAt(i))){
+					blockList.add(block);
+				}
+			}
+			connectedBlock = workspace.getEnv().getBlock(connectedBlock.getAfterBlockID());
+		}
+		return blockList;
+	}
 
 }
