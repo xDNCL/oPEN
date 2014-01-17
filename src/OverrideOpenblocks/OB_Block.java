@@ -1,5 +1,6 @@
 package OverrideOpenblocks;
 
+import java.awt.Color;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,8 +70,10 @@ public class OB_Block extends Block{
     
 	/**
      */
-    public void runBlock() throws BlockRunException{
+    public ArrayList<OB_Block> runBlock() throws BlockRunException{
 //    	System.out.println("now:"+this.getGenusName());
+    	ArrayList<OB_Block> runList = new ArrayList<OB_Block>();
+    	
     	try{
 	    	if(this.getGenusName().equals("start")){
 	    		resetAll();
@@ -129,7 +132,7 @@ public class OB_Block extends Block{
 	    		if(value == true){
 	    			OB_Block next = this.getBlock(this.getSocketAt(1).getBlockID());
 	    			if(next != null){
-	    				next.runBlock();
+	    				runList.add(next);
 	    			}
 	    		}
 	    		else{
@@ -141,30 +144,36 @@ public class OB_Block extends Block{
 	    		if(value){
 	    			OB_Block nextTrue = this.getBlock(this.getSocketAt(1).getBlockID());
 					if(nextTrue != null){
-						nextTrue.runBlock();
+						runList.add(nextTrue);
 					}
 	    		}
 	    		else{
 	    			OB_Block nextFalse = this.getBlock(this.getSocketAt(2).getBlockID());
 	    			if(nextFalse != null){
-	    				nextFalse.runBlock();
+	    				runList.add(nextFalse);
 	    			}
 	    		}
 	    	}
 	    	if(this.getGenusName().equals("repeat-if")){
 	    		boolean value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
 	    		
-	    		int count=0;
-	    		while(value && count++ < STOP){
-		   			OB_Block nextWhile = this.getBlock(this.getSocketAt(1).getBlockID());
-		   			if(nextWhile != null){
-		   				nextWhile.runBlock();
-		   			}
-		   			value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
+	    		if(value){
+	    			runList.add(this.getBlock(this.getSocketAt(1).getBlockID()));
+	    			runList.add(this);
 	    		}
-	    		if(count >= STOP){
-	    			throw new BlockRunException(this, "無限ループが発生した可能性があります。");
-	    		}
+//	    		
+//	    		
+//	    		int count=0;
+//	    		while(value && count++ < STOP){
+//		   			OB_Block nextWhile = this.getBlock(this.getSocketAt(1).getBlockID());
+//		   			if(nextWhile != null){
+//		   				nextWhile.runBlock();
+//		   			}
+//		   			value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
+//	    		}
+//	    		if(count >= STOP){
+//	    			throw new BlockRunException(this, "無限ループが発生した可能性があります。");
+//	    		}
 	    	}
 	    	
 	    
@@ -173,11 +182,11 @@ public class OB_Block extends Block{
 	    	
 	    	//
 	    
-	    	if(next() == null){
-	    		return; 
-	    	}
-	//    	System.out.println(this.getGenusName()+" is clear.");
-			this.next().runBlock();
+	    	if(this.next() != null){
+	    		runList.add(this.next());
+	    	}			
+			return runList;
+
     	}catch(NullPointerException e1){
     		//null = no Block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -233,7 +242,7 @@ public class OB_Block extends Block{
 	    	}
 	    	if(this.getGenusName().equals("keyboard-input-number")){
 	    		System.out.println("wait");
-	    		ConsoleWindow.getTextFieldForcus();
+//	    		ConsoleWindow.getTextFieldForcus();
 	    		try {
 					wait();
 				} catch (InterruptedException e) {

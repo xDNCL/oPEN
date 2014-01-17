@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -120,7 +121,7 @@ public class ConsoleWindow implements ActionListener{
 		JPanel north = new JPanel();
 		reset = new JButton("始めに戻る");
 		reset.addActionListener(this);
-		oneStep = new JButton("1行実行");
+		oneStep = new JButton("1ブロック実行");
 		oneStep.addActionListener(this);
 		allStep = new JButton("実行");
 		allStep.addActionListener(this);
@@ -174,96 +175,155 @@ public class ConsoleWindow implements ActionListener{
 		setVariableTable(new Hashtable<String, Object>());
 	}
 	
-	private BlockRun blockRun = null;
-	private boolean runNow = false;
-
-	public void runBlock() throws BlockRunException{	
-		if(!runNow){
-			OB_Block start = null;
-			for(Block block: this.ws.getBlocks()){
-				if(block.getGenusName().equals("start")){
-					if(block instanceof OB_Block){
-						if(start == null){
-							start = (OB_Block)block;
-						}
-						else{
-							throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
-						}
+//	private BlockRun blockRun = null;
+//	private boolean runNow = false;
+//
+//	public void runBlock() throws BlockRunException{	
+//		if(!runNow){
+//			OB_Block start = null;
+//			for(Block block: this.ws.getBlocks()){
+//				if(block.getGenusName().equals("start")){
+//					if(block instanceof OB_Block){
+//						if(start == null){
+//							start = (OB_Block)block;
+//						}
+//						else{
+//							throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
+//						}
+//					}
+//				}
+//			}
+////			if(start == null) {System.out.println("out"); return;};
+//			blockRun = new BlockRun(start);
+//			runNow = true;
+//			blockRun.start();
+//		}
+//	}
+	
+	private EventStack event = null;
+	
+	private OB_Block getStartBlock() throws BlockRunException{
+		OB_Block start = null;
+		for(Block block: this.ws.getBlocks()){
+			if(block.getGenusName().equals("start")){
+				if(block instanceof OB_Block){
+					if(start == null){
+						start = (OB_Block)block;
+					}
+					else{
+						throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
 					}
 				}
 			}
-//			if(start == null) {System.out.println("out"); return;};
-			blockRun = new BlockRun(start);
-			runNow = true;
-			blockRun.start();
+		}
+		if(start != null){
+			return start;
+		}
+		else{
+			throw new BlockRunException("プログラム開始ブロックが見つかりません。");
 		}
 	}
 	
-	public static void getTextFieldForcus(){
-		inputForm.requestFocus();
-		inputFlag = true;
+	private void runAllBlock() throws BlockRunException{
+		int stack = runBlock();
+		while(stack != -1){
+			stack = runBlock();
+		}
 	}
 	
-	//to do
-	//コード吐く前にエラーがないかチェックするべき？
-	public static boolean checkCode(){
-		return true;
+	private int runBlock() throws BlockRunException{
+		if(event == null){
+			event = new EventStack(getStartBlock());
+		}
+		int result = event.action();
+		if(result == -1){
+			event.resetHighLight();
+			System.out.println("＝＝＝＝プログラム終了＝＝＝＝");
+			event = null;
+		}
+		return result;
 	}
+	
+//	public static void getTextFieldForcus(){
+//		inputForm.requestFocus();
+//		inputFlag = true;
+//	}
+//	
+//	//to do
+//	//コード吐く前にエラーがないかチェックするべき？
+//	public static boolean checkCode(){
+//		return true;
+//	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == this.allStep){
-			consoleClear();
+//			consoleClear();
 			try{
-				runBlock();
+				runAllBlock();
+				this.allStep.setEnabled(false);
+				this.oneStep.setEnabled(false);
 			}catch(Exception ex){
 				//実行がうまく行かなかったときの動作。特になし。
 			}
 			//To Do
 		}
 		
+		if(e.getSource() == this.oneStep){
+//			consoleClear();
+			try{
+				if(runBlock() == -1){
+					this.oneStep.setEnabled(false);
+				}
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
+		
 		if(e.getSource() == this.reset){
 			consoleClear();
-			blockRun = null;
+			this.allStep.setEnabled(true);
+			this.oneStep.setEnabled(true);
+			event.resetHighLight();
+			event = null;
 			//reset Highlight
 			BlockRunException.blinkOff();
 		}
 		
 		if(e.getSource() == inputForm && inputFlag){
 			inputFlag = false;
-			blockRun.notify();
 		}
 	}
 	
-	/**
-	 * ブロックの実行を並列処理
-	 * @author shuhara
-	 *
-	 */
-	public class BlockRun extends Thread{
-		
-		final OB_Block start;
-		
-		BlockRun(OB_Block block){
-			this.start = block;
-		}
-		
-		public void run(){
-			try {
-				start.runBlock();
-			}catch(BlockRunException e1) {
-				//実行時エラー
-			}catch(Exception e2){
-				e2.printStackTrace();
-			}finally{
-				//実行終了
-				runNow = false;
-			}
-			
-		}
-		
-	}
+//	/**
+//	 * ブロックの実行を並列処理
+//	 * @author shuhara
+//	 *
+//	 */
+//	public class BlockRun extends Thread{
+//		
+//		final OB_Block start;
+//		
+//		BlockRun(OB_Block block){
+//			this.start = block;
+//		}
+//		
+//		public void run(){
+//			try {
+//				start.runBlock();
+//			}catch(BlockRunException e1) {
+//				//実行時エラー
+//			}catch(Exception e2){
+//				e2.printStackTrace();
+//			}finally{
+//				//実行終了
+//				runNow = false;
+//			}
+//			
+//		}
+//		
+//	}
 	
 	
 	public class JTextAreaStream extends OutputStream {
@@ -293,6 +353,70 @@ public class ConsoleWindow implements ActionListener{
 	        });
 	    }
 	
+	}
+	
+	private class EventStack{
+		
+		private ArrayList<OB_Block> eventQueue;
+		private int stackCount;
+		private OB_Block highLightBlock = null;
+		
+		EventStack(OB_Block firstEvent){
+			this.eventQueue = new ArrayList<OB_Block>();
+			this.stackCount = -1;
+			this.addEvent(firstEvent);
+		}
+		
+		protected int action() throws BlockRunException{
+			if(highLightBlock != null){
+				//ハイライト消す
+				this.resetHighLight();
+			}
+			
+			OB_Block run = this.getEvent();
+			if(run == null){
+				this.resetHighLight();
+				return -1;
+			}
+			
+			//ハイライト点灯
+			highLightBlock = run;
+			(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).setBlockHighlightColor(Color.YELLOW);
+			
+			ArrayList<OB_Block> results = run.runBlock();
+			for(int i=results.size()-1; i>=0; i--){
+				this.addEvent(results.get(i));
+			}
+//			this.debug();
+			return this.stackCount;
+		}
+		
+		protected void resetHighLight(){
+			(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).resetHighlight();
+		}
+		
+		private void addEvent(OB_Block block){
+			eventQueue.add(block);
+			stackCount++;
+		}
+		
+		private OB_Block getEvent(){
+			if(stackCount < 0){
+				System.out.println("no events");
+				return null;
+			}
+			OB_Block next = this.eventQueue.get(stackCount);
+			this.eventQueue.remove(stackCount--);
+			return next;
+		}
+		
+		private void debug(){
+			for(int i=0; i<this.stackCount+1; i++){
+				System.out.println("No"+i+":"+this.eventQueue.get(i).getGenusName());
+			}
+		}
+		
+		
 	}
 
 
