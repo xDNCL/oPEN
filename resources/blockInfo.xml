@@ -488,14 +488,13 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 				
-	    <BlockGenus name="start" kind="command" initlabel="プログラム開始" editable-label="yes" label-unique="yes" is-starter="yes" color="255 255 255">
+	    <BlockGenus name="start" kind="command" initlabel="プログラム開始" editable-label="yes" label-unique="yes" is-starter="yes"  color="255 255 255">
 			<description>
 				<text>
 					プログラムの開始点
 				</text>
 			</description>
 			<BlockConnectors>
-		
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>

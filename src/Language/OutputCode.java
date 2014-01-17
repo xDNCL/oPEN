@@ -55,9 +55,11 @@ public class OutputCode {
     			this.code = toCode.getCode();
     		}catch(BlockRunException e1){
     			System.out.println("コード作成に失敗しました。");
+    			return;
     		}catch(Exception e2){
     			e2.printStackTrace();
     			System.out.println("予期せぬエラーが発生したため、コード作成に失敗しました。");
+    			return;
     		}
     		CodeWritter codeWritter = new CodeWritter(this.getCode());
     		codeWritter.writting(outFileFullName);
@@ -76,8 +78,10 @@ public class OutputCode {
     			this.code = toCode.getCode();
     		}catch(BlockRunException e1){
     			System.out.println("コード作成に失敗しました。");
+    			return;
     		}catch(Exception e2){
     			System.out.println("予期せぬエラーが発生したため、コード作成に失敗しました。");
+    			return;
     		}
     		CodeWritter codeWritter = new CodeWritter(this.getCode());
     		codeWritter.writting(location, outFileFullName);

@@ -66,7 +66,7 @@ public class ToCode {
 	}
 	
 	
-	private ArrayList<String> iterative(Block block){
+	private ArrayList<String> iterative(Block block)throws BlockRunException{
 		String result = "";
 		
 		//コネクタ先のブロック取得
@@ -75,12 +75,17 @@ public class ToCode {
 		
 		for(int i=0; i<block.getNumSockets(); i++){
 			BlockConnector bc = block.getSocketAt(i);
+//			System.out.println(block.getGenusName() +", socketNum:"+ block.getNumSockets() +", connected:"+workspace.getEnv().getBlock(bc.getBlockID()).getGenusName());
 			connectorCodeList.add(iterative(workspace.getEnv().getBlock(bc.getBlockID())));
 			connectionBlocks.add(getBlockList(bc));
 		}
 		
 		//ブロック名からブロックコードを取得
 		BlockString matchBlock = searchBlockCodeString(block.getGenusName(), connectionBlocks);
+		
+		if(matchBlock == null){
+			throw new BlockRunException("ブロック名："+block.getGenusName()+"の変換ルールが見つかりません。");
+		}
 		
 		//コード生成　１要素＝１行のコード
 		ArrayList<String> codeLine = new ArrayList<String>();
@@ -96,9 +101,16 @@ public class ToCode {
 			}
 			
 			else if(code.equals(PREVAL)){
+				String indent = translationForPreCode(matchBlock.getPreCode());
+				//スタートブロック専用。後で消す
+				if(matchBlock.getName().equals("start")){
+					for(String Scode: iterative(workspace.getEnv().getBlock(block.getAfterBlockID()))){
+						codeLine.add(indent + Scode);
+					}
+				}
+				//正規ルート
 				if(connectorCodeList.size() > 0){
 					for(String line: connectorCodeList.get(connectorNum)){
-						String indent = translationForPreCode(matchBlock.getPreCode());
 						codeLine.add(indent + line);
 					}
 				}
@@ -127,6 +139,10 @@ public class ToCode {
 		
 		if(!result.equals("")){
 			codeLine.add(result);
+		}
+		
+		if(block.getGenusName().equals("start")){
+			return codeLine;
 		}
 		
 		if(block.getAfterBlockID() != Block.NULL){
@@ -182,7 +198,7 @@ public class ToCode {
 	 * このconnectorList内を探して、適切なコードを吐くブロックデータベースを探すこと
 	 * 
 	 * connectorList.get(0) 一番上のコネクターのブロックリスト取得
-	 * connectorList.get(2) 二番目のコネクターのブロックリスト取得
+	 * connectorList.get(1) 二番目のコネクターのブロックリスト取得
 	 * ・・・以下略・・・
 	 * @return
 	 */
@@ -193,6 +209,7 @@ public class ToCode {
 //			String advancedName = "hoge";
 //			return searchBlockCodeString(advancedName);
 //		}
+//		debug(connectionBlocks);
 		
 		return searchBlockCodeString(name);		
 	}
@@ -209,7 +226,8 @@ public class ToCode {
 	private ArrayList<Block> getBlockList(BlockConnector connector){
 		ArrayList<Block> blockList = new ArrayList<Block>();
 		Block connectedBlock = workspace.getEnv().getBlock(connector.getBlockID());
-		while(connectedBlock.getAfterBlockID() != Block.NULL){
+//		System.out.println(connectedBlock.getGenusName() + " ID:"+ connectedBlock.getBlockID());
+		while(connectedBlock != null){
 			blockList.add(connectedBlock);
 			for(int i=0; i<connectedBlock.getNumSockets(); i++){
 				for(Block block: getBlockList(connectedBlock.getSocketAt(i))){
@@ -219,6 +237,17 @@ public class ToCode {
 			connectedBlock = workspace.getEnv().getBlock(connectedBlock.getAfterBlockID());
 		}
 		return blockList;
+	}
+	
+	private void debug(ArrayList<ArrayList<Block>> connectionBlocks){
+		int i=0;
+		for(ArrayList<Block> conList: connectionBlocks){
+			System.out.println("connectionList("+ i++ + ")");
+			for(Block block: conList){
+				System.out.println("genusName:"+block.getGenusName());
+			}
+		}
+		
 	}
 
 }

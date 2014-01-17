@@ -125,7 +125,7 @@ public class ConsoleWindow implements ActionListener{
 		allStep = new JButton("実行");
 		allStep.addActionListener(this);
 		north.add(reset);
-//		north.add(oneStep);
+		north.add(oneStep);
 		north.add(allStep);
 		body.add(north, BorderLayout.NORTH);
 		
@@ -135,6 +135,7 @@ public class ConsoleWindow implements ActionListener{
 		center.setLayout(new BorderLayout());
 		console = new JTextArea();
 		console.setEditable(false);
+		console.setBackground(new Color(245, 245, 245));
 //		console.setPreferredSize(new Dimension(300, 200));
 		JScrollPane scroll= new JScrollPane(console);
 		scroll.setPreferredSize(new Dimension(300, 200));
@@ -147,6 +148,7 @@ public class ConsoleWindow implements ActionListener{
 		south.setLayout(new BorderLayout());
 		JLabel variableLabel = new JLabel("変数名とその値");
 		valiableTable.setPreferredSize(new Dimension(300, 150));
+		valiableTable.setBackground(new Color(249, 249, 249));
 		JLabel inputFormLabel = new JLabel("入力フォーム");
 		inputForm = new JTextField(20);
 		inputForm.addActionListener(this);

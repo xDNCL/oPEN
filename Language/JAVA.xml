@@ -23,8 +23,8 @@ CodeText = コードそのもの
 	    
 	    <BlockCode name="start">
 	        <CodeText>
-	            @public class BlockEducation{ @_br
-	            @public static void main(String[] args){ @_br
+	            @public @_space @class @_space @BlockEducation{ @_br
+	            @public @_space @static @_space @void @_space @main(String[] @_space @args){ @_br
 	            @_preval
 	            @} @_br
 	            @}
@@ -47,37 +47,37 @@ CodeText = コードそのもの
 	    
 	    <BlockCode name="if">
 	        <CodeText>
-	            @もし @_val @ならば @_br
-	            @_preval @_br
-	            @を実行する
+	            @if( @_val @){ @_br
+	            @_preval
+	            @}
 	        </CodeText>
 	        <PreText>
-	            @_space @_space @| @_space
+	            @_t
 	        </PreText>
 	    </BlockCode>
 	    
 	   	<BlockCode name="ifelse">
 	        <CodeText>
-	            @もし @_val @ならば @_br
-	            @_preval @_br
-	            @を実行し、そうでなければ @_br
-	            @_preval @_br
-	            @を実行する
+	           @if( @_val @){ @_br
+	           @_preval
+	           @}else{ @_br
+	           @_preval
+	           @}
 	        </CodeText>
 	        <PreText>
-	            @_space @_space @| @_space
+	            @_t
 	        </PreText>
 	    </BlockCode>
 	    
 	    <BlockCode name="substitution-number">
 	        <CodeText>
-	            @_label @← @_val
+	            @_label @= @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="substitution-string">
 	        <CodeText>
-	            @_label @← @_val
+	            @_label @= @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
@@ -113,25 +113,25 @@ CodeText = コードそのもの
 	    
 	    <BlockCode name="setInt">
 	        <CodeText>
-	            @整数 @_space @_val
+	            @int @_space @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
 	   	<BlockCode name="setDouble">
 	        <CodeText>
-	            @実数 @_space @_val
+	            @double @_space @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="setString">
 	        <CodeText>
-	            @文字列 @_space @_val
+	            @String @_space @_val @;
 	        </CodeText>
 	    </BlockCode>	    
 	    
 	    <BlockCode name="setLong">
 	        <CodeText>
-	            @長整数 @_space @_val
+	            @long @_space @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
@@ -179,37 +179,35 @@ CodeText = コードそのもの
 	    
 	    <BlockCode name="print-number">
 	        <CodeText>
-	            @_val @を改行なしで表示する
+	            @System.out.print(" @_val @"); 
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="print-string">
 	        <CodeText>
-	            @「 @_val @」を改行無しで表示する
+	            @System.out.print(" @_val @"); 
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="println-number">
 	        <CodeText>
-	            @_val @ を表示する
+	            @System.out.println(" @_val @"); 
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="println-string">
 	        <CodeText>
-	            @「 @_val @」を表示する
+	           	@System.out.println(" @_val @"); 
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="keyboard-input-number">
 	        <CodeText>
-	            @input()
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="keyboard-input-string">
 	        <CodeText>
-	            @input()
 	        </CodeText>
 	    </BlockCode>
 	    

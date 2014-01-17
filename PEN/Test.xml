@@ -3,8 +3,9 @@
 <Output>
     
     <!-- 出力言語の設定ファイルへのパス
-    	出力現をを設定しないならば(NULL)を記載 -->
-    <Language>resources/PEN.xml</Language>
+    	自由に選べるならば(FREE)を記載
+    	出力言語を設定しないならば(NULL)を記載 -->
+    <Language>FREE</Language>
     
     <!-- 拡張子 -->
     <FileNameExtention>.pen</FileNameExtention>

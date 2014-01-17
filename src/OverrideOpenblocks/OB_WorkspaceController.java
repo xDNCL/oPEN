@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.xml.parsers.DocumentBuilder;
@@ -59,12 +60,16 @@ public class OB_WorkspaceController extends WorkspaceController{
     private final static String DEFAULT_DRAWER_INFO = "resources/BlockDrawerList.xml";
     private final static String PROPERTY_PATH = "resources/startUp.properties";
     private static String resourcesFolderName = "resources";
+    private static String languageFolderName = "Language";
     
     private static String blockDataPath;
     private String outputLanguagePath;
     private String outputDomain;
     
     private boolean showButton = false;
+    
+    private boolean selectLanguage = false;
+    private JComboBox language = null;
 		
     //flag to indicate if a new lang definition file has been set
     private boolean langDefDirty = true;
@@ -115,9 +120,21 @@ public class OB_WorkspaceController extends WorkspaceController{
         //加筆
         //Output
         if(showButton){
-	        OutputAction outputAction = new OutputAction();
-	        buttonPanel.add(new JButton(outputAction));
+        	OutputAction outputAction = null;
+        	if(selectLanguage){
+            	JLabel label = new JLabel("出力言語");
+            	buttonPanel.add(label);
+            	language = createComboBox(languageFolderName);
+            	outputAction = new OutputAction(language);
+            	buttonPanel.add(language);
+            }
+        	else{
+		        outputAction = new OutputAction();
+        	}
+		    buttonPanel.add(new JButton(outputAction));
+        	
         }
+
                 
         return buttonPanel;
     }
@@ -158,6 +175,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 
         @Override
         public void actionPerformed(ActionEvent evt) {
+        	
             if (selectedFile == null) {
                 JFileChooser fileChooser = new JFileChooser(lastDirectory);
                 if (fileChooser.showSaveDialog((Component) evt.getSource()) == JFileChooser.APPROVE_OPTION) {
@@ -302,28 +320,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         final JPanel topPane = new JPanel();
         sb.getComponent().setPreferredSize(new Dimension(130, 23));
         
-        //コンボボックス作成のためのファイル一覧読み込み
-        File file = new File(resourcesFolderName);
-        File[] files = file.listFiles();
-        String[] fileNames = new String[files.length];
-
-        //開いているファイルを予め選択しておく
-        int selectIndex = 0;
-        String[] path = blockDataPath.split("/");
-        String selectFileName = path[path.length-1];
-
-        //ファイルパスからファイル名生成
-        int i=0;
-        for(File f: files){
-        	fileNames[i] =f.getName();
-        	if(fileNames[i].equals(selectFileName)){
-        		selectIndex=i;
-        	}
-        	i++;
-        }
-        String[] showNames = removeExtends(fileNames);
-        final JComboBox cb = new JComboBox(showNames);
-        cb.setSelectedIndex(selectIndex);
+        final JComboBox cb = createComboBox(resourcesFolderName);
         
         cb.addActionListener(
         		new ActionListener(){
@@ -354,6 +351,33 @@ public class OB_WorkspaceController extends WorkspaceController{
         topPane.add(cb);
         topPane.add(sb.getComponent());
         return topPane;
+    }
+    
+    private JComboBox createComboBox(String filePath){
+	    //コンボボックス作成のためのファイル一覧読み込み
+	    File file = new File(filePath);
+	    File[] files = file.listFiles();
+	    String[] fileNames = new String[files.length];
+	
+	    //開いているファイルを予め選択しておく
+	    int selectIndex = 0;
+	    String[] path = blockDataPath.split("/");
+	    String selectFileName = path[path.length-1];
+	
+	    //ファイルパスからファイル名生成
+	    int i=0;
+	    for(File f: files){
+	    	fileNames[i] =f.getName();
+	    	if(fileNames[i].equals(selectFileName)){
+	    		selectIndex=i;
+	    	}
+	    	i++;
+	    }
+	    String[] showNames = removeExtends(fileNames);
+	    JComboBox cb = new JComboBox(showNames);
+	    cb.setSelectedIndex(selectIndex);
+	    
+	    return cb;
     }
     
     @Override
@@ -395,6 +419,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 			    		if(this.outputLanguagePath.equals("NULL")){
 			    			showButton = false;
 			    		}
+			    		if(this.outputLanguagePath.equals("FREE")){
+			    			selectLanguage = true;
+			    		}
+			    		
 //			    		System.out.println(this.outputLanguagePath);
 			    	}
 			    	
@@ -460,6 +488,8 @@ public class OB_WorkspaceController extends WorkspaceController{
         }
     }
     
+    private static OB_WorkspaceController wc;
+    
     public static void main(final String[] args) {
 //        if (args.length < 1) {
 //            System.err.println("usage: WorkspaceController lang_def.xml");
@@ -473,10 +503,8 @@ public class OB_WorkspaceController extends WorkspaceController{
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override public void run() {  
 		    	blockDataPath = filePath;
-		    	OB_WorkspaceController wc = new OB_WorkspaceController();
 		        wc.setLangDefFilePath(lp.getBlockAllDataAddress());
 		        wc.loadFreshWorkspace();
-//		        wc.getWorkspace().loadBlockEducationModule();
             }
         });
     }
@@ -492,7 +520,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 // 					System.exit(1);
 // 				}
                 
-            	OB_WorkspaceController wc = new OB_WorkspaceController();
+            	wc = new OB_WorkspaceController();
             	resourcesFolderName = lp.getResourcesFolderPath();
                              
                 if(lp.isSelected()){
@@ -555,13 +583,22 @@ public class OB_WorkspaceController extends WorkspaceController{
     	
 		private static final long serialVersionUID = 1L;
 		
+		private JComboBox select;
 		
 		OutputAction() {
 			super("ソースコード出力");
+			select = null;
 	    }
+		
+		OutputAction(JComboBox select){
+			super("でソースコード出力");
+			this.select = select;
+		}
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
+	    	
+	    	
 	    	
 	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
 
@@ -571,8 +608,16 @@ public class OB_WorkspaceController extends WorkspaceController{
 	        }else{
 	        	try{
 		        OutputCode outputCode = new OutputCode(workspace);
-		        outputCode.loadCodeFile(outputLanguagePath);
 		        
+		        //出力言語が選べるか否か
+		        if(select == null){
+		        	outputCode.loadCodeFile(outputLanguagePath);
+		        }else{
+		        	String selectedFileName = languageFolderName + "/" + select.getSelectedItem().toString() + ".xml";
+		        	outputCode.loadCodeFile(selectedFileName);
+		        }
+		        
+		        //拡張子補完
 	        	if(value.contains(".")){
 	        		outputCode.writteCode(value);
 	        	}
