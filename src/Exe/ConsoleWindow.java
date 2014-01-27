@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -121,7 +122,7 @@ public class ConsoleWindow implements ActionListener{
 		JPanel north = new JPanel();
 		reset = new JButton("始めに戻る");
 		reset.addActionListener(this);
-		oneStep = new JButton("1ブロック実行");
+		oneStep = new JButton("ステップ実行");
 		oneStep.addActionListener(this);
 		allStep = new JButton("実行");
 		allStep.addActionListener(this);
@@ -285,15 +286,21 @@ public class ConsoleWindow implements ActionListener{
 			consoleClear();
 			this.allStep.setEnabled(true);
 			this.oneStep.setEnabled(true);
-			event.resetHighLight();
-			event = null;
+			if(event != null){
+				event.resetHighLight();
+				event = null;
+			}
 			//reset Highlight
 			BlockRunException.blinkOff();
 		}
 		
-		if(e.getSource() == inputForm && inputFlag){
-			inputFlag = false;
+		if(e.getSource() == inputForm){
+			System.setIn(new ByteArrayInputStream(inputForm.getText().getBytes()));
 		}
+	}
+	
+	public static void setForcus(){
+		inputForm.requestFocus(true);
 	}
 	
 //	/**
@@ -355,7 +362,7 @@ public class ConsoleWindow implements ActionListener{
 	
 	}
 	
-	private class EventStack{
+	private class EventStack extends Thread{
 		
 		private ArrayList<OB_Block> eventQueue;
 		private int stackCount;
@@ -365,6 +372,11 @@ public class ConsoleWindow implements ActionListener{
 			this.eventQueue = new ArrayList<OB_Block>();
 			this.stackCount = -1;
 			this.addEvent(firstEvent);
+		}
+		
+		@Override
+		public void run(){
+			
 		}
 		
 		protected int action() throws BlockRunException{
@@ -392,7 +404,9 @@ public class ConsoleWindow implements ActionListener{
 		}
 		
 		protected void resetHighLight(){
-			(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).resetHighlight();
+			if(highLightBlock != null){
+				(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).resetHighlight();
+			}
 		}
 		
 		private void addEvent(OB_Block block){

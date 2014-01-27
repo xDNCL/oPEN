@@ -1,6 +1,9 @@
 package OverrideOpenblocks;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +25,7 @@ import edu.mit.blocks.workspace.Workspace;
 public class OB_Block extends Block{
 			
 	protected static Hashtable<String, Object> variableTable = new Hashtable<String, Object>();
+	private static long counter = 0; 
 	private final int STOP = 10000;
 	
 	void resetAll(){
@@ -154,6 +158,20 @@ public class OB_Block extends Block{
 	    			}
 	    		}
 	    	}
+	    	if(this.getGenusName().equals("repeat")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}else if(value instanceof Double){
+	    			throw new BlockRunException(this, "「回数」に実数型は認められません。");
+	    		}else{
+	    			throw new BlockRunException(this, BlockRunException.CAST_ERROR);	    			
+	    		}
+	    		for(int i=0; i<x; i++){
+	    			runList.add(this.getBlock(this.getSocketAt(1).getBlockID()));
+	    		}
+	    	}
 	    	if(this.getGenusName().equals("repeat-if")){
 	    		boolean value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
 	    		
@@ -161,19 +179,6 @@ public class OB_Block extends Block{
 	    			runList.add(this.getBlock(this.getSocketAt(1).getBlockID()));
 	    			runList.add(this);
 	    		}
-//	    		
-//	    		
-//	    		int count=0;
-//	    		while(value && count++ < STOP){
-//		   			OB_Block nextWhile = this.getBlock(this.getSocketAt(1).getBlockID());
-//		   			if(nextWhile != null){
-//		   				nextWhile.runBlock();
-//		   			}
-//		   			value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
-//	    		}
-//	    		if(count >= STOP){
-//	    			throw new BlockRunException(this, "無限ループが発生した可能性があります。");
-//	    		}
 	    	}
 	    	
 	    
@@ -241,15 +246,32 @@ public class OB_Block extends Block{
 	    		 }
 	    	}
 	    	if(this.getGenusName().equals("keyboard-input-number")){
-	    		System.out.println("wait");
-//	    		ConsoleWindow.getTextFieldForcus();
+	    		ConsoleWindow.setForcus();
+	    		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	    		String inputData = "";
 	    		try {
-					wait();
-				} catch (InterruptedException e) {
-					//to do
-				}
-	    		System.out.println("run");
-	    		return ConsoleWindow.getInputformText();
+	    		      inputData = reader.readLine();
+	    		     } catch (IOException e) {
+	    		      e.printStackTrace();
+	    		     }
+	    		
+	    		Object result = null;
+		    	try{
+		    		if(inputData.contains(".")){
+		    			result = new Double(Double.valueOf(inputData));
+		    		}else{
+		    			result = new Integer(Integer.valueOf(inputData));
+		    		}
+		 		}catch(NumberFormatException nm){
+		 			counter++;
+		 			if(counter > STOP){throw new BlockRunException("無限ループが発生した可能性があります。");}
+		    		System.out.println("数値以外が入力されました。もう一度入力してください。");
+		    		return this.evaluateValue();
+		    	}catch(Exception e){
+		    		e.printStackTrace();
+		    		throw new BlockRunException(this, BlockRunException.UNEXPECTED);
+		    	}
+		    	return result;
 	    	}
 	    	
 	    	
@@ -284,8 +306,8 @@ public class OB_Block extends Block{
     		// null = no connection Block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
-    	
-    		throw new BlockRunException(this);
+
+    	throw new BlockRunException(this);
     }
     
     /**

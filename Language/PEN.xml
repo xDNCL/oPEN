@@ -359,7 +359,7 @@ CodeText = コードそのもの
 	    </BlockCode>
 	    
 		<BlockCode name="repeat">
-		<CodeText>no code</CodeText>
+		<CodeText></CodeText>
 		<PreText/>
 		</BlockCode>
 		

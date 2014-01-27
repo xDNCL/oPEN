@@ -62,7 +62,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     private static String resourcesFolderName = "resources";
     private static String languageFolderName = "Language";
     
-    private static String blockDataPath;
+    private static String stageDrawerFilePath;
     private String outputLanguagePath;
     private String outputDomain;
     
@@ -303,7 +303,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     protected void createAndShowGUI() {
         frame = new JFrame("BlockEducation Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 900, 500);
+        frame.setBounds(100, 100, 1100, 800);
         frame.add(topPane(), BorderLayout.PAGE_START);
         frame.add(getWorkspacePanel(), BorderLayout.CENTER);
         frame.add(getButtonPanel(), BorderLayout.SOUTH);
@@ -343,8 +343,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         		    	  }
         		    	  
         		    	  String selectedFileName = resourcesFolderName + "/" + cb.getSelectedItem().toString() + ".xml";
-        		    	  //新しいwindowを開く
-        		    	  newWindow(selectedFileName);
+        		    	  changeStage(selectedFileName);
         		      }
         		});
         
@@ -361,7 +360,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	
 	    //開いているファイルを予め選択しておく
 	    int selectIndex = 0;
-	    String[] path = blockDataPath.split("/");
+	    String[] path = stageDrawerFilePath.split("/");
 	    String selectFileName = path[path.length-1];
 	
 	    //ファイルパスからファイル名生成
@@ -390,7 +389,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         }
         
         if(blockDrawerDirty){
-        	setBlockDrawerRoot(blockDataPath);
+        	setBlockDrawerRoot(stageDrawerFilePath);
         }
         
         //出力言語の設定を抜き出す
@@ -478,7 +477,6 @@ public class OB_WorkspaceController extends WorkspaceController{
             builder = factory.newDocumentBuilder();
             doc = builder.parse(in);
             blockDrawerRoot = doc.getDocumentElement();
-            blockDrawerDirty = false;
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
@@ -498,15 +496,10 @@ public class OB_WorkspaceController extends WorkspaceController{
     	newWindow();
     }
     
-    private static void newWindow(final String filePath){
+    private static void changeStage(final String filePath){
+    	stageDrawerFilePath = filePath;
     	workspace.reset();
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override public void run() {  
-		    	blockDataPath = filePath;
-		        wc.setLangDefFilePath(lp.getBlockAllDataAddress());
-		        wc.loadFreshWorkspace();
-            }
-        });
+    	wc.loadFreshWorkspace();
     }
 
     private static void newWindow(){
@@ -524,17 +517,16 @@ public class OB_WorkspaceController extends WorkspaceController{
             	resourcesFolderName = lp.getResourcesFolderPath();
                              
                 if(lp.isSelected()){
-                	blockDataPath = selectFile();
+                	stageDrawerFilePath = selectFile();
                 }
                 else{
-                	blockDataPath = lp.getBlockDrawerListAddress();
+                	stageDrawerFilePath = lp.getBlockDrawerListAddress();
                 }
 //                wc.setLangDefFilePath(args[0]);
  
                 wc.setLangDefFilePath(lp.getBlockAllDataAddress());
                 wc.loadFreshWorkspace();
                 wc.createAndShowGUI();
-                wc.getWorkspace().loadBlockEducationModule();
             }
         });
     }
@@ -567,8 +559,10 @@ public class OB_WorkspaceController extends WorkspaceController{
         Object value = JOptionPane.showInputDialog(dummy, "ファイル選択", 
         	      "どのファイルを読み込みますか？", JOptionPane.PLAIN_MESSAGE,
         	      icon, fileName, fileName[0]);
-        
-        if(value == null || value.equals("Default")){
+        if(value == null){
+        	System.exit(0);
+        }
+        if(value.equals("Default")){
         	return DEFAULT_DRAWER_INFO;
         }
         else{

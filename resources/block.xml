@@ -31,7 +31,6 @@ BlockGenuses are first loaded.
 		<BlockConnectorShape shape-type="proc-param" shape-number="13"></BlockConnectorShape>
 		<BlockConnectorShape shape-type="cmd" shape-number="14"></BlockConnectorShape>
 		<BlockConnectorShape shape-type="io" shape-number="100"></BlockConnectorShape>
-		<BlockConnectorShape shape-type="nxt-connect" shape-number="101"></BlockConnectorShape>
 	</BlockConnectorShapes>
 	
 	<BlockGenuses>
@@ -267,94 +266,57 @@ BlockGenuses are first loaded.
 	    	    
 <!-- for NQC Blocks -->
 		
-		  <BlockGenus name="out_a" kind="function" initlabel="ポートA" color="255 255 255">
+		  <BlockGenus name="out-a" kind="function" initlabel="port_A" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
  				<BlockConnector label="" connector-kind="pulg" connector-type="io"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="io"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="out_a"></LangSpecProperty>
+				<LangSpecProperty key="vm-cmd-name" value="out-a"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		  <BlockGenus name="out_b" kind="function" initlabel="ポートB" color="255 255 255">
+		  <BlockGenus name="out-b" kind="function" initlabel="port_B" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
  				<BlockConnector label="" connector-kind="pulg" connector-type="io"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="io"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="out_b"></LangSpecProperty>
+				<LangSpecProperty key="vm-cmd-name" value="out-b"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		  <BlockGenus name="out_c" kind="function" initlabel="ポートC" color="255 255 255">
+		  <BlockGenus name="out-c" kind="function" initlabel="port_C" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
  				<BlockConnector label="" connector-kind="pulg" connector-type="io"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="io"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="out_c"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="out_ab" kind="function" initlabel="ポートAB" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
- 				<BlockConnector label="" connector-kind="pulg" connector-type="io"></BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="out_ab"></LangSpecProperty>
+				<LangSpecProperty key="vm-cmd-name" value="out-c"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 
-		<BlockGenus name="out_bc" kind="function" initlabel="port_BC" color="255 255 255">
+		<BlockGenus name="motor-on-fwd" kind="command" initlabel="前へ" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
- 				<BlockConnector label="" connector-kind="pulg" connector-type="io"></BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="out_bc"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="out_ac" kind="function" initlabel="port_AC" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
- 				<BlockConnector label="" connector-kind="pulg" connector-type="io"></BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="out_ac"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="motor-on-fwd" kind="command" initlabel="モーター(前へ)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="ポート" connector-kind="socket" connector-type="io"></BlockConnector>
+				<BlockConnector label="出力ポート" connector-kind="socket" connector-type="io"></BlockConnector>
 				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
 					<DefaultArg genus-name="number" label="50"></DefaultArg>
 				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="nxt-connect"></BlockConnector>	
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="motor-on-fwd"></LangSpecProperty>
@@ -362,132 +324,31 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="motor-on-rev" kind="command" initlabel="モーター(後ろへ)" color="255 255 255">
+		<BlockGenus name="motor-on-rev" kind="command" initlabel="後ろへ" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="ポート" connector-kind="socket" connector-type="io"></BlockConnector>
+				<BlockConnector label="出力ポート" connector-kind="socket" connector-type="io"></BlockConnector>
 				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
+				    <DefaultArg genus-name="number" label="50"></DefaultArg>
 				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="motor-on-rev"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
-
-		<BlockGenus name="motor-on-ac" kind="command" initlabel="モーター(AC)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="方向" connector-kind="socket" connector-type="io"></BlockConnector>
-				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="motor-on-ac"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-
-		<BlockGenus name="motor-on-fwd2" kind="command" initlabel="モーター(前へ)" color="255 255 255">
+		
+		<BlockGenus name="motor-on-left" kind="command" initlabel="左へ" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="出力ポート" connector-kind="socket" connector-type="io"></BlockConnector>
 				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
+				    <DefaultArg genus-name="number" label="50"></DefaultArg>
 				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="motor-on-fwd2"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="motor-on-rev2" kind="command" initlabel="モーター(後ろへ)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="出力ポート" connector-kind="socket" connector-type="io"></BlockConnector>
-				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="motor-on-rev2"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="motor-on-a" kind="command" initlabel="モーター(単体A)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="motor-on-a"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="motor-on-b" kind="command" initlabel="モーター(単体B)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="motor-on-b"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="motor-on-c" kind="command" initlabel="モーター(単体C)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="motor-on-c"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="motor-on-left" kind="command" initlabel="モーター(左へ)" color="255 255 255">
-		    <description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="出力ポート" connector-kind="socket" connector-type="io"></BlockConnector>
-				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="motor-on-left"></LangSpecProperty>
@@ -495,16 +356,15 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>	
 		</BlockGenus>
 		
-		<BlockGenus name="motor-on-right" kind="command" initlabel="モーター(右へ)" color="255 255 255">
+		<BlockGenus name="motor-on-right" kind="command" initlabel="右へ" color="255 255 255">
 		    <description>
 				<text></text>
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="出力ポート" connector-kind="socket" connector-type="io"></BlockConnector>
 				<BlockConnector label="パワー" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="50"></DefaultArg>
+				    <DefaultArg genus-name="number" label="50"></DefaultArg>
 				</BlockConnector>
-				<BlockConnector label="回転数 ほか" connector-kind="socket" connector-type="cmd"></BlockConnector>	
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="motor-on-right"></LangSpecProperty>
@@ -525,7 +385,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="wait" kind="command" initlabel="持続時間" color="255 80 0">
+		<BlockGenus name="wait" kind="command" initlabel="待機" color="255 80 0">
 			<description>
 				<text>
 					<arg n="1"/> ミリ秒待ちます。
@@ -541,26 +401,6 @@ BlockGenuses are first loaded.
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="wait"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="rotate" kind="command" initlabel="回転" color="255 80 0">
-			<description>
-				<text>
-					<arg n="1"/> °回転します。
-				</text>
-				<arg-description n="1" name="(度)">
-					回転(度)
-				</arg-description>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="(度)" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="360"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="rotate"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
@@ -612,81 +452,6 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="set-touch-sensor" kind="command" initlabel="タッチセンサー" color="255 255 255">
-			<description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="ポート(1~4)" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="3"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="set-touch-sensor"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="set-light-sensor" kind="command" initlabel="光センサー" color="255 255 255">
-			<description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="ポート(1~4)" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="3"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="set-light-sensor"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="set-lowspeed-sensor" kind="command" initlabel="超音波センサー" color="255 255 255">
-			<description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="ポート(1~4)" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="3"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="set-lowspeed-sensor"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="set-sound-sensor" kind="command" initlabel="音センサー" color="255 255 255">
-			<description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="ポート(1~4)" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="3"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="set-sound-sensor"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="set-color-sensor" kind="command" initlabel="色センサー" color="255 255 255">
-			<description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="ポート(1~4)" connector-kind="socket" connector-type="number">
-					<DefaultArg genus-name="number" label="3"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="set-color-sensor"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
 		<BlockGenus name="sensor-input-port2" kind="function" initlabel="Port2からの入力値" color="255 255 255">
 			<description>
 				<text>
@@ -698,20 +463,6 @@ BlockGenuses are first loaded.
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="sensor-input-port2"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="threshold" kind="function" initlabel="しきい値" color="255 255 255">
-			<description>
-				<text></text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="threshold"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
 				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
 			</LangSpecProperties>
@@ -734,22 +485,6 @@ BlockGenuses are first loaded.
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="connectorTester"></LangSpecProperty>
 				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-		
-		<BlockGenus name="start-nxt" kind="command" initlabel="プログラム開始" editable-label="yes" label-unique="yes" color="255 255 255">
-			<description>
-				<text>
-					プログラムの開始点
-				</text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="cmd" connector-kind="socket" connector-type="cmd"></BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
-				<LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 				
@@ -3698,30 +3433,21 @@ BlockGenuses are first loaded.
 			<FamilyMember>yank</FamilyMember>
 		</BlockFamily>
 		<BlockFamily>
-        	<FamilyMember>motor-on-fwd</FamilyMember>
-            <FamilyMember>motor-on-rev</FamilyMember>
-        </BlockFamily>
-        <BlockFamily>
-        	<FamilyMember>motor-on-a</FamilyMember>
-        	<FamilyMember>motor-on-b</FamilyMember>
-            <FamilyMember>motor-on-c</FamilyMember>
-        </BlockFamily>
-		<BlockFamily>
-			<FamilyMember>out_ab</FamilyMember>
-			<FamilyMember>out_bc</FamilyMember>
-			<FamilyMember>out_ac</FamilyMember>
-		</BlockFamily>
-        <BlockFamily>
-			<FamilyMember>sensor-input-port1</FamilyMember>
-			<FamilyMember>sensor-input-port2</FamilyMember>
-			<FamilyMember>sensor-input-port3</FamilyMember>
-			<FamilyMember>sensor-input-port4</FamilyMember>
+		    <FamilyMember>motor-on-fwd</FamilyMember>
+		    <FamilyMember>motor-on-rev</FamilyMember>
+		    <FamilyMember>motor-on-left</FamilyMember>
+		    <FamilyMember>motor-on-right</FamilyMember>
 		</BlockFamily>
 		<BlockFamily>
-			<FamilyMember>set-touch-sensor</FamilyMember>
-			<FamilyMember>set-light-sensor</FamilyMember>
-			<FamilyMember>set-lowspeed-sensor</FamilyMember>
-			<FamilyMember>set-color-sensor</FamilyMember>
+		    <FamilyMember>out-a</FamilyMember>
+		    <FamilyMember>out-b</FamilyMember>
+		    <FamilyMember>out-c</FamilyMember>
+		</BlockFamily>
+		<BlockFamily>
+		    <FamilyMember>sensor-input-port1</FamilyMember>
+		    <FamilyMember>sensor-input-port2</FamilyMember>
+   		    <FamilyMember>sensor-input-port3</FamilyMember>
+   		    <FamilyMember>sensor-input-port4</FamilyMember>
 		</BlockFamily>
 		<BlockFamily>
 		    <FamilyMember>setInt</FamilyMember>
@@ -3880,10 +3606,6 @@ BlockGenuses are first loaded.
 				<BlockGenusMember>motor-on-rev</BlockGenusMember>
 				<BlockGenusMember>motor-on-left</BlockGenusMember>
 				<BlockGenusMember>motor-on-right</BlockGenusMember>
-				<BlockGenusMember>set-touch-sensor</BlockGenusMember>
-				<BlockGenusMember>set-light-sensor</BlockGenusMember>
-				<BlockGenusMember>set-lowspeed-sensor</BlockGenusMember>
-				<BlockGenusMember>set-color-sensor</BlockGenusMember>
 			</BlockDrawer>
 			<!-- Shapes are automatically loaded as blocks in the Shapes drawer
 				 (see slcodeblocks.ShapeBlocksGenerator for details)  -->
