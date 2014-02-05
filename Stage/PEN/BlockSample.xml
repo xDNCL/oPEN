@@ -5,10 +5,10 @@
     <!-- 出力言語の設定ファイルへのパス
     	自由に選べるならば(FREE)を記載
     	出力言語を設定しないならば(NULL)を記載 -->
-    <Language>PEN.xml</Language>
+    <Language>JAVA.xml</Language>
     
     <!-- 拡張子 -->
-    <FileNameExtention>.pen</FileNameExtention>
+    <FileNameExtention>.java</FileNameExtention>
     
     <!-- ソースコード出力ボタンの有無(ON or OFF) -->
     <OutputButton>ON</OutputButton>
@@ -41,6 +41,7 @@
 				<BlockGenusMember>setString</BlockGenusMember>
 				<BlockGenusMember>substitution-number</BlockGenusMember>
 				<BlockGenusMember>substitution-string</BlockGenusMember>
+				<BlockGenusMember>substitution-number-b</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
 				<BlockGenusMember>print-number</BlockGenusMember>

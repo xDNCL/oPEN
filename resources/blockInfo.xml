@@ -35,6 +35,18 @@ BlockGenuses are first loaded.
 	</BlockConnectorShapes>
 	
 	<BlockGenuses>
+	   	<BlockGenus name="substitution-number-b" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
+		    <description>
+				<text>数値を代入します。</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="⬅" connector-kind="socket" connector-type="number"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="substitution-number"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
 	    
 	   	<BlockGenus name="test" kind="data" initlabel="test" color="255 242 0">
 			<description>
@@ -753,7 +765,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 				
-	    <BlockGenus name="start" kind="command" initlabel="プログラム開始" editable-label="yes" label-unique="yes" is-starter="yes" color="255 255 255">
+	    <BlockGenus name="start" kind="command" initlabel="プログラム開始" is-starter="yes" color="255 255 255">
 			<description>
 				<text>
 					プログラムの開始点

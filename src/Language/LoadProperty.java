@@ -10,7 +10,7 @@ public class LoadProperty {
 	private Properties configuration = new Properties();
 	
 	private final String DEFAULT_PATH = "resources/blockInfo.xml";
-	private final String DEFAULT_FOLDER = "resources";
+	private final String DEFAULT_FOLDER = "Stage/";
 	
 	public LoadProperty(String filePath) {
 		try {
@@ -49,7 +49,7 @@ public class LoadProperty {
 		}
 		
 		try{
-			select_BlockDrawerList_Folder = configuration.getProperty("select_BlockDrawerList_Folder").toString();
+			select_BlockDrawerList_Folder = DEFAULT_FOLDER +configuration.getProperty("select_BlockDrawerList_Folder").toString();
 		}catch(Exception e){
 			select_BlockDrawerList_Folder = DEFAULT_FOLDER;
 		}
@@ -57,7 +57,7 @@ public class LoadProperty {
 	}
 	
 	public boolean isSelected(){
-		if(select_BlockDrawerList_Address.equals("yes")){
+		if(select_BlockDrawerList_Address.equals("FREE")){
 			return true;
 		}
 		else{
