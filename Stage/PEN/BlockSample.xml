@@ -17,6 +17,7 @@
 <BlockDrawerSets>
 <BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
 			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
+			    <BlockGenusMember>NewBlock</BlockGenusMember>
 			    <BlockGenusMember>start</BlockGenusMember>
 			    <BlockGenusMember>repeat</BlockGenusMember>
 			    <BlockGenusMember>repeat-if</BlockGenusMember>
@@ -41,7 +42,6 @@
 				<BlockGenusMember>setString</BlockGenusMember>
 				<BlockGenusMember>substitution-number</BlockGenusMember>
 				<BlockGenusMember>substitution-string</BlockGenusMember>
-				<BlockGenusMember>substitution-number-b</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
 				<BlockGenusMember>print-number</BlockGenusMember>

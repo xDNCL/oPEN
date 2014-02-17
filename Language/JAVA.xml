@@ -21,6 +21,17 @@ CodeText = コードそのもの
 <BlockEducationCode>
 	<BlockCodes>
 	    
+	    <BlockCode name="NewBlock">
+	        <CodeText>
+	            @新しく定義したブロックです。 @_br
+	            @コネクター１の値は「 @_val 
+	            @」で、コネクタ−２の値は「 @_val
+	            @」です。
+	        </CodeText>
+	        <PreText>
+	        </PreText>
+	    </BlockCode>
+	    
 	    <BlockCode name="start">
 	        <CodeText>
 	            @public @_space @class @_space @BlockEducation{ @_br

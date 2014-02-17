@@ -74,10 +74,8 @@ public class OB_Workspace extends Workspace {
 	    protected OB_Workspace(){
         super();
         
- 
-        
 	    setLayout(null);
-        setBackground(Color.WHITE);
+        setBackground(Color.yellow);
         setPreferredSize(new Dimension(1000, 600));
 
         

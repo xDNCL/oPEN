@@ -67,9 +67,12 @@ public class ConsoleWindow implements ActionListener{
 	//
 	private static JTextField inputForm;
 	private static boolean inputFlag = false;
+	private static boolean nowInput = false;
 	
 	public static String getInputformText(){
-		return inputForm.getText();
+		String s = inputForm.getText();
+		inputForm.setText("");
+		return s;
 	}
 	
 	//ウィンドウモード用
@@ -120,15 +123,25 @@ public class ConsoleWindow implements ActionListener{
 		
 		//NorthPane
 		JPanel north = new JPanel();
+		north.setLayout(new BorderLayout());
 		reset = new JButton("始めに戻る");
 		reset.addActionListener(this);
 		oneStep = new JButton("ステップ実行");
 		oneStep.addActionListener(this);
 		allStep = new JButton("実行");
 		allStep.addActionListener(this);
-		north.add(reset);
-		north.add(oneStep);
-		north.add(allStep);
+		JLabel inputFormLabel = new JLabel("入力");
+		inputForm = new JTextField(20);
+		inputForm.addActionListener(this);
+		inputForm.setEditable(false);
+		JPanel f = new JPanel();
+		f.setLayout(new BorderLayout());
+		f.add(inputFormLabel, BorderLayout.WEST);
+		f.add(inputForm, BorderLayout.CENTER);
+		north.add(reset, BorderLayout.WEST);
+		north.add(oneStep, BorderLayout.CENTER);
+		north.add(allStep, BorderLayout.EAST);
+		north.add(f, BorderLayout.SOUTH);
 		body.add(north, BorderLayout.NORTH);
 		
 		//CenterPane
@@ -151,13 +164,8 @@ public class ConsoleWindow implements ActionListener{
 		JLabel variableLabel = new JLabel("変数名とその値");
 		valiableTable.setPreferredSize(new Dimension(300, 150));
 		valiableTable.setBackground(new Color(249, 249, 249));
-		JLabel inputFormLabel = new JLabel("入力フォーム");
-		inputForm = new JTextField(20);
-		inputForm.addActionListener(this);
 		JPanel inputFormBase = new JPanel();
 		
-		inputFormBase.add(inputFormLabel);
-		inputFormBase.add(inputForm);
 		south.add(variableLabel, BorderLayout.NORTH);
 		south.add(valiableTable, BorderLayout.CENTER);
 		south.add(inputFormBase, BorderLayout.SOUTH);
@@ -226,36 +234,20 @@ public class ConsoleWindow implements ActionListener{
 	}
 	
 	private void runAllBlock() throws BlockRunException{
-		int stack = runBlock();
-		while(stack != -1){
-			stack = runBlock();
-		}
-	}
-	
-	private int runBlock() throws BlockRunException{
 		if(event == null){
 			event = new EventStack(getStartBlock());
+			event.start();
 		}
-		int result = event.action();
-		if(result == -1){
-			event.resetHighLight();
-			System.out.println("＝＝＝＝プログラム終了＝＝＝＝");
-			event = null;
-		}
-		return result;
+		event.actionAll();
 	}
 	
-//	public static void getTextFieldForcus(){
-//		inputForm.requestFocus();
-//		inputFlag = true;
-//	}
-//	
-//	//to do
-//	//コード吐く前にエラーがないかチェックするべき？
-//	public static boolean checkCode(){
-//		return true;
-//	}
-	
+	private void runBlock() throws BlockRunException{
+		if(event == null){
+			event = new EventStack(getStartBlock());
+			event.start();
+		}
+		event.action();
+	}	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -266,15 +258,20 @@ public class ConsoleWindow implements ActionListener{
 				this.allStep.setEnabled(false);
 				this.oneStep.setEnabled(false);
 			}catch(Exception ex){
-				//実行がうまく行かなかったときの動作。特になし。
+				ex.printStackTrace();
 			}
 			//To Do
 		}
 		
 		if(e.getSource() == this.oneStep){
 //			consoleClear();
+			if(nowInput) {
+				setForcus();
+				return;
+			}
 			try{
-				if(runBlock() == -1){
+				runBlock();
+				if(event.isEmpty()){
 					this.oneStep.setEnabled(false);
 				}
 			}catch(Exception ex){
@@ -284,6 +281,7 @@ public class ConsoleWindow implements ActionListener{
 		
 		if(e.getSource() == this.reset){
 			consoleClear();
+			inputForm.setText("");
 			this.allStep.setEnabled(true);
 			this.oneStep.setEnabled(true);
 			if(event != null){
@@ -292,46 +290,27 @@ public class ConsoleWindow implements ActionListener{
 			}
 			//reset Highlight
 			BlockRunException.blinkOff();
+			nowInput = false;
 		}
 		
 		if(e.getSource() == inputForm){
-			System.setIn(new ByteArrayInputStream(inputForm.getText().getBytes()));
+			nowInput = false;
+			inputFlag = true;
+			inputForm.setEditable(false);
 		}
 	}
 	
 	public static void setForcus(){
 		inputForm.requestFocus(true);
+		inputForm.setEditable(true);
+		inputForm.setText("");
+		nowInput = true;
+		inputFlag = false;
 	}
 	
-//	/**
-//	 * ブロックの実行を並列処理
-//	 * @author shuhara
-//	 *
-//	 */
-//	public class BlockRun extends Thread{
-//		
-//		final OB_Block start;
-//		
-//		BlockRun(OB_Block block){
-//			this.start = block;
-//		}
-//		
-//		public void run(){
-//			try {
-//				start.runBlock();
-//			}catch(BlockRunException e1) {
-//				//実行時エラー
-//			}catch(Exception e2){
-//				e2.printStackTrace();
-//			}finally{
-//				//実行終了
-//				runNow = false;
-//			}
-//			
-//		}
-//		
-//	}
-	
+	public static boolean isEntered(){
+		return inputFlag;
+	}
 	
 	public class JTextAreaStream extends OutputStream {
 
@@ -367,40 +346,83 @@ public class ConsoleWindow implements ActionListener{
 		private ArrayList<OB_Block> eventQueue;
 		private int stackCount;
 		private OB_Block highLightBlock = null;
+		private boolean go;
+		private boolean allGo;
 		
 		EventStack(OB_Block firstEvent){
 			this.eventQueue = new ArrayList<OB_Block>();
 			this.stackCount = -1;
+			this.go = false;
+			this.allGo = false;
 			this.addEvent(firstEvent);
 		}
 		
 		@Override
 		public void run(){
-			
+			while(this.stackCount > -1){
+				
+					while(!(go || allGo)){
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					if(highLightBlock != null){
+						//ハイライト消す
+						this.resetHighLight();
+					}
+					
+					OB_Block run = this.getEvent();
+					if(run == null){
+						this.resetHighLight();
+						return;
+					}
+					
+					//ハイライト点灯
+					highLightBlock = run;
+					(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).setBlockHighlightColor(Color.YELLOW);
+					
+					ArrayList<OB_Block> results = null;
+					try {
+						results = run.runBlock();
+					} catch (BlockRunException e) {
+						//エラー処理はBlock側で表示されるのでここではしない。
+						return;
+					}
+					
+					for(int i=results.size()-1; i>=0; i--){
+						this.addEvent(results.get(i));
+					}
+					go = false;
+	//				this.debug();
+				}
+			if(allGo){
+				allGo = false;
+				resetHighLight();
+				System.out.println("＝＝＝＝プログラム終了＝＝＝＝");
+				return;
+			}
 		}
 		
-		protected int action() throws BlockRunException{
-			if(highLightBlock != null){
-				//ハイライト消す
-				this.resetHighLight();
+		protected void action(){
+			if(this.stackCount <= -1){
+				resetHighLight();
+				System.out.println("＝＝＝＝プログラム終了＝＝＝＝");
+				return;
 			}
-			
-			OB_Block run = this.getEvent();
-			if(run == null){
-				this.resetHighLight();
-				return -1;
+			if(!this.isEmpty()){
+				go = true;
 			}
-			
-			//ハイライト点灯
-			highLightBlock = run;
-			(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).setBlockHighlightColor(Color.YELLOW);
-			
-			ArrayList<OB_Block> results = run.runBlock();
-			for(int i=results.size()-1; i>=0; i--){
-				this.addEvent(results.get(i));
-			}
-//			this.debug();
-			return this.stackCount;
+		}
+		
+		protected void actionAll(){
+			allGo = true;
+		}
+		
+		protected boolean isEmpty(){
+			return this.stackCount <= -1 ? true: false;
 		}
 		
 		protected void resetHighLight(){

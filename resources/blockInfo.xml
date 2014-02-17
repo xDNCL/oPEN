@@ -35,7 +35,25 @@ BlockGenuses are first loaded.
 	</BlockConnectorShapes>
 	
 	<BlockGenuses>
-	   	<BlockGenus name="substitution-number-b" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
+	    
+	    <BlockGenus name="NewBlock" kind="command" initlabel="新たなブロック" 
+	        						editable-label="yes" is-label-value="yes" color="126 206 244">
+		    <description>
+				<text>新しく定義したブロックです</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="数値コネクタ" connector-kind="socket" connector-type="number">
+				</BlockConnector>
+				<BlockConnector label="文字コネクタ" connector-kind="socket" connector-type="string">
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="NewBlock"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+	    
+	   	<BlockGenus name="substitution-number" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
 		    <description>
 				<text>数値を代入します。</text>
 			</description>
@@ -160,7 +178,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>		
 
-	    <BlockGenus name="substitution-number" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
+	    <BlockGenus name="substitution-number-b" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
 		    <description>
 				<text>数値を代入します。</text>
 			</description>

@@ -178,6 +178,7 @@ public class OB_Block extends Block{
 	    		if(value){
 	    			runList.add(this.getBlock(this.getSocketAt(1).getBlockID()));
 	    			runList.add(this);
+	    			return runList;
 	    		}
 	    	}
 	    	
@@ -247,14 +248,15 @@ public class OB_Block extends Block{
 	    	}
 	    	if(this.getGenusName().equals("keyboard-input-number")){
 	    		ConsoleWindow.setForcus();
-	    		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	    		String inputData = "";
 	    		try {
-	    		      inputData = reader.readLine();
-	    		     } catch (IOException e) {
-	    		      e.printStackTrace();
+	    		      while(!ConsoleWindow.isEntered()){
+							Thread.sleep(100);						
+	    		      	}
+	    		      inputData = ConsoleWindow.getInputformText();
+	    		    }catch (InterruptedException e) {
+	    		      throw new BlockRunException(this, BlockRunException.UNEXPECTED);
 	    		     }
-	    		
 	    		Object result = null;
 		    	try{
 		    		if(inputData.contains(".")){
