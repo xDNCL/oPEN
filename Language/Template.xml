@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BlockEducationCode>
+	<BlockCodes>
+	   	<BlockCode name="repeat-if">
+	        <CodeText>
+	    		コード（必須）     
+	        </CodeText>
+	       	<PreText>
+	       	    インデント（必要があれば）
+	       	</PreText>
+	    </BlockCode>
+	</BlockCodes>
+</BlockEducationCode>

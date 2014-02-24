@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+<Output>
+      <!-- 出力言語の設定ファイルへのパス
+    	出力現をを設定しないならば(NULL)を記載 -->
+    <Language>NQC.xml</Language>
+    
+    <!-- 拡張子 -->
+    <FileNameExtention>.nqc</FileNameExtention>
+    
+    <!-- ソースコード出力ボタンの有無(ON or OFF) -->
+    <OutputButton>ON</OutputButton>
+</Output>
+<BlockDrawerSets>
+<BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
+			<BlockDrawer name="制御系" type="factory" button-color="255 173 0">
+			    <BlockGenusMember>start</BlockGenusMember>
+			</BlockDrawer>
+
+			<BlockDrawer  name="モーター" type="factory" button-color="255 50 50">
+				<BlockGenusMember>out_bc</BlockGenusMember>
+				<BlockGenusMember>motor-on-fwd</BlockGenusMember>
+				<BlockGenusMember>motor-on-b</BlockGenusMember>
+				<BlockGenusMember>motor-off</BlockGenusMember>
+				<BlockGenusMember>wait</BlockGenusMember>
+				<BlockGenusMember>rotate</BlockGenusMember>
+			</BlockDrawer>
+</BlockDrawerSet>
+</BlockDrawerSets>
+</root>

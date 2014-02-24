@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+CodeText = コードそのもの
+
+<CodeText>専用タグ
+@param _val	接続先の値を取得する
+@param _label	自身のラベル（ブロック本体のラベル）の値を取得する
+@param _preval 	<PreText> を各行頭につけた状態で、接続先の値を取得する
+@param _br	任意の場所で改行
+
+<PreCode>専用タグ
+@param _t	タブ挿入
+
+共通タグ
+@param _space	半角スペース挿入
+
+@param @ 	区切り文字
+
+@param @ 区切り文字
+
+ -->
+<BlockEducationCode>
+	<BlockCodes>
+	    
+	    <BlockCode name="start">
+	        <CodeText>
+	        	@task @_space @main() { @_br
+	            @_preval
+	            @_br @}
+	        </CodeText>
+	        <PreText>
+				@_t
+	       	</PreText>
+	    </BlockCode>
+	    
+	    <BlockCode name="repeat">
+	        <CodeText>
+	            @while (@_val @) { @_br
+	            @_preval
+	            @_br @}
+	        </CodeText>
+	       	<PreText>
+	       	    @_t
+	       	</PreText>
+	    </BlockCode>
+	    
+	    <BlockCode name="if">
+	        <CodeText>
+	            @if (@_val @) { @_br
+	            @_preval
+	            @_br @}
+	        </CodeText>
+	        <PreText>
+	            @_t
+	        </PreText>
+	    </BlockCode>
+	    
+	    <BlockCode name="substitution-number">
+	        <CodeText>
+	            @_label @= @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="substitution-string">
+	        <CodeText>
+	            @_label @= @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="sum">
+	        <CodeText>
+	            @( @_val @+ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="difference">
+	        <CodeText>
+     	        @( @_val @- @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="quotient">
+	        <CodeText>
+ 	       		@( @_val @/ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="product">
+	        <CodeText>
+	            @( @_val @* @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="surplus">
+	        <CodeText>
+	            @( @_val @% @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="setInt">
+	        <CodeText>
+	            @int　 @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="setString">
+	        <CodeText>
+	            @string　 @_val
+	        </CodeText>
+	    </BlockCode>	    
+	    
+	    <BlockCode name="variable-Number">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="variable-String">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="lessthan">
+	        <CodeText>
+	            @( @_val @＜ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="greaterthan">
+	        <CodeText>
+	            @( @_val @＞ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	        
+	    <BlockCode name="equals">
+	        <CodeText>
+	            @( @_val @== @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="number">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="string">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="motor-on-fwd">
+	        <CodeText>
+	            @OnFwd( @_val @, @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="motor-on-rev">
+	        <CodeText>
+	            @OnRev( @_val @, @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="motor-on-a">
+	        <CodeText>
+	            @OnFwd( @OUT_A @, @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="motor-on-b">
+	        <CodeText>
+	            @OnFwd( @OUT_B @, @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="motor-on-c">
+	        <CodeText>
+	            @OnFwd( @OUT_C @, @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="out_a">
+	        <CodeText>
+	            @OUT_A
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="out_b">
+	        <CodeText>
+	            @OUT_B
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="out_c">
+	        <CodeText>
+	            @OUT_C
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="out_ab">
+	        <CodeText>
+	            @OUT_AB
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="out_bc">
+	        <CodeText>
+	            @OUT_BC
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="out_ac">
+	        <CodeText>
+	            @OUT_AC
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="rotate-motor">
+	        <CodeText>
+	            @Rotate( @_val @, @_val @, @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="rotate-motor-rev">
+	        <CodeText>
+	            @Rotate( @_val @, @_val @, -@_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="wait-motor">
+	        <CodeText>
+	            @OnFwd( @_val @, @_val @);
+	            @wait( @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="wait">
+	        <CodeText>
+	            @wait( @_val @);
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="rotate">
+	    	<CodeText>
+	    		@_val
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="sensor-input-port1">
+	    	<CodeText>
+	    		@SENSOR_1
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="sensor-input-port2">
+	    	<CodeText>
+	    		@SENSOR_2
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="sensor-input-port3">
+	    	<CodeText>
+	    		@SENSOR_3
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="set-touch-sensor">
+	    	<CodeText>
+	    		@SetSensorTouch(IN_@_val @);
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="set-light-sensor">
+	    	<CodeText>
+	    		@SetSensorLight(IN_@_val @);
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="set-lowspeed-sensor">
+	    	<CodeText>
+	    		@SetSensorLowspeed(IN_@_val @);
+	    	</CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="set-sound-sensor">
+	    	<CodeText>
+	    		@SetSensorSound(IN_@_val @);
+	    	</CodeText>
+	    </BlockCode>
+	    
+	</BlockCodes>
+</BlockEducationCode>
