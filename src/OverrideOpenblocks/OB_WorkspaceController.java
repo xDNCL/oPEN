@@ -414,14 +414,17 @@ public class OB_WorkspaceController extends WorkspaceController{
 		    		Node properties = outputChildren.item(i);
 
 			    	if(properties.getNodeName().equals("Language")){
-			    		this.outputLanguagePath = languageFolderName + "/" +properties.getTextContent();
+			    		this.outputLanguagePath = properties.getTextContent();
 			    		if(this.outputLanguagePath.equals("NULL")){
 			    			showButton = false;
 			    		}
+			    		
 			    		if(this.outputLanguagePath.equals("FREE")){
 			    			selectLanguage = true;
 			    		}
-			    		
+			    		else{
+			    			this.outputLanguagePath += (languageFolderName + "/");
+			    		}
 //			    		System.out.println(this.outputLanguagePath);
 			    	}
 			    	

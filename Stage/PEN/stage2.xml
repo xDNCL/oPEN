@@ -3,19 +3,20 @@
 <Output>
       <!-- 出力言語の設定ファイルへのパス
     	出力現をを設定しないならば(NULL)を記載 -->
-    <Language>resources/PEN.xml</Language>
+    <Language>FREE</Language>
     
     <!-- 拡張子 -->
-    <FileNameExtention>.pen</FileNameExtention>
+    <FileNameExtention>.java</FileNameExtention>
     
     <!-- ソースコード出力ボタンの有無(ON or OFF) -->
-    <OutputButton>OFF</OutputButton>
+    <OutputButton>ON</OutputButton>
 </Output>
 <BlockDrawerSets>
 <BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
 			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
 			    <BlockGenusMember>start</BlockGenusMember>
 			    <BlockGenusMember>if</BlockGenusMember>
+			    <BlockGenusMember>ifelse</BlockGenusMember>
 			    <BlockGenusMember>equals</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">

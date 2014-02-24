@@ -3,6 +3,7 @@ package Exe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
@@ -46,6 +47,7 @@ public class ConsoleWindow implements ActionListener{
 	public static void setVariableTable(Hashtable<String, Object> list){
 		tableModel = new DefaultTableModel(dummy, columnNames);
 		valiableTable.setModel(tableModel);
+		valiableTable.setFont(new Font("Arial",Font.PLAIN, 18));
 		
 		
 		for (Enumeration<String> e = list.keys(); e.hasMoreElements();){
@@ -150,6 +152,7 @@ public class ConsoleWindow implements ActionListener{
 		center.setLayout(new BorderLayout());
 		console = new JTextArea();
 		console.setEditable(false);
+		console.setFont(new Font("Arial",Font.PLAIN, 18));
 		console.setBackground(new Color(245, 245, 245));
 //		console.setPreferredSize(new Dimension(300, 200));
 		JScrollPane scroll= new JScrollPane(console);

@@ -1,14 +1,8 @@
 package OverrideOpenblocks;
 
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +13,6 @@ import Exe.BlockRunException;
 import Exe.ConsoleWindow;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblocks.BlockConnector;
-import edu.mit.blocks.codeblocks.BlockStub;
 import edu.mit.blocks.workspace.Workspace;
 
 public class OB_Block extends Block{
@@ -70,10 +63,6 @@ public class OB_Block extends Block{
     //exe//
     ///////
     
-   
-    
-	/**
-     */
     public ArrayList<OB_Block> runBlock() throws BlockRunException{
 //    	System.out.println("now:"+this.getGenusName());
     	ArrayList<OB_Block> runList = new ArrayList<OB_Block>();
@@ -101,7 +90,7 @@ public class OB_Block extends Block{
 	    		createVariable(name, new Boolean(true));
 	    	}
 	    	
-	    	//System i/o
+	    	//System I/O
 	    	if(this.getGenusName().equals("print-number")){
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 	    		System.out.print(value);
@@ -246,7 +235,7 @@ public class OB_Block extends Block{
 	    			 return new Double(Math.random() * Double.valueOf(value.toString())); 
 	    		 }
 	    	}
-	    	if(this.getGenusName().equals("keyboard-input-number")){
+	    	if(this.getGenusName().equals("keyboard-input-number") || this.getGenusName().equals("keyboard-input-string")){
 	    		ConsoleWindow.setForcus();
 	    		String inputData = "";
 	    		try {
@@ -258,6 +247,11 @@ public class OB_Block extends Block{
 	    		      throw new BlockRunException(this, BlockRunException.UNEXPECTED);
 	    		     }
 	    		Object result = null;
+	    		//文字列用
+	    		if(this.getGenusName().equals("keyboard-input-string")){
+	    			return new String(inputData);
+	    		}
+	    		//以下数値用
 		    	try{
 		    		if(inputData.contains(".")){
 		    			result = new Double(Double.valueOf(inputData));
@@ -313,8 +307,8 @@ public class OB_Block extends Block{
     }
     
     /**
-     * Boolean�ｽ�ｽ�ｽ\�ｽb�ｽh�ｽp
-     * boolean connector�ｽp
+     * Boolean
+     * boolean connector
      * @return boolean
      */
     public boolean evaluateBoolean() throws BlockRunException{
@@ -339,7 +333,7 @@ public class OB_Block extends Block{
 	    	}
 	    	
 	    	//calculation block
-	    	if(this.getGenusName().equals("equals")){
+	    	if(this.getGenusName().equals("equals") || this.getGenusName().equals("equals-s")){
 	    		return this.equals(getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
 	    				getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
@@ -425,7 +419,7 @@ public class OB_Block extends Block{
        					variableTable.put(name, Double.valueOf(value.toString()));
        				}
        				else{
-       					throw new BlockRunException(this, "�ｽ�ｽ�ｽ�ｽ�ｽﾉ趣ｿｽ�ｽ�ｽ�ｽ^�ｽﾍ托ｿｽ�ｽﾅゑｿｽ�ｽﾜゑｿｽ�ｽ�ｽB");
+       					throw new BlockRunException(this, "--");
        				}
        			}
        			else if(value instanceof Long){
@@ -436,8 +430,8 @@ public class OB_Block extends Block{
        					variableTable.put(name, Double.valueOf(value.toString()));
        				}
        				else{
-       					//Integer�ｽ^�ｽ�ｽLong�ｽ^�ｽ�ｽ�ｽL�ｽ�ｽ�ｽX�ｽg�ｽ�ｽ�ｽ�ｽ�ｽﾛのエ�ｽ�ｽ�ｽ[
-       					throw new BlockRunException(this, "�ｽ�ｽ�ｽ�ｽ�ｽ^�ｽ�ｽLong�ｽ^�ｽﾍ托ｿｽ�ｽﾅゑｿｽ�ｽﾜゑｿｽ�ｽ�ｽB");
+       					//
+       					throw new BlockRunException(this, "--");
        				}
        			}
        			else if(value instanceof Integer){
@@ -451,12 +445,12 @@ public class OB_Block extends Block{
        					variableTable.put(name, Long.valueOf(value.toString()));
        				}
        			}
-       			//�ｽﾏ撰ｿｽ�ｽe�ｽ[�ｽu�ｽ�ｽ�ｽ�ｽ�ｽ�ｽﾊに費ｿｽ�ｽf
+       			//
        			ConsoleWindow.setVariableTable(variableTable);
        		}catch(BlockRunException e){
        			throw new BlockRunException(this, BlockRunException.CAST_ERROR);
        		}
-       		//�ｽN�ｽ�ｽ�ｽ�ｽ�ｽﾄはなゑｿｽﾈゑｿｽException
+       		//
        		catch(Exception e){
        			throw new BlockRunException(this, BlockRunException.UNEXPECTED);
        		}
@@ -507,7 +501,7 @@ public class OB_Block extends Block{
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
     	if(a instanceof String || b instanceof String){
-    		//�ｽ�ｽ�ｽ�ｽ�ｽ�ｽﾌ費ｿｽr�ｽs�ｽ�ｽ
+    		//
     		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     	}
     	else if(a instanceof Double || b instanceof Double) {

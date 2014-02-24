@@ -11,22 +11,22 @@ import OverrideOpenblocks.OB_Workspace;
 
 public class ToCode {
 	
-	//‰üsƒR[ƒh
+	//æ”¹è¡Œã‚³ãƒ¼ãƒ‰
 	private final String br = "\n";
-	//ƒ^ƒuƒR[ƒh
+	//ã‚¿ãƒ–ã‚³ãƒ¼ãƒ‰
 	private final String tab = "\t";
 	
-	//ƒvƒƒOƒ‰ƒ€ŠJn‚ÌƒuƒƒbƒN
+	//ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹ã®ãƒ–ãƒ­ãƒƒã‚¯
 	private final String firstSearchBlockName = "start";
 	private final String[] CONNECTOR_TYPES = {"cmd", "boolean", "number", "io"};
 	
-	//ƒuƒƒbƒN‚ÌƒR[ƒhî•ñ
+	//ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚³ãƒ¼ãƒ‰æƒ…å ±
 	private ArrayList<BlockString> blockCodeStringList;
 	
-	//workspaceã‚ÌƒuƒƒbƒN‚Ìî•ñ
+	//workspaceä¸Šã®ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
 	private OB_Workspace workspace;
 		
-	//ƒRƒ}ƒ“ƒhŒn•¶š—ñ
+	//ã‚³ãƒãƒ³ãƒ‰ç³»æ–‡å­—åˆ—
 	private final String VAL = "_val";
 	private final String PREVAL = "_preval";
 	private final String LABEL = "_label";
@@ -48,13 +48,13 @@ public class ToCode {
 					first = block;
 				}
 				else{
-					throw new BlockRunException(block, "ƒvƒƒOƒ‰ƒ€ŠJn‚ÌƒuƒƒbƒN‚ªd•¡‚µ‚Ä‚¢‚Ü‚·B");
+					throw new BlockRunException(block, "ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹ã®ãƒ–ãƒ­ãƒƒã‚¯ãŒé‡è¤‡ã—ã¦ã„ã¾ã™ã€‚");
 				}	
 			}
 		}
 		
 		if(first == null){
-			throw new BlockRunException("ƒvƒƒOƒ‰ƒ€ŠJn‚ÌƒuƒƒbƒN‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+			throw new BlockRunException("ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹ã®ãƒ–ãƒ­ãƒƒã‚¯ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
 		}
 		
 		for(String code: iterative(first)){
@@ -69,7 +69,7 @@ public class ToCode {
 	private ArrayList<String> iterative(Block block)throws BlockRunException{
 		String result = "";
 		
-		//ƒRƒlƒNƒ^æ‚ÌƒuƒƒbƒNæ“¾
+		//ã‚³ãƒã‚¯ã‚¿å…ˆã®ãƒ–ãƒ­ãƒƒã‚¯å–å¾—
 		ArrayList<ArrayList<String>> connectorCodeList = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<Block>> connectionBlocks = new ArrayList<ArrayList<Block>>();
 		
@@ -80,19 +80,19 @@ public class ToCode {
 			connectionBlocks.add(getBlockList(bc));
 		}
 		
-		//ƒuƒƒbƒN–¼‚©‚çƒuƒƒbƒNƒR[ƒh‚ğæ“¾
+		//ãƒ–ãƒ­ãƒƒã‚¯åã‹ã‚‰ãƒ–ãƒ­ãƒƒã‚¯ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—
 		BlockString matchBlock = searchBlockCodeString(block.getGenusName(), connectionBlocks);
 		
 		if(matchBlock == null){
-			throw new BlockRunException("ƒuƒƒbƒN–¼F"+block.getGenusName()+"‚Ì•ÏŠ·ƒ‹[ƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+			throw new BlockRunException("ãƒ–ãƒ­ãƒƒã‚¯åï¼š"+block.getGenusName()+"ã®å¤‰æ›ãƒ«ãƒ¼ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
 		}
 		
-		//ƒR[ƒh¶¬@‚P—v‘f‚Ps‚ÌƒR[ƒh
+		//ã‚³ãƒ¼ãƒ‰ç”Ÿæˆã€€ï¼‘è¦ç´ ï¼ï¼‘è¡Œã®ã‚³ãƒ¼ãƒ‰
 		ArrayList<String> codeLine = new ArrayList<String>();
 		int connectorNum  = 0;
 		
 		for(String code: matchBlock.getCode()){
-			//ƒRƒlƒNƒ^[æ‚Ì’læ“¾ˆ—
+			//ã‚³ãƒã‚¯ã‚¿ãƒ¼å…ˆã®å€¤å–å¾—å‡¦ç†
 			if(code.equals(VAL)){
 				for(String line: connectorCodeList.get(connectorNum)){
 					result += line;
@@ -102,13 +102,13 @@ public class ToCode {
 			
 			else if(code.equals(PREVAL)){
 				String indent = translationForPreCode(matchBlock.getPreCode());
-				//ƒXƒ^[ƒgƒuƒƒbƒNê—pBŒã‚ÅÁ‚·
+				//ã‚¹ã‚¿ãƒ¼ãƒˆãƒ–ãƒ­ãƒƒã‚¯å°‚ç”¨ã€‚å¾Œã§æ¶ˆã™
 				if(matchBlock.getName().equals("start")){
 					for(String Scode: iterative(workspace.getEnv().getBlock(block.getAfterBlockID()))){
 						codeLine.add(indent + Scode);
 					}
 				}
-				//³‹Kƒ‹[ƒg
+				//æ­£è¦ãƒ«ãƒ¼ãƒˆ
 				if(connectorCodeList.size() > 0){
 					for(String line: connectorCodeList.get(connectorNum)){
 						codeLine.add(indent + line);
@@ -116,22 +116,22 @@ public class ToCode {
 				}
 				connectorNum++;
 			}
-			//ƒ‰ƒxƒ‹‚Ì’læ“¾	
+			//ãƒ©ãƒ™ãƒ«ã®å€¤å–å¾—	
 			else if(code.equals(LABEL)){
 				result += block.getBlockLabel();
 			}
 			
-			//‰üsƒRƒ}ƒ“ƒhˆ—
+			//æ”¹è¡Œã‚³ãƒãƒ³ãƒ‰å‡¦ç†
 			else if(code.equals(BR)){
 				codeLine.add(result);
 				result = "";
 			}
 			
-			//ƒXƒy[ƒXˆ—
+			//ã‚¹ãƒšãƒ¼ã‚¹å‡¦ç†
 			else if(code.equals(SPACE)){
 				result += " ";
 			}
-			//’ÊíƒR[ƒh‚Æ‚µ‚Äˆ—
+			//é€šå¸¸ã‚³ãƒ¼ãƒ‰ã¨ã—ã¦å‡¦ç†
 			else{
 				result += code;
 			}
@@ -156,7 +156,7 @@ public class ToCode {
 	
 	
 	/**
-	 * ƒCƒ“ƒfƒ“ƒgƒR[ƒh“à‚Ì“Á’è‚Ì•¶š—ñ‚ğ•ÏŠ·
+	 * ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚³ãƒ¼ãƒ‰å†…ã®ç‰¹å®šã®æ–‡å­—åˆ—ã‚’å¤‰æ›
 	 */
 	private String translationForPreCode(String[] indents){
 		String result = "";
@@ -175,8 +175,8 @@ public class ToCode {
 	}
 						
 	/**
-	 * ‰üsƒR[ƒh‚ªˆá‚¤‚Æ¢‚é‚Ì‚Åƒƒ\ƒbƒh‚©‚ç‰üsƒRƒ}ƒ“ƒhŒÄ‚Ño‚µ
-	 * @return ‰üsƒR[ƒh
+	 * æ”¹è¡Œã‚³ãƒ¼ãƒ‰ãŒé•ã†ã¨å›°ã‚‹ã®ã§ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰æ”¹è¡Œã‚³ãƒãƒ³ãƒ‰å‘¼ã³å‡ºã—
+	 * @return æ”¹è¡Œã‚³ãƒ¼ãƒ‰
 	 */
 	private String br(){
 		return br;
@@ -184,32 +184,119 @@ public class ToCode {
 	
 	/**
 	 * 
-	 * @return ƒ^ƒuƒR[ƒh
+	 * @return ã‚¿ãƒ–ã‚³ãƒ¼ãƒ‰
 	 */
 	private String tab(){
 		return tab;
 	}
 	
 	/**
-	 * ƒuƒƒbƒNƒf[ƒ^ƒx[ƒX‚©‚çƒT[ƒ`
-	 * @param name@ƒuƒƒbƒN–¼‘OiŠî–{“I‚É‚±‚¿‚ç‚¾‚¯‚ÅƒT[ƒ`j
+	 * ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‹ã‚‰ã‚µãƒ¼ãƒ
+	 * @param nameã€€ãƒ–ãƒ­ãƒƒã‚¯åå‰ï¼ˆåŸºæœ¬çš„ã«ã“ã¡ã‚‰ã ã‘ã§ã‚µãƒ¼ãƒï¼‰
 	 * 
-	 * @param connecotorList@‚à‚µÚ‘±‚³‚ê‚Ä‚¢‚éƒuƒƒbƒN‚É‚æ‚Á‚Äo—Í‚·‚éƒR[ƒh‚ª•Ï‚í‚éê‡A
-	 * ‚±‚ÌconnectorList“à‚ğ’T‚µ‚ÄA“KØ‚ÈƒR[ƒh‚ğ“f‚­ƒuƒƒbƒNƒf[ƒ^ƒx[ƒX‚ğ’T‚·‚±‚Æ
+	 * @param connecotorListã€€ã‚‚ã—æ¥ç¶šã•ã‚Œã¦ã„ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã«ã‚ˆã£ã¦å‡ºåŠ›ã™ã‚‹ã‚³ãƒ¼ãƒ‰ãŒå¤‰ã‚ã‚‹å ´åˆã€
+	 * ã“ã®connectorListå†…ã‚’æ¢ã—ã¦ã€é©åˆ‡ãªã‚³ãƒ¼ãƒ‰ã‚’åããƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’æ¢ã™ã“ã¨
 	 * 
-	 * connectorList.get(0) ˆê”Ôã‚ÌƒRƒlƒNƒ^[‚ÌƒuƒƒbƒNƒŠƒXƒgæ“¾
-	 * connectorList.get(1) “ñ”Ô–Ú‚ÌƒRƒlƒNƒ^[‚ÌƒuƒƒbƒNƒŠƒXƒgæ“¾
-	 * EEEˆÈ‰º—ªEEE
+	 * connectorList.get(0) ä¸€ç•ªä¸Šã®ã‚³ãƒã‚¯ã‚¿ãƒ¼ã®ãƒ–ãƒ­ãƒƒã‚¯ãƒªã‚¹ãƒˆå–å¾—
+	 * connectorList.get(1) äºŒç•ªç›®ã®ã‚³ãƒã‚¯ã‚¿ãƒ¼ã®ãƒ–ãƒ­ãƒƒã‚¯ãƒªã‚¹ãƒˆå–å¾—
+	 * ãƒ»ãƒ»ãƒ»ä»¥ä¸‹ç•¥ãƒ»ãƒ»ãƒ»
 	 * @return
 	 */
-	private BlockString searchBlockCodeString(String name, ArrayList<ArrayList<Block>> connectionBlocks){
+	private BlockString searchBlockCodeString(String name, ArrayList<ArrayList<Block>> connectionBlocks) throws BlockRunException{
 		
-		/** ‚±‚±‚É“Áêˆ—‚·‚éƒuƒƒbƒN–¼‚ÆA‚»‚Ìˆ—“à—e‚ğ‹Lq‚·‚é **/
+		/** ã“ã“ã«ç‰¹æ®Šå‡¦ç†ã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯åã¨ã€ãã®å‡¦ç†å†…å®¹ã‚’è¨˜è¿°ã™ã‚‹ **/
 //		if(name.equals("")){
 //			String advancedName = "hoge";
 //			return searchBlockCodeString(advancedName);
 //		}
 //		debug(connectionBlocks);
+		
+		if(name.equals("motor-on-fwd")){
+			BlockString bs = searchBlockCodeString("motor-on-fwd");
+			for(Block block: connectionBlocks.get(2)){
+				if(block.getGenusName().equals("rotate")){
+					bs = searchBlockCodeString("rotate-motor");
+					int i = 0;
+					int j = 0;
+					String[] code = new String[bs.getCode().length];
+					for(String str: bs.getCode()){
+						if(str.equals("_val")){
+							i++;
+							if(i == 3){
+								str = iterative(block).get(0);
+							}
+						}
+						code[j++] = str;
+					}
+					bs = new BlockString(bs.getName(), code);
+					break;
+				}
+			}
+			for(Block block: connectionBlocks.get(2)){
+				if(block.getGenusName().equals("wait")){
+					ArrayList<String> codes = new ArrayList<String>();
+					for(String c: bs.getCode()){
+						codes.add(c);
+					}
+					//waitÃ‡ÃƒÃ‰RÃ…[Ã‰hÃ‡ÃƒÃ‡Ã•Ã‡âˆ
+					codes.add(iterative(block).get(0));
+					String[] strs = new String[codes.size()];
+					int i=0;
+					for(String s: codes){
+						
+						strs[i++] = new String(s);
+					}
+					
+					return new BlockString(bs.getName(), strs);
+				}
+			}
+			return bs;
+		}
+		
+		if(name.equals("motor-on-rev")){
+			BlockString bs = searchBlockCodeString("motor-on-rev");
+			if(connectionBlocks.get(2).equals(null)){
+				return bs;
+			}
+			for(Block block: connectionBlocks.get(2)){
+				if(block.getGenusName().equals("rotate")){
+					bs = searchBlockCodeString("rotate-motor-rev");
+					int i = 0;
+					int j = 0;
+					String[] code = new String[bs.getCode().length];
+					for(String str: bs.getCode()){
+						if(str.equals("_val")){
+							i++;
+							if(i == 3){
+								str = iterative(block).get(0);
+							}
+						}
+						code[j++] = str;
+					}
+					bs = new BlockString(bs.getName(), code);
+					break;
+				}
+			}
+			for(Block block: connectionBlocks.get(2)){
+				if(block.getGenusName().equals("wait")){
+					ArrayList<String> codes = new ArrayList<String>();
+					for(String c: bs.getCode()){
+						codes.add(c);
+					}
+					//waitÃ‡ÃƒÃ‰RÃ…[Ã‰hÃ‡ÃƒÃ‡Ã•Ã‡âˆ
+					codes.add(iterative(block).get(0));
+					String[] strs = new String[codes.size()];
+					int i=0;
+					for(String s: codes){
+						
+						strs[i++] = new String(s);
+					}
+					
+					return new BlockString(bs.getName(), strs);
+				}
+			}
+			return bs;
+		}
 		
 		return searchBlockCodeString(name);		
 	}
