@@ -423,7 +423,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 			    			selectLanguage = true;
 			    		}
 			    		else{
-			    			this.outputLanguagePath += (languageFolderName + "/");
+			    			this.outputLanguagePath = (languageFolderName + "/") + this.outputLanguagePath;
 			    		}
 //			    		System.out.println(this.outputLanguagePath);
 			    	}

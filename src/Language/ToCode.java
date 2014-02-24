@@ -69,14 +69,19 @@ public class ToCode {
 	private ArrayList<String> iterative(Block block)throws BlockRunException{
 		String result = "";
 		
+		if(block == null) return null;
+		
 		//コネクタ先のブロック取得
 		ArrayList<ArrayList<String>> connectorCodeList = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<Block>> connectionBlocks = new ArrayList<ArrayList<Block>>();
 		
 		for(int i=0; i<block.getNumSockets(); i++){
 			BlockConnector bc = block.getSocketAt(i);
-//			System.out.println(block.getGenusName() +", socketNum:"+ block.getNumSockets() +", connected:"+workspace.getEnv().getBlock(bc.getBlockID()).getGenusName());
-			connectorCodeList.add(iterative(workspace.getEnv().getBlock(bc.getBlockID())));
+//			System.out.println(block.getGenusName() +", socketNum:"+ block.getNumSockets() +", connected:"+workspace.getEnv().getBlock(b			ArrayList<String> tmp = iterative(workspace.getEnv().getBlock(bc.getBlockID())); 
+			ArrayList<String> tmp = iterative(workspace.getEnv().getBlock(bc.getBlockID()));
+			if(tmp != null){
+				connectorCodeList.add(tmp);
+			}
 			connectionBlocks.add(getBlockList(bc));
 		}
 		
