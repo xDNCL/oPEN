@@ -36,7 +36,7 @@ CodeText = コードそのもの
 	    
 	    <BlockCode name="repeat">
 	        <CodeText>
-	            @while (@_val @) { @_br
+	            @repeat (@_val @) { @_br
 	            @_preval
 	            @_br @}
 	        </CodeText>
