@@ -216,6 +216,7 @@ public class ToCode {
 //		}
 //		debug(connectionBlocks);
 		
+		
 		if(name.equals("motor-on-fwd")){
 			BlockString bs = searchBlockCodeString("motor-on-fwd");
 			for(Block block: connectionBlocks.get(2)){

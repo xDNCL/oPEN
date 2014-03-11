@@ -172,7 +172,7 @@ CodeText = コードそのもの
 	        
 	    <BlockCode name="equals">
 	        <CodeText>
-	            @( @_val @= @_val @)
+	            @( @_val @== @_val @)
 	        </CodeText>
 	    </BlockCode>
 	    

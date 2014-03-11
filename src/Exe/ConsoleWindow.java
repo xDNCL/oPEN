@@ -38,6 +38,9 @@ public class ConsoleWindow implements ActionListener{
 		
 	private OB_Workspace ws;
 	
+	private final Color actionButtonBGC = new Color(255, 80, 0);
+	private final Color consoleBGC = new Color(242, 238, 231);
+	
 	//変数テーブル
 	private static final String[] columnNames = {"変数名", "値"};
 	private static final String[][] dummy = {{"", ""}};
@@ -73,7 +76,7 @@ public class ConsoleWindow implements ActionListener{
 	
 	public static String getInputformText(){
 		String s = inputForm.getText();
-		inputForm.setText("");
+//		inputForm.setText("");
 		return s;
 	}
 	
@@ -144,6 +147,7 @@ public class ConsoleWindow implements ActionListener{
 		north.add(oneStep, BorderLayout.CENTER);
 		north.add(allStep, BorderLayout.EAST);
 		north.add(f, BorderLayout.SOUTH);
+		north.setBackground(this.actionButtonBGC);
 		body.add(north, BorderLayout.NORTH);
 		
 		//CenterPane
@@ -153,7 +157,7 @@ public class ConsoleWindow implements ActionListener{
 		console = new JTextArea();
 		console.setEditable(false);
 		console.setFont(new Font("Arial",Font.PLAIN, 18));
-		console.setBackground(new Color(245, 245, 245));
+		console.setBackground(this.consoleBGC);
 //		console.setPreferredSize(new Dimension(300, 200));
 		JScrollPane scroll= new JScrollPane(console);
 		scroll.setPreferredSize(new Dimension(300, 200));
@@ -166,7 +170,7 @@ public class ConsoleWindow implements ActionListener{
 		south.setLayout(new BorderLayout());
 		JLabel variableLabel = new JLabel("変数名とその値");
 		valiableTable.setPreferredSize(new Dimension(300, 150));
-		valiableTable.setBackground(new Color(249, 249, 249));
+		valiableTable.setBackground(this.consoleBGC);
 		JPanel inputFormBase = new JPanel();
 		
 		south.add(variableLabel, BorderLayout.NORTH);

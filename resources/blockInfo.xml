@@ -82,7 +82,7 @@ BlockGenuses are first loaded.
 		</BlockGenus>	
 	    	    
 <!-- for PEN Blocks -->
-		<BlockGenus name="keyboard-input-number" kind="data" initlabel="キー入力値" color="255 242 0">
+		<BlockGenus name="keyboard-input-number" kind="data" initlabel="キー入力" color="255 242 0">
 			<description>
 				<text>
 					キーボードから入力された数値を示します
@@ -97,7 +97,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="keyboard-input-string" kind="data" initlabel="キー入力値" color="255 242 0">
+		<BlockGenus name="keyboard-input-string" kind="data" initlabel="キー入力" color="255 242 0">
 			<description>
 				<text>
 					キーボードから入力された文字列を示します
@@ -178,25 +178,13 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>		
 
-	    <BlockGenus name="substitution-number-b" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
-		    <description>
-				<text>数値を代入します。</text>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="に代入" connector-kind="socket" connector-type="number"></BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="substitution-number"></LangSpecProperty>
-				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
 		
 	    <BlockGenus name="substitution-string" kind="command" initlabel="str" editable-label="yes" is-label-value="yes" color="126 206 244">
 		    <description>
 				<text>文字列を代入します。</text>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="に代入" connector-kind="socket" connector-type="string"></BlockConnector>
+				<BlockConnector label="⬅" connector-kind="socket" connector-type="string"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="substitution-string"></LangSpecProperty>
@@ -280,7 +268,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-	   	<BlockGenus name="print" kind="command" initlabel="表示する" color="132 204 201">
+	   	<BlockGenus name="print" kind="command" initlabel="表示" color="132 204 201">
 		    <description>
 				<text>文字列を宣言します。</text>
 			</description>
@@ -815,8 +803,8 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="の間" connector-kind="socket" connector-type="boolean"></BlockConnector>
-				<BlockConnector label="実行する" connector-kind="socket" connector-type="cmd"></BlockConnector>
+				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="実行" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="repeat"></LangSpecProperty>
@@ -1307,7 +1295,7 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="ならば" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
 				<BlockConnector label="真(true)" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -1333,7 +1321,7 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="ならば" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
 				<BlockConnector label="真(true)" connector-kind="socket" connector-type="cmd"></BlockConnector>
 				<BlockConnector label="偽(else)" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>

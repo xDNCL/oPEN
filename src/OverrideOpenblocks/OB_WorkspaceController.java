@@ -1,6 +1,7 @@
 package OverrideOpenblocks;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
@@ -50,12 +52,18 @@ import edu.mit.blocks.workspace.Workspace;
 public class OB_WorkspaceController extends WorkspaceController{
 	
 	private final static String TEST_FILE = "TestFile";
-	
+		
 	private static OB_Workspace workspace = new OB_Workspace();
+	
+	private final Color saveButtonBGC = new Color(255, 255, 200);//(237, 237, 237); // //(255, 255, 19);
+	private final Color stageButtonBGC = new Color(200, 255, 200);//(237, 237 ,237); ////(136, 224, 46);
+	private final Color outputButtonBGC = new Color(250, 200, 255);//(237, 237, 237); // //(136, 46, 224);
 	
 	private final int YES = 0;
 	private final int NO = 1;
 	private final int CANCEL = 2;
+	
+//	private String justSaveString = "";
 	
     private final static String DEFAULT_DRAWER_INFO = "resources/BlockDrawerList.xml";
     private final static String PROPERTY_PATH = "resources/startUp.properties";
@@ -84,7 +92,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     private JFrame frame;
     
     //追加
-    private ConsoleWindow console = new ConsoleWindow(workspace, false);    
+    private static ConsoleWindow console = new ConsoleWindow(workspace, false);    
     
     //プロパティファイル
     private static LoadProperty lp = new LoadProperty(PROPERTY_PATH);
@@ -106,6 +114,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     public JComponent getButtonPanel() {
 		
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(this.saveButtonBGC);
         
         // Open
         OpenAction openAction = new OpenAction();
@@ -117,6 +126,13 @@ public class OB_WorkspaceController extends WorkspaceController{
         SaveAsAction saveAsAction = new SaveAsAction(saveAction);
         buttonPanel.add(new JButton(saveAsAction));
         
+        return buttonPanel;
+    }
+    
+    
+    public JComponent getOutputButtonPanel(){
+    	JPanel buttonPanel = new JPanel();
+    	buttonPanel.setBackground(outputButtonBGC);
         //加筆
         //Output
         if(showButton){
@@ -132,10 +148,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		        outputAction = new OutputAction();
         	}
 		    buttonPanel.add(new JButton(outputAction));
-        	
         }
-
-                
         return buttonPanel;
     }
 	
@@ -261,6 +274,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         	//加筆ここまで
         	
             fileWriter = new FileWriter(file);       
+//            this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
             fileWriter.write(getSaveString());
         }
         finally {
@@ -304,9 +318,16 @@ public class OB_WorkspaceController extends WorkspaceController{
         frame = new JFrame("BlockEducation Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 1100, 800);
-        frame.add(topPane(), BorderLayout.PAGE_START);
+        
+        JPanel northPanel = new JPanel();
+        northPanel.setLayout(new BorderLayout());
+        northPanel.add(topPane(), BorderLayout.CENTER);
+        northPanel.add(getButtonPanel(), BorderLayout.WEST);
+        northPanel.add(getOutputButtonPanel(), BorderLayout.EAST);
+        frame.add(northPanel, BorderLayout.NORTH);
+//        frame.add(topPane(), BorderLayout.PAGE_START);
         frame.add(getWorkspacePanel(), BorderLayout.CENTER);
-        frame.add(getButtonPanel(), BorderLayout.SOUTH);
+//        frame.add(getButtonPanel(), BorderLayout.SOUTH);
         frame.add(console.getBody(), BorderLayout.EAST);
         frame.setVisible(true);
     }
@@ -324,29 +345,40 @@ public class OB_WorkspaceController extends WorkspaceController{
         
         cb.addActionListener(
         		new ActionListener(){
+        			
         		      public void actionPerformed(ActionEvent e){
-        		    	  
-        		    	  //セーブするか聞く
-        		    	  int option = JOptionPane.showConfirmDialog(frame, "保存しますか？", 
-        		    			  "保存確認", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-        		    	  switch(option){
-        		    	  case YES:
-        		    		  	SaveAsAction saa = new SaveAsAction(new SaveAction());
-        		    		  	saa.actionPerformed(e);
-        		    		  	break;
-        		    		  	
-        		    	  case NO:
-        		    		  	break;
-        		    
-        		    	  case CANCEL:
-        		    		  	return;
-        		    	  }
-        		    	  
+        		    		//警告文の非表示
+        		    		@SuppressWarnings("all")
+
+//        		    	  String save = "";
+//        		    	  try {
+//        		    		save = new String (getSaveString().getBytes("UTF-8"), "UTF-8");
+//						} catch (UnsupportedEncodingException e1) {
+//							// TODO Auto-generated catch block
+////							e1.printStackTrace();
+//						}
+//        		    	  if(!justSaveString.equals(save)){
+        		    		  //セーブするか聞く
+	        		    	  int option = JOptionPane.showConfirmDialog(frame, "保存しますか？", 
+	        		    			  "保存確認", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+	        		    	  switch(option){
+	        		    	  case YES:
+	        		    		  	SaveAsAction saa = new SaveAsAction(new SaveAction());
+	        		    		  	saa.actionPerformed(e);
+	        		    		  	break;
+	        		    		  	
+	        		    	  case NO:
+	        		    		  	break;
+	        		    
+	        		    	  case CANCEL:
+	        		    		  	return;
+	        		    	  }
+//        		    	  }
         		    	  String selectedFileName = resourcesFolderName + "/" + cb.getSelectedItem().toString() + ".xml";
         		    	  changeStage(selectedFileName);
         		      }
         		});
-        
+        topPane.setBackground(this.stageButtonBGC);
         topPane.add(cb);
         topPane.add(sb.getComponent());
         return topPane;
@@ -502,6 +534,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     private static void changeStage(final String filePath){
     	stageDrawerFilePath = filePath;
     	workspace.reset();
+    	console.consoleClear();
     	wc.loadFreshWorkspace();
     }
 
