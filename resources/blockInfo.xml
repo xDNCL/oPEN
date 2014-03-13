@@ -3887,7 +3887,7 @@ BlockGenuses are first loaded.
 	<!-- ここまで -->
 
 	<Pages drawer-with-page="yes">
-		<Page page-name="Turtles" page-width="400"></Page>
+		<Page page-name="oPEN" page-color="100 100 100" page-width="400"></Page>
 		<!-- 
 		<Page page-name="Everyone" page-width="400"></Page>
 		<Page page-name="Setup" page-width="400"></Page>

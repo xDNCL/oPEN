@@ -50,9 +50,7 @@ import edu.mit.blocks.workspace.Workspace;
 
 
 public class OB_WorkspaceController extends WorkspaceController{
-	
-	private final static String TEST_FILE = "TestFile";
-		
+			
 	private static OB_Workspace workspace = new OB_Workspace();
 	
 	private final Color saveButtonBGC = new Color(255, 255, 200);//(237, 237, 237); // //(255, 255, 19);
@@ -172,7 +170,12 @@ public class OB_WorkspaceController extends WorkspaceController{
                 String selectedPath = selectedFile.getPath();
                 loadFreshWorkspace();
 //                System.out.println(selectedPath);
-                loadProjectFromPath(selectedPath);
+                try{
+                	loadProjectFromPath(selectedPath);
+                	System.out.println("ロードが完了しました。");
+                }catch(Exception err){
+                	System.out.println("ロードに失敗しました。");
+                }
             }
         }
     }
@@ -268,7 +271,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         	String fileName = file.getName().toString();
         	if(!fileName.substring(fileName.length()-4).equals(".xml")){
         		//ファイル名が.xmlではない場合は.xmlとして保存する
-	        	File renameFile = new File(file.getPath()+fileName+".xml");
+	        	File renameFile = new File(file.getPath()+".xml");
 	        	file = renameFile;
         	}
         	//加筆ここまで
@@ -315,7 +318,7 @@ public class OB_WorkspaceController extends WorkspaceController{
      */
     @Override
     protected void createAndShowGUI() {
-        frame = new JFrame("BlockEducation Demo");
+        frame = new JFrame("oPEN");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 1100, 800);
         
@@ -652,7 +655,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	        		outputCode.writteCode(value);
 	        	}
 	        	else{
-	        		outputCode.writteCode(TEST_FILE+outputDomain);
+	        		outputCode.writteCode(value+outputDomain);
 	        	}
 			        //debugできあがったコードを吐く
 	//		        System.err.println(outputCode.getCode());

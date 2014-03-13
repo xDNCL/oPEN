@@ -23,6 +23,14 @@ public class OB_Page extends Page{
 		super(workspace, name, pageWidth, 0, pageDrawer, inFullview, defaultColor, isCollapsible);
 		this.workspace = workspace;
 	}
+	
+    public OB_Page(Workspace workspace, String name, int pageWidth, int pageHeight, String pageDrawer) {
+        this(workspace, name, pageWidth, pageHeight, pageDrawer, true, null, true);
+    }
+	
+    public OB_Page(Workspace workspace, String name) {
+        this(workspace, name, -1, -1, name);
+    }
 
 	
     //////////////////////////
@@ -30,7 +38,6 @@ public class OB_Page extends Page{
     //////////////////////////
 	@Override
     public ArrayList<RenderableBlock> loadPageFrom(Node pageNode, boolean importingPage) {
-		System.out.println("OB_Page ’Ê‰ß");
         //note: this code is duplicated in BlockCanvas.loadSaveString().
         NodeList pageChildren = pageNode.getChildNodes();
         Node pageChild;

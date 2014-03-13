@@ -59,8 +59,6 @@ public class OB_Workspace extends Workspace {
 	    
 //	    private OB_FactoryManager factory;
 	    
-//	    protected BlockCanvas blockCanvas = new OB_BlockCanvas(this);
-	    
 	    // the environment wrapps all the components of a workspace (Blocks, RenderableBlocks, BlockStubs, BlockGenus)
 	    protected static final OB_WorkspaceEnvironment env = new OB_WorkspaceEnvironment();
 	    
@@ -73,6 +71,7 @@ public class OB_Workspace extends Workspace {
 	    
 	    protected OB_Workspace(){
         super();
+	    super.blockCanvas = new OB_BlockCanvas(this);
         
 	    setLayout(null);
         setBackground(Color.yellow);

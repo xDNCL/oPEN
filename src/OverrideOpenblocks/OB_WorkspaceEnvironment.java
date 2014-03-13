@@ -33,7 +33,7 @@ public class OB_WorkspaceEnvironment extends WorkspaceEnvironment{
 
         if (this.allBlocks.containsKey(id)) {
             Block dup = this.allBlocks.get(id);
-            System.out.println("pre-existing block is: " + dup + " with genus " + dup.getGenusName() + " and label " + dup.getBlockLabel());
+//            System.out.println("pre-existing block is: " + dup + " with genus " + dup.getGenusName() + " and label " + dup.getBlockLabel());
             assert !this.allBlocks.containsKey(id) : "Block id: " + id + " already exists!  BlockGenus " + block.getGenusName() + " label: " + block.getBlockLabel();
         }
 

@@ -32,9 +32,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     public static RenderableBlock loadBlockNode(Workspace workspace, Node blockNode, WorkspaceWidget parent, HashMap<Long, Long> idMapping) {
         boolean isBlock = blockNode.getNodeName().equals("Block");
         boolean isBlockStub = blockNode.getNodeName().equals("BlockStub");
-        
-        System.out.println("OB_Renderable ’Ê‰ß");
-        
+                
         if (isBlock || isBlockStub) {
             RenderableBlock rb = new OB_RenderableBlock(workspace, parent, OB_Block.loadBlockFrom(workspace, blockNode, idMapping).getBlockID(), true);
 
