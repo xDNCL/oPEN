@@ -158,7 +158,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         public static final long serialVersionUID = -2119679269613495704L;
 
         OpenAction() {
-            super("Open");
+            super("ŠJ‚­");
         }
 
         @Override
@@ -168,7 +168,7 @@ public class OB_WorkspaceController extends WorkspaceController{
                 setSelectedFile(fileChooser.getSelectedFile());
                 lastDirectory = selectedFile.getParentFile();
                 String selectedPath = selectedFile.getPath();
-                loadFreshWorkspace();
+            	changeStage();
 //                System.out.println(selectedPath);
                 try{
                 	loadProjectFromPath(selectedPath);
@@ -186,7 +186,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     public class SaveAction extends AbstractAction {
         public static final long serialVersionUID = -5540588250535739852L;
         SaveAction() {
-            super("Save");
+            super("•Û‘¶");
         }
 
         @Override
@@ -217,7 +217,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         public final SaveAction saveAction;
 
         SaveAsAction(SaveAction saveAction) {
-            super("Save As...");
+            super("–¼‘O‚ð‚Â‚¯‚Ä•Û‘¶");
             this.saveAction = saveAction;
         }
 
@@ -377,8 +377,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 	        		    		  	return;
 	        		    	  }
 //        		    	  }
-        		    	  String selectedFileName = resourcesFolderName + "/" + cb.getSelectedItem().toString() + ".xml";
-        		    	  changeStage(selectedFileName);
+	        		      stageDrawerFilePath = resourcesFolderName + "/" + cb.getSelectedItem().toString() + ".xml";
+        		    	  changeStage();
         		      }
         		});
         topPane.setBackground(this.stageButtonBGC);
@@ -532,6 +532,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 //            System.exit(1);
 //        }
     	newWindow();
+    }
+    private static void changeStage(){
+    	changeStage(stageDrawerFilePath);
     }
     
     private static void changeStage(final String filePath){

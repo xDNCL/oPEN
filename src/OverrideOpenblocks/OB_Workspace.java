@@ -83,7 +83,7 @@ public class OB_Workspace extends Workspace {
         
         
         this.addWorkspaceListener(this.factory);
-        this.blockCanvas.getHorizontalModel().addChangeListener(this);
+        blockCanvas.getHorizontalModel().addChangeListener(this);
         for (final Explorer exp : factory.getNavigator().getExplorers()) {
             exp.addListener(this);
         }
@@ -133,17 +133,17 @@ public class OB_Workspace extends Workspace {
 	    public void loadWorkspaceFrom(Element newRoot, Element originalLangRoot) {
 	        if (newRoot != null) {
 	            //load pages, page drawers, and their blocks from save file
-	            this.blockCanvas.loadSaveString(newRoot);
+	            blockCanvas.loadSaveString(newRoot);
 	            //load the block drawers specified in the file (may contain
 	            //custom drawers) and/or the lang def file if the contents specify
 //	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, originalLangRoot, factory);
-//	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
+	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
 	            loadWorkspaceSettings(newRoot);
 	        } else {
 	            //load from original language/workspace root specification
-	            this.blockCanvas.loadSaveString(originalLangRoot);
+	            blockCanvas.loadSaveString(originalLangRoot);
 	            //load block drawers and their content
-//	            PageDrawerLoadingUtils.loadBlockDrawerSets(this, originalLangRoot, factory);
+//	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, originalLangRoot, factory);
 	            loadWorkspaceSettings(originalLangRoot);
 	        }
 	    }

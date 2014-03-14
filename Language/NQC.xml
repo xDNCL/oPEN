@@ -166,19 +166,19 @@ CodeText = コードそのもの
 	    
 	    <BlockCode name="motor-on-a">
 	        <CodeText>
-	            @OnFwd( @OUT_A @, @_val @);
+	            @Rotate( @OUT_A @, @_val @);
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="motor-on-b">
 	        <CodeText>
-	            @OnFwd( @OUT_B @, @_val @);
+	            @Rotate( @OUT_B @, @_val @);
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="motor-on-c">
 	        <CodeText>
-	            @OnFwd( @OUT_C @, @_val @);
+	            @Rotate( @OUT_C @, @_val @);
 	        </CodeText>
 	    </BlockCode>
 	    

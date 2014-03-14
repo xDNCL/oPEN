@@ -21,7 +21,6 @@
 				<BlockGenusMember>difference</BlockGenusMember>
 				<BlockGenusMember>quotient</BlockGenusMember>
 				<BlockGenusMember>product</BlockGenusMember>
-				<BlockGenusMember>surplus</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="宣言・代入" button-color="132 204 201" type="factory">
 				<BlockGenusMember>setInt</BlockGenusMember>
@@ -29,7 +28,6 @@
 			</BlockDrawer>
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
 				<BlockGenusMember>println-number</BlockGenusMember>
-				<BlockGenusMember>println-string</BlockGenusMember>
 				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="値・変数" type="factory" button-color="255 242 0">

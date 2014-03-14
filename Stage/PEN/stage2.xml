@@ -18,6 +18,10 @@
 			    <BlockGenusMember>if</BlockGenusMember>
 			    <BlockGenusMember>ifelse</BlockGenusMember>
 			    <BlockGenusMember>equals</BlockGenusMember>
+			    <BlockGenusMember>lessthan</BlockGenusMember>
+				<BlockGenusMember>lessthanorequalto</BlockGenusMember>
+				<BlockGenusMember>greaterthan</BlockGenusMember>
+				<BlockGenusMember>greaterthanorequalto</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
 				<BlockGenusMember>sum</BlockGenusMember>

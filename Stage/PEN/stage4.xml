@@ -47,6 +47,12 @@
 			    <BlockGenusMember>pi</BlockGenusMember>
 			    <BlockGenusMember>random</BlockGenusMember>
 			</BlockDrawer>
+			<BlockDrawer name="関数" type="factory" button-color="177 10 255">
+			    <BlockGenusMember>procedure</BlockGenusMember>
+			    <BlockGenusMember>proc-param-number</BlockGenusMember>
+			    <BlockGenusMember>proc-param-boolean</BlockGenusMember>
+			    <BlockGenusMember>proc-param-string</BlockGenusMember>
+			</BlockDrawer>    
 </BlockDrawerSet>
 </BlockDrawerSets>
 </root>

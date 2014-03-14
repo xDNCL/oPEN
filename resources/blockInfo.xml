@@ -58,7 +58,7 @@ BlockGenuses are first loaded.
 				<text>数値を代入します。</text>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="⬅" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="←" connector-kind="socket" connector-type="number"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="substitution-number"></LangSpecProperty>
@@ -184,7 +184,7 @@ BlockGenuses are first loaded.
 				<text>文字列を代入します。</text>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="⬅" connector-kind="socket" connector-type="string"></BlockConnector>
+				<BlockConnector label="←" connector-kind="socket" connector-type="string"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="substitution-string"></LangSpecProperty>
@@ -1296,7 +1296,7 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
-				<BlockConnector label="真(true)" connector-kind="socket" connector-type="cmd"></BlockConnector>
+				<BlockConnector label="真" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="if"></LangSpecProperty>
@@ -1322,8 +1322,8 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="条件" connector-kind="socket" connector-type="boolean"></BlockConnector>
-				<BlockConnector label="真(true)" connector-kind="socket" connector-type="cmd"></BlockConnector>
-				<BlockConnector label="偽(else)" connector-kind="socket" connector-type="cmd"></BlockConnector>
+				<BlockConnector label="真" connector-kind="socket" connector-type="cmd"></BlockConnector>
+				<BlockConnector label="偽" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="ifelse"></LangSpecProperty>
