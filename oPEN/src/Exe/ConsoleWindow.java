@@ -41,8 +41,8 @@ public class ConsoleWindow implements ActionListener{
 	private final Color actionButtonBGC = new Color(255, 80, 0);
 	private final Color consoleBGC = new Color(242, 238, 231);
 	
-	//•Ï”ƒe[ƒuƒ‹
-	private static final String[] columnNames = {"•Ï”–¼", "’l"};
+	//å¤‰æ•°ãƒ†ãƒ¼ãƒ–ãƒ«
+	private static final String[] columnNames = {"å¤‰æ•°å", "å€¤"};
 	private static final String[][] dummy = {{"", ""}};
 	private static DefaultTableModel tableModel = new DefaultTableModel(dummy, columnNames);
 	private static JTable valiableTable = new JTable(tableModel);
@@ -50,7 +50,7 @@ public class ConsoleWindow implements ActionListener{
 	public static void setVariableTable(Hashtable<String, Object> list){
 		tableModel = new DefaultTableModel(dummy, columnNames);
 		valiableTable.setModel(tableModel);
-		valiableTable.setFont(new Font("Arial",Font.PLAIN, 18));
+		valiableTable.setFont(new Font("SansSerif",Font.PLAIN, 18));
 		
 		
 		for (Enumeration<String> e = list.keys(); e.hasMoreElements();){
@@ -64,7 +64,7 @@ public class ConsoleWindow implements ActionListener{
 		valiableTable.repaint();
 	}
 	
-	//ƒ{ƒ^ƒ“ŒQ
+	//ãƒœã‚¿ãƒ³ç¾¤
 	private JButton reset;
 	private JButton oneStep;
 	private JButton allStep;
@@ -80,20 +80,20 @@ public class ConsoleWindow implements ActionListener{
 		return s;
 	}
 	
-	//ƒEƒBƒ“ƒhƒEƒ‚[ƒh—p
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ç”¨
 	private JFrame frame;
 	
-	//’†g
+	//ä¸­èº«
 	private JComponent body;
 	
-	//ƒeƒLƒXƒgo—ÍæB•W€o—Í‚Æ‚µ‚Äˆµ‚¤B
+	//ãƒ†ã‚­ã‚¹ãƒˆå‡ºåŠ›å…ˆã€‚æ¨™æº–å‡ºåŠ›ã¨ã—ã¦æ‰±ã†ã€‚
 	private JTextArea console;
 		
 	public ConsoleWindow(OB_Workspace workspace, boolean isWindow){
 		this.ws = workspace;
 		
 		if(isWindow){
-			frame = new JFrame("ƒRƒ“ƒ\[ƒ‹");
+			frame = new JFrame("ã‚³ãƒ³ã‚½ãƒ¼ãƒ«");
 		    frame.setBounds(200, 200, 300, 400);
 		    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		    body = init();
@@ -129,13 +129,13 @@ public class ConsoleWindow implements ActionListener{
 		//NorthPane
 		JPanel north = new JPanel();
 		north.setLayout(new BorderLayout());
-		reset = new JButton("n‚ß‚É–ß‚é");
+		reset = new JButton("å§‹ã‚ã«æˆ»ã‚‹");
 		reset.addActionListener(this);
-		oneStep = new JButton("ƒXƒeƒbƒvÀs");
+		oneStep = new JButton("ã‚¹ãƒ†ãƒƒãƒ—å®Ÿè¡Œ");
 		oneStep.addActionListener(this);
-		allStep = new JButton("Às");
+		allStep = new JButton("å®Ÿè¡Œ");
 		allStep.addActionListener(this);
-		JLabel inputFormLabel = new JLabel("“ü—Í");
+		JLabel inputFormLabel = new JLabel("å…¥åŠ›");
 		inputForm = new JTextField(20);
 		inputForm.addActionListener(this);
 		inputForm.setEditable(false);
@@ -152,11 +152,11 @@ public class ConsoleWindow implements ActionListener{
 		
 		//CenterPane
 		JPanel center = new JPanel();
-		JLabel consoleLabel = new JLabel("ÀsŒ‹‰Ê");
+		JLabel consoleLabel = new JLabel("å®Ÿè¡Œçµæœ");
 		center.setLayout(new BorderLayout());
 		console = new JTextArea();
 		console.setEditable(false);
-		console.setFont(new Font("Arial",Font.PLAIN, 18));
+		console.setFont(new Font("SansSerif",Font.PLAIN, 18));
 		console.setBackground(this.consoleBGC);
 //		console.setPreferredSize(new Dimension(300, 200));
 		JScrollPane scroll= new JScrollPane(console);
@@ -168,7 +168,7 @@ public class ConsoleWindow implements ActionListener{
 		//SouthPane
 		JPanel south = new JPanel();
 		south.setLayout(new BorderLayout());
-		JLabel variableLabel = new JLabel("•Ï”–¼‚Æ‚»‚Ì’l");
+		JLabel variableLabel = new JLabel("å¤‰æ•°åã¨ãã®å€¤");
 		valiableTable.setPreferredSize(new Dimension(300, 150));
 		valiableTable.setBackground(this.consoleBGC);
 		JPanel inputFormBase = new JPanel();
@@ -179,7 +179,7 @@ public class ConsoleWindow implements ActionListener{
 		
 		body.add(south, BorderLayout.SOUTH);
 		
-		//•W€o—Íæ‚ğ•ÏX
+		//æ¨™æº–å‡ºåŠ›å…ˆã‚’å¤‰æ›´
 		JTextAreaStream stream = new JTextAreaStream(console);
 		System.setOut(new PrintStream(stream, true));
 		
@@ -204,7 +204,7 @@ public class ConsoleWindow implements ActionListener{
 //							start = (OB_Block)block;
 //						}
 //						else{
-//							throw new BlockRunException(block, "ƒvƒƒOƒ‰ƒ€ŠJnƒuƒƒbƒN‚ª2‚ÂˆÈã‘¶İ‚µ‚Ä‚¢‚Ü‚·B");
+//							throw new BlockRunException(block, "ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹ãƒ–ãƒ­ãƒƒã‚¯ãŒ2ã¤ä»¥ä¸Šå­˜åœ¨ã—ã¦ã„ã¾ã™ã€‚");
 //						}
 //					}
 //				}
@@ -227,7 +227,7 @@ public class ConsoleWindow implements ActionListener{
 						start = (OB_Block)block;
 					}
 					else{
-						throw new BlockRunException(block, "ƒvƒƒOƒ‰ƒ€ŠJnƒuƒƒbƒN‚ª2‚ÂˆÈã‘¶İ‚µ‚Ä‚¢‚Ü‚·B");
+						throw new BlockRunException(block, "ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹ãƒ–ãƒ­ãƒƒã‚¯ãŒ2ã¤ä»¥ä¸Šå­˜åœ¨ã—ã¦ã„ã¾ã™ã€‚");
 					}
 				}
 			}
@@ -236,7 +236,7 @@ public class ConsoleWindow implements ActionListener{
 			return start;
 		}
 		else{
-			throw new BlockRunException("ƒvƒƒOƒ‰ƒ€ŠJnƒuƒƒbƒN‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+			throw new BlockRunException("ãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹ãƒ–ãƒ­ãƒƒã‚¯ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
 		}
 	}
 	
@@ -337,7 +337,7 @@ public class ConsoleWindow implements ActionListener{
 	    @Override
 	    public void flush() throws IOException {
 
-	        // Swing ‚ÌƒCƒxƒ“ƒgƒXƒŒƒbƒh‚É‚Ì‚¹‚é
+	        // Swing ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã«ã®ã›ã‚‹
 	        SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {
 	                _area.append(_buf.toString());
@@ -377,7 +377,7 @@ public class ConsoleWindow implements ActionListener{
 					}
 					
 					if(highLightBlock != null){
-						//ƒnƒCƒ‰ƒCƒgÁ‚·
+						//ãƒã‚¤ãƒ©ã‚¤ãƒˆæ¶ˆã™
 						this.resetHighLight();
 					}
 					
@@ -387,7 +387,7 @@ public class ConsoleWindow implements ActionListener{
 						return;
 					}
 					
-					//ƒnƒCƒ‰ƒCƒg“_“”
+					//ãƒã‚¤ãƒ©ã‚¤ãƒˆç‚¹ç¯
 					highLightBlock = run;
 					(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).setBlockHighlightColor(Color.YELLOW);
 					
@@ -395,7 +395,7 @@ public class ConsoleWindow implements ActionListener{
 					try {
 						results = run.runBlock();
 					} catch (BlockRunException e) {
-						//ƒGƒ‰[ˆ—‚ÍBlock‘¤‚Å•\¦‚³‚ê‚é‚Ì‚Å‚±‚±‚Å‚Í‚µ‚È‚¢B
+						//ã‚¨ãƒ©ãƒ¼å‡¦ç†ã¯Blockå´ã§è¡¨ç¤ºã•ã‚Œã‚‹ã®ã§ã“ã“ã§ã¯ã—ãªã„ã€‚
 						return;
 					}
 					
@@ -408,7 +408,7 @@ public class ConsoleWindow implements ActionListener{
 			if(allGo){
 				allGo = false;
 				resetHighLight();
-				System.out.println("ƒvƒƒOƒ‰ƒ€I—¹");
+				System.out.println("ï¼ï¼ï¼ï¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†ï¼ï¼ï¼ï¼");
 				return;
 			}
 		}
@@ -416,7 +416,7 @@ public class ConsoleWindow implements ActionListener{
 		protected void action(){
 			if(this.stackCount <= -1){
 				resetHighLight();
-				System.out.println("ƒvƒƒOƒ‰ƒ€I—¹");
+				System.out.println("ï¼ï¼ï¼ï¼ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†ï¼ï¼ï¼ï¼");
 				return;
 			}
 			if(!this.isEmpty()){

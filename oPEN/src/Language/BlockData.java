@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class BlockData {
 		
 	/**
-	 * @param nextId :: 次のブロックのID
-	 * @param beforeId ::親ブロックのID
+	 * @param nextId :: 谺｡縺ｮ繝悶Ο繝�繧ｯ縺ｮID
+	 * @param beforeId ::隕ｪ繝悶Ο繝�繧ｯ縺ｮID
 	 * 
 	 */
 	private int nextId;

@@ -4,4 +4,5 @@ encoding//resources/startUp.properties=UTF-8
 encoding//resources/testSample.xml=UTF-8
 encoding//src/Language/ToCode.java=UTF-8
 encoding//src/OverrideOpenblocks/OB_Block.java=UTF-8
+encoding//src/OverrideOpenblocks/OB_WorkspaceController.java=UTF-8
 encoding/save=UTF-8

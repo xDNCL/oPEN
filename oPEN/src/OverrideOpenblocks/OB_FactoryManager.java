@@ -97,7 +97,7 @@ public class OB_FactoryManager extends FactoryManager{
 	}
 	
 	
-//	//ƒ{ƒ^ƒ“”z’u
+//	//ãƒœã‚¿ãƒ³é…ç½®
 //	@Override
 //    public void addStaticDrawer(String name, Color color) {
 //    	System.out.println(name);
@@ -115,7 +115,7 @@ public class OB_FactoryManager extends FactoryManager{
     }
 	*/
 	
-	//ƒuƒƒbƒN•\Ž¦ƒƒ\ƒbƒh
+	//ãƒ–ãƒ­ãƒƒã‚¯è¡¨ç¤ºãƒ¡ã‚½ãƒƒãƒ‰
 //	@Override
 //	public void addStaticBlocks(Collection<RenderableBlock> blocks, String drawer){
 ////		for(RenderableBlock rb:blocks){

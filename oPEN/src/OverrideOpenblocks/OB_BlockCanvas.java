@@ -35,7 +35,7 @@ public class OB_BlockCanvas extends BlockCanvas{
     
     
 //    protected List<Page> pages = new ArrayList<Page>();
-    /** ‘‚«Š·‚¦•ª */
+    /** æ›¸ãæ›ãˆåˆ† */
 	private final OB_Workspace workspace;
 		
 	public OB_BlockCanvas(OB_Workspace ob_ws){

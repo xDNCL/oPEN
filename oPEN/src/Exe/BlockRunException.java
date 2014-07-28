@@ -9,7 +9,7 @@ public class BlockRunException extends Exception{
 
 	private static final long serialVersionUID = 1L;
 	
-	//ƒGƒ‰[ƒuƒƒbƒN‚ÌƒnƒCƒ‰ƒCƒg“_–Å—p
+	//ã‚¨ãƒ©ãƒ¼ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒã‚¤ãƒ©ã‚¤ãƒˆç‚¹æ»…ç”¨
 	private static BlinkBlock brinkBlock;
 
 	
@@ -25,7 +25,7 @@ public class BlockRunException extends Exception{
 	public static final int BLOCK_IS_NULL = 7;
 	
 	
-	//ƒGƒ‰[‚ÌŒ´ˆö‚Æ‚È‚éƒuƒƒbƒN‚ªŒ©‚Â‚©‚ç‚È‚¢‚Æ‚«(block == null)‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚¨ãƒ©ãƒ¼ã®åŸå› ã¨ãªã‚‹ãƒ–ãƒ­ãƒƒã‚¯ãŒè¦‹ã¤ã‹ã‚‰ãªã„ã¨ã(block == null)ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	public BlockRunException(String comment){
 		System.out.println(comment);
 	}
@@ -51,39 +51,39 @@ public class BlockRunException extends Exception{
 	private void errorComment(Block block, int error){
 		switch(error){
 		case UNEXPECTED:
-			System.out.println("—\Šú‚¹‚ÊƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B");
+			System.out.println("äºˆæœŸã›ã¬ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚");
 			return;
 			
 		case NULL_BLOCK:
-			System.out.println("ƒuƒƒbƒN‚ª‘¶İ‚µ‚Ü‚¹‚ñ");
+			System.out.println("ãƒ–ãƒ­ãƒƒã‚¯ãŒå­˜åœ¨ã—ã¾ã›ã‚“");
 			return;
 			
 		case BOOLEAN:
-			System.out.println("’l‚ªtrue‚Ü‚½‚Ífalse‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
+			System.out.println("å€¤ãŒtrueã¾ãŸã¯falseã§ã¯ã‚ã‚Šã¾ã›ã‚“");
 			return;
 			
 		case NO_VARIABLE:
-			System.out.println("•Ï”"+block.getBlockLabel()+"‚ª‘¶İ‚µ‚Ü‚¹‚ñ");
+			System.out.println("å¤‰æ•°"+block.getBlockLabel()+"ãŒå­˜åœ¨ã—ã¾ã›ã‚“");
 			return;
 			
 		case TRANSLATION_MISSING:
-			System.out.println("’l‚Ì•ÏŠ·‚É¸”s‚µ‚Ü‚µ‚½B");
+			System.out.println("å€¤ã®å¤‰æ›ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 			return;
 			
 		case NO_NAME:
-			System.out.println("•Ï”–¼A‚Ü‚½‚Í’l‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B");
+			System.out.println("å¤‰æ•°åã€ã¾ãŸã¯å€¤ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚");
 			return;
 			
 		case DUPLICATION:
-			System.out.println("‚·‚Å‚É“¯–¼‚Ì•Ï”–¼‚ª‘¶İ‚µ‚Ü‚·B");
+			System.out.println("ã™ã§ã«åŒåã®å¤‰æ•°åãŒå­˜åœ¨ã—ã¾ã™ã€‚");
 			return;
 			
 		case CAST_ERROR:
-			System.out.println("‘ã“ü‚ÌŒ^‚ªˆÙ‚È‚è‚Ü‚·B");
+			System.out.println("ä»£å…¥ã®å‹ãŒç•°ãªã‚Šã¾ã™ã€‚");
 			return;
 			
 		case BLOCK_IS_NULL:
-			System.out.println("ƒuƒƒbƒN‚ªÚ‘±‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+			System.out.println("ãƒ–ãƒ­ãƒƒã‚¯ãŒæ¥ç¶šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
 			return;		
 			
 			

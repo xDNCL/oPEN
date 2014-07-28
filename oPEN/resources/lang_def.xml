@@ -923,7 +923,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="lessthanorequalto" kind="function" initlabel="≤" color="15 20 220">
+		<BlockGenus name="lessthanorequalto" kind="function" initlabel="?" color="15 20 220">
 			<description>
 				<text>
 					Reports whether the <arg n="1"/> is less than or equal to the <arg n="2"/>.
@@ -969,7 +969,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="≥" color="15 20 220">
+		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="?" color="15 20 220">
 			<description>
 				<text>
 					Reports whether the <arg n="1"/> is greater than or equal to the <arg n="2"/>.

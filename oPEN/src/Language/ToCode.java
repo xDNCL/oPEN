@@ -244,7 +244,7 @@ public class ToCode {
 					for(String c: bs.getCode()){
 						codes.add(c);
 					}
-					//waitÇÃÉRÅ[ÉhÇÃÇÕÇ∏
+					//waitCAERA[EhCACOC?
 					codes.add(iterative(block).get(0));
 					String[] strs = new String[codes.size()];
 					int i=0;
@@ -289,7 +289,7 @@ public class ToCode {
 					for(String c: bs.getCode()){
 						codes.add(c);
 					}
-					//waitÇÃÉRÅ[ÉhÇÃÇÕÇ∏
+					//waitCAERA[EhCACOC?
 					codes.add(iterative(block).get(0));
 					String[] strs = new String[codes.size()];
 					int i=0;

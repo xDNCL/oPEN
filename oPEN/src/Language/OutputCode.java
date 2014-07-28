@@ -27,7 +27,7 @@ public class OutputCode {
     	
     	private String code;
     	/**
-    	 * @param REMOVE “Ç”ò‚Î‚·•¶šŒQ
+    	 * @param REMOVE èª­é£›ã°ã™æ–‡å­—ç¾¤
     	 */
     	private final char[] REMOVE = {' ', '\t', '\n'};
     	
@@ -45,7 +45,7 @@ public class OutputCode {
     	}
     	
     	/**
-    	 * ƒfƒtƒHƒ‹ƒgƒtƒHƒ‹ƒ_(BlockEducation/save/)‚É•Û‘¶
+    	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ•ã‚©ãƒ«ãƒ€(BlockEducation/save/)ã«ä¿å­˜
     	 * @param outFileName
     	 * @param outFileExtends
     	 */
@@ -54,20 +54,20 @@ public class OutputCode {
     		try{
     			this.code = toCode.getCode();
     		}catch(BlockRunException e1){
-    			System.out.println("ƒR[ƒhì¬‚É¸”s‚µ‚Ü‚µ‚½B");
+    			System.out.println("ã‚³ãƒ¼ãƒ‰ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     			return;
     		}catch(Exception e2){
     			e2.printStackTrace();
-    			System.out.println("—\Šú‚¹‚ÊƒGƒ‰[‚ª”­¶‚µ‚½‚½‚ßAƒR[ƒhì¬‚É¸”s‚µ‚Ü‚µ‚½B");
+    			System.out.println("äºˆæœŸã›ã¬ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸãŸã‚ã€ã‚³ãƒ¼ãƒ‰ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     			return;
     		}
     		CodeWritter codeWritter = new CodeWritter(this.getCode());
     		codeWritter.writting(outFileFullName);
-    		System.out.println("ƒR[ƒh‚ğ¶¬‚µ‚Ü‚µ‚½B");
+    		System.out.println("ã‚³ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ã¾ã—ãŸã€‚");
     	}
    
     	/**
-    	 * w’è‚µ‚½êŠ‚É•Û‘¶
+    	 * æŒ‡å®šã—ãŸå ´æ‰€ã«ä¿å­˜
     	 * @param location
     	 * @param outFileName
     	 * @param outFileExtends
@@ -77,15 +77,15 @@ public class OutputCode {
     		try{
     			this.code = toCode.getCode();
     		}catch(BlockRunException e1){
-    			System.out.println("ƒR[ƒhì¬‚É¸”s‚µ‚Ü‚µ‚½B");
+    			System.out.println("ã‚³ãƒ¼ãƒ‰ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     			return;
     		}catch(Exception e2){
-    			System.out.println("—\Šú‚¹‚ÊƒGƒ‰[‚ª”­¶‚µ‚½‚½‚ßAƒR[ƒhì¬‚É¸”s‚µ‚Ü‚µ‚½B");
+    			System.out.println("äºˆæœŸã›ã¬ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸãŸã‚ã€ã‚³ãƒ¼ãƒ‰ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     			return;
     		}
     		CodeWritter codeWritter = new CodeWritter(this.getCode());
     		codeWritter.writting(location, outFileFullName);
-    		System.out.println("ƒR[ƒh‚ğ¶¬‚µ‚Ü‚µ‚½B");
+    		System.out.println("ã‚³ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ã¾ã—ãŸã€‚");
     	}
     	
     	public String getCode(){

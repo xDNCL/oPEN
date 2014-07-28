@@ -89,10 +89,10 @@ public class OB_WorkspaceController extends WorkspaceController{
     // Reference kept to be able to update frame title with current loaded file
     private JFrame frame;
     
-    //’Ç‰Á
+    //è¿½åŠ 
     private static ConsoleWindow console = new ConsoleWindow(workspace, false);    
     
-    //ƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹
+    //ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«
     private static LoadProperty lp = new LoadProperty(PROPERTY_PATH);
     
     
@@ -131,12 +131,12 @@ public class OB_WorkspaceController extends WorkspaceController{
     public JComponent getOutputButtonPanel(){
     	JPanel buttonPanel = new JPanel();
     	buttonPanel.setBackground(outputButtonBGC);
-        //‰Á•M
+        //åŠ ç­†
         //Output
         if(showButton){
         	OutputAction outputAction = null;
         	if(selectLanguage){
-            	JLabel label = new JLabel("o—ÍŒ¾Œê");
+            	JLabel label = new JLabel("å‡ºåŠ›è¨€èª");
             	buttonPanel.add(label);
             	language = createComboBox(languageFolderName);
             	outputAction = new OutputAction(language);
@@ -158,7 +158,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         public static final long serialVersionUID = -2119679269613495704L;
 
         OpenAction() {
-            super("ŠJ‚­");
+            super("é–‹ã");
         }
 
         @Override
@@ -172,9 +172,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 //                System.out.println(selectedPath);
                 try{
                 	loadProjectFromPath(selectedPath);
-                	System.out.println("ƒ[ƒh‚ªŠ®—¹‚µ‚Ü‚µ‚½B");
+                	System.out.println("ãƒ­ãƒ¼ãƒ‰ãŒå®Œäº†ã—ã¾ã—ãŸã€‚");
                 }catch(Exception err){
-                	System.out.println("ƒ[ƒh‚É¸”s‚µ‚Ü‚µ‚½B");
+                	System.out.println("ãƒ­ãƒ¼ãƒ‰ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
                 }
             }
         }
@@ -186,7 +186,7 @@ public class OB_WorkspaceController extends WorkspaceController{
     public class SaveAction extends AbstractAction {
         public static final long serialVersionUID = -5540588250535739852L;
         SaveAction() {
-            super("•Û‘¶");
+            super("ä¿å­˜");
         }
 
         @Override
@@ -217,7 +217,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         public final SaveAction saveAction;
 
         SaveAsAction(SaveAction saveAction) {
-            super("–¼‘O‚ğ‚Â‚¯‚Ä•Û‘¶");
+            super("åå‰ã‚’ã¤ã‘ã¦ä¿å­˜");
             this.saveAction = saveAction;
         }
 
@@ -267,14 +267,14 @@ public class OB_WorkspaceController extends WorkspaceController{
         FileWriter fileWriter = null;
         try {
            
-        	//‰Á•M
+        	//åŠ ç­†
         	String fileName = file.getName().toString();
-        	if(!fileName.substring(fileName.length()-4).equals(".xml")){
-        		//ƒtƒ@ƒCƒ‹–¼‚ª.xml‚Å‚Í‚È‚¢ê‡‚Í.xml‚Æ‚µ‚Ä•Û‘¶‚·‚é
+        	if(fileName.length() <= 4 || !fileName.substring(fileName.length()-4).equals(".xml")){
+        		//ãƒ•ã‚¡ã‚¤ãƒ«åãŒ.xmlã§ã¯ãªã„å ´åˆã¯.xmlã¨ã—ã¦ä¿å­˜ã™ã‚‹
 	        	File renameFile = new File(file.getPath()+".xml");
 	        	file = renameFile;
         	}
-        	//‰Á•M‚±‚±‚Ü‚Å
+        	//åŠ ç­†ã“ã“ã¾ã§
         	
             fileWriter = new FileWriter(file);       
 //            this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
@@ -350,7 +350,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         		new ActionListener(){
         			
         		      public void actionPerformed(ActionEvent e){
-        		    		//Œx•¶‚Ì”ñ•\¦
+        		    		//è­¦å‘Šæ–‡ã®éè¡¨ç¤º
         		    		@SuppressWarnings("all")
 
 //        		    	  String save = "";
@@ -361,9 +361,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 ////							e1.printStackTrace();
 //						}
 //        		    	  if(!justSaveString.equals(save)){
-        		    		  //ƒZ[ƒu‚·‚é‚©•·‚­
-	        		    	  int option = JOptionPane.showConfirmDialog(frame, "•Û‘¶‚µ‚Ü‚·‚©H", 
-	        		    			  "•Û‘¶Šm”F", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        		    		  //ã‚»ãƒ¼ãƒ–ã™ã‚‹ã‹èã
+	        		    	  int option = JOptionPane.showConfirmDialog(frame, "ä¿å­˜ã—ã¾ã™ã‹ï¼Ÿ", 
+	        		    			  "ä¿å­˜ç¢ºèª", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	        		    	  switch(option){
 	        		    	  case YES:
 	        		    		  	SaveAsAction saa = new SaveAsAction(new SaveAction());
@@ -388,17 +388,17 @@ public class OB_WorkspaceController extends WorkspaceController{
     }
     
     private JComboBox createComboBox(String filePath){
-	    //ƒRƒ“ƒ{ƒ{ƒbƒNƒXì¬‚Ì‚½‚ß‚Ìƒtƒ@ƒCƒ‹ˆê——“Ç‚İ‚İ
+	    //ã‚³ãƒ³ãƒœãƒœãƒƒã‚¯ã‚¹ä½œæˆã®ãŸã‚ã®ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§èª­ã¿è¾¼ã¿
 	    File file = new File(filePath);
 	    File[] files = file.listFiles();
 	    String[] fileNames = new String[files.length];
 	
-	    //ŠJ‚¢‚Ä‚¢‚éƒtƒ@ƒCƒ‹‚ğ—\‚ß‘I‘ğ‚µ‚Ä‚¨‚­
+	    //é–‹ã„ã¦ã„ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’äºˆã‚é¸æŠã—ã¦ãŠã
 	    int selectIndex = 0;
 	    String[] path = stageDrawerFilePath.split("/");
 	    String selectFileName = path[path.length-1];
 	
-	    //ƒtƒ@ƒCƒ‹ƒpƒX‚©‚çƒtƒ@ƒCƒ‹–¼¶¬
+	    //ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«åç”Ÿæˆ
 	    int i=0;
 	    for(File f: files){
 	    	fileNames[i] =f.getName();
@@ -427,7 +427,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         	setBlockDrawerRoot(stageDrawerFilePath);
         }
         
-        //o—ÍŒ¾Œê‚Ìİ’è‚ğ”²‚«o‚·
+        //å‡ºåŠ›è¨€èªã®è¨­å®šã‚’æŠœãå‡ºã™
         setOutputLanguage(blockDrawerRoot);
         
         
@@ -598,8 +598,8 @@ public class OB_WorkspaceController extends WorkspaceController{
         
         ImageIcon icon = null;
         JFrame dummy = new JFrame();
-        Object value = JOptionPane.showInputDialog(dummy, "ƒtƒ@ƒCƒ‹‘I‘ğ", 
-        	      "‚Ç‚Ìƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ‚Ü‚·‚©H", JOptionPane.PLAIN_MESSAGE,
+        Object value = JOptionPane.showInputDialog(dummy, "ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ", 
+        	      "ã©ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã‹ï¼Ÿ", JOptionPane.PLAIN_MESSAGE,
         	      icon, fileName, fileName[0]);
         if(value == null){
         	System.exit(0);
@@ -622,12 +622,12 @@ public class OB_WorkspaceController extends WorkspaceController{
 		private JComboBox select;
 		
 		OutputAction() {
-			super("ƒ\[ƒXƒR[ƒho—Í");
+			super("ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›");
 			select = null;
 	    }
 		
 		OutputAction(JComboBox select){
-			super("‚Åƒ\[ƒXƒR[ƒho—Í");
+			super("ã§ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›");
 			this.select = select;
 		}
 
@@ -636,16 +636,16 @@ public class OB_WorkspaceController extends WorkspaceController{
 	    	
 	    	
 	    	
-	    	String value = JOptionPane.showInputDialog(frame, "o—Í‚·‚éƒtƒ@ƒCƒ‹–¼‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+	    	String value = JOptionPane.showInputDialog(frame, "å‡ºåŠ›ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 
 	        if (value == null || value.equals("")){
-	        	System.out.println("ƒ\[ƒXƒR[ƒho—Í‚ğ’†’f‚µ‚Ü‚µ‚½B");
+	        	System.out.println("ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›ã‚’ä¸­æ–­ã—ã¾ã—ãŸã€‚");
 	        	return;
 	        }else{
 	        	try{
 		        OutputCode outputCode = new OutputCode(workspace);
 		        
-		        //o—ÍŒ¾Œê‚ª‘I‚×‚é‚©”Û‚©
+		        //å‡ºåŠ›è¨€èªãŒé¸ã¹ã‚‹ã‹å¦ã‹
 		        if(select == null){
 		        	outputCode.loadCodeFile(outputLanguagePath);
 		        }else{
@@ -653,18 +653,18 @@ public class OB_WorkspaceController extends WorkspaceController{
 		        	outputCode.loadCodeFile(selectedFileName);
 		        }
 		        
-		        //Šg’£q•âŠ®
+		        //æ‹¡å¼µå­è£œå®Œ
 	        	if(value.contains(".")){
 	        		outputCode.writteCode(value);
 	        	}
 	        	else{
 	        		outputCode.writteCode(value+outputDomain);
 	        	}
-			        //debug‚Å‚«‚ ‚ª‚Á‚½ƒR[ƒh‚ğ“f‚­
+			        //debugã§ãã‚ãŒã£ãŸã‚³ãƒ¼ãƒ‰ã‚’åã
 	//		        System.err.println(outputCode.getCode());
 			        
 		    	}catch(Exception err){
-		    		System.out.println("o—ÍŒ¾Œê‚ÉŠÖ‚·‚éƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+		    		System.out.println("å‡ºåŠ›è¨€èªã«é–¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
 		    	}
 	        }
 	    }

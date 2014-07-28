@@ -1769,7 +1769,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="lessthanorequalto" kind="function" initlabel="≤" color="15 20 220">
+		<BlockGenus name="lessthanorequalto" kind="function" initlabel="?" color="15 20 220">
 			<description>
 				<text>
 					 <arg n="1"/> が <arg n="2"/> 以下か調べます。
@@ -1815,7 +1815,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="≥" color="15 20 220">
+		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="?" color="15 20 220">
 			<description>
 				<text>
 					 <arg n="1"/> が <arg n="2"/>以上かを調べます。
