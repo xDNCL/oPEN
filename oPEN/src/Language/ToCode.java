@@ -307,6 +307,10 @@ public class ToCode {
 		return searchBlockCodeString(name);		
 	}
 		
+	/**
+	 * @param name ブロック名前
+	 * @return
+	 */
 	private BlockString searchBlockCodeString(String name){
 		for(BlockString bs:this.blockCodeStringList){
 			if(name.equals(bs.getName())){
