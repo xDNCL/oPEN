@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import pen.IntVgOutputWindow.IntVgOutputWindow;
 import Exe.BlockRunException;
 import Exe.ConsoleWindow;
 import edu.mit.blocks.codeblocks.Block;
@@ -16,34 +17,35 @@ import edu.mit.blocks.codeblocks.BlockConnector;
 import edu.mit.blocks.workspace.Workspace;
 
 public class OB_Block extends Block{
-			
+
 	protected static Hashtable<String, Object> variableTable = new Hashtable<String, Object>();
-	private static long counter = 0; 
+	private static long counter = 0;
 	private final int STOP = 10000;
-	
+	private IntVgOutputWindow ivw = new IntVgOutputWindow();
+
 	void resetAll(){
 		variableTable .clear();
 	}
-		
+
 	public static Hashtable<String, Object> getVariableList(){
 		return variableTable;
 	}
-	
-	
+
+
 	/**
 	 * @param workspace
 	 * @param genusName
 	 * @param label
 	 */
-	
+
 	public OB_Block(Workspace workspace, String genusName, String label) {
 		super(workspace, genusName, label);
 	}
 
-    public OB_Block(Workspace workspace, String genusName, boolean linkToStubs) { 	
+    public OB_Block(Workspace workspace, String genusName, boolean linkToStubs) {
         super(workspace, genusName, linkToStubs);
      }
-    
+
     public OB_Block(Workspace workspace, Long id, String genusName, String label, boolean b) {
 		super(workspace, id, genusName, label, b);
 	}
@@ -52,26 +54,26 @@ public class OB_Block extends Block{
     protected OB_Block(Block block){
     	super(block.getWorkspace(), block.getGenusName(), block.getBlockLabel());
     }
-    
+
     public OB_Block(Workspace workspace, String genusName) {
         this(workspace, genusName, workspace.getEnv().getGenusWithName(genusName).getInitialLabel());
     }
-    
-    
-    
+
+
+
     ///////
     //exe//
     ///////
-    
+
     public ArrayList<OB_Block> runBlock() throws BlockRunException{
 //    	System.out.println("now:"+this.getGenusName());
     	ArrayList<OB_Block> runList = new ArrayList<OB_Block>();
-    	
+
     	try{
 	    	if(this.getGenusName().equals("start")){
 	    		resetAll();
 	    	}
-	    	
+
 	    	//set Value
 	    	if(this.getGenusName().equals("setInt")){
 	    		String name = this.getBlock(this.getSocketAt(0).getBlockID()).getBlockLabel();
@@ -89,7 +91,7 @@ public class OB_Block extends Block{
 	    		String name = this.getBlock(this.getSocketAt(0).getBlockID()).getBlockLabel();
 	    		createVariable(name, new Boolean(true));
 	    	}
-	    	
+
 	    	//System I/O
 	    	if(this.getGenusName().equals("print-number")){
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
@@ -108,7 +110,7 @@ public class OB_Block extends Block{
 	    		System.out.println(value.toString());
 	    	}
 
-	    	
+
 	    	//assigned Variable
 	    	if(this.getGenusName().equals("substitution-number")){
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
@@ -118,7 +120,7 @@ public class OB_Block extends Block{
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 	    		this.setVariavle(this.getBlockLabel(), value);
 	    	}
-	    	
+
 	    	//Control
 	    	if(this.getGenusName().equals("if")){
 	    		boolean value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
@@ -155,7 +157,7 @@ public class OB_Block extends Block{
 	    		}else if(value instanceof Double){
 	    			throw new BlockRunException(this, "「回数」に実数型は認められません。");
 	    		}else{
-	    			throw new BlockRunException(this, BlockRunException.CAST_ERROR);	    			
+	    			throw new BlockRunException(this, BlockRunException.CAST_ERROR);
 	    		}
 	    		for(int i=0; i<x; i++){
 	    			runList.add(this.getBlock(this.getSocketAt(1).getBlockID()));
@@ -163,38 +165,373 @@ public class OB_Block extends Block{
 	    	}
 	    	if(this.getGenusName().equals("repeat-if")){
 	    		boolean value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean();
-	    		
+
 	    		if(value){
 	    			runList.add(this.getBlock(this.getSocketAt(1).getBlockID()));
 	    			runList.add(this);
 	    			return runList;
 	    		}
 	    	}
-	    	
-	    
+
+
 	    	//add other...
-	    	
-	    	
+
+	    	//gSetLine
+
+	    	if(this.getGenusName().equals("gSetLineShape")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetLineShape(x);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetLineWidth")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetLineWidth(x);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetArrowType")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetArrowType(x);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetArrowDir")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetArrowDir(x);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetFillColor")){
+	    		int r = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			r = Integer.valueOf(value.toString());
+	    		}
+	    		int g = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			g = Integer.valueOf(value.toString());
+	    		}
+	    		int b = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			b = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetFillColor(r, g, b);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetDotShape")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetDotShape(x);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetTextColor")){
+	    		int r = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			r = Integer.valueOf(value.toString());
+	    		}
+	    		int g = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			g = Integer.valueOf(value.toString());
+	    		}
+	    		int b = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			b = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetTextColor(r, g, b);
+	    	}
+
+	    	//gSetFont
+	    	/*
+	    	if(this.getGenusName().equals("gSetFont")){
+	    		String str = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+
+	    		ivw.gSetFont(str);
+	    	}
+			*/
+			
+	    	if(this.getGenusName().equals("gSetFontType")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetFontType(x);
+	    	}
+
+	    	if(this.getGenusName().equals("gSetFontSize")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetFontSize(x);
+	    	}
+
+	    	/*gDrawText
+	    	if(this.getGenusName().equals("gDrawText")){
+	    		String str ="";
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof String){
+	    			str = value.toString();
+	    		}
+	    		int x = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gDrawText(str,x, y);
+	    	}
+	    	*/
+
+	    	if(this.getGenusName().equals("gDrawPoint")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gDrawPoint(x, y);
+	    	}
+
+	    	if(this.getGenusName().equals("gDrawLine")){
+	    		int x1 = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x1 = Integer.valueOf(value.toString());
+	    		}
+	    		int y1 = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y1 = Integer.valueOf(value.toString());
+	    		}
+	    		int x2 = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x2 = Integer.valueOf(value.toString());
+	    		}
+	    		int y2 = 0;
+	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y2 = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gDrawLine(x1,y1,x2,y2);
+	    	}
+
+	    	if(this.getGenusName().equals("gDrawBox")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    			x = Integer.valueOf(value.toString());
+	    			System.out.println(x);
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    			y = Integer.valueOf(value.toString());
+	    			System.out.println(y);
+	    		int width = 100;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    			width = Integer.valueOf(value.toString());
+	    		int height = 120;
+	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
+	    			height = Integer.valueOf(value.toString());
+	    		ivw.gDrawBox(x, y,width,height);
+	    	}
+
+	    	if(this.getGenusName().equals("gFillBox")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		int width = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			width = Integer.valueOf(value.toString());
+	    		}
+	    		int height = 0;
+	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			height = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gFillBox(x, y,width,height);
+	    	}
+
+	    	if(this.getGenusName().equals("gDrawOval")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		int width = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			width = Integer.valueOf(value.toString());
+	    		}
+	    		int height = 0;
+	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			height = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gDrawOval(x, y,width,height);
+	    	}
+
+	    	if(this.getGenusName().equals("gFillOval")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		int width = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			width = Integer.valueOf(value.toString());
+	    		}
+	    		int height = 0;
+	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			height = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gFillOval(x, y,width,height);
+	    	}
+
+	    	if(this.getGenusName().equals("gDrawCircle")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		int r = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			r = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gDrawCircle(x, y, r);
+	    	}
+
+	    	if(this.getGenusName().equals("gFillCircle")){
+	    		int x = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			x = Integer.valueOf(value.toString());
+	    		}
+	    		int y = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			y = Integer.valueOf(value.toString());
+	    		}
+	    		int r = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			r = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gFillCircle(x, y, r);
+	    	}
+
+	    	if(this.getGenusName().equals("gOpenWindow")){
+	    		int width = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			width = Integer.valueOf(value.toString());
+	    		}
+	    		int height = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			height = Integer.valueOf(value.toString());
+	    		}
+	    		ivw.gOpenWindow(width, height);
+	    	}
+
+
+	    	if(this.getGenusName().equals("gSaveWindow")){
+	    		ivw.gSaveWindow("","");
+	    	}
+
+	    	if(this.getGenusName().equals("gCloseWindow")){
+	    		ivw.gCloseWindow();
+	    	}
+
+	    	if(this.getGenusName().equals("gClearWindow")){
+	    		ivw.gClearWindow();
+	    	}
 	    	//
-	    
+
 	    	if(this.next() != null){
 	    		runList.add(this.next());
-	    	}			
+	    	}
 			return runList;
 
     	}catch(NullPointerException e1){
     		//null = no Block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
-    	
+
     }
-    
+
 	/**
 	 * @return Returns the value as a String
-	 * @throws BlockRunException 
+	 * @throws BlockRunException
 	 */
     public Object evaluateValue() throws BlockRunException{
-    	
+
     	try{
 	    	//if this BlockType is data
 	    	if(this.getGenusName().equals("number")){
@@ -232,7 +569,7 @@ public class OB_Block extends Block{
 	    			 return new Integer((int)Math.random() * Integer.valueOf(value.toString()));
 	    		 }
 	    		 if(value instanceof Double){
-	    			 return new Double(Math.random() * Double.valueOf(value.toString())); 
+	    			 return new Double(Math.random() * Double.valueOf(value.toString()));
 	    		 }
 	    	}
 	    	if(this.getGenusName().equals("keyboard-input-number") || this.getGenusName().equals("keyboard-input-string")){
@@ -240,7 +577,7 @@ public class OB_Block extends Block{
 	    		String inputData = "";
 	    		try {
 	    		      while(!ConsoleWindow.isEntered()){
-							Thread.sleep(100);						
+							Thread.sleep(100);
 	    		      	}
 	    		      inputData = ConsoleWindow.getInputformText();
 	    		    }catch (InterruptedException e) {
@@ -269,35 +606,35 @@ public class OB_Block extends Block{
 		    	}
 		    	return result;
 	    	}
-	    	
-	    	
+
+
 	    	//if this block is calculation
 	    	if(this.getGenusName().equals("sum")){
-	    		return this.sum(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(), 
+	    		return this.sum(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
 	    				this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
 	    	if(this.getGenusName().equals("difference")){
-	    		return this.difference(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(), 
+	    		return this.difference(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
 	    				this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
 	    	if(this.getGenusName().equals("product")){
-	    		return this.product(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(), 
+	    		return this.product(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
 	    				this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
 	    	if(this.getGenusName().equals("surplus")){
-	    		return this.surplus(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(), 
+	    		return this.surplus(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
 	    				this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
 	    	if(this.getGenusName().equals("quotient")){
-	    		return this.quotient(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(), 
+	    		return this.quotient(this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
 	    				this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 	    	}
-	    	
+
 	    	//add other ...
-	    	
+
 	    	//
-	    	
-	    	
+
+
     	}catch(NullPointerException e1){
     		// null = no connection Block
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -305,7 +642,7 @@ public class OB_Block extends Block{
 
     	throw new BlockRunException(this);
     }
-    
+
     /**
      * Boolean
      * boolean connector
@@ -321,7 +658,7 @@ public class OB_Block extends Block{
 	    		return false;
 	    	}
 	    	if(this.getGenusName().equals("or")){
-	    		return getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean() || 
+	    		return getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean() ||
 	    				getBlock(this.getSocketAt(1).getBlockID()).evaluateBoolean();
 	    	}
 	    	if(this.getGenusName().equals("and")){
@@ -331,7 +668,7 @@ public class OB_Block extends Block{
 	    	if(this.getGenusName().equals("not")){
 	    		return !(getBlock(this.getSocketAt(0).getBlockID()).evaluateBoolean());
 	    	}
-	    	
+
 	    	//calculation block
 	    	if(this.getGenusName().equals("equals") || this.getGenusName().equals("equals-s")){
 	    		return this.equals(getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
@@ -361,16 +698,16 @@ public class OB_Block extends Block{
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     	}
     	//add other...
-    	
+
     	throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
     }
-    
+
     ///////////////////
     //Block Operation//
     ///////////////////
     private OB_Block getBlock(long id){
     	Block block = workspace.getEnv().getBlock(id);
-    	
+
     	if(block == null){
     		return null;
     	}
@@ -383,16 +720,16 @@ public class OB_Block extends Block{
     		return newBlock;
     	}
     }
-    
+
     private OB_Block next(){
 //    	System.out.println("next ID------"+this.getAfterBlockID());
     	return getBlock(this.getAfterBlockID());
     }
-    
+
     /////////////
     //variables//
     /////////////
-    
+
     private void createVariable(String name, Object value)throws BlockRunException{
     	if(name == null || name.equals("") || value == null){
     		throw new BlockRunException(this, BlockRunException.NO_NAME);
@@ -403,9 +740,9 @@ public class OB_Block extends Block{
     	variableTable.put(name, value);
     	ConsoleWindow.setVariableTable(variableTable);
     }
-    
+
     private void setVariavle(String name, Object value)throws BlockRunException{
-    	
+
     	if(variableTable.get(name) != null){
        		try{
        			Object oldValue = variableTable.get(name);
@@ -460,13 +797,13 @@ public class OB_Block extends Block{
     	}
     }
 
-    
 
-        
+
+
     ///////////
     //boolean//
     ///////////
-    
+
     private boolean equals(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -483,9 +820,9 @@ public class OB_Block extends Block{
     	else if(a instanceof Integer || b instanceof Integer){
     		return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
     	}
-    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);    	
+    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private boolean notEquals(Object a)throws BlockRunException{
     	if(a == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -493,9 +830,9 @@ public class OB_Block extends Block{
     	if(a instanceof Boolean){
     		return !(Boolean)a;
     	}
-    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);    	
+    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private boolean lessthan(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -513,9 +850,9 @@ public class OB_Block extends Block{
     	else if(a instanceof Integer || b instanceof Integer){
     		return Integer.valueOf(a.toString()) < Integer.valueOf(b.toString());
     	}
-    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);    	
+    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private boolean lessthanorEqualto(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -532,9 +869,9 @@ public class OB_Block extends Block{
     	else if(a instanceof Integer || b instanceof Integer){
     		return Integer.valueOf(a.toString()) <= Integer.valueOf(b.toString());
     	}
-    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);    	
+    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private boolean greaterthan(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -551,9 +888,9 @@ public class OB_Block extends Block{
     	else if(a instanceof Integer || b instanceof Integer){
     		return Integer.valueOf(a.toString()) > Integer.valueOf(b.toString());
     	}
-    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);    	
+    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private boolean greaterthanorEqualto(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -570,14 +907,14 @@ public class OB_Block extends Block{
     	else if(a instanceof Integer || b instanceof Integer){
     		return Integer.valueOf(a.toString()) >= Integer.valueOf(b.toString());
     	}
-    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);    	
+    	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
-    
+
+
     ////////////////
     //calculation//
     ///////////////
-    
+
     private Object sum(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -596,7 +933,7 @@ public class OB_Block extends Block{
     	}
     	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private Object difference(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -615,7 +952,7 @@ public class OB_Block extends Block{
     	}
     	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private Object product(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -634,7 +971,7 @@ public class OB_Block extends Block{
     	}
     	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private Object quotient(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -653,7 +990,7 @@ public class OB_Block extends Block{
     	}
     	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-    
+
     private Object surplus(Object a, Object b)throws BlockRunException{
     	if(a == null || b == null){
     		throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -672,7 +1009,7 @@ public class OB_Block extends Block{
     	}
     	throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
     }
-        
+
     /**
      * Loads Block information from the specified node and return a Block
      * instance with the loaded information
@@ -865,7 +1202,7 @@ public class OB_Block extends Block{
 //    void setProperties(HashMap<String, String> properties){
 //    	super.properties = properties;
 //    }
-//    
+//
     void removeBeforeAndAfter(){
     	super.after = null;
     	super.before = null;
