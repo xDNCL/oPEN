@@ -21,7 +21,6 @@ public class OB_Block extends Block{
 	protected static Hashtable<String, Object> variableTable = new Hashtable<String, Object>();
 	private static long counter = 0;
 	private final int STOP = 10000;
-	private IntVgOutputWindow ivw = new IntVgOutputWindow();
 
 	void resetAll(){
 		variableTable .clear();
@@ -65,7 +64,7 @@ public class OB_Block extends Block{
     //exe//
     ///////
 
-    public ArrayList<OB_Block> runBlock() throws BlockRunException{
+    public ArrayList<OB_Block> runBlock(IntVgOutputWindow ivw) throws BlockRunException{
 //    	System.out.println("now:"+this.getGenusName());
     	ArrayList<OB_Block> runList = new ArrayList<OB_Block>();
 
