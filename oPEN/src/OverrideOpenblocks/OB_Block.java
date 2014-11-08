@@ -176,6 +176,25 @@ public class OB_Block extends Block{
 	    	//add other...
 
 	    	//gSetLine
+	    	if(this.getGenusName().equals("gSetLineColor")){
+	    		int r = 0;
+	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			r = Integer.valueOf(value.toString());
+	    		}
+	    		int g = 0;
+	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			g = Integer.valueOf(value.toString());
+	    		}
+	    		int b = 0;
+	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value instanceof Integer){
+	    			b = Integer.valueOf(value.toString());
+	    		}
+
+	    		ivw.gSetLineColor(r, g, b);
+	    	}
 
 	    	if(this.getGenusName().equals("gSetLineShape")){
 	    		int x = 0;
@@ -296,7 +315,7 @@ public class OB_Block extends Block{
 	    		ivw.gSetFontSize(x);
 	    	}
 
-	    	/*gDrawText
+	    	//gDrawText
 	    	if(this.getGenusName().equals("gDrawText")){
 	    		String str ="";
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
@@ -315,7 +334,7 @@ public class OB_Block extends Block{
 	    		}
 	    		ivw.gDrawText(str,x, y);
 	    	}
-	    	*/
+	    	
 
 	    	if(this.getGenusName().equals("gDrawPoint")){
 	    		int x = 0;
@@ -330,7 +349,25 @@ public class OB_Block extends Block{
 	    		}
 	    		ivw.gDrawPoint(x, y);
 	    	}
-
+	    	
+	    	if(this.getGenusName().equals("gDrawPoint2")){
+	    		int x = 0;
+	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value2 = value.getBlock(value.getSocketAt(1).getBlockID()).evaluateValue();
+	    		Object value3 = value.getBlock(value.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
+	    			System.out.println("x="+x);
+	    		}
+	    		int y = 0;
+	    		
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
+	    			System.out.println("y="+y);
+	    		}
+	    		ivw.gDrawPoint(x, y);
+	    	}
+			
 	    	if(this.getGenusName().equals("gDrawLine")){
 	    		int x1 = 0;
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
@@ -356,20 +393,14 @@ public class OB_Block extends Block{
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawBox")){
-	    		int x = 0;
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    			x = Integer.valueOf(value.toString());
-	    			System.out.println(x);
-	    		int y = 0;
+	    		int x = Integer.valueOf(value.toString());
 	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    			y = Integer.valueOf(value.toString());
-	    			System.out.println(y);
-	    		int width = 100;
+	    		int y = Integer.valueOf(value.toString());
 	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    			width = Integer.valueOf(value.toString());
-	    		int height = 120;
+	    		int width = Integer.valueOf(value.toString());
 	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
-	    			height = Integer.valueOf(value.toString());
+	    		int height = Integer.valueOf(value.toString());
 	    		ivw.gDrawBox(x, y,width,height);
 	    	}
 

@@ -128,10 +128,10 @@ BlockGenuses are first loaded.
 		</BlockGenus>
 
 <!--  追加　　★★★　-->	
-		<BlockGenus name="println-string" kind="command" initlabel="★_★" color="255 255 255">
+		<BlockGenus name="println-string" kind="command" initlabel="文字列" color="255 255 255">
 			<description>
 				<text>
-					文字列を★★表示します。
+					文字列を表示します。
 				</text>
 			</description>
 			<BlockConnectors>
@@ -930,6 +930,21 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 				<BlockConnector connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="eval-num"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+		<BlockGenus name="number2" kind="data" initlabel="1" editable-label="yes" is-label-value="yes" color="255 0 255">
+			<description>
+				<text>
+					数を示します。
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="number-list" position-type="mirror"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="eval-num"></LangSpecProperty>
@@ -1742,6 +1757,29 @@ BlockGenuses are first loaded.
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="equals"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+		<BlockGenus name="xy" kind="data" initlabel=" ," color="105 176 118">
+			<description>
+				<text>
+					xとyの値を入れて下さい。
+				</text>
+				<arg-description n="1" doc-name="x">
+				</arg-description>
+				<arg-description n="2" doc-name="y">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number-list" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="xy"></LangSpecProperty>
 				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
@@ -3614,9 +3652,15 @@ BlockGenuses are first loaded.
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="赤" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="緑" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="青" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="赤" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="0"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="緑" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="255"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="青" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="255"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetLineColor"></LangSpecProperty>
@@ -3639,7 +3683,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+			<DefaultArg genus-name="number" label="1"></DefaultArg>
+			</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetLineShape"></LangSpecProperty>
@@ -3658,7 +3704,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetLineWidth"></LangSpecProperty>
@@ -3677,7 +3725,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetArrowType"></LangSpecProperty>
@@ -3696,7 +3746,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetArrowDir"></LangSpecProperty>
@@ -3723,9 +3775,15 @@ BlockGenuses are first loaded.
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="赤" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="緑" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="青" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="赤" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="0"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="緑" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="255"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="青" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="255"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetFillColor"></LangSpecProperty>
@@ -3744,7 +3802,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetDotShape"></LangSpecProperty>
@@ -3771,9 +3831,15 @@ BlockGenuses are first loaded.
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="赤" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="緑" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="青" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="赤" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="0"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="緑" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="255"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="青" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="255"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetTextColor"></LangSpecProperty>
@@ -3792,7 +3858,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetFont"></LangSpecProperty>
@@ -3811,7 +3879,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetFontType"></LangSpecProperty>
@@ -3830,7 +3900,9 @@ BlockGenuses are first loaded.
 			</description>
 
 			<BlockConnectors>
-				<BlockConnector connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="1"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gSetFontSize"></LangSpecProperty>
@@ -3854,9 +3926,15 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="文字列" connector-kind="socket" connector-type="string"></BlockConnector>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="文字列" connector-kind="socket" connector-type="string">
+				<DefaultArg genus-name="string" label="abc"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gDrawText"></LangSpecProperty>
@@ -3878,8 +3956,31 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="gDrawPoint"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+		<BlockGenus name="gDrawPoint2" kind="command" initlabel="点" color="0 255 0">
+			<description>
+				<text>
+					点を描きます。
+				</text>
+				
+				<arg-description n="1" name="xy">
+					xとyの位置を指定。
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="x y" connector-kind="socket" connector-type="number-list">
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gDrawPoint"></LangSpecProperty>
@@ -3909,10 +4010,18 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="始点x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="始点y" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="終点x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="終点y" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="始点x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="始点y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="終点x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="300"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="終点y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gDrawLine"></LangSpecProperty>
@@ -3979,10 +4088,18 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="300"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gFillBox"></LangSpecProperty>
@@ -4012,10 +4129,18 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="300"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gDrawOval"></LangSpecProperty>
@@ -4045,10 +4170,18 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="300"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gFillOval"></LangSpecProperty>
@@ -4075,9 +4208,15 @@ BlockGenuses are first loaded.
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="半径" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="半径" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="300"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gDrawCircle"></LangSpecProperty>
@@ -4104,9 +4243,15 @@ BlockGenuses are first loaded.
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number"></BlockConnector>
-				<BlockConnector label="半径" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="x" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="y" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="半径" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="300"></DefaultArg>
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gFillCircle"></LangSpecProperty>
