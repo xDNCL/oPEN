@@ -41,8 +41,10 @@
 			</BlockDrawer>
 			<BlockDrawer name="値・変数" type="factory" button-color="255 242 0">
 			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>number2</BlockGenusMember>
 			    <BlockGenusMember>string</BlockGenusMember>
 			    <BlockGenusMember>variable-Number</BlockGenusMember>
+			    <BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
 
 			
@@ -51,6 +53,7 @@
  			    <BlockGenusMember>gSetLineWidth</BlockGenusMember>
 			    <BlockGenusMember>gSetArrowType</BlockGenusMember>
  			    <BlockGenusMember>gSetArrowDir</BlockGenusMember>
+			    <BlockGenusMember>gSetLineColor</BlockGenusMember>
 			    <BlockGenusMember>gSetFillColor</BlockGenusMember>
  			    <BlockGenusMember>gSetDotShape</BlockGenusMember>
 			    <BlockGenusMember>gSetTextColor</BlockGenusMember>
@@ -63,6 +66,7 @@
 			<BlockDrawer name="図形描画" type="factory" button-color="0 255 0">
 			    <BlockGenusMember>gDrawText</BlockGenusMember>
 			    <BlockGenusMember>gDrawPoint</BlockGenusMember>
+			    <BlockGenusMember>gDrawPoint2</BlockGenusMember>
  			    <BlockGenusMember>gDrawLine</BlockGenusMember>
 			    <BlockGenusMember>gDrawBox</BlockGenusMember>
 			    <BlockGenusMember>gFillBox</BlockGenusMember>
