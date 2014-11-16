@@ -352,9 +352,9 @@ public class OB_Block extends Block{
 	    	
 	    	if(this.getGenusName().equals("gDrawPoint2")){
 	    		int x = 0;
-	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value2 = value.getBlock(value.getSocketAt(1).getBlockID()).evaluateValue();
-	    		Object value3 = value.getBlock(value.getSocketAt(2).getBlockID()).evaluateValue();
+	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value.getBlock(value.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value.getBlock(value.getSocketAt(1).getBlockID()).evaluateValue();
 	    		if(value2 instanceof Integer){
 	    			x = Integer.valueOf(value2.toString());
 	    			System.out.println("x="+x);
