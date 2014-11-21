@@ -36,13 +36,13 @@ BlockGenuses are first loaded.
 	
 	<BlockGenuses>
 	    
-	    <BlockGenus name="NewBlock" kind="command" initlabel="新たなブロック" 
+	    <BlockGenus name="NewBlock" kind="command" initlabel="新-ブロック" 
 	        						editable-label="yes" is-label-value="yes" color="126 206 244">
 		    <description>
 				<text>新しく定義したブロックです</text>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="数値コネクタ" connector-kind="socket" connector-type="number">
+				<BlockConnector label="数値コネクタ" connector-kind="socket" connector-type="number-inv">
 				</BlockConnector>
 				<BlockConnector label="文字コネクタ" connector-kind="socket" connector-type="string">
 				</BlockConnector>
@@ -82,7 +82,7 @@ BlockGenuses are first loaded.
 		</BlockGenus>	
 	    	    
 <!-- for PEN Blocks -->
-		<BlockGenus name="keyboard-input-number" kind="data" initlabel="キー入力" color="255 242 0">
+		<BlockGenus name="keyboard-input-number" kind="data" initlabel="数値入力" color="255 242 0">
 			<description>
 				<text>
 					キーボードから入力された数値を示します
@@ -97,7 +97,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="keyboard-input-string" kind="data" initlabel="キー入力" color="255 242 0">
+		<BlockGenus name="keyboard-input-string" kind="data" initlabel="文字入力" color="255 242 0">
 			<description>
 				<text>
 					キーボードから入力された文字列を示します
@@ -1737,8 +1737,8 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="" connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
-				<BlockConnector label="" connector-kind="socket" connector-type="poly" position-type="bottom"></BlockConnector>
-				<BlockConnector label="" connector-kind="socket" connector-type="poly" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="not-equals"></LangSpecProperty>
@@ -1769,7 +1769,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="lessthanorequalto" kind="function" initlabel="?" color="15 20 220">
+		<BlockGenus name="lessthanorequalto" kind="function" initlabel="≦" color="15 20 220">
 			<description>
 				<text>
 					 <arg n="1"/> が <arg n="2"/> 以下か調べます。
@@ -1815,7 +1815,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="?" color="15 20 220">
+		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="≧" color="15 20 220">
 			<description>
 				<text>
 					 <arg n="1"/> が <arg n="2"/>以上かを調べます。
