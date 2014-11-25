@@ -187,7 +187,7 @@ public class WorkspaceController {
             StringWriter writer = new StringWriter();
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.ENCODING, "Shift_JIS"); // Shift-JIS -> Shift_JIS
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8"); // Shift-JIS -> Shift_JIS
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(new DOMSource(node), new StreamResult(writer));
             return writer.toString();

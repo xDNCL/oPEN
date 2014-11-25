@@ -313,6 +313,7 @@ public class OB_WorkspaceController extends WorkspaceController{
         	}
         	//加筆ここまで
         	
+
             fileWriter = new FileWriter(file);       
 //            this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
             fileWriter.write(getSaveString());
@@ -671,10 +672,27 @@ public class OB_WorkspaceController extends WorkspaceController{
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	
-	    	
-	    	
+	    	// 2014/11/17 N.Inaba DEL begin
+	    	/*
 	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
-
+	    	*/
+	    	// 2014/11/17 N.Inaba DEL end
+	    	
+	    	// 2014/11/17 N.Inaba ADD begin 保存先の指定
+	    	String value = null;
+	    	String path = null;
+	    	JFileChooser filechooser = new JFileChooser();
+	        filechooser.setDialogTitle("名前を付けて保存");
+	        
+	        int selected = filechooser.showSaveDialog(frame);
+	        if (selected == JFileChooser.APPROVE_OPTION){
+	          File file = filechooser.getSelectedFile();
+	          value = file.getName();
+	          path = file.getParent();
+	          System.out.println(value);
+	        }
+	        // 2014/11/17 N.Inaba ADD end
+	    	
 	        if (value == null || value.equals("")){
 	        	System.out.println("ソースコード出力を中断しました。");
 	        	return;
@@ -690,12 +708,14 @@ public class OB_WorkspaceController extends WorkspaceController{
 		        	outputCode.loadCodeFile(selectedFileName);
 		        }
 		        
+
+		        
 		        //拡張子補完
 	        	if(value.contains(".")){
-	        		outputCode.writteCode(value);
+	        		outputCode.writteCode(path,value);
 	        	}
 	        	else{
-	        		outputCode.writteCode(value+outputDomain);
+	        		outputCode.writteCode(path,value+outputDomain);
 	        	}
 			        //debugできあがったコードを吐く
 	//		        System.err.println(outputCode.getCode());
