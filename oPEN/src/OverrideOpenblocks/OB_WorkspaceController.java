@@ -9,9 +9,12 @@ import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -37,7 +40,6 @@ import org.xml.sax.SAXException;
 
 import Exe.ConsoleWindow;
 import Language.*;
-
 import edu.mit.blocks.codeblocks.BlockConnectorShape;
 import edu.mit.blocks.codeblocks.BlockGenus;
 import edu.mit.blocks.codeblocks.BlockLinkChecker;
@@ -301,7 +303,10 @@ public class OB_WorkspaceController extends WorkspaceController{
      * @throws IOException If save failed
      */
     public void saveToFile(File file) throws IOException {
-        FileWriter fileWriter = null;
+        // FileWriter fileWriter = null;
+        FileOutputStream fos = null;
+        OutputStreamWriter osw = null;
+        PrintWriter pw = null;
         try {
            
         	//加筆
@@ -311,16 +316,24 @@ public class OB_WorkspaceController extends WorkspaceController{
 	        	File renameFile = new File(file.getPath()+".xml");
 	        	file = renameFile;
         	}
-        	//加筆ここまで
         	
-
-            fileWriter = new FileWriter(file);       
-//            this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
-            fileWriter.write(getSaveString());
+        	//加筆ここまで
+            // fileWriter = new FileWriter(file);
+        	
+        	// 2014/11/25 N.Inaba ADD begin UTF-8で出力
+        	fos = new FileOutputStream(file);
+            osw = new OutputStreamWriter(fos,"UTF-8");
+            pw = new PrintWriter(osw);
+            pw.println(getSaveString());
+            
+            // 2014/11/25 N.Inaba ADD end
+            
+//          this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
+//          fileWriter.write(getSaveString());
         }
         finally {
-            if (fileWriter != null) {
-                fileWriter.close();
+            if (fos != null) {
+                pw.close();
             }
         }
     }
