@@ -3570,68 +3570,60 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		        
-        <!-- 2014/10/07 N.Inaba ADD begin BlockDrawer定義ブロック -->
-        <BlockGenus name="start2" kind="command" initlabel="制御" color="255 173 0">
-            <description>
-                <text>プログラムの開始点</text>
-            </description>
-            <BlockConnectors>
-            </BlockConnectors>
-            <LangSpecProperties>
-                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
-            </LangSpecProperties>
-        </BlockGenus>
-        <BlockGenus name="start3" kind="command" initlabel="四則演算" color="102 129 255">
-            <description>
-                <text>プログラムの開始点</text>
-            </description>
-            <BlockConnectors>
-            </BlockConnectors>
-            <LangSpecProperties>
-                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
-            </LangSpecProperties>
-        </BlockGenus>
-        <BlockGenus name="start4" kind="command" initlabel="宣言・代入" color="132 204 201">
-            <description>
-                <text>プログラムの開始点</text>
-            </description>
-            <BlockConnectors>
-            </BlockConnectors>
-            <LangSpecProperties>
-                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
-            </LangSpecProperties>
-        </BlockGenus>
-        <BlockGenus name="start5" kind="command" initlabel="入出力" color="255 255 255">
-            <description>
-                <text>プログラムの開始点</text>
-            </description>
-            <BlockConnectors>
-            </BlockConnectors>
-            <LangSpecProperties>
-                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
-            </LangSpecProperties>
-        </BlockGenus>
-        <BlockGenus name="start6" kind="command" initlabel="値・変数" color="255 242 0">
-            <description>
-                <text>プログラムの開始点</text>
-            </description>
-            <BlockConnectors>
-            </BlockConnectors>
-            <LangSpecProperties>
-                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
-                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
-            </LangSpecProperties>
-        </BlockGenus>
-        <!-- 2014/10/07 N.Inaba ADD end -->
+        <!-- 2014/12/09 N.Inaba ADD begin Drawer定義ブロック -->
+        <BlockGenus name="newDrawer" kind="command" initlabel="drawerName" editable-label="yes" label-unique="yes" is-starter="yes" is-terminator="yes" color="230 230 230">
+			<description>
+				<text>
+					ステージの何番目に何色でDrawerを表示させ、どのブロックを配置するかを設定します.
+				</text>
+				<arg-description n="1" name="order">
+					The number of seconds for which the commands are run when switched on.
+				</arg-description>
+				
+				<arg-description n="2" name="color">
+					The number of seconds for which the commands are run when switched on.
+				</arg-description>
+				
+				<arg-description n="3" name="agents" doc-name="breed">
+					The breed of the agents performing the commands attached here.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+			    <BlockConnector label="order" connector-kind="socket" connector-type="number">
+					<DefaultArg genus-name="number" label="1"></DefaultArg>
+			    </BlockConnector>
+			    <BlockConnector label="color" connector-kind="socket" connector-type="number">
+			    	<DefaultArg genus-name="blue" label="青色"></DefaultArg>
+			    </BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="cmd"></BlockConnector>
+			</BlockConnectors>
+			<Images>
+				<Image block-location="southwest" image-editable="yes" width="15" height="15">
+					<FileLocation>support/forever_switch_on.png</FileLocation>
+				</Image>
+			</Images>
+			<LangSpecProperties>
+				<LangSpecProperty key="runtime-type" value="runforsometime"></LangSpecProperty>
+				<LangSpecProperty key="is-owned-by-breed" value="yes"></LangSpecProperty>
+				<LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed-forever"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="dummy" kind="command" initlabel="" color="132 204 201">
+		    <description>
+				<text>ブロックを接続します。</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="setInt"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+        <!-- 2014/12/09 N.Inaba ADD end -->
 		
 		
 	</BlockGenuses>
