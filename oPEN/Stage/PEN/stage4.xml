@@ -35,6 +35,7 @@
 			</BlockDrawer>
 			<BlockDrawer name="宣言・代入" button-color="132 204 201" type="factory">
 				<BlockGenusMember>setInt</BlockGenusMember>
+                <BlockGenusMember>setDouble</BlockGenusMember>
 				<BlockGenusMember>setString</BlockGenusMember>
 				<BlockGenusMember>substitution-number</BlockGenusMember>
 				<BlockGenusMember>substitution-string</BlockGenusMember>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+<Output>
+    
+    <!-- 出力言語の設定ファイルへのパス
+    	自由に選べるならば(FREE)を記載
+    	出力言語を設定しないならば(NULL)を記載 -->
+    <Language>FREE</Language>
+    
+    <!-- 拡張子 -->
+    <FileNameExtention>.java</FileNameExtention>
+    
+    <!-- ソースコード出力ボタンの有無(ON or OFF) -->
+    <OutputButton>ON</OutputButton>
+    
+</Output>
+<BlockDrawerSets>
+<BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
+			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
+			    <BlockGenusMember>start</BlockGenusMember>
+			    <BlockGenusMember>repeat</BlockGenusMember>
+			    <BlockGenusMember>repeat-if</BlockGenusMember>
+			    <BlockGenusMember>if</BlockGenusMember>
+			    <BlockGenusMember>ifelse</BlockGenusMember>
+				<BlockGenusMember>equals</BlockGenusMember>
+				<BlockGenusMember>lessthan</BlockGenusMember>
+				<BlockGenusMember>lessthanorequalto</BlockGenusMember>
+				<BlockGenusMember>greaterthan</BlockGenusMember>
+				<BlockGenusMember>greaterthanorequalto</BlockGenusMember>
+				<BlockGenusMember>and</BlockGenusMember>
+				<BlockGenusMember>or</BlockGenusMember>
+				<BlockGenusMember>not</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
+				<BlockGenusMember>sum</BlockGenusMember>
+				<BlockGenusMember>difference</BlockGenusMember>
+				<BlockGenusMember>quotient</BlockGenusMember>
+				<BlockGenusMember>product</BlockGenusMember>
+				<BlockGenusMember>surplus</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="宣言・代入" button-color="132 204 201" type="factory">
+				<BlockGenusMember>setInt</BlockGenusMember>
+				<BlockGenusMember>setDouble</BlockGenusMember>
+				<BlockGenusMember>setString</BlockGenusMember>
+				<BlockGenusMember>substitution-number</BlockGenusMember>
+				<BlockGenusMember>substitution-string</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
+				<BlockGenusMember>print-number</BlockGenusMember>
+				<BlockGenusMember>print-string</BlockGenusMember>
+				<BlockGenusMember>println-number</BlockGenusMember>
+				<BlockGenusMember>println-string</BlockGenusMember>
+				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
+				<BlockGenusMember>keyboard-input-string</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="値・変数" type="factory" button-color="255 242 0">
+			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>string</BlockGenusMember>
+			    <BlockGenusMember>variable-Number</BlockGenusMember>
+			    <BlockGenusMember>variable-String</BlockGenusMember>
+			</BlockDrawer>
+</BlockDrawerSet>
+</BlockDrawerSets>
+</root>

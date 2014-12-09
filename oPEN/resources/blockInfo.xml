@@ -3569,7 +3569,69 @@ BlockGenuses are first loaded.
 				<LangSpecProperty key="special-value" value="animals/sonic-sonic"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
-		
+		        
+        <!-- 2014/10/07 N.Inaba ADD begin BlockDrawer定義ブロック -->
+        <BlockGenus name="start2" kind="command" initlabel="制御" color="255 173 0">
+            <description>
+                <text>プログラムの開始点</text>
+            </description>
+            <BlockConnectors>
+            </BlockConnectors>
+            <LangSpecProperties>
+                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
+            </LangSpecProperties>
+        </BlockGenus>
+        <BlockGenus name="start3" kind="command" initlabel="四則演算" color="102 129 255">
+            <description>
+                <text>プログラムの開始点</text>
+            </description>
+            <BlockConnectors>
+            </BlockConnectors>
+            <LangSpecProperties>
+                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
+            </LangSpecProperties>
+        </BlockGenus>
+        <BlockGenus name="start4" kind="command" initlabel="宣言・代入" color="132 204 201">
+            <description>
+                <text>プログラムの開始点</text>
+            </description>
+            <BlockConnectors>
+            </BlockConnectors>
+            <LangSpecProperties>
+                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
+            </LangSpecProperties>
+        </BlockGenus>
+        <BlockGenus name="start5" kind="command" initlabel="入出力" color="255 255 255">
+            <description>
+                <text>プログラムの開始点</text>
+            </description>
+            <BlockConnectors>
+            </BlockConnectors>
+            <LangSpecProperties>
+                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
+            </LangSpecProperties>
+        </BlockGenus>
+        <BlockGenus name="start6" kind="command" initlabel="値・変数" color="255 242 0">
+            <description>
+                <text>プログラムの開始点</text>
+            </description>
+            <BlockConnectors>
+            </BlockConnectors>
+            <LangSpecProperties>
+                <LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+                <LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
+            </LangSpecProperties>
+        </BlockGenus>
+        <!-- 2014/10/07 N.Inaba ADD end -->
 		
 		
 	</BlockGenuses>

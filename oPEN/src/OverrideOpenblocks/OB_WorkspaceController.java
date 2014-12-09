@@ -123,10 +123,12 @@ public class OB_WorkspaceController extends WorkspaceController{
         SaveAction saveAction = new SaveAction();
         buttonPanel.add(new JButton(saveAction));
         
+        /*
         // 2014/10/07 N.Inaba ADD begin ステージ保存ボタン
         SaveStageAction saveStageAction = new SaveStageAction();
         buttonPanel.add(new JButton(saveStageAction));
         // 2014/10/07 N.Inaba ADD end
+        */
         
         // Save as
         SaveAsAction saveAsAction = new SaveAsAction(saveAction);
@@ -325,7 +327,6 @@ public class OB_WorkspaceController extends WorkspaceController{
             osw = new OutputStreamWriter(fos,"UTF-8");
             pw = new PrintWriter(osw);
             pw.println(getSaveString());
-            
             // 2014/11/25 N.Inaba ADD end
             
 //          this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
