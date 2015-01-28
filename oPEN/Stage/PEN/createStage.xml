@@ -21,22 +21,29 @@
 				<BlockGenusMember>dummyNum</BlockGenusMember>
 				<BlockGenusMember>dummyBool</BlockGenusMember>
 				<BlockGenusMember>dummyStr</BlockGenusMember>
+                <BlockGenusMember>number</BlockGenusMember>
+                <BlockGenusMember>blue</BlockGenusMember>
 			</BlockDrawer>
 			<!-- 2014/10/07 N.Inaba ADD end -->
 			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
 				<BlockGenusMember>dummyStart</BlockGenusMember>
-				<BlockGenusMember>repeat</BlockGenusMember>
-				<BlockGenusMember>repeat-if</BlockGenusMember>
 				<BlockGenusMember>if</BlockGenusMember>
 				<BlockGenusMember>ifelse</BlockGenusMember>
-				<BlockGenusMember>equals</BlockGenusMember>
+                <BlockGenusMember>repeat</BlockGenusMember>
+                <BlockGenusMember>repeat-if</BlockGenusMember>
+                <BlockGenusMember>equals</BlockGenusMember>
 				<BlockGenusMember>lessthan</BlockGenusMember>
 				<BlockGenusMember>lessthanorequalto</BlockGenusMember>
 				<BlockGenusMember>greaterthan</BlockGenusMember>
 				<BlockGenusMember>greaterthanorequalto</BlockGenusMember>
+                <BlockGenusMember>equals-s</BlockGenusMember>
 				<BlockGenusMember>and</BlockGenusMember>
 				<BlockGenusMember>or</BlockGenusMember>
 				<BlockGenusMember>not</BlockGenusMember>
+                <BlockGenusMember>number</BlockGenusMember>
+                <BlockGenusMember>variable-Number</BlockGenusMember>
+                <BlockGenusMember>string</BlockGenusMember>
+                <BlockGenusMember>variable-String</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="色" type="factory" button-color="0 255 0">
 				<BlockGenusMember>random-color</BlockGenusMember>
@@ -63,6 +70,10 @@
 				<BlockGenusMember>quotient</BlockGenusMember>
 				<BlockGenusMember>product</BlockGenusMember>
 				<BlockGenusMember>surplus</BlockGenusMember>
+                <BlockGenusMember>number</BlockGenusMember>
+                <BlockGenusMember>variable-Number</BlockGenusMember>
+                <BlockGenusMember>string</BlockGenusMember>
+                <BlockGenusMember>variable-String</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="宣言・代入" button-color="132 204 201"
 				type="factory">
@@ -71,6 +82,12 @@
 				<BlockGenusMember>setString</BlockGenusMember>
 				<BlockGenusMember>substitution-number</BlockGenusMember>
 				<BlockGenusMember>substitution-string</BlockGenusMember>
+                <BlockGenusMember>number</BlockGenusMember>
+                <BlockGenusMember>variable-Number</BlockGenusMember>
+                <BlockGenusMember>string</BlockGenusMember>
+                <BlockGenusMember>variable-String</BlockGenusMember>
+                <BlockGenusMember>pi</BlockGenusMember>
+                <BlockGenusMember>random</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
 				<BlockGenusMember>print-number</BlockGenusMember>
@@ -79,6 +96,10 @@
 				<BlockGenusMember>println-string</BlockGenusMember>
 				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
 				<BlockGenusMember>keyboard-input-string</BlockGenusMember>
+                <BlockGenusMember>number</BlockGenusMember>
+                <BlockGenusMember>variable-Number</BlockGenusMember>
+                <BlockGenusMember>string</BlockGenusMember>
+                <BlockGenusMember>variable-String</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="値・変数" type="factory" button-color="255 242 0">
 				<BlockGenusMember>number</BlockGenusMember>

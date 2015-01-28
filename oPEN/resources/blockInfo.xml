@@ -4314,7 +4314,7 @@
 			</LangSpecProperties>
 		</BlockGenus>
 
-		<BlockGenus name="dummyNum" kind="command" initlabel=""
+		<BlockGenus name="dummyNum" kind="command" initlabel="コネクタ"
 			color="132 204 201">
 			<description>
 				<text>ブロックを接続します。</text>
@@ -4330,7 +4330,7 @@
 			</LangSpecProperties>
 		</BlockGenus>
 
-		<BlockGenus name="dummyBool" kind="command" initlabel=""
+		<BlockGenus name="dummyBool" kind="command" initlabel="コネクタ"
 			color="132 204 201">
 			<description>
 				<text>ブロックを接続します。</text>
@@ -4346,7 +4346,7 @@
 			</LangSpecProperties>
 		</BlockGenus>
 
-		<BlockGenus name="dummyStr" kind="command" initlabel=""
+		<BlockGenus name="dummyStr" kind="command" initlabel="コネクタ"
 			color="132 204 201">
 			<description>
 				<text>ブロックを接続します。</text>
