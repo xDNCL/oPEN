@@ -46,7 +46,6 @@
                 <BlockGenusMember>variable-String</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="色" type="factory" button-color="0 255 0">
-				<BlockGenusMember>random-color</BlockGenusMember>
 				<BlockGenusMember>red</BlockGenusMember>
 				<BlockGenusMember>orange</BlockGenusMember>
 				<BlockGenusMember>yellow</BlockGenusMember>
