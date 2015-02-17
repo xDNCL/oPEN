@@ -937,6 +937,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 
+		/*
 		<BlockGenus name="number2" kind="data" initlabel="1" editable-label="yes" is-label-value="yes" color="255 0 255">
 			<description>
 				<text>
@@ -951,7 +952,8 @@ BlockGenuses are first loaded.
 				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
-		
+		*/
+
 		<BlockGenus name="string" kind="data" initlabel="テキスト" editable-label="yes" is-label-value="yes" color="255 0 255">
 			<description>
 				<text>
@@ -1367,7 +1369,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="repeat" kind="command" initlabel="DrawCircle" color="50 255 0">
+		<BlockGenus name="repeat" kind="command" initlabel="繰り返し" color="255 80 0">
 			<description>
 				<text>
 					 <arg n="1"/> 回繰り返して実行します。
@@ -1381,9 +1383,8 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="boolean-list"></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number-list"></BlockConnector>
-				<BlockConnector label="r" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="回数" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="cmd"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="repeat"></LangSpecProperty>
@@ -1646,9 +1647,14 @@ BlockGenuses are first loaded.
 				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
-				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
-				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror">
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				
+				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="sum"></LangSpecProperty>
@@ -1752,7 +1758,9 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="" connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
-				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
 				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -1761,6 +1769,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 
+<!-- xyブロック追加 -->
 		<BlockGenus name="xy" kind="data" initlabel=" ," color="105 176 118">
 			<description>
 				<text>
@@ -1774,6 +1783,7 @@ BlockGenuses are first loaded.
 			<BlockConnectors>
 				<BlockConnector label="" connector-kind="plug" connector-type="number-list" position-type="mirror"></BlockConnector>
 				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
 				</BlockConnector>
 				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
 				</BlockConnector>
@@ -1783,7 +1793,8 @@ BlockGenuses are first loaded.
 				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
-		
+<!-- xyブロック追加ここまで -->
+
 		<BlockGenus name="not-equals" kind="function" initlabel="≠" color="15 20 220">
 			<description>
 				<text>
@@ -1830,7 +1841,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="lessthanorequalto" kind="function" initlabel="?" color="15 20 220">
+		<BlockGenus name="lessthanorequalto" kind="function" initlabel="≦" color="15 20 220">
 			<description>
 				<text>
 					 <arg n="1"/> が <arg n="2"/> 以下か調べます。
@@ -1876,7 +1887,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="?" color="15 20 220">
+		<BlockGenus name="greaterthanorequalto" kind="function" initlabel="≧" color="15 20 220">
 			<description>
 				<text>
 					 <arg n="1"/> が <arg n="2"/>以上かを調べます。
@@ -3630,8 +3641,7 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		
-<!-- 描画追加 -->
-
+<!-- 図形属性追加 -->
 		<BlockGenus name="gSetLineColor" kind="command" initlabel="線の色" color="200 255 0">
 			<description>
 				<text>
@@ -3667,16 +3677,11 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 
-<!-- gSetLine -->
-		
-
-
 		<BlockGenus name="gSetLineShape" kind="command" initlabel="線のタイプ" color="200 255 0">
 			<description>
 				<text>
 					線分のタイプを指定します。
 				</text>
-				
 				<arg-description n="1" name="type">
 					タイプを指定。
 				</arg-description>
@@ -3697,7 +3702,6 @@ BlockGenuses are first loaded.
 				<text>
 					線分の太さを指定します。
 				</text>
-				
 				<arg-description n="1" name="width">
 					太さを指定。
 				</arg-description>
@@ -3908,67 +3912,35 @@ BlockGenuses are first loaded.
 				<LangSpecProperty key="vm-cmd-name" value="gSetFontSize"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
+<!-- 図形属性追加ここまで -->
+
+		
+<!-- 図形描画ブロック追加 -->
 		<BlockGenus name="gDrawText" kind="command" initlabel="文字列" color="0 255 0">
 			<description>
 				<text>
 					文字列を描きます。
 				</text>
 				<arg-description n="1" name="string">
-					テストする条件。
+					文字列を指定。
 				</arg-description>
-				
 				<arg-description n="2" name="x">
-					xの位置を指定。
-				</arg-description>
-
-				<arg-description n="3" name="y">
-					yの位置を指定。
+					xとyの位置を指定。
 				</arg-description>
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="文字列" connector-kind="socket" connector-type="string">
 				<DefaultArg genus-name="string" label="abc"></DefaultArg>
 				</BlockConnector>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				<BlockConnector label="xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="gDrawText"></LangSpecProperty>
+				<LangSpecProperty key="vm-cmd-name" value="gDrawText2"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 
 		<BlockGenus name="gDrawPoint" kind="command" initlabel="点" color="0 255 0">
-			<description>
-				<text>
-					点を描きます。
-				</text>
-				
-				<arg-description n="1" name="x">
-					xの位置を指定。
-				</arg-description>
-
-				<arg-description n="2" name="y">
-					yの位置を指定。
-				</arg-description>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="gDrawPoint"></LangSpecProperty>
-			</LangSpecProperties>
-		</BlockGenus>
-
-		<BlockGenus name="gDrawPoint2" kind="command" initlabel="点" color="0 255 0">
 			<description>
 				<text>
 					点を描きます。
@@ -3993,34 +3965,19 @@ BlockGenuses are first loaded.
 					線分を描きます。
 				</text>
 				
-				<arg-description n="1" name="x1">
-					始点xの位置を指定。
+				<arg-description n="1" name="xy1">
+					始点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="2" name="y1">
-					始点yの位置を指定。
+				<arg-description n="2" name="xy2">
+					終点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="3" name="x2">
-					終点xの位置を指定。
-				</arg-description>
-
-				<arg-description n="4" name="y2">
-					終点yの位置を指定。
-				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="始点x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				<BlockConnector label="始点xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
-				<BlockConnector label="始点y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="終点x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="300"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="終点y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				<BlockConnector label="終点xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -4034,31 +3991,20 @@ BlockGenuses are first loaded.
 					四角形を描きます。
 				</text>
 				
-				<arg-description n="0" name="x">
-					xの位置を指定。
+				<arg-description n="1" name="xy1">
+					始点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="1" name="y">
-					yの位置を指定。
+				<arg-description n="2" name="widthheight">
+					幅と高さを指定。
 				</arg-description>
 
-				<arg-description n="2" name="width">
-					幅を指定。
-				</arg-description>
-
-				<arg-description n="3" name="height">
-					高さを指定。
-				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				 <DefaultArg genus-name="number" label="60"></DefaultArg></BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				 <DefaultArg genus-name="number" label="80"></DefaultArg></BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
-				 <DefaultArg genus-name="number" label="100"></DefaultArg></BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
-				 <DefaultArg genus-name="number" label="120"></DefaultArg></BlockConnector>
+				<BlockConnector label="始点xy" connector-kind="socket" connector-type="number-list">
+				<!--DefaultArg genus-name="xy" label="始点"></DefaultArg --></BlockConnector>
+				<BlockConnector label="幅と高さ" connector-kind="socket" connector-type="number-list">
+				<!--DefaultArg genus-name="xy" label="幅,高さ"></DefaultArg --></BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gDrawBox"></LangSpecProperty>
@@ -4071,34 +4017,19 @@ BlockGenuses are first loaded.
 					塗りつぶし四角形を描きます。
 				</text>
 				
-				<arg-description n="1" name="x">
-					xの位置を指定。
+				<arg-description n="1" name="xy1">
+					始点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="2" name="y">
-					yの位置を指定。
+				<arg-description n="2" name="widthheight">
+					幅と高さを指定。
 				</arg-description>
 
-				<arg-description n="3" name="width">
-					幅を指定。
-				</arg-description>
-
-				<arg-description n="4" name="height">
-					高さを指定。
-				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				<BlockConnector label="始点xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="300"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				<BlockConnector label="幅と高さ" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -4112,34 +4043,19 @@ BlockGenuses are first loaded.
 					楕円形を描きます。
 				</text>
 				
-				<arg-description n="1" name="x">
-					xの位置を指定。
+				<arg-description n="1" name="xy1">
+					始点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="2" name="y">
-					yの位置を指定。
+				<arg-description n="2" name="widthheight">
+					幅と高さを指定。
 				</arg-description>
 
-				<arg-description n="3" name="width">
-					幅を指定。
-				</arg-description>
-
-				<arg-description n="4" name="height">
-					高さを指定。
-				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				<BlockConnector label="始点xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="300"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				<BlockConnector label="幅と高さ" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -4147,40 +4063,26 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 
+
 		<BlockGenus name="gFillOval" kind="command" initlabel="塗りつぶし楕円形" color="0 255 0">
 			<description>
 				<text>
 					塗りつぶし楕円形を描きます。
 				</text>
 				
-				<arg-description n="1" name="x">
-					xの位置を指定。
+				<arg-description n="1" name="xy1">
+					始点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="2" name="y">
-					yの位置を指定。
+				<arg-description n="2" name="widthheight">
+					幅と高さを指定。
 				</arg-description>
 
-				<arg-description n="3" name="width">
-					幅を指定。
-				</arg-description>
-
-				<arg-description n="4" name="height">
-					高さを指定。
-				</arg-description>
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				<BlockConnector label="始点xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="300"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="400"></DefaultArg>
+				<BlockConnector label="幅と高さ" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -4188,34 +4090,26 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 
+
 		<BlockGenus name="gDrawCircle" kind="command" initlabel="円" color="0 255 0">
 			<description>
 				<text>
 					円を描きます。
 				</text>
 				
-				<arg-description n="1" name="x">
-					xの位置を指定。
+				<arg-description n="1" name="xy">
+					中心点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="2" name="y">
-					yの位置を指定。
-				</arg-description>
-
-				<arg-description n="3" name="r">
+				<arg-description n="2" name="r">
 					半径を指定。
 				</arg-description>
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				<BlockConnector label="中心xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 				<BlockConnector label="半径" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="300"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -4229,61 +4123,47 @@ BlockGenuses are first loaded.
 					塗りつぶし円を描きます。
 				</text>
 				
-				<arg-description n="1" name="x">
-					xの位置を指定。
+				<arg-description n="1" name="xy">
+					中心点xyの位置を指定。
 				</arg-description>
 
-				<arg-description n="2" name="y">
-					yの位置を指定。
-				</arg-description>
-
-				<arg-description n="3" name="r">
+				<arg-description n="2" name="r">
 					半径を指定。
 				</arg-description>
 
 			</description>
 			<BlockConnectors>
-				<BlockConnector label="x" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="100"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="y" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="200"></DefaultArg>
+				<BlockConnector label="中心xy" connector-kind="socket" connector-type="number-list">
 				</BlockConnector>
 				<BlockConnector label="半径" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="300"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gFillCircle"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
+<!-- 図形描画ブロック追加ここまで -->
 
+
+<!--ウィンドウ操作追加 -->
 		<BlockGenus name="gOpenWindow" kind="command" initlabel="ウィンドウ開く" color="0 80 0">
-			<description>
-				<text>
-					ウィンドウの大きさを指定します。
-				</text>
-				<arg-description n="1" name="width">
-					幅を指定。
-				</arg-description>
-				<arg-description n="2" name="hight">
-					高さを指定。
-				</arg-description>
-			</description>
-			<BlockConnectors>
-				<BlockConnector label="幅" connector-kind="socket" connector-type="number">
-				    <DefaultArg genus-name="number" label="600"></DefaultArg>
-				</BlockConnector>
-				<BlockConnector label="高さ" connector-kind="socket" connector-type="number">
-				    <DefaultArg genus-name="number" label="500"></DefaultArg>
-				</BlockConnector>
-			</BlockConnectors>
-			<LangSpecProperties>
+				<description>
+					<text>
+						ウィンドウの大きさを指定します。
+					</text>
+					<arg-description n="1" name="widthhight">
+					幅と高さを指定。
+					</arg-description>
+				</description>
+				<BlockConnectors>
+					<BlockConnector label="幅と高さ" connector-kind="socket" connector-type="number-list">
+					</BlockConnector>
+				</BlockConnectors>
+				<LangSpecProperties>
 				<LangSpecProperty key="vm-cmd-name" value="gOpenWindow"></LangSpecProperty>
-			</LangSpecProperties>
+				</LangSpecProperties>
 		</BlockGenus>
-			
-		
+
 		<BlockGenus name="gSaveWindow" kind="command" initlabel="ウィンドウ保存" color="0 80 0">
 			<description>
 				<text>
@@ -4316,9 +4196,11 @@ BlockGenuses are first loaded.
 				<LangSpecProperty key="vm-cmd-name" value="gClearWindow"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
-
 	</BlockGenuses>
-	
+<!--ウィンドウ操作追加 -->
+
+
+<!--プルダウン追加 -->
 	<BlockFamilies>
 		<BlockFamily>
 			<FamilyMember>gSetLineShape</FamilyMember>
@@ -4333,6 +4215,9 @@ BlockGenuses are first loaded.
 			<FamilyMember>gSetFontType</FamilyMember>
 			<FamilyMember>gSetFontSize</FamilyMember>
 		</BlockFamily>
+<!--プルダウン追加ここまで -->
+
+
 		<BlockFamily>
 			<FamilyMember>fd</FamilyMember>
 			<FamilyMember>bk</FamilyMember>

@@ -173,9 +173,8 @@ public class OB_Block extends Block{
 	    	}
 
 
-	    	//add other...
-
-	    	//gSetLine
+//add other...
+//図形属性追加
 	    	if(this.getGenusName().equals("gSetLineColor")){
 	    		int r = 0;
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
@@ -286,15 +285,6 @@ public class OB_Block extends Block{
 	    		ivw.gSetTextColor(r, g, b);
 	    	}
 
-	    	//gSetFont
-	    	/*
-	    	if(this.getGenusName().equals("gSetFont")){
-	    		String str = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-
-	    		ivw.gSetFont(str);
-	    	}
-			*/
-			
 	    	if(this.getGenusName().equals("gSetFontType")){
 	    		int x = 0;
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
@@ -315,42 +305,32 @@ public class OB_Block extends Block{
 	    		ivw.gSetFontSize(x);
 	    	}
 
-	    	//gDrawText
+//図形描画追加
 	    	if(this.getGenusName().equals("gDrawText")){
+
 	    		String str ="";
 	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 	    		if(value instanceof String){
 	    			str = value.toString();
 	    		}
+
 	    		int x = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		OB_Block value3 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+	    		Object value4 = value3.getBlock(value3.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value5 = value3.getBlock(value3.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value4 instanceof Integer){
+	    			x = Integer.valueOf(value4.toString());
 	    		}
 	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
+
+	    		if(value5 instanceof Integer){
+	    			y = Integer.valueOf(value5.toString());
 	    		}
-	    		ivw.gDrawText(str,x, y);
+
+	    		ivw.gDrawText(str,x,y);
 	    	}
-	    	
 
 	    	if(this.getGenusName().equals("gDrawPoint")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
-	    		}
-	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
-	    		}
-	    		ivw.gDrawPoint(x, y);
-	    	}
-	    	
-	    	if(this.getGenusName().equals("gDrawPoint2")){
 	    		int x = 0;
 	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 	    		Object value2 = value.getBlock(value.getSocketAt(0).getBlockID()).evaluateValue();
@@ -360,141 +340,187 @@ public class OB_Block extends Block{
 	    			System.out.println("x="+x);
 	    		}
 	    		int y = 0;
-	    		
+
 	    		if(value3 instanceof Integer){
 	    			y = Integer.valueOf(value3.toString());
 	    			System.out.println("y="+y);
 	    		}
 	    		ivw.gDrawPoint(x, y);
 	    	}
-			
+
 	    	if(this.getGenusName().equals("gDrawLine")){
 	    		int x1 = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x1 = Integer.valueOf(value.toString());
+	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x1 = Integer.valueOf(value2.toString());
 	    		}
 	    		int y1 = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y1 = Integer.valueOf(value.toString());
+
+	    		if(value3 instanceof Integer){
+	    			y1 = Integer.valueOf(value3.toString());
 	    		}
+
 	    		int x2 = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x2 = Integer.valueOf(value.toString());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value5 instanceof Integer){
+	    			x1 = Integer.valueOf(value5.toString());
 	    		}
 	    		int y2 = 0;
-	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y2 = Integer.valueOf(value.toString());
+
+	    		if(value6 instanceof Integer){
+	    			y2 = Integer.valueOf(value6.toString());
 	    		}
+
 	    		ivw.gDrawLine(x1,y1,x2,y2);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawBox")){
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		int x = Integer.valueOf(value.toString());
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		int y = Integer.valueOf(value.toString());
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		int width = Integer.valueOf(value.toString());
-	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
-	    		int height = Integer.valueOf(value.toString());
-	    		ivw.gDrawBox(x, y,width,height);
+	    		int x = 0;
+	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
+	    		}
+	    		int y = 0;
+
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
+	    		}
+
+	    		int width = 0;
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value5 instanceof Integer){
+	    			width = Integer.valueOf(value5.toString());
+	    		}
+	    		int height = 0;
+
+	    		if(value6 instanceof Integer){
+	    			height = Integer.valueOf(value6.toString());
+	    		}
+
+	    		ivw.gDrawBox(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gFillBox")){
 	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
 	    		}
 	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
+
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
 	    		}
+
 	    		int width = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			width = Integer.valueOf(value.toString());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value5 instanceof Integer){
+	    			width = Integer.valueOf(value5.toString());
 	    		}
 	    		int height = 0;
-	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			height = Integer.valueOf(value.toString());
+
+	    		if(value6 instanceof Integer){
+	    			height = Integer.valueOf(value6.toString());
 	    		}
-	    		ivw.gFillBox(x, y,width,height);
+
+	    		ivw.gFillBox(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawOval")){
 	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
 	    		}
 	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
+
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
 	    		}
+
 	    		int width = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			width = Integer.valueOf(value.toString());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value5 instanceof Integer){
+	    			width = Integer.valueOf(value5.toString());
 	    		}
 	    		int height = 0;
-	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			height = Integer.valueOf(value.toString());
+
+	    		if(value6 instanceof Integer){
+	    			height = Integer.valueOf(value6.toString());
 	    		}
-	    		ivw.gDrawOval(x, y,width,height);
+
+	    		ivw.gDrawOval(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gFillOval")){
 	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
 	    		}
 	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
+
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
 	    		}
+
 	    		int width = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			width = Integer.valueOf(value.toString());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value5 instanceof Integer){
+	    			width = Integer.valueOf(value5.toString());
 	    		}
 	    		int height = 0;
-	    		value = this.getBlock(this.getSocketAt(3).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			height = Integer.valueOf(value.toString());
+
+	    		if(value6 instanceof Integer){
+	    			height = Integer.valueOf(value6.toString());
 	    		}
-	    		ivw.gFillOval(x, y,width,height);
+
+	    		ivw.gFillOval(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawCircle")){
 	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
 	    		}
 	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
+
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
 	    		}
+
 	    		int r = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			r = Integer.valueOf(value.toString());
+	    		Object value4 = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value4 instanceof Integer){
+	    			r = Integer.valueOf(value4.toString());
 	    		}
 
 	    		ivw.gDrawCircle(x, y, r);
 	    	}
+
 
 	    	if(this.getGenusName().equals("gFillCircle")){
 	    		int x = 0;
@@ -516,20 +542,22 @@ public class OB_Block extends Block{
 	    		ivw.gFillCircle(x, y, r);
 	    	}
 
+//ウィンドウ操作追加
 	    	if(this.getGenusName().equals("gOpenWindow")){
-	    		int width = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			width = Integer.valueOf(value.toString());
+		    	int x = 0;
+	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		Object value2 = value.getBlock(value.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object value3 = value.getBlock(value.getSocketAt(1).getBlockID()).evaluateValue();
+	    		if(value2 instanceof Integer){
+	    			x = Integer.valueOf(value2.toString());
 	    		}
-	    		int height = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			height = Integer.valueOf(value.toString());
-	    		}
-	    		ivw.gOpenWindow(width, height);
-	    	}
+	    		int y = 0;
 
+	    		if(value3 instanceof Integer){
+	    			y = Integer.valueOf(value3.toString());
+	    		}
+	    		ivw.gOpenWindow(x, y);
+	    	}
 
 	    	if(this.getGenusName().equals("gSaveWindow")){
 	    		ivw.gSaveWindow("","");
@@ -542,8 +570,10 @@ public class OB_Block extends Block{
 	    	if(this.getGenusName().equals("gClearWindow")){
 	    		ivw.gClearWindow();
 	    	}
-	    	//
-
+	    	
+//追加はここまで2015 01 08
+	    	
+	    	
 	    	if(this.next() != null){
 	    		runList.add(this.next());
 	    	}
