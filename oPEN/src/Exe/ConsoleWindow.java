@@ -27,15 +27,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import pen.IntVgOutputWindow.IntVgOutputWindow;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.renderable.RenderableBlock;
-
 import OverrideOpenblocks.OB_Block;
 import OverrideOpenblocks.OB_Workspace;
 
 
 public class ConsoleWindow implements ActionListener{
-		
+	private IntVgOutputWindow ivw = new IntVgOutputWindow();
 	private OB_Workspace ws;
 	
 	private final Color actionButtonBGC = new Color(255, 80, 0);
@@ -289,6 +289,7 @@ public class ConsoleWindow implements ActionListener{
 		if(e.getSource() == this.reset){
 			consoleClear();
 			inputForm.setText("");
+			ivw.gCloseWindow();
 			this.allStep.setEnabled(true);
 			this.oneStep.setEnabled(true);
 			if(event != null){
@@ -393,7 +394,7 @@ public class ConsoleWindow implements ActionListener{
 					
 					ArrayList<OB_Block> results = null;
 					try {
-						results = run.runBlock();
+						results = run.runBlock(ivw);
 					} catch (BlockRunException e) {
 						//エラー処理はBlock側で表示されるのでここではしない。
 						return;
