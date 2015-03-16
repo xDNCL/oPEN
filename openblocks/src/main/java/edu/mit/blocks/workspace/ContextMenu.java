@@ -152,8 +152,9 @@ public class ContextMenu extends PopupMenu implements ActionListener {
         } else if (a.getActionCommand() == CP_BLOCK) {
             //notify the renderableblock componenet that lauched the conetxt menu
             if (activeComponent != null && activeComponent instanceof RenderableBlock) {
-                ((RenderableBlock) activeComponent).addComment();
-                // ここに処理を書く
+                // オブジェクトのコピー
+            	RenderableBlock cloneBlock = (RenderableBlock) (((RenderableBlock) activeComponent).clone());
+            	//canvas.addBlock(cloneBlock);
             }
         // 2015/02/26 N.Inaba ADD end
         }
