@@ -65,7 +65,7 @@ public class OB_Block extends Block{
 	///////
 
 	public ArrayList<OB_Block> runBlock(IntVgOutputWindow ivw) throws BlockRunException{
-//		System.out.println("now:"+this.getGenusName());
+		// System.out.println("now:"+this.getGenusName());
 		ArrayList<OB_Block> runList = new ArrayList<OB_Block>();
 
 		try{
@@ -664,7 +664,7 @@ public class OB_Block extends Block{
 	}
 
 	private OB_Block next(){
-//		System.out.println("next ID------"+this.getAfterBlockID());
+		// System.out.println("next ID------"+this.getAfterBlockID());
 		return getBlock(this.getAfterBlockID());
 	}
 
@@ -1136,15 +1136,19 @@ public class OB_Block extends Block{
 
 		return null;
 	}
-//
-//	void setSockets(List<BlockConnector> sockets){
-//		super.sockets = sockets;
-//	}
-//
-//	void setProperties(HashMap<String, String> properties){
-//		super.properties = properties;
-//	}
-//
+
+	/*
+	void setSockets(List<BlockConnector> sockets){
+		super.sockets = sockets;
+	}
+	*/
+
+	/* 
+	void setProperties(HashMap<String, String> properties){
+		super.properties = properties;
+	}
+	*/
+
 	void removeBeforeAndAfter(){
 		super.after = null;
 		super.before = null;
