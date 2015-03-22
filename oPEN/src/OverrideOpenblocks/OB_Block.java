@@ -172,391 +172,273 @@ public class OB_Block extends Block{
 	    		}
 	    	}
 
-
-//add other...
-//図形属性追加
+	    	//図形属性追加
 	    	if(this.getGenusName().equals("gSetLineColor")){
-	    		int r = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			r = Integer.valueOf(value.toString());
+	    		Object red = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object green = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		Object blue = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(red instanceof Integer && green instanceof Integer && green instanceof Integer) {
+		    		ivw.gSetLineColor(((Integer) red).intValue(),
+		    				((Integer) green).intValue(),
+		    				((Integer) blue).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-	    		int g = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			g = Integer.valueOf(value.toString());
-	    		}
-	    		int b = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			b = Integer.valueOf(value.toString());
-	    		}
-
-	    		ivw.gSetLineColor(r, g, b);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetLineShape")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(type instanceof Integer) {
+		    		ivw.gSetLineShape(((Integer) type).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetLineShape(x);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetLineWidth")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object width = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(width instanceof Integer) {
+		    		ivw.gSetLineWidth(((Integer) width).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetLineWidth(x);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetArrowType")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(type instanceof Integer) {
+		    		ivw.gSetArrowType(((Integer) type).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetArrowType(x);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetArrowDir")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object edge = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(edge instanceof Integer) {
+		    		ivw.gSetArrowDir(((Integer) edge).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetArrowDir(x);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetFillColor")){
-	    		int r = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			r = Integer.valueOf(value.toString());
+	    		Object red = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object green = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		Object blue = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(red instanceof Integer && green instanceof Integer && green instanceof Integer) {
+		    		ivw.gSetFillColor(((Integer) red).intValue(),
+		    				((Integer) green).intValue(),
+		    				((Integer) blue).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-	    		int g = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			g = Integer.valueOf(value.toString());
-	    		}
-	    		int b = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			b = Integer.valueOf(value.toString());
-	    		}
-
-	    		ivw.gSetFillColor(r, g, b);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetDotShape")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(type instanceof Integer) {
+		    		ivw.gSetDotShape(((Integer) type).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetDotShape(x);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetTextColor")){
-	    		int r = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			r = Integer.valueOf(value.toString());
+	    		Object red = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		Object green = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+	    		Object blue = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
+	    		if(red instanceof Integer && green instanceof Integer && green instanceof Integer) {
+		    		ivw.gSetTextColor(((Integer) red).intValue(),
+		    				((Integer) green).intValue(),
+		    				((Integer) blue).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-	    		int g = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			g = Integer.valueOf(value.toString());
-	    		}
-	    		int b = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			b = Integer.valueOf(value.toString());
-	    		}
-
-	    		ivw.gSetTextColor(r, g, b);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetFontType")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(type instanceof Integer) {
+		    		ivw.gSetFontType(((Integer) type).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetFontType(x);
 	    	}
 
 	    	if(this.getGenusName().equals("gSetFontSize")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
+	    		Object size = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		if(size instanceof Integer) {
+		    		ivw.gSetFontSize(((Integer) size).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "引数は整数型しか認められません。");
 	    		}
-
-	    		ivw.gSetFontSize(x);
 	    	}
 
-//図形描画追加
+	    	//図形描画追加
 	    	if(this.getGenusName().equals("gDrawText")){
-
-	    		String str ="";
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof String){
-	    			str = value.toString();
+	    		Object str = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+	    		
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+		    		Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+		    		Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
+	    		
+	    		if(x instanceof Integer && y instanceof Integer) {
+	    			ivw.gDrawText(str.toString(), ((Integer) x).intValue(), ((Integer) y).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
 	    		}
-
-	    		int x = 0;
-	    		OB_Block value3 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
-	    		Object value4 = value3.getBlock(value3.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value5 = value3.getBlock(value3.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value4 instanceof Integer){
-	    			x = Integer.valueOf(value4.toString());
-	    		}
-	    		int y = 0;
-
-	    		if(value5 instanceof Integer){
-	    			y = Integer.valueOf(value5.toString());
-	    		}
-
-	    		ivw.gDrawText(str,x,y);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawPoint")){
-	    		int x = 0;
-	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value.getBlock(value.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value.getBlock(value.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    			System.out.println("x="+x);
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    			Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+	    			Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
+	    		
+	    		if(x instanceof Integer && y instanceof Integer) {
+	    			ivw.gDrawPoint(((Integer) x).intValue(), ((Integer) y).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
 	    		}
-	    		int y = 0;
-
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
-	    			System.out.println("y="+y);
-	    		}
-	    		ivw.gDrawPoint(x, y);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawLine")){
-	    		int x1 = 0;
-	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x1 = Integer.valueOf(value2.toString());
-	    		}
-	    		int y1 = 0;
+	    		OB_Block gridBlock1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    			Object x1 = gridBlock1.getBlock(gridBlock1.getSocketAt(0).getBlockID()).evaluateValue();
+	    			Object y1 = gridBlock1.getBlock(gridBlock1.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y1 = Integer.valueOf(value3.toString());
-	    		}
+	    		OB_Block gridBlock2 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+	    			Object x2 = gridBlock2.getBlock(gridBlock2.getSocketAt(0).getBlockID()).evaluateValue();
+	    			Object y2 = gridBlock2.getBlock(gridBlock2.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		int x2 = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value5 instanceof Integer){
-	    			x1 = Integer.valueOf(value5.toString());
+	    		if(x1 instanceof Integer && y1 instanceof Integer && x2 instanceof Integer && y2 instanceof Integer) {
+		    		ivw.gDrawLine(((Integer) x1).intValue(), ((Integer) y1).intValue(),
+		    						((Integer) x2).intValue(), ((Integer) y2).intValue());
+	    		} else {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
 	    		}
-	    		int y2 = 0;
-
-	    		if(value6 instanceof Integer){
-	    			y2 = Integer.valueOf(value6.toString());
-	    		}
-
-	    		ivw.gDrawLine(x1,y1,x2,y2);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawBox")){
-	    		int x = 0;
-	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    		}
-	    		int y = 0;
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
-	    		}
+    			OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+    				Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value5 instanceof Integer){
-	    			width = Integer.valueOf(value5.toString());
+	    		if(!(x instanceof Integer && y instanceof Integer)) {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
+	    		} else if(!(width instanceof Integer && height instanceof Integer)) {
+	    			throw new BlockRunException(this, "横幅・縦幅は整数型しか認められません。");
+	    		} else {
+		    		ivw.gDrawBox(((Integer) x).intValue(), ((Integer) y).intValue(),
+		    						((Integer) width).intValue(), ((Integer) height).intValue());
 	    		}
-	    		int height = 0;
-
-	    		if(value6 instanceof Integer){
-	    			height = Integer.valueOf(value6.toString());
-	    		}
-
-	    		ivw.gDrawBox(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gFillBox")){
-	    		int x = 0;
-	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    		}
-	    		int y = 0;
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
-	    		}
+    			OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+    				Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value5 instanceof Integer){
-	    			width = Integer.valueOf(value5.toString());
+	    		if(!(x instanceof Integer && y instanceof Integer)) {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
+	    		} else if(!(width instanceof Integer && height instanceof Integer)) {
+	    			throw new BlockRunException(this, "横幅・縦幅は整数型しか認められません。");
+	    		} else {
+		    		ivw.gFillBox(((Integer) x).intValue(), ((Integer) y).intValue(),
+		    						((Integer) width).intValue(), ((Integer) height).intValue());
 	    		}
-	    		int height = 0;
-
-	    		if(value6 instanceof Integer){
-	    			height = Integer.valueOf(value6.toString());
-	    		}
-
-	    		ivw.gFillBox(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawOval")){
-	    		int x = 0;
-	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    		}
-	    		int y = 0;
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
-	    		}
+    			OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+    				Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value5 instanceof Integer){
-	    			width = Integer.valueOf(value5.toString());
+	    		if(!(x instanceof Integer && y instanceof Integer)) {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
+	    		} else if(!(width instanceof Integer && height instanceof Integer)) {
+	    			throw new BlockRunException(this, "横幅・縦幅は整数型しか認められません。");
+	    		} else {
+		    		ivw.gDrawOval(((Integer) x).intValue(), ((Integer) y).intValue(),
+		    						((Integer) width).intValue(), ((Integer) height).intValue());
 	    		}
-	    		int height = 0;
-
-	    		if(value6 instanceof Integer){
-	    			height = Integer.valueOf(value6.toString());
-	    		}
-
-	    		ivw.gDrawOval(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gFillOval")){
-	    		int x = 0;
-	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    		}
-	    		int y = 0;
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
-	    		}
+    			OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+    				Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value5 instanceof Integer){
-	    			width = Integer.valueOf(value5.toString());
+	    		if(!(x instanceof Integer && y instanceof Integer)) {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
+	    		} else if(!(width instanceof Integer && height instanceof Integer)) {
+	    			throw new BlockRunException(this, "横幅・縦幅は整数型しか認められません。");
+	    		} else {
+		    		ivw.gFillOval(((Integer) x).intValue(), ((Integer) y).intValue(),
+		    						((Integer) width).intValue(), ((Integer) height).intValue());
 	    		}
-	    		int height = 0;
-
-	    		if(value6 instanceof Integer){
-	    			height = Integer.valueOf(value6.toString());
-	    		}
-
-	    		ivw.gFillOval(x,y,width,height);
 	    	}
 
 	    	if(this.getGenusName().equals("gDrawCircle")){
-	    		int x = 0;
-	    		OB_Block value1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value1.getBlock(value1.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value1.getBlock(value1.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    		}
-	    		int y = 0;
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
-	    		}
+    			Object r = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		int r = 0;
-	    		Object value4 = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value4 instanceof Integer){
-	    			r = Integer.valueOf(value4.toString());
+	    		if(!(x instanceof Integer && y instanceof Integer)) {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
+	    		} else if(!(r instanceof Integer)) {
+	    			throw new BlockRunException(this, "半径は整数型しか認められません。");
+	    		} else {
+		    		ivw.gDrawCircle(((Integer) x).intValue(), ((Integer) y).intValue(), ((Integer) r).intValue());
 	    		}
-
-	    		ivw.gDrawCircle(x, y, r);
 	    	}
 
 
 	    	if(this.getGenusName().equals("gFillCircle")){
-	    		int x = 0;
-	    		Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			x = Integer.valueOf(value.toString());
-	    		}
-	    		int y = 0;
-	    		value = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			y = Integer.valueOf(value.toString());
-	    		}
-	    		int r = 0;
-	    		value = this.getBlock(this.getSocketAt(2).getBlockID()).evaluateValue();
-	    		if(value instanceof Integer){
-	    			r = Integer.valueOf(value.toString());
-	    		}
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		ivw.gFillCircle(x, y, r);
+    			Object r = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+
+	    		if(!(x instanceof Integer && y instanceof Integer)) {
+	    			throw new BlockRunException(this, "座標は整数型しか認められません。");
+	    		} else if(!(r instanceof Integer)) {
+	    			throw new BlockRunException(this, "半径は整数型しか認められません。");
+	    		} else {
+		    		ivw.gFillCircle(((Integer) x).intValue(), ((Integer) y).intValue(), ((Integer) r).intValue());
+	    		}
 	    	}
 
-//ウィンドウ操作追加
+	    	//ウィンドウ操作追加
 	    	if(this.getGenusName().equals("gOpenWindow")){
-		    	int x = 0;
-	    		OB_Block value =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-	    		Object value2 = value.getBlock(value.getSocketAt(0).getBlockID()).evaluateValue();
-	    		Object value3 = value.getBlock(value.getSocketAt(1).getBlockID()).evaluateValue();
-	    		if(value2 instanceof Integer){
-	    			x = Integer.valueOf(value2.toString());
-	    		}
-	    		int y = 0;
+	    		OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+    				Object width = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
+    				Object height = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-	    		if(value3 instanceof Integer){
-	    			y = Integer.valueOf(value3.toString());
+	    		if(!(width instanceof Integer && height instanceof Integer)) {
+	    			throw new BlockRunException(this, "ウィンドウサイズは整数型しか認められません。");
+	    		} else {
+		    		ivw.gOpenWindow(((Integer) width).intValue(), ((Integer) height).intValue());
 	    		}
-	    		ivw.gOpenWindow(x, y);
 	    	}
 
 	    	if(this.getGenusName().equals("gSaveWindow")){
@@ -571,8 +453,7 @@ public class OB_Block extends Block{
 	    		ivw.gClearWindow();
 	    	}
 	    	
-//追加はここまで2015 01 08
-	    	
+	    	//add other...
 	    	
 	    	if(this.next() != null){
 	    		runList.add(this.next());
