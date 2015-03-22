@@ -429,9 +429,9 @@ public class OB_Block extends Block{
 
 			//ウィンドウ操作追加
 			if(this.getGenusName().equals("gOpenWindow")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
-					Object width = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
-					Object height = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
+				OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+					Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
+					Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
 				if(!(width instanceof Integer && height instanceof Integer)) {
 					throw new BlockRunException(this, "ウィンドウサイズは整数型しか認められません。");
