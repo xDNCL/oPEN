@@ -31,7 +31,16 @@
 4. 「ルート・ディレクトリーの選択」の「参照」で「~/git/oPEN/oPEN」を開く
 5. 「完了」をクリック
 
+## プロジェクトについて
 
+oPEN は 大阪市立大学 大学院創造都市研究科 松浦研究室のプロジェクトです。
+
+* **主原 佑記** (*Yuki Shuhara*)
+* **赤井 昭仁** (*Akihito Akai*)
+* **稲葉 夏希** (*Natsuki Inaba*)
+* **青谷 太志** (*Futoshi Aotani*)
+* **中村 亮太** (*Ryota Nakamura*)
+* **松浦 敏雄** (*Toshio Matsuura*)
 
 
 [openblocks]: http://education.mit.edu/openblocks "OpenBlocks"
