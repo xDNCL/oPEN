@@ -1,11 +1,8 @@
-oPEN‚Ìƒ\[ƒXƒR[ƒh‚¨‚æ‚ÑAƒŠƒ\[ƒX‚Å‚·B
+# oPEN
+[OpenBlocks][openblocks] ã‚’ç”¨ã„ãŸåˆå­¦è€…å‘ã‘ãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°å­¦ç¿’ç’°å¢ƒ oPEN ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ãŠã‚ˆã³ãƒªã‚½ãƒ¼ã‚¹ã§ã™ã€‚
 
-ŽÀs‚·‚é‚½‚ß‚É‚ÍA‚±‚±‚Ìƒ\[ƒX‚Æ‚Í•Ê‚ÉOpenBlocks‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ð•K—v‚Æ‚µ‚Ü‚·B
-¦MIT‚Ìƒz[ƒ€ƒy[ƒW‚©‚çƒ_ƒEƒ“ƒ[ƒh‚µ‚½‚à‚Ì‚Å‚Í“®‚«‚Ü‚¹‚ñ
 
-‚à‚µAG‚Á‚Ä‚Ý‚½‚¢A“®‚©‚µ‚Ä‚Ý‚½‚¢‚Æ‹»–¡‚ð‚à‚½‚ê‚Ü‚µ‚½‚çA
-shuhara.y2 ‚ ‚Á‚Æ‚Ü[‚­ ƒW[ƒ[ƒ‹.comi‘SŠp•¶Žš‚ð•ÏŠ·‚µ‚Ä‚­‚¾‚³‚¢jˆ¶‚Éƒ[ƒ‹‚­‚¾‚³‚¢B
-oPEN—p‚ÌOpenblocksƒ‰ƒCƒuƒ‰ƒŠ‚ð‘—•t‚µ‚Ü‚·B
 
-DLŒãAEclipse‚ÉƒCƒ“ƒ|[ƒg‚µ‚Ä‚¢‚½‚¾‚«A
-Referenced Library‚É‘—•t‚µ‚½openblocks‚Ìjarƒtƒ@ƒCƒ‹‚ðÝ’è‚µ‚Ä’¸‚¯‚ê‚ÎŽÀs‰Â”\‚É‚È‚é‚©‚ÆŽv‚¢‚Ü‚·B
+
+
+[openblocks]: http://education.mit.edu/openblocks "OpenBlocks"
