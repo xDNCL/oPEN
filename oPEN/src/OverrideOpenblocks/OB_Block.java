@@ -279,7 +279,7 @@ public class OB_Block extends Block{
 			if(this.getGenusName().equals("gDrawText")){
 				Object str = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 				
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 				
@@ -291,7 +291,7 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gDrawPoint")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 				
@@ -303,11 +303,11 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gDrawLine")){
-				OB_Block gridBlock1 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock1 = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x1 = gridBlock1.getBlock(gridBlock1.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y1 = gridBlock1.getBlock(gridBlock1.getSocketAt(1).getBlockID()).evaluateValue();
 
-				OB_Block gridBlock2 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+				OB_Block gridBlock2 = (OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 					Object x2 = gridBlock2.getBlock(gridBlock2.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y2 = gridBlock2.getBlock(gridBlock2.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -320,11 +320,11 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gDrawBox")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-				OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+				OB_Block whBlock = (OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 					Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -339,11 +339,11 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gFillBox")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-				OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+				OB_Block whBlock = (OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 					Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -358,11 +358,11 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gDrawOval")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-				OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+				OB_Block whBlock = (OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 					Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -377,11 +377,11 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gFillOval")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
-				OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
+				OB_Block whBlock = (OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 					Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -396,7 +396,7 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gDrawCircle")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -412,7 +412,7 @@ public class OB_Block extends Block{
 			}
 
 			if(this.getGenusName().equals("gFillCircle")){
-				OB_Block gridBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block gridBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object x = gridBlock.getBlock(gridBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object y = gridBlock.getBlock(gridBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
@@ -429,7 +429,7 @@ public class OB_Block extends Block{
 
 			//ウィンドウ操作追加
 			if(this.getGenusName().equals("gOpenWindow")){
-				OB_Block whBlock =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+				OB_Block whBlock = (OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
 					Object width = whBlock.getBlock(whBlock.getSocketAt(0).getBlockID()).evaluateValue();
 					Object height = whBlock.getBlock(whBlock.getSocketAt(1).getBlockID()).evaluateValue();
 
