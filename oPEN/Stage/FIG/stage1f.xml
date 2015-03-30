@@ -30,7 +30,6 @@
 				<BlockGenusMember>surplus</BlockGenusMember>
 			    	<BlockGenusMember>number</BlockGenusMember>
 			    	<BlockGenusMember>variable-Number</BlockGenusMember>
-			    	<BlockGenusMember>string</BlockGenusMember>
 			    	<BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
@@ -39,29 +38,22 @@
 				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
 			    	<BlockGenusMember>number</BlockGenusMember>
 			    	<BlockGenusMember>variable-Number</BlockGenusMember>
-				<BlockGenusMember>string</BlockGenusMember>
 				<BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
-			<BlockDrawer name="図形属性" type="factory" button-color="200 255 0">
-			    <BlockGenusMember>number</BlockGenusMember>
-			    <BlockGenusMember>xy</BlockGenusMember>
-			    <BlockGenusMember>gSetFillColor</BlockGenusMember>
-			    <BlockGenusMember>gSetTextColor</BlockGenusMember>
- 			    <BlockGenusMember>gSetFont</BlockGenusMember>
-			    <BlockGenusMember>gSetFontType</BlockGenusMember>
- 			    <BlockGenusMember>gSetFontSize</BlockGenusMember>
-			</BlockDrawer>
 			<BlockDrawer name="図形描画" type="factory" button-color="0 255 0">
+			    <BlockGenusMember>gDrawBox</BlockGenusMember>
 			    <BlockGenusMember>number</BlockGenusMember>
 			    <BlockGenusMember>xy</BlockGenusMember>
-			    <BlockGenusMember>gDrawBox</BlockGenusMember>
-			    <BlockGenusMember>gFillBox</BlockGenusMember>
-			    <BlockGenusMember>gDrawCircle</BlockGenusMember>
-			    <BlockGenusMember>gFillCircle</BlockGenusMember>
-			    <BlockGenusMember>gDrawText</BlockGenusMember>
+			</BlockDrawer>
+			<BlockDrawer name="図形属性" type="factory" button-color="200 255 0">
+			    <BlockGenusMember>gSetFillColor</BlockGenusMember>
+			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="ウィンドウ操作" type="factory" button-color="0 80 0">
  			    <BlockGenusMember>gOpenWindow</BlockGenusMember>
+			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
 </BlockDrawerSet>
 </BlockDrawerSets>
