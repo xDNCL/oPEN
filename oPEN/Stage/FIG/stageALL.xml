@@ -48,6 +48,19 @@
 				<BlockGenusMember>string</BlockGenusMember>
 				<BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
+			<BlockDrawer name="図形描画" type="factory" button-color="0 255 0">
+			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>xy</BlockGenusMember>
+			    <BlockGenusMember>gDrawText</BlockGenusMember>
+			    <BlockGenusMember>gDrawPoint</BlockGenusMember>
+ 			    <BlockGenusMember>gDrawLine</BlockGenusMember>
+			    <BlockGenusMember>gDrawBox</BlockGenusMember>
+			    <BlockGenusMember>gFillBox</BlockGenusMember>
+			    <BlockGenusMember>gDrawOval</BlockGenusMember>
+			    <BlockGenusMember>gFillOval</BlockGenusMember>
+			    <BlockGenusMember>gDrawCircle</BlockGenusMember>
+			    <BlockGenusMember>gFillCircle</BlockGenusMember>
+			</BlockDrawer>
 			<BlockDrawer name="図形属性" type="factory" button-color="200 255 0">
 			    <BlockGenusMember>number</BlockGenusMember>
 			    <BlockGenusMember>xy</BlockGenusMember>
@@ -62,19 +75,6 @@
  			    <BlockGenusMember>gSetFont</BlockGenusMember>
 			    <BlockGenusMember>gSetFontType</BlockGenusMember>
  			    <BlockGenusMember>gSetFontSize</BlockGenusMember>
-			</BlockDrawer>
-			<BlockDrawer name="図形描画" type="factory" button-color="0 255 0">
-			    <BlockGenusMember>number</BlockGenusMember>
-			    <BlockGenusMember>xy</BlockGenusMember>
-			    <BlockGenusMember>gDrawText</BlockGenusMember>
-			    <BlockGenusMember>gDrawPoint</BlockGenusMember>
- 			    <BlockGenusMember>gDrawLine</BlockGenusMember>
-			    <BlockGenusMember>gDrawBox</BlockGenusMember>
-			    <BlockGenusMember>gFillBox</BlockGenusMember>
-			    <BlockGenusMember>gDrawOval</BlockGenusMember>
-			    <BlockGenusMember>gFillOval</BlockGenusMember>
-			    <BlockGenusMember>gDrawCircle</BlockGenusMember>
-			    <BlockGenusMember>gFillCircle</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="ウィンドウ操作" type="factory" button-color="0 80 0">
  			    <BlockGenusMember>gOpenWindow</BlockGenusMember>

@@ -33,6 +33,8 @@
 			    	<BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
+				<BlockGenusMember>print-number</BlockGenusMember>
+				<BlockGenusMember>println-number</BlockGenusMember>
 				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
 			    	<BlockGenusMember>number</BlockGenusMember>
 			    	<BlockGenusMember>variable-Number</BlockGenusMember>

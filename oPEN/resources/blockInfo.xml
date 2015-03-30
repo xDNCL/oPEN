@@ -4327,6 +4327,22 @@ BlockGenuses are first loaded.
 			<FamilyMember>gSetFontType</FamilyMember>
 			<FamilyMember>gSetFontSize</FamilyMember>
 		</BlockFamily>
+		<BlockFamily>
+			<FamilyMember>gSetLineColor</FamilyMember>
+			<FamilyMember>gSetFillColor</FamilyMember>
+		</BlockFamily>
+		<BlockFamily>
+			<FamilyMember>gDrawBox</FamilyMember>
+			<FamilyMember>gFillBox</FamilyMember>
+		</BlockFamily>
+		<BlockFamily>
+			<FamilyMember>gDrawCircle</FamilyMember>
+			<FamilyMember>gFillCircle</FamilyMember>
+		</BlockFamily>
+		<BlockFamily>
+			<FamilyMember>gDrawOval</FamilyMember>
+			<FamilyMember>gFillOval</FamilyMember>
+		</BlockFamily>
 <!--プルダウン追加ここまで -->
 
 
