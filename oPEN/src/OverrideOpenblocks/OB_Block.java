@@ -393,7 +393,7 @@ public class OB_Block extends Block{
 	    		}
 
 	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
 	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
 	    		if(value5 instanceof Integer){
@@ -423,7 +423,7 @@ public class OB_Block extends Block{
 	    		}
 
 	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
 	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
 	    		if(value5 instanceof Integer){
@@ -453,7 +453,7 @@ public class OB_Block extends Block{
 	    		}
 
 	    		int width = 0;
-	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(0).getBlockID());
+	    		OB_Block value4 =(OB_Block) this.getBlock(this.getSocketAt(1).getBlockID());
 	    		Object value5 = value4.getBlock(value4.getSocketAt(0).getBlockID()).evaluateValue();
 	    		Object value6 = value4.getBlock(value4.getSocketAt(1).getBlockID()).evaluateValue();
 	    		if(value5 instanceof Integer){
