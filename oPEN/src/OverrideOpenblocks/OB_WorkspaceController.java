@@ -172,6 +172,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 				lastDirectory = selectedFile.getParentFile();
 				String selectedPath = selectedFile.getPath();
 				changeStage();
+//				clearStage(); /* changeStageを変更したもの */
+//				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
+//				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
 				//                System.out.println(selectedPath);
 				try{
 					loadProjectFromPath(selectedPath);
@@ -547,6 +550,24 @@ public class OB_WorkspaceController extends WorkspaceController{
 		//        }
 		newWindow();
 	}
+	
+	private static void clearStage(){
+		workspace.reset();
+		console.consoleClear();
+		
+		clearStage(stageDrawerFilePath);
+//		stageDrawerFilePath = filePath;
+
+//		wc.loadFreshWorkspace();
+	}
+	
+	private static void clearStage(final String filePath){
+		stageDrawerFilePath = filePath;
+		workspace.reset();
+		console.consoleClear();
+		wc.loadFreshWorkspace();
+	}
+	
 	private static void changeStage(){
 		changeStage(stageDrawerFilePath);
 	}
