@@ -2,7 +2,7 @@ package edu.mit.blocks.renderable;
 
 /**
  * This private class acts as an IMMUTABLE ID tag for
- * factoryrenderableBlock.  But it does more.  It has a string
+ * FactoryRenderableBlock2.  But it does more.  It has a string
  * tag displayed through the toString method.  This allows
  * us to add TextualFactoryBlock rather than String objects
  * into menu.JList.  By overriding equals, we ensure that
@@ -10,24 +10,24 @@ package edu.mit.blocks.renderable;
  */
 public class TextualFactoryBlock {
 
-    private final FactoryRenderableBlock block;
+    private final FactoryRenderableBlock2 block;
     private final String stringRepresentation;
     private final String ID;
 
     /**
      * Creates a TextualFactoryBlock with the given block and string representation
-     * @param block the FactoryRenderableBlock tagged/represented by this TextualFactoryBlock
+     * @param block the FactoryRenderableBlock2 tagged/represented by this TextualFactoryBlock
      * @param rep the String "representation" to use for this TFB.  Usually this would be the
      * block's label.  To auto-generate a detailed rep, use the disambiguousStringRep() method.
      */
-    public TextualFactoryBlock(FactoryRenderableBlock block, String rep) {
+    public TextualFactoryBlock(FactoryRenderableBlock2 block, String rep) {
         this.block = block;
         this.stringRepresentation = rep;
         this.ID = BlockUtilities.disambiguousStringRep(block);
     }
 
     /** @return FactoryBlock contained in this TextualFactoryBlock */
-    public FactoryRenderableBlock getfactoryBlock() {
+    public FactoryRenderableBlock2 getfactoryBlock() {
         return this.block;
     }
 

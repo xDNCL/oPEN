@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblocks.BlockStub;
-import edu.mit.blocks.renderable.FactoryRenderableBlock;
+import edu.mit.blocks.renderable.FactoryRenderableBlock2;
 import edu.mit.blocks.renderable.RenderableBlock;
 import edu.mit.blocks.workspace.*;
 import edu.mit.blocks.codeblockutil.CGraphite;

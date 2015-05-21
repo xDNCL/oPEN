@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.mit.blocks.codeblocks.Block;
-import edu.mit.blocks.renderable.FactoryRenderableBlock;
+import edu.mit.blocks.renderable.FactoryRenderableBlock2;
 import edu.mit.blocks.renderable.RenderableBlock;
 import edu.mit.blocks.workspace.FactoryManager;
 import edu.mit.blocks.workspace.Page;
@@ -135,7 +135,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
                                         genusName = genusMember.getTextContent();
                                         assert workspace.getEnv().getGenusWithName(genusName) != null : "Unknown BlockGenus: " + genusName;
                                         Block block = new OB_Block(workspace, genusName);
-                                        drawerBlocks.add(new FactoryRenderableBlock(workspace, manager, block.getBlockID()));
+                                        drawerBlocks.add(new FactoryRenderableBlock2(workspace, manager, block.getBlockID()));
                                     }
                                 }
                                 blocksForDrawers.put(drawer, drawerBlocks);
@@ -229,7 +229,7 @@ public class OB_PageDrawerLoadingUtils extends PageDrawerLoadingUtils{
                                 //don't link factory blocks to their stubs because they will
                                 //forever remain inside the drawer and never be active
                                 newBlock = new Block(workspace, genusName, false);
-                                drawerRBs.add(new OB_FactoryRenderableBlock(workspace, manager, newBlock.getBlockID()));
+                                drawerRBs.add(new FactoryRenderableBlock2(workspace, manager, newBlock.getBlockID()));
                             }
                         }
                         manager.addStaticBlocks(drawerRBs, drawerName);

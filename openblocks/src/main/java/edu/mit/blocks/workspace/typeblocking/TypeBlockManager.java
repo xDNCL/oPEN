@@ -811,7 +811,7 @@ public class TypeBlockManager {
         }
         //Please keep the above check rep because it does not
         //make any sense to have an exisitn valid
-        //FactoryRenderableBlock point to some non-existing
+        //FactoryRenderableBlock2 point to some non-existing
         //block.  In other words, why would you have a factory
         //that churns out invalid products?
         return createdRB;

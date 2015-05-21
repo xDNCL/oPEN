@@ -112,7 +112,7 @@ public class BlockLabel implements MouseListener, MouseMotionListener, KeyListen
                 isEditable
                 && (labelType == BlockLabel.Type.NAME_LABEL || labelType == BlockLabel.Type.PORT_LABEL)
                 && workspace.getEnv().getBlock(blockID).isLabelEditable()
-                && !(workspace.getEnv().getRenderableBlock(blockID) instanceof FactoryRenderableBlock));
+                && !(workspace.getEnv().getRenderableBlock(blockID) instanceof FactoryRenderableBlock2));
         if (labelType == null || labelType.equals(BlockLabel.Type.NAME_LABEL)) {
             widget.setFont(BlockLabel.blockFontLarge_Bold);
         } else if (labelType.equals(BlockLabel.Type.PAGE_LABEL)) {

@@ -22,7 +22,7 @@ import edu.mit.blocks.codeblockutil.CBorderlessButton;
 import edu.mit.blocks.codeblockutil.CLabel;
 import edu.mit.blocks.codeblockutil.Canvas;
 import edu.mit.blocks.codeblockutil.Navigator;
-import edu.mit.blocks.renderable.FactoryRenderableBlock;
+import edu.mit.blocks.renderable.FactoryRenderableBlock2;
 import edu.mit.blocks.renderable.RenderableBlock;
 
 /**
@@ -823,7 +823,7 @@ public class FactoryManager implements WorkspaceWidget, ComponentListener, Works
                 if (block.hasStubs()) {
                     for (BlockStub stub : block.getFreshStubs()) {
                         this.addDynamicBlock(
-                                new FactoryRenderableBlock(event.getWorkspace(), this, stub.getBlockID()),
+                                new FactoryRenderableBlock2(event.getWorkspace(), this, stub.getBlockID()),
                                 page.getPageDrawer());
                     }
                 }
