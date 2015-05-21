@@ -48,7 +48,8 @@ public class OB_FactoryManager extends FactoryManager{
                 if (block.hasStubs()) {
                     for (BlockStub stub : block.getFreshStubs()) {
                         this.addDynamicBlock(
-                                new OB_FactoryRenderableBlock(event.getWorkspace(), this, stub.getBlockID()),
+//                                new OB_FactoryRenderableBlock(event.getWorkspace(), this, stub.getBlockID()),
+                                new FactoryRenderableBlock2(event.getWorkspace(), this, stub.getBlockID()),
                                 page.getPageDrawer());
                     }
                 }
