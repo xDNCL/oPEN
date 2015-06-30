@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
+//import OverrideOpenblocks.OB_BlockUtilities;
+//import OverrideOpenblocks.OB_Workspace;
 import edu.mit.blocks.codeblocks.JComponentDragHandler;
 import edu.mit.blocks.workspace.Workspace;
 import edu.mit.blocks.workspace.WorkspaceWidget;
@@ -41,13 +43,20 @@ public class FactoryRenderableBlock2 extends RenderableBlock {
         this.setBlockLabelUneditable();
         dragHandler = new JComponentDragHandler(workspace, this);
     }
-
+    
+//    public FactoryRenderableBlock2(OB_Workspace workspace, WorkspaceWidget widget, Long blockID) {
+//        super(workspace, widget, blockID);
+//        this.setBlockLabelUneditable();
+//        dragHandler = new JComponentDragHandler(workspace, this);
+//    }
     /**
      * Returns a new RenderableBlock instance (and creates its associated Block) instance of the same genus as this.
      * @return a new RenderableBlock instance with a new associated Block instance of the same genus as this.
      */
     public RenderableBlock createNewInstance() {
         return BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
+//    	return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
+        
     }
 
     ///////////////////
