@@ -1045,7 +1045,7 @@ public class OB_Block extends Block{
 						plugNode = plugs.item(j);
 						if (plugNode.getNodeName().equals("BlockConnector")) {
 							plug = BlockConnector.loadBlockConnector(workspace, plugNode, idMapping);
-							plug.connBlockID += 1000;
+//							plug.connBlockID += 1000;
 						}
 					}
 				} else if (child.getNodeName().equals("Sockets")) {
