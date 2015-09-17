@@ -172,6 +172,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 				lastDirectory = selectedFile.getParentFile();
 				String selectedPath = selectedFile.getPath();
 				changeStage();
+				
 //				clearStage(); /* changeStageを変更したもの */
 //				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
 //				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
@@ -183,6 +184,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 					System.out.println("ロードに失敗しました。");
 				}
 			}
+			// INABA ADD 7/8
+			System.out.println("The end of if.");
 		}
 	}
 
@@ -446,9 +449,12 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 		//出力言語の設定を抜き出す
 		setOutputLanguage(blockDrawerRoot);
-
-
-
+		
+		// loadWorkspaceFromを二回呼んでいる？ 15/07/27
+//		if(!workspaceLoaded) {
+//			workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
+//			workspaceLoaded = true;
+//		}
 		workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
 		workspaceLoaded = true;
 	}
@@ -513,6 +519,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 			if (in != null) {
 				try {
 					in.close();
+					// inaba test 15/07/27
+					blockDrawerDirty = false;
 				}
 				catch (IOException e) {
 					throw new RuntimeException(e);
@@ -574,7 +582,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 	private static void changeStage(final String filePath){
 		stageDrawerFilePath = filePath;
-		workspace.reset();
+//		workspace.reset();
 		console.consoleClear();
 		wc.loadFreshWorkspace();
 	}

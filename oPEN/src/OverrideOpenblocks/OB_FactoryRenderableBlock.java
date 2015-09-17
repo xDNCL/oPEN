@@ -14,8 +14,8 @@ import edu.mit.blocks.renderable.RenderableBlock;
 import edu.mit.blocks.workspace.Workspace;
 import edu.mit.blocks.workspace.WorkspaceWidget;
 
-public class OB_FactoryRenderableBlock extends FactoryRenderableBlock{
-	
+//public class OB_FactoryRenderableBlock extends FactoryRenderableBlock{
+public class OB_FactoryRenderableBlock extends RenderableBlock{	
 	 /**
 	 * 
 	 */
@@ -41,7 +41,7 @@ public class OB_FactoryRenderableBlock extends FactoryRenderableBlock{
         dragHandler = new JComponentDragHandler(workspace, this);
     }
 	
-    @Override
+//    @Override
     public RenderableBlock createNewInstance() {
 //    	RenderableBlock rb = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
 //    	Block original = rb.getBlock();
@@ -50,7 +50,10 @@ public class OB_FactoryRenderableBlock extends FactoryRenderableBlock{
 //    	Block newBlock = new OB_Block(original.getWorkspace(), original.getGenusName(), original.getBlockLabel());
 //    	RenderableBlock newRenderableBlock = new RenderableBlock(workspace, null, newBlock.getBlockID());
 //    	return newRenderableBlock;
-    	 return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
+    	Long testBlock = super.getBlockID();
+    	System.out.println(testBlock);
+   	 	 return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(testBlock));
+//    	 return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
     }
     
     @Override

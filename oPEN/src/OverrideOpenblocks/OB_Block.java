@@ -1002,6 +1002,8 @@ public class OB_Block extends Block{
 			nameMatcher = attrExtractor.matcher(node.getAttributes().getNamedItem("id").toString());
 			if (nameMatcher.find()) {
 				id = translateLong(workspace, Long.parseLong(nameMatcher.group(1)), idMapping);
+				// 15/09 INABA ADD
+				id += 1000;
 			}
 			nameMatcher = attrExtractor.matcher(node.getAttributes().getNamedItem("genus-name").toString());
 			if (nameMatcher.find()) {
@@ -1030,8 +1032,12 @@ public class OB_Block extends Block{
 					badMsg = child.getTextContent();
 				} else if (child.getNodeName().equals("BeforeBlockId")) {
 					beforeID = translateLong(workspace, Long.parseLong(child.getTextContent()), idMapping);
+					// 15/09 INABA ADD
+					beforeID += 1000;
 				} else if (child.getNodeName().equals("AfterBlockId")) {
 					afterID = translateLong(workspace, Long.parseLong(child.getTextContent()), idMapping);
+					// 15/09 INABA ADD
+					afterID += 1000;
 				} else if (child.getNodeName().equals("Plug")) {
 					NodeList plugs = child.getChildNodes(); //there should only one child
 					Node plugNode;
@@ -1039,6 +1045,7 @@ public class OB_Block extends Block{
 						plugNode = plugs.item(j);
 						if (plugNode.getNodeName().equals("BlockConnector")) {
 							plug = BlockConnector.loadBlockConnector(workspace, plugNode, idMapping);
+							plug.connBlockID += 1000;
 						}
 					}
 				} else if (child.getNodeName().equals("Sockets")) {
