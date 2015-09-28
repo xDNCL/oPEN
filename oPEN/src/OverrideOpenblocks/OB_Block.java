@@ -508,7 +508,7 @@ public class OB_Block extends Block{
 			if(this.getGenusName().equals("random")){
 				 Object value = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 				 if(value instanceof Integer){
-					 return new Integer((int)Math.random() * Integer.valueOf(value.toString()));
+					 return new Integer((int)(Math.random() * Integer.valueOf(value.toString())));
 				 }
 				 if(value instanceof Double){
 					 return new Double(Math.random() * Double.valueOf(value.toString()));

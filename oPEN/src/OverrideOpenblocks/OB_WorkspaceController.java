@@ -123,13 +123,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 		SaveAction saveAction = new SaveAction();
 		buttonPanel.add(new JButton(saveAction));
 
-		/*
-        // 2014/10/07 N.Inaba ADD begin ステージ保存ボタン
-        SaveStageAction saveStageAction = new SaveStageAction();
-        buttonPanel.add(new JButton(saveStageAction));
-        // 2014/10/07 N.Inaba ADD end
-		 */
-
 		// Save as
 		SaveAsAction saveAsAction = new SaveAsAction(saveAction);
 		buttonPanel.add(new JButton(saveAsAction));
@@ -219,36 +212,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 		}
 	}
 
-	// 2014/10/07 N.Inaba ADD begin 内容
-	/**
-	 * Action bound to "SaveStage" button.
-	 */
-	public class SaveStageAction extends AbstractAction {
-		public static final long serialVersionUID = -5540588250535739852L;
-		SaveStageAction() {
-			super("ステージ保存");
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent evt) {
-
-			if (selectedFile == null) {
-				JFileChooser fileChooser = new JFileChooser(lastDirectory);
-				if (fileChooser.showSaveDialog((Component) evt.getSource()) == JFileChooser.APPROVE_OPTION) {
-					setSelectedFile(fileChooser.getSelectedFile());
-					lastDirectory = selectedFile.getParentFile();
-				}
-			}
-			try {
-				saveToFile(selectedFile);
-			}
-			catch (IOException e) {
-				JOptionPane.showMessageDialog((Component) evt.getSource(),
-						e.getMessage());
-			}
-		}
-	}
-	// 2014/10/07 N.Inaba ADD end
 	/**
 	 * Action bound to "Save As..." button.
 	 */
