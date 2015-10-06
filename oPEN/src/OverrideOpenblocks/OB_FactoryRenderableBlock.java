@@ -50,8 +50,10 @@ public class OB_FactoryRenderableBlock extends RenderableBlock{
 //    	Block newBlock = new OB_Block(original.getWorkspace(), original.getGenusName(), original.getBlockLabel());
 //    	RenderableBlock newRenderableBlock = new RenderableBlock(workspace, null, newBlock.getBlockID());
 //    	return newRenderableBlock;
+    	
+    	// 2015/09 N.Inaba MOD BlockIDの調査
     	Long testBlock = super.getBlockID();
-    	System.out.println(testBlock);
+//    	System.out.println(testBlock);
    	 	 return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(testBlock));
 //    	 return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
     }

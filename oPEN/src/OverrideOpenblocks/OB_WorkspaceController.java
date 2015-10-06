@@ -38,6 +38,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import save.NormalizeIDs;
 import Exe.ConsoleWindow;
 import Language.*;
 import edu.mit.blocks.codeblocks.BlockConnectorShape;
@@ -173,21 +174,21 @@ public class OB_WorkspaceController extends WorkspaceController{
 				String selectedPath = selectedFile.getPath();
 				changeStage();
 				
+				// 2015/09 N.Inaba ADD changeStage()の調査
 //				clearStage(); /* changeStageを変更したもの */
 //				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
 //				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
-				//                System.out.println(selectedPath);
+//				System.out.println(selectedPath);
+				
 				try{
 					loadProjectFromPath(selectedPath);
-					// 2015/9 N.Inaba ADD Load後のNextBlockID更新
+					// 2015/09 N.Inaba ADD Load後のNextBlockID更新
 					workspace.getEnv().addNextBlockID();
 					System.out.println("ロードが完了しました。");
 				}catch(Exception err){
 					System.out.println("ロードに失敗しました。");
 				}
 			}
-			// 2015/9 N.Inaba ADD Load完了確認
-			System.out.println("The end of if.");
 		}
 	}
 
@@ -212,7 +213,14 @@ public class OB_WorkspaceController extends WorkspaceController{
 			}
 			try {
 				saveToFile(selectedFile);
-				
+				// TODO 2015/10 N.Inaba ADD セーブデータのBlockIDをノーマライズする
+				try {
+					NormalizeIDs nid = new NormalizeIDs(selectedFile);
+				} catch (ParserConfigurationException e) {
+					e.printStackTrace();
+				} catch (SAXException e) {
+					e.printStackTrace();
+				}
 			}
 			catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
@@ -282,15 +290,13 @@ public class OB_WorkspaceController extends WorkspaceController{
 		PrintWriter pw = null;
 		try {
 
-			//加筆
+			// 2014/11/25 N.Inaba ADD 拡張子調整
 			String fileName = file.getName().toString();
 			if(fileName.length() <= 4 || !fileName.substring(fileName.length()-4).equals(".xml")){
 				//ファイル名が.xmlではない場合は.xmlとして保存する
 				File renameFile = new File(file.getPath()+".xml");
 				file = renameFile;
 			}
-
-			//加筆ここまで
 			// fileWriter = new FileWriter(file);
 
 			// 2014/11/25 N.Inaba ADD UTF-8で出力
@@ -451,7 +457,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		//出力言語の設定を抜き出す
 		setOutputLanguage(blockDrawerRoot);
 		
-		// loadWorkspaceFromを二回呼んでいる？ 15/07/27
+		// 2015/07/27 N.Inaba DEL loadWorkspaceFromを二回呼んでいる
 //		if(!workspaceLoaded) {
 //			workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
 //			workspaceLoaded = true;
@@ -520,8 +526,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 			if (in != null) {
 				try {
 					in.close();
-					// 2015/07/27 N.Inaba TEST
-					blockDrawerDirty = false;
+					// 2015/10/06 N.Inaba DEL ここでfalseにすると2回目以降のステージ切り替えができない
+//					blockDrawerDirty = false;
 				}
 				catch (IOException e) {
 					throw new RuntimeException(e);
