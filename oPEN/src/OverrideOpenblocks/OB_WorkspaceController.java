@@ -179,12 +179,14 @@ public class OB_WorkspaceController extends WorkspaceController{
 				//                System.out.println(selectedPath);
 				try{
 					loadProjectFromPath(selectedPath);
+					// 2015/9 N.Inaba ADD Load後のNextBlockID更新
+					workspace.getEnv().addNextBlockID();
 					System.out.println("ロードが完了しました。");
 				}catch(Exception err){
 					System.out.println("ロードに失敗しました。");
 				}
 			}
-			// INABA ADD 7/8
+			// 2015/9 N.Inaba ADD Load完了確認
 			System.out.println("The end of if.");
 		}
 	}
@@ -210,6 +212,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 			}
 			try {
 				saveToFile(selectedFile);
+				
 			}
 			catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
@@ -290,15 +293,13 @@ public class OB_WorkspaceController extends WorkspaceController{
 			//加筆ここまで
 			// fileWriter = new FileWriter(file);
 
-			// 2014/11/25 N.Inaba ADD begin UTF-8で出力
+			// 2014/11/25 N.Inaba ADD UTF-8で出力
 			fos = new FileOutputStream(file);
 			osw = new OutputStreamWriter(fos,"UTF-8");
 			pw = new PrintWriter(osw);
 			pw.println(getSaveString());
-			// 2014/11/25 N.Inaba ADD end
-
-			//          this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
-			//          fileWriter.write(getSaveString());
+//			this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
+//			fileWriter.write(getSaveString());
 		}
 		finally {
 			if (fos != null) {
@@ -519,7 +520,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 			if (in != null) {
 				try {
 					in.close();
-					// inaba test 15/07/27
+					// 2015/07/27 N.Inaba TEST
 					blockDrawerDirty = false;
 				}
 				catch (IOException e) {
@@ -677,13 +678,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			// 2014/11/17 N.Inaba DEL begin
-			/*
-	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
-			 */
-			// 2014/11/17 N.Inaba DEL end
+			// 2014/11/17 N.Inaba DEL
+//	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
 
-			// 2014/11/17 N.Inaba ADD begin 保存先の指定
+			// 2014/11/17 N.Inaba ADD 保存先の指定
 			String value = null;
 			String path = null;
 			JFileChooser filechooser = new JFileChooser();
@@ -696,7 +694,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 				path = file.getParent();
 				System.out.println(value);
 			}
-			// 2014/11/17 N.Inaba ADD end
 
 			if (value == null || value.equals("")){
 				System.out.println("ソースコード出力を中断しました。");
