@@ -39,32 +39,43 @@ public class SetIDs {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) node;
 				if (element.getNodeName().equals("Block")) {
-					long blockID = Long.parseLong(element.getAttribute("id"));
-					String newBlockID = String.valueOf(blockIDs.indexOf(blockID) + 1);
-					element.setAttribute("id", newBlockID);
-					
+					String blockID_str = element.getAttribute("id");
+					if (!blockID_str.equals("")) {
+						long blockID = Long.parseLong(blockID_str);
+						String newBlockID = String.valueOf(blockIDs.indexOf(blockID) + 1);
+						element.setAttribute("id", newBlockID);
+					}
 					NodeList blockChildren = node.getChildNodes();
 					for (int j = 0; j < blockChildren.getLength(); j++) {
 						Node blockNode = blockChildren.item(j);
 						if (blockNode.getNodeType() == Node.ELEMENT_NODE) {
 							if (blockNode.getNodeName().equals("BeforeBlockId")) {
-								long beforeBlockID = Long.parseLong(blockNode.getTextContent());
-								String newBeforeBlockID = String.valueOf(blockIDs.indexOf(beforeBlockID) + 1);
-								blockNode.replaceChild(doc.createTextNode(newBeforeBlockID), blockNode.getFirstChild());
+								String beforeBlockID_str = blockNode.getTextContent();
+								if (!beforeBlockID_str.equals("")) {
+									long beforeBlockID = Long.parseLong(beforeBlockID_str);
+									String newBeforeBlockID = String.valueOf(blockIDs.indexOf(beforeBlockID) + 1);
+									blockNode.replaceChild(doc.createTextNode(newBeforeBlockID), blockNode.getFirstChild());
+								}
 							} 
 							if (blockNode.getNodeName().equals("AfterBlockId")) {
-								long afterBlockID = Long.parseLong(blockNode.getTextContent());
-								String newAfterBlockID = String.valueOf(blockIDs.indexOf(afterBlockID) + 1);
-								blockNode.replaceChild(doc.createTextNode(newAfterBlockID), blockNode.getFirstChild());
+								String afterBlockID_str = blockNode.getTextContent();
+								if (!afterBlockID_str.equals("")) {
+									long afterBlockID = Long.parseLong(afterBlockID_str);
+									String newAfterBlockID = String.valueOf(blockIDs.indexOf(afterBlockID) + 1);
+									blockNode.replaceChild(doc.createTextNode(newAfterBlockID), blockNode.getFirstChild());
+								}
 							}
 							if (blockNode.getNodeName().equals("Plug")) {
 								NodeList plugChildren = blockNode.getChildNodes();
 								for (int k = 0; k < plugChildren.getLength(); k++) {
 									Node plugNode = plugChildren.item(k);
 									if (plugNode.getNodeName().equals("BlockConnector")) {
-										long connBlockID = Long.parseLong(((Element)plugNode).getAttribute("con-block-id"));
-										String newConnBlockID = String.valueOf(blockIDs.indexOf(connBlockID) + 1);
-										((Element) plugNode).setAttribute("con-block-id", newConnBlockID);
+										String connBlockID_str = ((Element)plugNode).getAttribute("con-block-id");
+										if (!connBlockID_str.equals("")) {
+											long connBlockID = Long.parseLong(connBlockID_str);
+											String newConnBlockID = String.valueOf(blockIDs.indexOf(connBlockID) + 1);
+											((Element) plugNode).setAttribute("con-block-id", newConnBlockID);
+										}
 									}
 								}
 							}
@@ -73,9 +84,12 @@ public class SetIDs {
 								for (int k = 0; k < socketChildren.getLength(); k++) {
 									Node socketNode = socketChildren.item(k);
 									if (socketNode.getNodeName().equals("BlockConnector")) {
-										long connBlockID = Long.parseLong(((Element)socketNode).getAttribute("con-block-id"));
-										String newConnBlockID = String.valueOf(blockIDs.indexOf(connBlockID) + 1);
-										((Element) socketNode).setAttribute("con-block-id", newConnBlockID);
+										String connBlockID_str = ((Element)socketNode).getAttribute("con-block-id");
+										if (!connBlockID_str.equals("")) {
+											long connBlockID = Long.parseLong(connBlockID_str);
+											String newConnBlockID = String.valueOf(blockIDs.indexOf(connBlockID) + 1);
+											((Element) socketNode).setAttribute("con-block-id", newConnBlockID);
+										}
 									}
 								}
 							}

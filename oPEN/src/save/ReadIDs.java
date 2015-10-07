@@ -32,24 +32,33 @@ public class ReadIDs {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) node;
 				if (element.getNodeName().equals("Block")) {
-					long blockID = Long.parseLong(element.getAttribute("id"));
-					if(!blockIDs.contains(blockID)) {
-						blockIDs.add(blockID);
+					String blockID_str = element.getAttribute("id");
+					if (!blockID_str.equals("")) {
+						long blockID = Long.parseLong(blockID_str);
+						if(!blockIDs.contains(blockID)) {
+							blockIDs.add(blockID);
+						}
 					}
 					NodeList blockChildren = node.getChildNodes();
 					for (int j = 0; j < blockChildren.getLength(); j++) {
 						Node blockNode = blockChildren.item(j);
 						if (blockNode.getNodeType() == Node.ELEMENT_NODE) {
 							if (blockNode.getNodeName().equals("BeforeBlockId")) {
-								long beforeBlockID = Long.parseLong(blockNode.getTextContent());
-								if(!blockIDs.contains(beforeBlockID)) {
-									blockIDs.add(beforeBlockID);
+								String beforeBlockID_str = blockNode.getTextContent();
+								if (!beforeBlockID_str.equals("")) {
+									long beforeBlockID = Long.parseLong(beforeBlockID_str);
+									if(!blockIDs.contains(beforeBlockID)) {
+										blockIDs.add(beforeBlockID);
+									}
 								}
 							} 
 							if (blockNode.getNodeName().equals("AfterBlockId")) {
-								long afterBlockID = Long.parseLong(blockNode.getTextContent());
-								if(!blockIDs.contains(afterBlockID)) {
-									blockIDs.add(afterBlockID);
+								String afterBlockID_str = blockNode.getTextContent();
+								if (!afterBlockID_str.equals("")) {
+									long afterBlockID = Long.parseLong(afterBlockID_str);
+									if(!blockIDs.contains(afterBlockID)) {
+										blockIDs.add(afterBlockID);
+									}
 								}
 							}
 							if (blockNode.getNodeName().equals("Plug")) {
@@ -57,9 +66,12 @@ public class ReadIDs {
 								for (int k = 0; k < plugChildren.getLength(); k++) {
 									Node plugNode = plugChildren.item(k);
 									if (plugNode.getNodeName().equals("BlockConnector")) {
-										long connBlockID = Long.parseLong(((Element)plugNode).getAttribute("con-block-id"));
-										if(!blockIDs.contains(connBlockID)) {
-											blockIDs.add(connBlockID);
+										String connBlockID_str = ((Element)plugNode).getAttribute("con-block-id");
+										if (!connBlockID_str.equals("")) {
+											long connBlockID = Long.parseLong(connBlockID_str);
+											if(!blockIDs.contains(connBlockID)) {
+												blockIDs.add(connBlockID);
+											}
 										}
 									}
 								}
@@ -69,9 +81,12 @@ public class ReadIDs {
 								for (int k = 0; k < socketChildren.getLength(); k++) {
 									Node socketNode = socketChildren.item(k);
 									if (socketNode.getNodeName().equals("BlockConnector")) {
-										long connBlockID = Long.parseLong(((Element)socketNode).getAttribute("con-block-id"));
-										if(!blockIDs.contains(connBlockID)) {
-											blockIDs.add(connBlockID);
+										String connBlockID_str = ((Element)socketNode).getAttribute("con-block-id");
+										if (!connBlockID_str.equals("")) {
+											long connBlockID = Long.parseLong(connBlockID_str);
+											if(!blockIDs.contains(connBlockID)) {
+												blockIDs.add(connBlockID);
+											}
 										}
 									}
 								}
