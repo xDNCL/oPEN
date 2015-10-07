@@ -203,7 +203,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-
 			if (selectedFile == null) {
 				JFileChooser fileChooser = new JFileChooser(lastDirectory);
 				if (fileChooser.showSaveDialog((Component) evt.getSource()) == JFileChooser.APPROVE_OPTION) {
@@ -212,15 +211,11 @@ public class OB_WorkspaceController extends WorkspaceController{
 				}
 			}
 			try {
-				saveToFile(selectedFile);
-				// TODO 2015/10 N.Inaba ADD セーブデータのBlockIDをノーマライズする
-				try {
-					NormalizeIDs nid = new NormalizeIDs(selectedFile);
-				} catch (ParserConfigurationException e) {
-					e.printStackTrace();
-				} catch (SAXException e) {
-					e.printStackTrace();
-				}
+				// 2015/10/07 N.Inaba MOD 従来のセーブファイルを仮セーブファイルとして扱う
+				File preFile = new File(selectedFile.getParent() + "/pre_" + selectedFile.getName());
+				saveToFile(preFile);
+				// 2015/10/07 N.Inaba ADD Normalize ID
+				NormalizeIDs nid = new NormalizeIDs(preFile);
 			}
 			catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
