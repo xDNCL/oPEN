@@ -30,9 +30,9 @@ public class NormalizeIDs {
 			WriteXml wx = new WriteXml(doc, outputFile);
 			
 			// 仮セーブデータ削除
-			if(preFile.exists()) {
-				preFile.delete();
-			}
+//			if(preFile.exists()) {
+//				preFile.delete();
+//			}
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {

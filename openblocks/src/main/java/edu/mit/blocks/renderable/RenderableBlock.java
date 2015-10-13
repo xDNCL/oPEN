@@ -3,6 +3,7 @@ package edu.mit.blocks.renderable;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -2118,17 +2119,15 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
         }
         return x;
     }
-    // 2015/02/26 N.Inaba MOD begin Clone
-    public Object clone() {
-        try {
-            RenderableBlock cloneBlock = (RenderableBlock) super.clone();
-            // 深いコピーをする場合、追記
-            this.parent.addBlock(cloneBlock);
-            return cloneBlock;
-        } catch (CloneNotSupportedException e) {
-        	System.err.println("エラー" + e.getMessage());
-        }
-        return null;
+    // 2015/10/13 N.Inaba ADD begin コピーブロック
+    public void copyBlock() {
+        RenderableBlock createdRB = null;
+        createdRB = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
+        
+        this.getParent().add(createdRB, 0);
+        createdRB.setParentWidget(this.getParentWidget());
+        createdRB.setLocation(this.getX() + 200, this.getY());
+//        workspace.getEnv().addRenderableBlock(this);
     }
-    // 2015/02/26 N.Inaba MOD end
+    // 2015/10/13 N.Inaba MOD end
 }
