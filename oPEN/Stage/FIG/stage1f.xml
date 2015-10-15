@@ -21,6 +21,9 @@
 			    <BlockGenusMember>substitution-number</BlockGenusMember>
 			    <BlockGenusMember>number</BlockGenusMember>
 			    <BlockGenusMember>variable-Number</BlockGenusMember>
+			    <BlockGenusMember>variable-String</BlockGenusMember>
+			    <BlockGenusMember>setString</BlockGenusMember>
+			    <BlockGenusMember>print</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
 				<BlockGenusMember>sum</BlockGenusMember>
@@ -42,11 +45,15 @@
 			</BlockDrawer>
 			<BlockDrawer name="図形描画" type="factory" button-color="0 255 0">
 			    <BlockGenusMember>gDrawBox</BlockGenusMember>
+			    <BlockGenusMember>gDrawCircle</BlockGenusMember>
 			    <BlockGenusMember>number</BlockGenusMember>
 			    <BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="図形属性" type="factory" button-color="200 255 0">
 			    <BlockGenusMember>gSetFillColor</BlockGenusMember>
+			    <BlockGenusMember>gSetLineColor</BlockGenusMember>
+			    <BlockGenusMember>gSetLineShape</BlockGenusMember>
+			    <BlockGenusMember>gSetLineWidth</BlockGenusMember>
 			    <BlockGenusMember>number</BlockGenusMember>
 			    <BlockGenusMember>xy</BlockGenusMember>
 			</BlockDrawer>

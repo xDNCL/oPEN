@@ -426,6 +426,18 @@ public class OB_Block extends Block{
 					ivw.gFillCircle(((Integer) x).intValue(), ((Integer) y).intValue(), ((Integer) r).intValue());
 				}
 			}
+			
+			if(this.getGenusName().equals("wait")){
+				Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+				if(type instanceof Integer) {
+					//ivw.gSetDotShape(((Integer) type).intValue());
+					try{
+						Thread.sleep(((Integer) type).intValue()); //3000ミリ秒Sleepする
+						}catch(InterruptedException e){}
+				} else {
+					throw new BlockRunException(this, "引数は整数型しか認められません。");
+				}
+			}
 
 			//ウィンドウ操作追加
 			if(this.getGenusName().equals("gOpenWindow")){
@@ -760,7 +772,8 @@ public class OB_Block extends Block{
 			return Long.valueOf(a.toString()) == Long.valueOf(b.toString());
 		}
 		else if(a instanceof Integer || b instanceof Integer){
-			return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
+			//return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
+			return a==b;
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
 	}
