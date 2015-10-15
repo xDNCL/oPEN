@@ -38,6 +38,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import save.NormalizeIDs;
 import Exe.ConsoleWindow;
 import Language.*;
 import edu.mit.blocks.codeblocks.BlockConnectorShape;
@@ -123,13 +124,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 		SaveAction saveAction = new SaveAction();
 		buttonPanel.add(new JButton(saveAction));
 
-		/*
-        // 2014/10/07 N.Inaba ADD begin ステージ保存ボタン
-        SaveStageAction saveStageAction = new SaveStageAction();
-        buttonPanel.add(new JButton(saveStageAction));
-        // 2014/10/07 N.Inaba ADD end
-		 */
-
 		// Save as
 		SaveAsAction saveAsAction = new SaveAsAction(saveAction);
 		buttonPanel.add(new JButton(saveAsAction));
@@ -179,9 +173,17 @@ public class OB_WorkspaceController extends WorkspaceController{
 				lastDirectory = selectedFile.getParentFile();
 				String selectedPath = selectedFile.getPath();
 				changeStage();
-				//                System.out.println(selectedPath);
+				
+				// 2015/09 N.Inaba ADD changeStage()の調査
+//				clearStage(); /* changeStageを変更したもの */
+//				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
+//				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
+//				System.out.println(selectedPath);
+				
 				try{
 					loadProjectFromPath(selectedPath);
+					// 2015/09 N.Inaba ADD Load後のNextBlockID更新
+					workspace.getEnv().addNextBlockID();
 					System.out.println("ロードが完了しました。");
 				}catch(Exception err){
 					System.out.println("ロードに失敗しました。");
@@ -201,7 +203,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-
 			if (selectedFile == null) {
 				JFileChooser fileChooser = new JFileChooser(lastDirectory);
 				if (fileChooser.showSaveDialog((Component) evt.getSource()) == JFileChooser.APPROVE_OPTION) {
@@ -210,7 +211,11 @@ public class OB_WorkspaceController extends WorkspaceController{
 				}
 			}
 			try {
-				saveToFile(selectedFile);
+				// 2015/10/07 N.Inaba MOD 従来のセーブファイルを仮セーブファイルとして扱う
+				File preFile = new File(selectedFile.getParent() + "/pre_" + selectedFile.getName());
+				saveToFile(preFile);
+				// 2015/10/07 N.Inaba ADD Normalize ID
+				NormalizeIDs nid = new NormalizeIDs(preFile);
 			}
 			catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
@@ -219,36 +224,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 		}
 	}
 
-	// 2014/10/07 N.Inaba ADD begin 内容
-	/**
-	 * Action bound to "SaveStage" button.
-	 */
-	public class SaveStageAction extends AbstractAction {
-		public static final long serialVersionUID = -5540588250535739852L;
-		SaveStageAction() {
-			super("ステージ保存");
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent evt) {
-
-			if (selectedFile == null) {
-				JFileChooser fileChooser = new JFileChooser(lastDirectory);
-				if (fileChooser.showSaveDialog((Component) evt.getSource()) == JFileChooser.APPROVE_OPTION) {
-					setSelectedFile(fileChooser.getSelectedFile());
-					lastDirectory = selectedFile.getParentFile();
-				}
-			}
-			try {
-				saveToFile(selectedFile);
-			}
-			catch (IOException e) {
-				JOptionPane.showMessageDialog((Component) evt.getSource(),
-						e.getMessage());
-			}
-		}
-	}
-	// 2014/10/07 N.Inaba ADD end
 	/**
 	 * Action bound to "Save As..." button.
 	 */
@@ -310,26 +285,22 @@ public class OB_WorkspaceController extends WorkspaceController{
 		PrintWriter pw = null;
 		try {
 
-			//加筆
+			// 2014/11/25 N.Inaba ADD 拡張子調整
 			String fileName = file.getName().toString();
 			if(fileName.length() <= 4 || !fileName.substring(fileName.length()-4).equals(".xml")){
 				//ファイル名が.xmlではない場合は.xmlとして保存する
 				File renameFile = new File(file.getPath()+".xml");
 				file = renameFile;
 			}
-
-			//加筆ここまで
 			// fileWriter = new FileWriter(file);
 
-			// 2014/11/25 N.Inaba ADD begin UTF-8で出力
+			// 2014/11/25 N.Inaba ADD UTF-8で出力
 			fos = new FileOutputStream(file);
 			osw = new OutputStreamWriter(fos,"UTF-8");
 			pw = new PrintWriter(osw);
 			pw.println(getSaveString());
-			// 2014/11/25 N.Inaba ADD end
-
-			//          this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
-			//          fileWriter.write(getSaveString());
+//			this.justSaveString = new String(getSaveString().getBytes("UTF-8"), "UTF-8");
+//			fileWriter.write(getSaveString());
 		}
 		finally {
 			if (fos != null) {
@@ -480,9 +451,12 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 		//出力言語の設定を抜き出す
 		setOutputLanguage(blockDrawerRoot);
-
-
-
+		
+		// 2015/07/27 N.Inaba DEL loadWorkspaceFromを二回呼んでいる
+//		if(!workspaceLoaded) {
+//			workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
+//			workspaceLoaded = true;
+//		}
 		workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
 		workspaceLoaded = true;
 	}
@@ -547,6 +521,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 			if (in != null) {
 				try {
 					in.close();
+					// 2015/10/06 N.Inaba DEL ここでfalseにすると2回目以降のステージ切り替えができない
+//					blockDrawerDirty = false;
 				}
 				catch (IOException e) {
 					throw new RuntimeException(e);
@@ -584,13 +560,31 @@ public class OB_WorkspaceController extends WorkspaceController{
 		//        }
 		newWindow();
 	}
+	
+	private static void clearStage(){
+		workspace.reset();
+		console.consoleClear();
+		
+		clearStage(stageDrawerFilePath);
+//		stageDrawerFilePath = filePath;
+
+//		wc.loadFreshWorkspace();
+	}
+	
+	private static void clearStage(final String filePath){
+		stageDrawerFilePath = filePath;
+		workspace.reset();
+		console.consoleClear();
+		wc.loadFreshWorkspace();
+	}
+	
 	private static void changeStage(){
 		changeStage(stageDrawerFilePath);
 	}
 
 	private static void changeStage(final String filePath){
 		stageDrawerFilePath = filePath;
-		workspace.reset();
+//		workspace.reset();
 		console.consoleClear();
 		wc.loadFreshWorkspace();
 	}
@@ -685,13 +679,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			// 2014/11/17 N.Inaba DEL begin
-			/*
-	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
-			 */
-			// 2014/11/17 N.Inaba DEL end
+			// 2014/11/17 N.Inaba DEL
+//	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
 
-			// 2014/11/17 N.Inaba ADD begin 保存先の指定
+			// 2014/11/17 N.Inaba ADD 保存先の指定
 			String value = null;
 			String path = null;
 			JFileChooser filechooser = new JFileChooser();
@@ -704,7 +695,6 @@ public class OB_WorkspaceController extends WorkspaceController{
 				path = file.getParent();
 				System.out.println(value);
 			}
-			// 2014/11/17 N.Inaba ADD end
 
 			if (value == null || value.equals("")){
 				System.out.println("ソースコード出力を中断しました。");

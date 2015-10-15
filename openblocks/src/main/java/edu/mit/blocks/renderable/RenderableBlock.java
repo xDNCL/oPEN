@@ -64,8 +64,10 @@ import edu.mit.blocks.workspace.WorkspaceWidget;
  * coupled with its associated Block object, and uses information maintained in Block to
  * render the graphical block accordingly.
  */
-public class RenderableBlock extends JComponent implements SearchableElement, MouseListener, MouseMotionListener, ISupportMemento, CommentSource {
 
+// 2015/02/26 N.Inaba MOD Clone
+// public class RenderableBlock extends JComponent implements SearchableElement, MouseListener, MouseMotionListener, ISupportMemento, CommentSource {
+public class RenderableBlock extends JComponent implements SearchableElement, MouseListener, MouseMotionListener, ISupportMemento, CommentSource, Cloneable {
     private static final long serialVersionUID = 1L;
     // The following may be null: parent, lastdragwidget, comment
 
@@ -2116,4 +2118,17 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
         }
         return x;
     }
+    // 2015/02/26 N.Inaba MOD begin Clone
+    public Object clone() {
+        try {
+            RenderableBlock cloneBlock = (RenderableBlock) super.clone();
+            // 深いコピーをする場合、追記
+            this.parent.addBlock(cloneBlock);
+            return cloneBlock;
+        } catch (CloneNotSupportedException e) {
+        	System.err.println("エラー" + e.getMessage());
+        }
+        return null;
+    }
+    // 2015/02/26 N.Inaba MOD end
 }

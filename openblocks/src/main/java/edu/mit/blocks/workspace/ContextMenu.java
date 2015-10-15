@@ -37,6 +37,11 @@ public class ContextMenu extends PopupMenu implements ActionListener {
     /** The JComponent that launched the context menu in the first place */
     private static Object activeComponent = null;
 
+    // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+    private static MenuItem cpBlockItem;
+    private final static String CP_BLOCK = "CPBLOCK";
+    // 2015/02/26 N.Inaba ADD end
+    
     //privatize the constructor
     private ContextMenu() {
     }
@@ -49,6 +54,14 @@ public class ContextMenu extends PopupMenu implements ActionListener {
         addCommentItem.setActionCommand(ADD_COMMENT_BLOCK);
         addCommentItem.addActionListener(rndBlockMenu);
         addCommentMenu.add(addCommentItem);
+
+        // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+        cpBlockItem = new MenuItem("Copy block");
+    	cpBlockItem.setActionCommand(CP_BLOCK);
+    	cpBlockItem.addActionListener(rndBlockMenu);
+    	addCommentMenu.add(cpBlockItem);
+        // 2015/02/26 N.Inaba ADD end
+    	
         addCommentMenuInit = true;
     }
 
@@ -60,10 +73,16 @@ public class ContextMenu extends PopupMenu implements ActionListener {
         removeCommentItem = new MenuItem("Delete Comment");
         removeCommentItem.setActionCommand(REMOVE_COMMENT_BLOCK);
         removeCommentItem.addActionListener(rndBlockMenu);
-
         removeCommentMenu.add(removeCommentItem);
         //rndBlockMenu.add(runBlockItem);
 
+        // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+        cpBlockItem = new MenuItem("Copy block");
+    	cpBlockItem.setActionCommand(CP_BLOCK);
+    	cpBlockItem.addActionListener(rndBlockMenu);
+    	removeCommentMenu.add(cpBlockItem);
+        // 2015/02/26 N.Inaba ADD end
+    	
         removeCommentMenuInit = true;
     }
 
@@ -75,12 +94,11 @@ public class ContextMenu extends PopupMenu implements ActionListener {
         arrangeAllBlocks = new MenuItem("Organize all blocks");  //TODO some workspaces don't have pages
         arrangeAllBlocks.setActionCommand(ARRANGE_ALL_BLOCKS);
         arrangeAllBlocks.addActionListener(canvasMenu);
-
         canvasMenu.add(arrangeAllBlocks);
 
         canvasMenuInit = true;
     }
-
+    
     /**
      * Returns the right click context menu for the specified JComponent.  If there is 
      * none, returns null.
@@ -129,6 +147,16 @@ public class ContextMenu extends PopupMenu implements ActionListener {
             if (activeComponent != null && activeComponent instanceof RenderableBlock) {
                 ((RenderableBlock) activeComponent).removeComment();
             }
+
+        // 2015/02/26 N.Inaba ADD begin コピーブロック
+        } else if (a.getActionCommand() == CP_BLOCK) {
+            //notify the renderableblock componenet that lauched the conetxt menu
+            if (activeComponent != null && activeComponent instanceof RenderableBlock) {
+                // オブジェクトのコピー
+            	RenderableBlock cloneBlock = (RenderableBlock) (((RenderableBlock) activeComponent).clone());
+            	//canvas.addBlock(cloneBlock);
+            }
+        // 2015/02/26 N.Inaba ADD end
         }
     }
 }

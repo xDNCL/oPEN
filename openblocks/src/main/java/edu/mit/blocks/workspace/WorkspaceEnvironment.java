@@ -66,7 +66,22 @@ public class WorkspaceEnvironment {
     public long getNextBlockID() {
     	return this.nextBlockID++;
     }
-
+    
+    // 2015/09 N.Inaba ADD NextBlockID更新用
+    long count = 0;
+    public void countUp(){
+    	this.count++;
+    }
+    
+    public long getNextBlockID2() {
+    	return this.nextBlockID;
+    }
+    
+    // 2015/09 N.Inaba ADD NextBlockID更新用
+    public void addNextBlockID() {
+    	this.nextBlockID += this.count + 1;
+    	this.count = 0;
+    }
     // BlockStubs
 
     /** STUB HASH MAPS

@@ -1015,6 +1015,9 @@ public class OB_Block extends Block{
 			nameMatcher = attrExtractor.matcher(node.getAttributes().getNamedItem("id").toString());
 			if (nameMatcher.find()) {
 				id = translateLong(workspace, Long.parseLong(nameMatcher.group(1)), idMapping);
+				// 2015/09 N.Inaba ADD Load時にBlockID修正
+				workspace.getEnv().countUp();
+				id += workspace.getEnv().getNextBlockID2();
 			}
 			nameMatcher = attrExtractor.matcher(node.getAttributes().getNamedItem("genus-name").toString());
 			if (nameMatcher.find()) {
@@ -1029,7 +1032,7 @@ public class OB_Block extends Block{
 					hasFocus = nameMatcher.group(1).equals("yes") ? true : false;
 				}
 			}
-
+			
 			//load elements
 			NodeList children = node.getChildNodes();
 			Node child;
@@ -1043,8 +1046,12 @@ public class OB_Block extends Block{
 					badMsg = child.getTextContent();
 				} else if (child.getNodeName().equals("BeforeBlockId")) {
 					beforeID = translateLong(workspace, Long.parseLong(child.getTextContent()), idMapping);
+					// 2015/09 N.Inaba ADD Load時にBlockID修正
+					beforeID += workspace.getEnv().getNextBlockID2();
 				} else if (child.getNodeName().equals("AfterBlockId")) {
 					afterID = translateLong(workspace, Long.parseLong(child.getTextContent()), idMapping);
+					// 2015/09 N.Inaba ADD Load時にBlockID修正
+					afterID += workspace.getEnv().getNextBlockID2();
 				} else if (child.getNodeName().equals("Plug")) {
 					NodeList plugs = child.getChildNodes(); //there should only one child
 					Node plugNode;
@@ -1098,7 +1105,6 @@ public class OB_Block extends Block{
 					}
 				}
 			}
-
 			assert genusName != null && id != null : "Block did not contain required info id: " + id + " genus: " + genusName;
 			//create block or block stub instance
 			if (!isStubBlock) {
