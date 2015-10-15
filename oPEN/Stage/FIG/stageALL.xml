@@ -14,11 +14,23 @@
 <BlockDrawerSets>
 <BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
 			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
-			    <BlockGenusMember>start</BlockGenusMember>
+			     <BlockGenusMember>start</BlockGenusMember>
+			    <BlockGenusMember>if</BlockGenusMember>
+			    <BlockGenusMember>ifelse</BlockGenusMember>
+			    <BlockGenusMember>repeat</BlockGenusMember>
+			    <BlockGenusMember>equals</BlockGenusMember>
+			    <!-- BlockGenusMember>not-equals</BlockGenusMember -->
+			    <BlockGenusMember>lessthan</BlockGenusMember>
+			    <!-- BlockGenusMember>lessthanorequalto</BlockGenusMember -->
+			    <BlockGenusMember>greaterthan</BlockGenusMember>
+			    <!-- BlockGenusMember>greaterthanorequalto</BlockGenusMember -->
+			    <BlockGenusMember>equals-s</BlockGenusMember>
+			    <BlockGenusMember>and</BlockGenusMember>
+			    <BlockGenusMember>or</BlockGenusMember>
 			    <BlockGenusMember>number</BlockGenusMember>
-			    <BlockGenusMember>string</BlockGenusMember>
 			    <BlockGenusMember>variable-Number</BlockGenusMember>
-			    <BlockGenusMember>xy</BlockGenusMember>
+			    <BlockGenusMember>string</BlockGenusMember>
+			    <BlockGenusMember>variable-String</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="宣言・代入" button-color="132 204 201" type="factory">
 			    <BlockGenusMember>setInt</BlockGenusMember>
@@ -27,6 +39,7 @@
 			    <BlockGenusMember>variable-Number</BlockGenusMember>
 			    <BlockGenusMember>string</BlockGenusMember>
 			    <BlockGenusMember>xy</BlockGenusMember>
+			    <BlockGenusMember>wait</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
 				<BlockGenusMember>sum</BlockGenusMember>
@@ -42,6 +55,8 @@
 			<BlockDrawer name="入出力" button-color="255 255 255" type="factory">
 				<BlockGenusMember>print-number</BlockGenusMember>
 				<BlockGenusMember>println-number</BlockGenusMember>
+				<BlockGenusMember>println-string</BlockGenusMember>
+				<BlockGenusMember>println-string2</BlockGenusMember>
 				<BlockGenusMember>keyboard-input-number</BlockGenusMember>
 			    	<BlockGenusMember>number</BlockGenusMember>
 			    	<BlockGenusMember>variable-Number</BlockGenusMember>

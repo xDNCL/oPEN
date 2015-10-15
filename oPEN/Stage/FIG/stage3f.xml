@@ -18,12 +18,28 @@
 			    <BlockGenusMember>if</BlockGenusMember>
 			    <BlockGenusMember>ifelse</BlockGenusMember>
 			    <BlockGenusMember>repeat</BlockGenusMember>
+			    <BlockGenusMember>repeat-if</BlockGenusMember>
+			    <BlockGenusMember>equals</BlockGenusMember>
+			    <!-- BlockGenusMember>not-equals</BlockGenusMember -->
+			    <BlockGenusMember>lessthan</BlockGenusMember>
+			    <!-- BlockGenusMember>lessthanorequalto</BlockGenusMember -->
+			    <BlockGenusMember>greaterthan</BlockGenusMember>
+			    <!-- BlockGenusMember>greaterthanorequalto</BlockGenusMember -->
+			    <BlockGenusMember>equals-s</BlockGenusMember>
+			    <BlockGenusMember>and</BlockGenusMember>
+			    <BlockGenusMember>or</BlockGenusMember>
+			    <BlockGenusMember>number</BlockGenusMember>
+			    <BlockGenusMember>variable-Number</BlockGenusMember>
+			    <BlockGenusMember>string</BlockGenusMember>
+			    <BlockGenusMember>variable-String</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="宣言・代入" button-color="132 204 201" type="factory">
 			    <BlockGenusMember>setInt</BlockGenusMember>
 			    <BlockGenusMember>substitution-number</BlockGenusMember>
 			    <BlockGenusMember>number</BlockGenusMember>
 			    <BlockGenusMember>variable-Number</BlockGenusMember>
+			    <BlockGenusMember>random</BlockGenusMember>
+			    <BlockGenusMember>wait</BlockGenusMember>
 			</BlockDrawer>
 			<BlockDrawer name="四則演算" type="factory" button-color="102 129 255">
 				<BlockGenusMember>sum</BlockGenusMember>
