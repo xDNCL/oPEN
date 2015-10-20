@@ -6,9 +6,10 @@ public class Drawer {
 	public int bi = 0; // Blockのインデックス
 	public int order = 0;
 	public String color = null;
-	
-	public Drawer() {}
-	
+
+	public Drawer() {
+	}
+
 	public Drawer(String name, Block block, int order, String color) {
 		this.name = name;
 		this.block[0] = block;
@@ -16,7 +17,7 @@ public class Drawer {
 		this.color = color;
 		bi = 1;
 	}
-	
+
 	public void setBlock(Block block) {
 		this.block[bi] = block;
 		bi++;

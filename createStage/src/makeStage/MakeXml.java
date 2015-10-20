@@ -1,4 +1,5 @@
 package makeStage;
+
 import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -21,7 +22,8 @@ public class MakeXml {
 		// Documentインスタンスの生成
 		DocumentBuilder documentBuilder = null;
 		try {
-			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			documentBuilder = DocumentBuilderFactory.newInstance()
+					.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -67,19 +69,21 @@ public class MakeXml {
 					BlockDrawer.setAttribute("type", "factory");
 					BlockDrawer.setAttribute("button-color", drawer[di].color);
 					BlockDrawerSet.appendChild(BlockDrawer);
-					
+
 					for (int bi = 1; bi < drawer[di].bi; bi++) {
-						Element BlockGenusMember = document.createElement("BlockGenusMember");
-						BlockGenusMember.appendChild(document.createTextNode(drawer[di].block[bi].name));
+						Element BlockGenusMember = document
+								.createElement("BlockGenusMember");
+						BlockGenusMember.appendChild(document
+								.createTextNode(drawer[di].block[bi].name));
 						BlockDrawer.appendChild(BlockGenusMember);
 					}
 				}
 			}
 			wd++;
 		}
-		
+
 		// XMLファイルの作成
-//		file = file.substring(0, file.length()-4);
+		// file = file.substring(0, file.length()-4);
 		File outputFile = new File("stage_" + file);
 		write(outputFile, document);
 	}
@@ -88,23 +92,28 @@ public class MakeXml {
 		// Transformerインスタンスの生成
 		Transformer transformer = null;
 		try {
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			TransformerFactory transformerFactory = TransformerFactory
+					.newInstance();
 			transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(org.apache.xml.serializer.OutputPropertiesFactory.S_KEY_INDENT_AMOUNT,"4");
+			transformer
+					.setOutputProperty(
+							org.apache.xml.serializer.OutputPropertiesFactory.S_KEY_INDENT_AMOUNT,
+							"4");
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();
 			return false;
 		}
 
 		// Transformerの設定
-		transformer.setOutputProperty("indent", "yes"); //改行指定
+		transformer.setOutputProperty("indent", "yes"); // 改行指定
 		transformer.setOutputProperty("encoding", "UTF-8"); // エンコーディング
 
 		// XMLファイルの作成
 		try {
-			transformer.transform(new DOMSource(document), new StreamResult(file));
+			transformer.transform(new DOMSource(document), new StreamResult(
+					file));
 		} catch (TransformerException e) {
 			e.printStackTrace();
 			return false;

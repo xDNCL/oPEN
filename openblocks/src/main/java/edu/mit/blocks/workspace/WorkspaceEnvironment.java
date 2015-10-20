@@ -33,13 +33,13 @@ public class WorkspaceEnvironment {
      * @return the Renderable specified by blockID; null if RenderableBlock does not exist
      */
     public RenderableBlock getRenderableBlock(Long blockID) {
-    	System.out.println(blockID + "を呼ぶ");
+//    	System.out.println(blockID + "を呼ぶ");
         return this.allRenderableBlocks.get(blockID);
     }
 
     public void addRenderableBlock(RenderableBlock block) {
     	this.allRenderableBlocks.put(block.getBlockID(), block);
-    	System.out.println(block.getBlockID() + "を登録");
+//    	System.out.println(block.getBlockID() + "を登録");
     }
 
 
