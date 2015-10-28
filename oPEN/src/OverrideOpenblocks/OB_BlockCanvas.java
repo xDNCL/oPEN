@@ -2,13 +2,21 @@ package OverrideOpenblocks;
 
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.PopupMenu;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BoundedRangeModel;
 import javax.swing.JComponent;
+import javax.swing.JLayeredPane;
+import javax.swing.SwingUtilities;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,6 +27,7 @@ import edu.mit.blocks.codeblockutil.CHoverScrollPane;
 import edu.mit.blocks.codeblockutil.CScrollPane;
 import edu.mit.blocks.codeblockutil.CScrollPane.ScrollPolicy;
 import edu.mit.blocks.workspace.BlockCanvas;
+import edu.mit.blocks.workspace.ContextMenu;
 import edu.mit.blocks.workspace.Page;
 import edu.mit.blocks.workspace.PageChangeEventManager;
 import edu.mit.blocks.workspace.PageDivider;
@@ -37,10 +46,21 @@ public class OB_BlockCanvas extends BlockCanvas{
 //    protected List<Page> pages = new ArrayList<Page>();
     /** 書き換え分 */
 	private final OB_Workspace workspace;
-		
+	
+	// 2015/10/28 N.Inaba ADD begin コピーブロック関連
 	public OB_BlockCanvas(OB_Workspace ob_ws){
 		super(ob_ws);
 		this.workspace = ob_ws;
+		this.canvas = new OB_Canvas();
+        this.scrollPane = new CHoverScrollPane(canvas,
+                ScrollPolicy.VERTICAL_BAR_ALWAYS,
+                ScrollPolicy.HORIZONTAL_BAR_ALWAYS,
+                18, CGraphite.blue, null);
+        scrollPane.setScrollingUnit(5);
+        canvas.setLayout(null);
+        canvas.setBackground(Color.gray);
+        canvas.setOpaque(true);
+        PageChangeEventManager.addPageChangeListener(this);
 	}
 	
     /**
@@ -179,5 +199,55 @@ public class OB_BlockCanvas extends BlockCanvas{
         canvas.add(pd, 0);
         PageChangeEventManager.notifyListeners();
     }
+    
+    // 2015/10/28 N.Inaba ADD begin コピーブロック関連
+    public class OB_Canvas extends JLayeredPane implements MouseListener, MouseMotionListener {
 
+        private static final long serialVersionUID = 438974092314L;
+        private Point p;
+
+        public OB_Canvas() {
+            super();
+            this.p = null;
+            this.addMouseListener(this);
+            this.addMouseMotionListener(this);
+        }
+
+        public void mousePressed(MouseEvent e) {
+            p = e.getPoint();
+        }
+
+        public void mouseClicked(MouseEvent e) {
+            if (SwingUtilities.isRightMouseButton(e) || e.isControlDown()) {
+                //pop up context menu
+                PopupMenu popup = OB_ContextMenu.getContextMenuFor(OB_BlockCanvas.this); // 2015/10/28 N.Inaba ADD begin コピーブロック関連
+                this.add(popup);
+                popup.show(this, e.getX(), e.getY());
+            }
+        }
+
+        public void mouseDragged(MouseEvent e) {
+            if (p == null) {
+                //do nothing
+            } else {
+                BoundedRangeModel hModel = scrollPane.getHorizontalModel();
+                BoundedRangeModel vModel = scrollPane.getVerticalModel();
+                hModel.setValue(hModel.getValue() + (p.x - e.getX()));
+                vModel.setValue(vModel.getValue() + (p.y - e.getY()));
+            }
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            this.p = null;
+        }
+
+        public void mouseMoved(MouseEvent e) {
+        }
+
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+    }
 }

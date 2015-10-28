@@ -43,7 +43,9 @@ public class ContextMenu extends PopupMenu implements ActionListener {
     // 2015/02/26 N.Inaba ADD end
     
     //privatize the constructor
-    private ContextMenu() {
+    // 2015/10/28 N.Inaba MOD begin OB_コピーブロックメニュー導入のため
+//  private ContextMenu() {
+    protected ContextMenu() {
     }
 
     /**
@@ -57,9 +59,9 @@ public class ContextMenu extends PopupMenu implements ActionListener {
 
         // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
         cpBlockItem = new MenuItem("Copy block");
-    	cpBlockItem.setActionCommand(CP_BLOCK);
-    	cpBlockItem.addActionListener(rndBlockMenu);
-    	addCommentMenu.add(cpBlockItem);
+        cpBlockItem.setActionCommand(CP_BLOCK);
+        cpBlockItem.addActionListener(rndBlockMenu);
+        addCommentMenu.add(cpBlockItem);
         // 2015/02/26 N.Inaba ADD end
     	
         addCommentMenuInit = true;
@@ -78,9 +80,9 @@ public class ContextMenu extends PopupMenu implements ActionListener {
 
         // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
         cpBlockItem = new MenuItem("Copy block");
-    	cpBlockItem.setActionCommand(CP_BLOCK);
-    	cpBlockItem.addActionListener(rndBlockMenu);
-    	removeCommentMenu.add(cpBlockItem);
+        cpBlockItem.setActionCommand(CP_BLOCK);
+        cpBlockItem.addActionListener(rndBlockMenu);
+        removeCommentMenu.add(cpBlockItem);
         // 2015/02/26 N.Inaba ADD end
     	
         removeCommentMenuInit = true;

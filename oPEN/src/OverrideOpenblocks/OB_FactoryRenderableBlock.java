@@ -21,7 +21,9 @@ public class OB_FactoryRenderableBlock extends RenderableBlock{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-    private RenderableBlock createdRB = null;
+	// 2015/10/28 N.Inaba MOD begin コピーブロック
+    private OB_RenderableBlock createdRB = null;
+    
     private boolean createdRB_dragged = false;
     private JComponentDragHandler dragHandler;
 
@@ -42,7 +44,8 @@ public class OB_FactoryRenderableBlock extends RenderableBlock{
     }
 	
 //    @Override
-    public RenderableBlock createNewInstance() {
+ // 2015/10/28 N.Inaba MOD begin コピーブロック
+    public OB_RenderableBlock createNewInstance() {
 //    	RenderableBlock rb = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
 //    	Block original = rb.getBlock();
 //    	System.out.println("hoge");

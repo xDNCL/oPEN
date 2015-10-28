@@ -43,6 +43,7 @@ import edu.mit.blocks.codeblocks.BlockConnectorShape;
 import edu.mit.blocks.codeblocks.BlockLink;
 import edu.mit.blocks.codeblocks.BlockLinkChecker;
 import edu.mit.blocks.codeblocks.BlockShape;
+import edu.mit.blocks.codeblocks.BlockStub;
 import edu.mit.blocks.codeblocks.InfixBlockShape;
 import edu.mit.blocks.codeblocks.JComponentDragHandler;
 import edu.mit.blocks.codeblocks.rendering.BlockShapeUtil;
@@ -88,11 +89,16 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     protected final Workspace workspace;
 
     /** BlockID of this.  MAY BE Block.NULL */
-    private final Long blockID;
+    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    protected final Long blockID;
+    
     /** Parent workspace widget.  May be null */
     private WorkspaceWidget parent;
+    
     /** The previous known workspacewidget this block was dragged over.  May be null */
-    private WorkspaceWidget lastDragWidget = null;
+    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    protected WorkspaceWidget lastDragWidget = null;
+    
     /** The comment of this.  May be null */
     private Comment comment = null;
     /**  set true when comment is added or removed from this block */
@@ -120,7 +126,9 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     /** HighlightManager that manages drawing of highlights around this block */
     private RBHighlightHandler highlighter;
     /** dragHandler keeps the block within the workspace area. It manages relocating the block. */
-    private JComponentDragHandler dragHandler;
+    
+    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    protected JComponentDragHandler dragHandler;
     ////////////////////////
     //ATTRIBUTE FIELDS
     /** Binary atttributes of this RenderableBlocks:
@@ -134,8 +142,11 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
      * 				RenderableBlocks to finish loading as well.  In this
      * 				case, isLoading would still be false */
     private boolean isSearchResult = false;
-    private boolean pickedUp = false;
-    private boolean dragging = false;
+    
+    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    protected boolean pickedUp = false;
+    protected boolean dragging = false;
+    
     private boolean linkedDefArgsBefore = false;
     private boolean isLoading = false;
     ///////////////////////////
@@ -154,8 +165,9 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     //TO BE DEPRECATED
     private HashMap<ImageLocation, BlockImageIcon> imageMap = new HashMap<ImageLocation, BlockImageIcon>();
     // the values of the x and y coordinates of block when zoom = 1.0
-    private double unzoomedX;
-    private double unzoomedY;
+    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    protected double unzoomedX;
+    protected double unzoomedY;
 
     /**
      * Constructs a new RenderableBlock instance with the specified parent WorkspaceWidget and
@@ -2121,13 +2133,10 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     }
     // 2015/10/13 N.Inaba ADD begin コピーブロック
     public void copyBlock() {
-        RenderableBlock createdRB = null;
-        createdRB = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
-        
-        this.getParent().add(createdRB, 0);
-        createdRB.setParentWidget(this.getParentWidget());
-        createdRB.setLocation(this.getX() + 200, this.getY());
-//        workspace.getEnv().addRenderableBlock(this);
+    	RenderableBlock newRB = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
+    	newRB.ignoreDefaultArguments();
+    	newRB.setLocation(this.getX() + 200, this.getY());
+    	this.getParent().add(newRB);
     }
-    // 2015/10/13 N.Inaba MOD end
+    // 2015/10/13 N.Inaba ADD end
 }

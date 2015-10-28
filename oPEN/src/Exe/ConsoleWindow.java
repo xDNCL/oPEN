@@ -220,6 +220,14 @@ public class ConsoleWindow implements ActionListener{
 	
 	private OB_Block getStartBlock() throws BlockRunException{
 		OB_Block start = null;
+		// 2015/10/27 N.Inaba ADD コピーブロックを含んだプログラムの実行についての調査
+		// コピー元: OB_Block型 コピー:Block型になっているのが原因
+//		int block_cnt = 0;
+//		for(Block block: this.ws.getBlocks()) {
+//			System.out.println("" + block_cnt + block);
+//			block_cnt++;
+//		}
+		
 		for(Block block: this.ws.getBlocks()){
 			if(block.getGenusName().equals("start")){
 				if(block instanceof OB_Block){
@@ -390,6 +398,7 @@ public class ConsoleWindow implements ActionListener{
 					
 					//ハイライト点灯
 					highLightBlock = run;
+					// 2015/10/26 N.Inaba MEMO NullPointer調査
 					(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).setBlockHighlightColor(Color.YELLOW);
 					
 					ArrayList<OB_Block> results = null;
@@ -435,6 +444,7 @@ public class ConsoleWindow implements ActionListener{
 		
 		protected void resetHighLight(){
 			if(highLightBlock != null){
+				// 2015/10/26 N.Inaba MEMO NullPointer調査
 				(highLightBlock.getWorkspace().getEnv().getRenderableBlock(highLightBlock.getBlockID())).resetHighlight();
 			}
 		}

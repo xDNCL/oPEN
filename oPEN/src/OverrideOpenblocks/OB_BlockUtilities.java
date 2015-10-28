@@ -14,7 +14,7 @@ public class OB_BlockUtilities extends BlockUtilities{
 	   private static final Map<String, Integer> instanceCounter = new HashMap<String, Integer>();
 	   private static double zoom = 1.0;
 	    
-	public static RenderableBlock cloneBlock(Block myblock) {
+	public static OB_RenderableBlock cloneBlock(Block myblock) {
         String mygenusname = myblock.getGenusName();
         String label = myblock.getBlockLabel();
         Workspace workspace = myblock.getWorkspace();
@@ -80,7 +80,7 @@ public class OB_BlockUtilities extends BlockUtilities{
 
         // TODO - djwendel - create a copy of the RB properties too, using an RB copy constructor.  Don't just use the genus.
         //RenderableBlock renderable = new RenderableBlock(this.getParentWidget(), block.getBlockID());
-        RenderableBlock renderable = new RenderableBlock(workspace, null, block.getBlockID());
+        OB_RenderableBlock renderable = new OB_RenderableBlock(workspace, null, block.getBlockID(), false);
         renderable.setZoomLevel(OB_BlockUtilities.zoom);
         renderable.redrawFromTop();
         renderable.repaint();

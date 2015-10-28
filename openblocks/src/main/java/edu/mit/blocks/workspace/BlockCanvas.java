@@ -57,7 +57,11 @@ public class BlockCanvas implements PageChangeListener, ISupportMemento {
     /** The Swing representation of the page container */
     protected JComponent canvas;
     /** The scrollable JComponent representing the graphical part of this BlockCanvas */
-    private CScrollPane scrollPane;
+    
+    // 2015/10/13 N.Inaba ADD begin コピーブロック関連
+    protected CScrollPane scrollPane;
+//    private CScrollPane scrollPane;
+    
     /** The workspace in use */
     protected final Workspace workspace;
 
