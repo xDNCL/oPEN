@@ -38,10 +38,9 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
     /** The JComponent that launched the context menu in the first place */
     private static Object activeComponent = null;
 
-    // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+    // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
     private static MenuItem cpBlockItem;
     private final static String CP_BLOCK = "CPBLOCK";
-    // 2015/02/26 N.Inaba ADD end
     
     //privatize the constructor
     OB_ContextMenu() {
@@ -57,12 +56,11 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
         addCommentItem.addActionListener(rndBlockMenu);
         addCommentMenu.add(addCommentItem);
 
-        // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+        // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
         cpBlockItem = new MenuItem("Copy block");
     	cpBlockItem.setActionCommand(CP_BLOCK);
     	cpBlockItem.addActionListener(rndBlockMenu);
     	addCommentMenu.add(cpBlockItem);
-        // 2015/02/26 N.Inaba ADD end
     	
         addCommentMenuInit = true;
     }
@@ -78,12 +76,11 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
         removeCommentMenu.add(removeCommentItem);
         //rndBlockMenu.add(runBlockItem);
 
-        // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+        // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
         cpBlockItem = new MenuItem("Copy block");
     	cpBlockItem.setActionCommand(CP_BLOCK);
     	cpBlockItem.addActionListener(rndBlockMenu);
     	removeCommentMenu.add(cpBlockItem);
-        // 2015/02/26 N.Inaba ADD end
     	
         removeCommentMenuInit = true;
     }
@@ -109,7 +106,7 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
      * none, returns null.
      */
     public static PopupMenu getContextMenuFor(Object o) {
-        // 2015/10/28 N.Inaba ADD begin コピーブロックメニュー OB_RenderableBlockに修正
+        // 2015/10/28 N.Inaba ADD ブロック(単品)の複製 OB_RenderableBlockに修正
         if (o instanceof OB_RenderableBlock) {
             if (((OB_RenderableBlock) o).hasComment()) {
                 if (!removeCommentMenuInit) {
@@ -151,13 +148,12 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
                 ((OB_RenderableBlock) activeComponent).removeComment();
             }
 
-        // 2015/10/13 N.Inaba ADD begin コピーブロック
+        // 2015/10/13 N.Inaba ADD ブロック(単品)の複製
         } else if (a.getActionCommand() == CP_BLOCK) {
             //notify the renderableblock componenet that lauched the conetxt menu
             if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
             	((OB_RenderableBlock) activeComponent).copyBlock();
             }
-        // 2015/02/26 N.Inaba ADD end
         }
     }
 }

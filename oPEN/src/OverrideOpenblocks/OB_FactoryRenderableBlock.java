@@ -21,7 +21,7 @@ public class OB_FactoryRenderableBlock extends RenderableBlock{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	// 2015/10/28 N.Inaba MOD begin コピーブロック
+	// 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     private OB_RenderableBlock createdRB = null;
     
     private boolean createdRB_dragged = false;
@@ -44,7 +44,7 @@ public class OB_FactoryRenderableBlock extends RenderableBlock{
     }
 	
 //    @Override
- // 2015/10/28 N.Inaba MOD begin コピーブロック
+ // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     public OB_RenderableBlock createNewInstance() {
 //    	RenderableBlock rb = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(super.getBlockID()));
 //    	Block original = rb.getBlock();
@@ -54,7 +54,7 @@ public class OB_FactoryRenderableBlock extends RenderableBlock{
 //    	RenderableBlock newRenderableBlock = new RenderableBlock(workspace, null, newBlock.getBlockID());
 //    	return newRenderableBlock;
     	
-    	// 2015/09 N.Inaba MOD BlockIDの調査
+    	// 2015/09/29 N.Inaba ADD NormalizeIDs BlockIDの調査
     	Long testBlock = super.getBlockID();
 //    	System.out.println(testBlock);
    	 	 return OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(testBlock));

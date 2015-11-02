@@ -174,7 +174,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 				String selectedPath = selectedFile.getPath();
 				changeStage();
 				
-				// 2015/09 N.Inaba ADD changeStage()の調査
+				// 2015/09/29 N.Inaba ADD NormalizeIDs changeStage()の調査
 //				clearStage(); /* changeStageを変更したもの */
 //				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
 //				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
@@ -182,7 +182,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 				
 				try{
 					loadProjectFromPath(selectedPath);
-					// 2015/09 N.Inaba ADD Load後のNextBlockID更新
+					// 2015/09/29 N.Inaba ADD NormalizeIDs Load後のNextBlockID更新
 					workspace.getEnv().addNextBlockID();
 					System.out.println("ロードが完了しました。");
 				}catch(Exception err){
@@ -211,10 +211,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 				}
 			}
 			try {
-				// 2015/10/07 N.Inaba MOD 従来のセーブファイルを仮セーブファイルとして扱う
+				// 2015/10/07 N.Inaba MOD NormalizeIDs 従来のセーブファイルを仮セーブファイルとして扱う
 				File preFile = new File(selectedFile.getParent() + "/pre_" + selectedFile.getName());
 				saveToFile(preFile);
-				// 2015/10/07 N.Inaba ADD Normalize ID
+				// 2015/10/07 N.Inaba ADD NormalizeIDs 呼び出し
 				NormalizeIDs nid = new NormalizeIDs(preFile);
 			}
 			catch (IOException e) {
@@ -285,7 +285,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		PrintWriter pw = null;
 		try {
 
-			// 2014/11/25 N.Inaba ADD 拡張子調整
+			// 2014/11/25 N.Inaba ADD oPEN 拡張子調整
 			String fileName = file.getName().toString();
 			if(fileName.length() <= 4 || !fileName.substring(fileName.length()-4).equals(".xml")){
 				//ファイル名が.xmlではない場合は.xmlとして保存する
@@ -294,7 +294,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 			}
 			// fileWriter = new FileWriter(file);
 
-			// 2014/11/25 N.Inaba ADD UTF-8で出力
+			// 2014/11/25 N.Inaba ADD oPEN UTF-8で出力
 			fos = new FileOutputStream(file);
 			osw = new OutputStreamWriter(fos,"UTF-8");
 			pw = new PrintWriter(osw);
@@ -452,7 +452,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		//出力言語の設定を抜き出す
 		setOutputLanguage(blockDrawerRoot);
 		
-		// 2015/07/27 N.Inaba DEL loadWorkspaceFromを二回呼んでいる
+		// 2015/07/27 N.Inaba DEL oPEN loadWorkspaceFromを二回呼んでいる
 //		if(!workspaceLoaded) {
 //			workspace.loadWorkspaceFrom(null, langDefRoot, blockDrawerRoot);
 //			workspaceLoaded = true;
@@ -521,7 +521,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 			if (in != null) {
 				try {
 					in.close();
-					// 2015/10/06 N.Inaba DEL ここでfalseにすると2回目以降のステージ切り替えができない
+					// 2015/10/06 N.Inaba DEL oPEN ここでfalseにすると2回目以降のステージ切り替えができない
 //					blockDrawerDirty = false;
 				}
 				catch (IOException e) {
@@ -679,10 +679,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			// 2014/11/17 N.Inaba DEL
+			// 2014/11/17 N.Inaba DEL oPEN
 //	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
 
-			// 2014/11/17 N.Inaba ADD 保存先の指定
+			// 2014/11/17 N.Inaba ADD oPEN 保存先の指定
 			String value = null;
 			String path = null;
 			JFileChooser filechooser = new JFileChooser();

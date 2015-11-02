@@ -35,6 +35,8 @@ import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblockutil.CToolTip;
 import edu.mit.blocks.renderable.RenderableBlock;
 
+import edu.mit.blocks.workspace.*;
+
 /**
  * A Page serves as both an abstract container of blocks
  * and also a graphical panel that renders its collection
@@ -105,8 +107,11 @@ public class Page implements WorkspaceWidget, SearchableContainer, ISupportMemen
     private static final String emptyString = "";
     /** this.zoomLevel: zoom level state */
     static double zoom = 1.0;
+    
+    // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
     /** The JComponent of this page */
-    private final PageJComponent pageJComponent = new PageJComponent();
+    protected final PageJComponent pageJComponent = new PageJComponent();
+    
     /** The abstract width of this page */
     private double abstractWidth;
     /** The abstract height of this page */
@@ -1130,81 +1135,82 @@ public class Page implements WorkspaceWidget, SearchableContainer, ISupportMemen
     }
 }
 
-/**
- * This class serves as the zoomable JComponent and RBParent of the page
- * that wraps it.
- */
-class PageJComponent extends JLayeredPane implements RBParent {
-
-    private static final long serialVersionUID = 83982193213L;
-    private static final Integer BLOCK_LAYER = new Integer(1);
-    private static final Integer HIGHLIGHT_LAYER = new Integer(0);
-    private static final int IMAGE_WIDTH = 60;
-    private Image image = null;
-    private boolean fullview = true;
-
-    public void setFullView(boolean isFullView) {
-        this.fullview = isFullView;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    /**
-     * renders this JComponent
-     */
-    @Override
-    public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        //paint page
-        super.paintComponent(g);
-        //set label color
-        if (this.getBackground().getBlue() + this.getBackground().getGreen() + this.getBackground().getRed() > 400) {
-            g.setColor(Color.DARK_GRAY);
-        } else {
-            g.setColor(Color.LIGHT_GRAY);
-        }
-
-        //paint label at correct position
-        if (fullview) {
-            int xpos = (int) (this.getWidth() * 0.5 - g.getFontMetrics().getStringBounds(this.getName(), g).getCenterX());
-            g.drawString(this.getName(), xpos, getHeight() / 2);
-            g.drawString(this.getName(), xpos, getHeight() / 4);
-            g.drawString(this.getName(), xpos, getHeight() * 3 / 4);
-
-
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.33F));
-            int imageX = (int) (this.getWidth() / 2 - IMAGE_WIDTH / 2 * Page.zoom);
-            int imageWidth = (int) (IMAGE_WIDTH * Page.zoom);
-            g.drawImage(this.getImage(), imageX, getHeight() / 2 + 5, imageWidth, imageWidth, null);
-            g.drawImage(this.getImage(), imageX, getHeight() / 4 + 5, imageWidth, imageWidth, null);
-            g.drawImage(this.getImage(), imageX, getHeight() * 3 / 4 + 5, imageWidth, imageWidth, null);
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-        }
-
-    }
-
-    //////////////////////////////////
-    //RBParent implemented methods	//
-    //////////////////////////////////
-    /** @overrides RBParent.addToBlockLayer() */
-    @Override
-    public void addToBlockLayer(Component c) {
-        this.add(c, BLOCK_LAYER);
-
-    }
-
-    /** @overrides RBParent.addToHighlightLayer() */
-    @Override
-    public void addToHighlightLayer(Component c) {
-        this.add(c, HIGHLIGHT_LAYER);
-    }
-}
+//2015/10/29 N.Inaba MV defaultArgをOB_Block型に publicにするために、PageJComponent.javaを作成
+///**
+// * This class serves as the zoomable JComponent and RBParent of the page
+// * that wraps it.
+// */
+//class PageJComponent extends JLayeredPane implements RBParent {
+//
+//    private static final long serialVersionUID = 83982193213L;
+//    private static final Integer BLOCK_LAYER = new Integer(1);
+//    private static final Integer HIGHLIGHT_LAYER = new Integer(0);
+//    private static final int IMAGE_WIDTH = 60;
+//    private Image image = null;
+//    private boolean fullview = true;
+//
+//    public void setFullView(boolean isFullView) {
+//        this.fullview = isFullView;
+//    }
+//
+//    public void setImage(Image image) {
+//        this.image = image;
+//    }
+//
+//    public Image getImage() {
+//        return image;
+//    }
+//
+//    /**
+//     * renders this JComponent
+//     */
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        Graphics2D g2 = (Graphics2D) g;
+//        //paint page
+//        super.paintComponent(g);
+//        //set label color
+//        if (this.getBackground().getBlue() + this.getBackground().getGreen() + this.getBackground().getRed() > 400) {
+//            g.setColor(Color.DARK_GRAY);
+//        } else {
+//            g.setColor(Color.LIGHT_GRAY);
+//        }
+//
+//        //paint label at correct position
+//        if (fullview) {
+//            int xpos = (int) (this.getWidth() * 0.5 - g.getFontMetrics().getStringBounds(this.getName(), g).getCenterX());
+//            g.drawString(this.getName(), xpos, getHeight() / 2);
+//            g.drawString(this.getName(), xpos, getHeight() / 4);
+//            g.drawString(this.getName(), xpos, getHeight() * 3 / 4);
+//
+//
+//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.33F));
+//            int imageX = (int) (this.getWidth() / 2 - IMAGE_WIDTH / 2 * Page.zoom);
+//            int imageWidth = (int) (IMAGE_WIDTH * Page.zoom);
+//            g.drawImage(this.getImage(), imageX, getHeight() / 2 + 5, imageWidth, imageWidth, null);
+//            g.drawImage(this.getImage(), imageX, getHeight() / 4 + 5, imageWidth, imageWidth, null);
+//            g.drawImage(this.getImage(), imageX, getHeight() * 3 / 4 + 5, imageWidth, imageWidth, null);
+//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+//        }
+//
+//    }
+//
+//    //////////////////////////////////
+//    //RBParent implemented methods	//
+//    //////////////////////////////////
+//    /** @overrides RBParent.addToBlockLayer() */
+//    @Override
+//    public void addToBlockLayer(Component c) {
+//        this.add(c, BLOCK_LAYER);
+//
+//    }
+//
+//    /** @overrides RBParent.addToHighlightLayer() */
+//    @Override
+//    public void addToHighlightLayer(Component c) {
+//        this.add(c, HIGHLIGHT_LAYER);
+//    }
+//}
 
 /**
  * A BlockStatckSortUtil is a utilities class that serves to order

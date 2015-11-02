@@ -283,7 +283,8 @@ public class Block implements ISupportMemento {
      * Returns the BlockGenus of this
      * @return the BlockGenus of this
      */
-    private BlockGenus getGenus() {
+	// 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected BlockGenus getGenus() {
         return env.getGenusWithName(genusName);
     }
 

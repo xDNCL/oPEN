@@ -18,7 +18,7 @@
 <BlockDrawerSet drawer-draggable="no" location="southwest" name="factory" type="stack" window-per-drawer="no">
 			<BlockDrawer name="制御" type="factory" button-color="255 173 0">
                 
-                <!-- 2014/10/07 N.Inaba ADD begin BlockDrawer定義ブロック -->
+                <!-- 2014/10/07 N.Inaba ADD begin createStage BlockDrawer定義ブロック -->
                 <BlockGenusMember>start2</BlockGenusMember>
                 <BlockGenusMember>start3</BlockGenusMember>
                 <BlockGenusMember>start4</BlockGenusMember>

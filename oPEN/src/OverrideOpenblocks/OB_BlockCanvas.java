@@ -47,7 +47,7 @@ public class OB_BlockCanvas extends BlockCanvas{
     /** 書き換え分 */
 	private final OB_Workspace workspace;
 	
-	// 2015/10/28 N.Inaba ADD begin コピーブロック関連
+	// 2015/10/28 N.Inaba ADD ブロック(単品)の複製
 	public OB_BlockCanvas(OB_Workspace ob_ws){
 		super(ob_ws);
 		this.workspace = ob_ws;
@@ -200,7 +200,7 @@ public class OB_BlockCanvas extends BlockCanvas{
         PageChangeEventManager.notifyListeners();
     }
     
-    // 2015/10/28 N.Inaba ADD begin コピーブロック関連
+    // 2015/10/28 N.Inaba ADD ブロック(単品)の複製
     public class OB_Canvas extends JLayeredPane implements MouseListener, MouseMotionListener {
 
         private static final long serialVersionUID = 438974092314L;
@@ -220,7 +220,7 @@ public class OB_BlockCanvas extends BlockCanvas{
         public void mouseClicked(MouseEvent e) {
             if (SwingUtilities.isRightMouseButton(e) || e.isControlDown()) {
                 //pop up context menu
-                PopupMenu popup = OB_ContextMenu.getContextMenuFor(OB_BlockCanvas.this); // 2015/10/28 N.Inaba ADD begin コピーブロック関連
+                PopupMenu popup = OB_ContextMenu.getContextMenuFor(OB_BlockCanvas.this); // 2015/10/28 N.Inaba MOD begin ブロック(単品)の複製
                 this.add(popup);
                 popup.show(this, e.getX(), e.getY());
             }

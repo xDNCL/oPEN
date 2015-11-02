@@ -1,9 +1,14 @@
 package OverrideOpenblocks;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.PopupMenu;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
@@ -11,6 +16,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.mit.blocks.codeblocks.Block;
+import edu.mit.blocks.codeblocks.BlockConnector;
+import edu.mit.blocks.codeblocks.BlockConnectorShape;
 import edu.mit.blocks.codeblocks.BlockLink;
 import edu.mit.blocks.renderable.BlockUtilities;
 import edu.mit.blocks.renderable.Comment;
@@ -94,7 +101,7 @@ public class OB_RenderableBlock extends RenderableBlock{
         return null;
     }
     
-    // 2015/10/28 N.Inaba ADD begin コピーブロック
+    // 2015/10/28 N.Inaba ADD ブロック(単品)の複製 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
@@ -105,7 +112,7 @@ public class OB_RenderableBlock extends RenderableBlock{
         }
     }
 
-    // 2015/10/28 N.Inaba ADD begin コピーブロック
+    // 2015/10/28 N.Inaba ADD ブロック(単品)の複製
     @Override
     public void mouseReleased(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
@@ -164,14 +171,80 @@ public class OB_RenderableBlock extends RenderableBlock{
         }
         workspace.getMiniMap().repaint();
     }
-    
-    
-    // 2015/10/13 N.Inaba ADD begin コピーブロック
+
+    // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
     public void copyBlock() {
     	OB_RenderableBlock newRB = OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
     	newRB.ignoreDefaultArguments();
     	newRB.setLocation(this.getX() + 200, this.getY());
     	this.getParent().add(newRB);
     }
-    // 2015/10/13 N.Inaba ADD end
+    
+    // 2015/10/29 N.Inaba ADD defaultArgをOB_Block型に
+    public void linkDefArgs() {
+        if (!linkedDefArgsBefore && getBlock().hasDefaultArgs()) {
+            Iterator<Long> ids = getBlock().linkAllDefaultArgs().iterator();
+            Iterator<BlockConnector> sockets = getBlock().getSockets().iterator();
+            Long id;
+            BlockConnector socket;
+
+            // Store the ids, sockets, and blocks we need to update.
+            List<Long> idList = new ArrayList<Long>();
+            List<BlockConnector> socketList = new ArrayList<BlockConnector>();
+           
+            // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+            List<OB_RenderableBlock> argList = new ArrayList<OB_RenderableBlock>();
+            
+            while (ids.hasNext() && sockets.hasNext()) {
+                id = ids.next();
+                socket = sockets.next();
+                if (id != OB_Block.NULL) {
+                    //for each block id, create a new RenderableBlock
+                    OB_RenderableBlock arg = new OB_RenderableBlock(workspace, this.getParentWidget(), id, false);
+                    arg.setZoomLevel(this.zoom);
+                    //getParentWidget().addBlock(arg);
+                    //arg.repaint();
+                    //this.getParent().add(arg);
+                    //set the location of the def arg at
+                    Point myLocation = getLocation();
+                    Point2D socketPt = getSocketPixelPoint(socket);
+                    Point2D plugPt = arg.getSocketPixelPoint(arg.getBlock().getPlug());
+                    arg.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()), (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
+                    //update the socket space of at this socket
+                    this.getConnectorTag(socket).setDimension(new Dimension(
+                            arg.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+                            arg.getBlockHeight()));
+                    //drop each block to this parent's widget/component
+                    //getParentWidget().blockDropped(arg);
+                    
+                    // 2015/10/29 N.Inaba MOD begin defaultArgをOB_Block型に
+                    getParentWidget().addBlock(arg);
+                    
+//                    this.getParent().add(arg);
+
+                    idList.add(id);
+                    socketList.add(socket);
+                    argList.add(arg);
+                }
+            }
+
+            int size = idList.size();
+            for (int i = 0; i < size; i++) {
+                workspace.notifyListeners(
+                        new WorkspaceEvent(workspace, this.getParentWidget(),
+                        argList.get(i).getBlockID(),
+                        WorkspaceEvent.BLOCK_ADDED, true));
+
+                //must call this method to update the dimensions of this
+                //TODO ria in the future would be good to just link the default args
+                //but first creating a block link object and then connecting
+                //something like notifying the renderableblock to update its dimensions will be
+                //take care of
+                this.blockConnected(socketList.get(i), idList.get(i));
+                argList.get(i).repaint();
+            }
+            this.redrawFromTop();
+            linkedDefArgsBefore = true;
+        }
+    }
 }

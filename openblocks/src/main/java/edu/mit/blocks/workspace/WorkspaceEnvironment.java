@@ -69,7 +69,7 @@ public class WorkspaceEnvironment {
     	return this.nextBlockID++;
     }
     
-    // 2015/09 N.Inaba ADD NextBlockID更新用
+    // 2015/09 N.Inaba ADD NormalizeIDs NextBlockID更新用
     long count = 0;
     public void countUp(){
     	this.count++;
@@ -79,7 +79,7 @@ public class WorkspaceEnvironment {
     	return this.nextBlockID;
     }
     
-    // 2015/09 N.Inaba ADD NextBlockID更新用
+    // 2015/09 N.Inaba ADD NormalizeIDs NextBlockID更新用
     public void addNextBlockID() {
     	this.nextBlockID += this.count + 1;
     	this.count = 0;

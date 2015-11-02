@@ -37,13 +37,13 @@ public class ContextMenu extends PopupMenu implements ActionListener {
     /** The JComponent that launched the context menu in the first place */
     private static Object activeComponent = null;
 
-    // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+    // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
     private static MenuItem cpBlockItem;
     private final static String CP_BLOCK = "CPBLOCK";
-    // 2015/02/26 N.Inaba ADD end
     
     //privatize the constructor
-    // 2015/10/28 N.Inaba MOD begin OB_コピーブロックメニュー導入のため
+    
+    // 2015/10/28 N.Inaba MOD ブロック(単品)の複製 OB_コピーブロックメニュー導入のため
 //  private ContextMenu() {
     protected ContextMenu() {
     }
@@ -57,12 +57,11 @@ public class ContextMenu extends PopupMenu implements ActionListener {
         addCommentItem.addActionListener(rndBlockMenu);
         addCommentMenu.add(addCommentItem);
 
-        // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+        // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
         cpBlockItem = new MenuItem("Copy block");
         cpBlockItem.setActionCommand(CP_BLOCK);
         cpBlockItem.addActionListener(rndBlockMenu);
         addCommentMenu.add(cpBlockItem);
-        // 2015/02/26 N.Inaba ADD end
     	
         addCommentMenuInit = true;
     }
@@ -78,12 +77,11 @@ public class ContextMenu extends PopupMenu implements ActionListener {
         removeCommentMenu.add(removeCommentItem);
         //rndBlockMenu.add(runBlockItem);
 
-        // 2015/02/26 N.Inaba ADD begin コピーブロックメニュー
+        // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
         cpBlockItem = new MenuItem("Copy block");
         cpBlockItem.setActionCommand(CP_BLOCK);
         cpBlockItem.addActionListener(rndBlockMenu);
         removeCommentMenu.add(cpBlockItem);
-        // 2015/02/26 N.Inaba ADD end
     	
         removeCommentMenuInit = true;
     }
@@ -150,13 +148,12 @@ public class ContextMenu extends PopupMenu implements ActionListener {
                 ((RenderableBlock) activeComponent).removeComment();
             }
 
-        // 2015/10/13 N.Inaba ADD begin コピーブロック
+        // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 コピーブロック
         } else if (a.getActionCommand() == CP_BLOCK) {
             //notify the renderableblock componenet that lauched the conetxt menu
             if (activeComponent != null && activeComponent instanceof RenderableBlock) {
             	((RenderableBlock) activeComponent).copyBlock();
             }
-        // 2015/02/26 N.Inaba ADD end
         }
     }
 }

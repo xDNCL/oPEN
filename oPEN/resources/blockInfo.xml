@@ -4199,7 +4199,7 @@ BlockGenuses are first loaded.
 		<!--ウィンドウ操作追加 -->
 
 
-		<!-- 2014/12/09 N.Inaba ADD begin Drawer定義ブロック -->
+		<!-- 2014/12/09 N.Inaba ADD begin createStage Drawer定義ブロック -->
 		<BlockGenus name="newDrawer" kind="command" initlabel="drawerName"
 			editable-label="yes" label-unique="yes" is-starter="yes"
 			is-terminator="yes" color="230 230 230">

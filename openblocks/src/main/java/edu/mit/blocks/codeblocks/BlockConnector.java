@@ -27,13 +27,18 @@ public class BlockConnector implements ISupportMemento {
     private String initKind;
     private PositionType positionType;
     private String label;
-    private Long connBlockID = Block.NULL;   
-    private DefArgument arg = null;
-    private boolean hasDefArg = false;
+    
+    // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected Long connBlockID = Block.NULL;
+    protected DefArgument arg = null;
+    protected boolean hasDefArg = false;
+    
     private boolean isExpandable = false;
     private boolean isLabelEditable = false;
     private String expandGroup = "";
-    private final Workspace workspace;
+    
+    // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected final Workspace workspace;
 
     //Specifies the PositionType of connector:
     //Single is the default connector that appears on only one side (left/right) of a block.
@@ -273,10 +278,10 @@ public class BlockConnector implements ISupportMemento {
      * connector if it has any, particular the name of the argument's genus and its initial label.  
      * Each connector has at most 1 default argument.  
      */
-    private class DefArgument {
-
+    // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected class DefArgument {
         private String genusName;
-        private String label;
+        public String label; // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
 
         public DefArgument(String genusName, String label) {
             this.genusName = genusName;
@@ -337,7 +342,7 @@ public class BlockConnector implements ISupportMemento {
                 nameMatcher = attrExtractor.matcher(opt_item.toString());
                 if (nameMatcher.find()) {
                     idConnected = Block.translateLong(workspace, Long.parseLong(nameMatcher.group(1)), idMapping);
-                    // 2015/09 N.Inaba ADD Load時にBlockID修正
+                    // 2015/09 N.Inaba ADD NormalizeIDs Load時にBlockID修正
                     idConnected += workspace.getEnv().getNextBlockID2();
                     
                 }

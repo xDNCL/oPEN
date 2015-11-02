@@ -67,7 +67,7 @@ import edu.mit.blocks.workspace.WorkspaceWidget;
  * render the graphical block accordingly.
  */
 
-// 2015/02/26 N.Inaba MOD Clone
+// 2015/02/26 N.Inaba MOD ブロック(単品)の複製
 // public class RenderableBlock extends JComponent implements SearchableElement, MouseListener, MouseMotionListener, ISupportMemento, CommentSource {
 public class RenderableBlock extends JComponent implements SearchableElement, MouseListener, MouseMotionListener, ISupportMemento, CommentSource, Cloneable {
     private static final long serialVersionUID = 1L;
@@ -89,14 +89,14 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     protected final Workspace workspace;
 
     /** BlockID of this.  MAY BE Block.NULL */
-    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     protected final Long blockID;
     
     /** Parent workspace widget.  May be null */
     private WorkspaceWidget parent;
     
     /** The previous known workspacewidget this block was dragged over.  May be null */
-    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     protected WorkspaceWidget lastDragWidget = null;
     
     /** The comment of this.  May be null */
@@ -127,7 +127,7 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     private RBHighlightHandler highlighter;
     /** dragHandler keeps the block within the workspace area. It manages relocating the block. */
     
-    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     protected JComponentDragHandler dragHandler;
     ////////////////////////
     //ATTRIBUTE FIELDS
@@ -143,21 +143,22 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
      * 				case, isLoading would still be false */
     private boolean isSearchResult = false;
     
-    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     protected boolean pickedUp = false;
     protected boolean dragging = false;
-    
-    private boolean linkedDefArgsBefore = false;
+    protected boolean linkedDefArgsBefore = false;
     private boolean isLoading = false;
     ///////////////////////////
     //Sockets and Labels
     /** TODO: Documentation does not exist for these components.  Consult author*/
     private final NameLabel blockLabel;
     private final PageLabel pageLabel;
-    private final ConnectorTag plugTag;
-    private final ConnectorTag afterTag;
-    private final ConnectorTag beforeTag;
-    private List<ConnectorTag> socketTags = new ArrayList<ConnectorTag>();
+    
+	// 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected final ConnectorTag plugTag;
+    protected final ConnectorTag afterTag;
+    protected final ConnectorTag beforeTag;
+    protected List<ConnectorTag> socketTags = new ArrayList<ConnectorTag>();
     ////////////////////////////////
     // Collapse Label
     private CollapseLabel collapseLabel;
@@ -165,7 +166,7 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     //TO BE DEPRECATED
     private HashMap<ImageLocation, BlockImageIcon> imageMap = new HashMap<ImageLocation, BlockImageIcon>();
     // the values of the x and y coordinates of block when zoom = 1.0
-    // 2015/10/28 N.Inaba MOD begin コピーブロック
+    // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
     protected double unzoomedX;
     protected double unzoomedY;
 
@@ -1887,7 +1888,8 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     /***************************************
      * Zoom support methods
      ***************************************/
-    private double zoom = 1.0;
+	// 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected double zoom = 1.0;
 
     public void setZoomLevel(double newZoom) {
         //create zoom transformers
@@ -2046,7 +2048,8 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
         }
     }
 
-    private ConnectorTag getConnectorTag(BlockConnector socket) {
+	// 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    protected ConnectorTag getConnectorTag(BlockConnector socket) {
         if (socket == null) {
             throw new RuntimeException("Socket may not be null");
         }
@@ -2131,12 +2134,11 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
         }
         return x;
     }
-    // 2015/10/13 N.Inaba ADD begin コピーブロック
+    // 2015/10/13 N.Inaba ADD ブロック(単品)の複製
     public void copyBlock() {
     	RenderableBlock newRB = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
     	newRB.ignoreDefaultArguments();
     	newRB.setLocation(this.getX() + 200, this.getY());
     	this.getParent().add(newRB);
     }
-    // 2015/10/13 N.Inaba ADD end
 }

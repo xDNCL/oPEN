@@ -6,7 +6,8 @@ import java.awt.geom.Point2D;
 
 import edu.mit.blocks.codeblocks.BlockConnector;
 
-class ConnectorTag {
+// 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+public class ConnectorTag {
 
     private double zoom = 1.0;
     private SocketLabel label;
@@ -47,7 +48,8 @@ class ConnectorTag {
         return this.label;
     }
 
-    void setDimension(Dimension dimension) {
+	// 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
+    public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
 
