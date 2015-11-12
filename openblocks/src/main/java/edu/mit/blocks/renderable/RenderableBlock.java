@@ -100,7 +100,9 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     protected WorkspaceWidget lastDragWidget = null;
     
     /** The comment of this.  May be null */
-    private Comment comment = null;
+    // 2015/11/02 N.Inaba MOD defaultArgをOB_Block型に
+    protected Comment comment = null;
+    
     /**  set true when comment is added or removed from this block */
     private boolean commentLabelChanged = false;
     /**
@@ -124,7 +126,9 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
     //////////////////////////////////////
     //Internal Managers
     /** HighlightManager that manages drawing of highlights around this block */
-    private RBHighlightHandler highlighter;
+    // 2015/11/02 N.Inaba ADD defaultArgをOB_Block型に
+    protected RBHighlightHandler highlighter;
+    
     /** dragHandler keeps the block within the workspace area. It manages relocating the block. */
     
     // 2015/10/28 N.Inaba MOD ブロック(単品)の複製
@@ -1521,7 +1525,8 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
         }
     }
 
-    private void drag(RenderableBlock renderable, int dx, int dy, WorkspaceWidget widget, boolean isTopLevelBlock) {
+    // 2015/11/02 N.Inaba MOD defaultArgをOB_Block型に private -> protected
+    protected void drag(RenderableBlock renderable, int dx, int dy, WorkspaceWidget widget, boolean isTopLevelBlock) {
         if (!renderable.pickedUp) {
             throw new RuntimeException("dragging without prior pickup");
         }
@@ -2133,12 +2138,5 @@ public class RenderableBlock extends JComponent implements SearchableElement, Mo
             x += getCollapseLabelWidth();
         }
         return x;
-    }
-    // 2015/10/13 N.Inaba ADD ブロック(単品)の複製
-    public void copyBlock() {
-    	RenderableBlock newRB = BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
-    	newRB.ignoreDefaultArguments();
-    	newRB.setLocation(this.getX() + 200, this.getY());
-    	this.getParent().add(newRB);
     }
 }

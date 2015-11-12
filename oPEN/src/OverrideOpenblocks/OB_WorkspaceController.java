@@ -47,6 +47,7 @@ import edu.mit.blocks.codeblocks.BlockLinkChecker;
 import edu.mit.blocks.codeblocks.CommandRule;
 import edu.mit.blocks.codeblocks.SocketRule;
 import edu.mit.blocks.controller.WorkspaceController;
+import edu.mit.blocks.workspace.FactoryCanvas;
 import edu.mit.blocks.workspace.SearchBar;
 import edu.mit.blocks.workspace.SearchableContainer;
 import edu.mit.blocks.workspace.Workspace;
@@ -355,6 +356,14 @@ public class OB_WorkspaceController extends WorkspaceController{
 		//        frame.add(getButtonPanel(), BorderLayout.SOUTH);
 		frame.add(console.getBody(), BorderLayout.EAST);
 		frame.setVisible(true);
+		
+		// 2015/11/11 N.Inaba ADD Shelfの実装 テスト
+		FactoryCanvas canvas = new FactoryCanvas("");
+		JFrame shelfFrame = new JFrame("Shelf");
+		shelfFrame.setBounds(800, 200, 300, 600);
+		shelfFrame.setAlwaysOnTop(true);
+		shelfFrame.add(canvas, BorderLayout.CENTER);
+		shelfFrame.setVisible(true);
 	}
 
 	protected JComponent topPane(){

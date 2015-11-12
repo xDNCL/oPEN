@@ -45,7 +45,8 @@ public class FactoryCanvas extends JPanel implements Canvas, SearchableContainer
         this.setLayout(null);
     }
 
-    FactoryCanvas(String name) {
+    // 2015/11/11 N.Inaba MOD Shelfの実装 publicに
+    public FactoryCanvas(String name) {
         this(name, CGraphite.blue);
     }
 

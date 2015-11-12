@@ -19,6 +19,7 @@ import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblocks.BlockConnector;
 import edu.mit.blocks.codeblocks.BlockConnectorShape;
 import edu.mit.blocks.codeblocks.BlockLink;
+import edu.mit.blocks.codeblocks.BlockLinkChecker;
 import edu.mit.blocks.renderable.BlockUtilities;
 import edu.mit.blocks.renderable.Comment;
 import edu.mit.blocks.renderable.RenderableBlock;
@@ -181,6 +182,12 @@ public class OB_RenderableBlock extends RenderableBlock{
     }
     
     // 2015/10/29 N.Inaba ADD defaultArgをOB_Block型に
+    @Override
+    public Long getBlockID() {
+        return blockID;
+    }
+    
+    // 2015/10/29 N.Inaba ADD defaultArgをOB_Block型に
     public void linkDefArgs() {
         if (!linkedDefArgsBefore && getBlock().hasDefaultArgs()) {
             Iterator<Long> ids = getBlock().linkAllDefaultArgs().iterator();
@@ -247,4 +254,68 @@ public class OB_RenderableBlock extends RenderableBlock{
             linkedDefArgsBefore = true;
         }
     }
+    
+    // 2015/11/02 N.Inaba ADD defaultArgをOB_Block型に
+    public static void stopDragging(OB_RenderableBlock renderable, WorkspaceWidget widget) {
+        if (!renderable.dragging) {
+            throw new RuntimeException("dropping without prior dragging?");
+        }
+        //notify children
+        for (BlockConnector socket : BlockLinkChecker.getSocketEquivalents(renderable.getBlock())) {
+            if (socket.hasBlock()) {
+                stopDragging(renderable.getWorkspace().getEnv().getRenderableBlock(socket.getBlockID()), widget);
+            }
+        }
+        // drop this block on its widget (if w is null it'll throw an exception)
+        widget.blockDropped(renderable);
+        // stop rendering as transparent
+        renderable.dragging = false;
+        //move comment
+        if (renderable.hasComment()) {
+            if (renderable.getParentWidget() != null) {
+                renderable.comment.setParent(renderable.getParentWidget().getJComponent(), 0);
+            } else {
+                renderable.comment.setParent(null, renderable.getBounds());
+            }
+
+            renderable.comment.setConstrainComment(true);
+            renderable.comment.setLocation(renderable.comment.getLocation());
+            renderable.comment.getArrow().updateArrow();
+        }
+    }
+
+    // 2015/11/02 N.Inaba ADD defaultArgをOB_Block型に
+    private void drag(OB_RenderableBlock renderable, int dx, int dy, WorkspaceWidget widget, boolean isTopLevelBlock) {
+        if (!renderable.pickedUp) {
+            throw new RuntimeException("dragging without prior pickup");
+        }
+        //mark this as being dragged
+        renderable.dragging = true;
+        // move the block by drag amount
+        if (!isTopLevelBlock) {
+            renderable.setLocation(renderable.getX() + dx, renderable.getY() + dy);
+        }
+        // send blockEntered/blockExited/blogDragged as appropriate
+        if (widget != null) {
+            if (!widget.equals(renderable.lastDragWidget)) {
+                widget.blockEntered(renderable);
+                if (renderable.lastDragWidget != null) {
+                    renderable.lastDragWidget.blockExited(renderable);
+                }
+            }
+            widget.blockDragged(renderable);
+            renderable.lastDragWidget = widget;
+        }
+
+        // translate highlight along with the block - this would happen automatically,
+        // but putting the call here takes out any lag.
+        renderable.highlighter.repaint();
+        // Propagate the drag event to anything plugged into this block
+        for (BlockConnector socket : BlockLinkChecker.getSocketEquivalents(renderable.getBlock())) {
+            if (socket.hasBlock()) {
+                drag(workspace.getEnv().getRenderableBlock(socket.getBlockID()), dx, dy, widget, false);
+            }
+        }
+    }
+
 }

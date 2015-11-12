@@ -11,7 +11,9 @@ import org.w3c.dom.NodeList;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.renderable.Comment;
 import edu.mit.blocks.renderable.RenderableBlock;
+import edu.mit.blocks.workspace.ISupportMemento;
 import edu.mit.blocks.workspace.Page;
+import edu.mit.blocks.workspace.SearchableContainer;
 import edu.mit.blocks.workspace.Workspace;
 import edu.mit.blocks.workspace.WorkspaceEvent;
 import edu.mit.blocks.workspace.WorkspaceWidget;
@@ -65,8 +67,10 @@ public class OB_Page extends Page{
     }
 	
 	// 2015/10/29 N.Inaba ADD defaultArgをOB_Block型に
-	public void addBlock(OB_RenderableBlock block) {
-//		OB_RenderableBlock block = (OB_RenderableBlock) pre_block;
+    @Override
+	public void addBlock(RenderableBlock block) {
+//    	OB_RenderableBlock block = new OB_RenderableBlock(workspace, null, pre_block.getBlockID(), false);
+    	
         //update parent widget if dropped block
         WorkspaceWidget oldParent = block.getParentWidget();
         if (oldParent != this) {
@@ -104,5 +108,4 @@ public class OB_Page extends Page{
 
         this.pageJComponent.setComponentZOrder(block, 0);
     }
-
 }

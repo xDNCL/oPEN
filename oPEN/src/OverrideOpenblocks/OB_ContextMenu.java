@@ -39,8 +39,12 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
     private static Object activeComponent = null;
 
     // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
-    private static MenuItem cpBlockItem;
-    private final static String CP_BLOCK = "CPBLOCK";
+    private static MenuItem duplicateABlockItem;
+    private final static String DUPLICATE_A_BLOCK = "DUPLICATEABLOCK";
+
+    // 2015/11/11 N.Inaba ADD Shelfの実装 Shelfメニュー
+    private static MenuItem  putOnTheShelfItem;
+    private final static String PUT_ON_THE_SHELF = "PUTONTHESHELF";
     
     //privatize the constructor
     OB_ContextMenu() {
@@ -57,10 +61,16 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
         addCommentMenu.add(addCommentItem);
 
         // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
-        cpBlockItem = new MenuItem("Copy block");
-    	cpBlockItem.setActionCommand(CP_BLOCK);
-    	cpBlockItem.addActionListener(rndBlockMenu);
-    	addCommentMenu.add(cpBlockItem);
+        duplicateABlockItem = new MenuItem("Duplicate a Block");
+        duplicateABlockItem.setActionCommand(DUPLICATE_A_BLOCK);
+        duplicateABlockItem.addActionListener(rndBlockMenu);
+    	addCommentMenu.add(duplicateABlockItem);
+    	
+    	// 2015/11/12 N.Inaba ADD Shelfの実装 Shelfメニュー
+    	putOnTheShelfItem = new MenuItem("Put on the Shelf");
+    	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
+    	putOnTheShelfItem.addActionListener(rndBlockMenu);
+    	addCommentMenu.add(putOnTheShelfItem);
     	
         addCommentMenuInit = true;
     }
@@ -77,10 +87,16 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
         //rndBlockMenu.add(runBlockItem);
 
         // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
-        cpBlockItem = new MenuItem("Copy block");
-    	cpBlockItem.setActionCommand(CP_BLOCK);
-    	cpBlockItem.addActionListener(rndBlockMenu);
-    	removeCommentMenu.add(cpBlockItem);
+    	duplicateABlockItem = new MenuItem("Duplicate a Block");
+        duplicateABlockItem.setActionCommand(DUPLICATE_A_BLOCK);
+        duplicateABlockItem.addActionListener(rndBlockMenu);
+        removeCommentMenu.add(duplicateABlockItem);
+    	
+    	// 2015/11/12 N.Inaba ADD Shelfの実装 Shelfメニュー
+    	putOnTheShelfItem = new MenuItem("Put on the Shelf");
+    	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
+    	putOnTheShelfItem.addActionListener(rndBlockMenu);
+    	removeCommentMenu.add(putOnTheShelfItem);
     	
         removeCommentMenuInit = true;
     }
@@ -149,11 +165,19 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
             }
 
         // 2015/10/13 N.Inaba ADD ブロック(単品)の複製
-        } else if (a.getActionCommand() == CP_BLOCK) {
+        } else if (a.getActionCommand() == DUPLICATE_A_BLOCK) {
             //notify the renderableblock componenet that lauched the conetxt menu
             if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
             	((OB_RenderableBlock) activeComponent).copyBlock();
             }
+        
+        // 2015/10/13 N.Inaba ADD ブロック(単品)の複製
+        } else if (a.getActionCommand() == PUT_ON_THE_SHELF) {
+            //notify the renderableblock componenet that lauched the conetxt menu
+        	if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
+        		((OB_RenderableBlock) activeComponent).copyBlock();
+        	}
         }
     }
+    
 }

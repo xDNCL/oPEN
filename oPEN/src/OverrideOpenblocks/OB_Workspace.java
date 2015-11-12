@@ -57,8 +57,6 @@ public class OB_Workspace extends Workspace {
 	
 	    private static final long serialVersionUID = 328149080422L;
 	    
-//	    private OB_FactoryManager factory;
-	    
 	    // the environment wrapps all the components of a workspace (Blocks, RenderableBlocks, BlockStubs, BlockGenus)
 	    protected static final OB_WorkspaceEnvironment env = new OB_WorkspaceEnvironment();
 	    
@@ -67,7 +65,8 @@ public class OB_Workspace extends Workspace {
 	        return this.env;
 	    }
 	    
-	    private OB_FactoryManager factory;
+	    // 2015/11/11 N.Inaba ADD Shelfの実装 protectedに
+	    protected OB_FactoryManager factory;
 	    
 	    protected OB_Workspace(){
         super();
@@ -118,7 +117,54 @@ public class OB_Workspace extends Workspace {
         
 	}
 	    
-	    /**
+	    // 2015/11/11 N.Inaba ADD Shelfの実装
+	    public OB_Workspace(boolean is_shelf) {
+	    	super();
+		    super.blockCanvas = new OB_BlockCanvas(this);
+	        
+		    setLayout(null);
+	        setBackground(Color.yellow);
+	        setPreferredSize(new Dimension(300, 600));
+
+	        this.factory = new OB_FactoryManager(this);
+	        super.factory = this.factory;
+	        
+	        
+	        this.addWorkspaceListener(this.factory);
+	        blockCanvas.getHorizontalModel().addChangeListener(this);
+	        for (final Explorer exp : factory.getNavigator().getExplorers()) {
+	            exp.addListener(this);
+	        }
+
+//	        this.miniMap = new MiniMap(this);
+//	        this.addWidget(this.miniMap, true, true);
+	        this.addComponentListener(new ComponentAdapter() {
+	            public void componentResized(ComponentEvent e) {
+//	                miniMap.repositionMiniMap();
+	                blockCanvas.reformBlockCanvas();
+	                blockCanvasLayer.setSize(getSize());
+//	                blockCanvasLayer.setSize(300, 500);
+	                blockCanvasLayer.validate();
+	            }
+	        });
+
+	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
+	                factory.getJComponent(), blockCanvas.getJComponent());
+
+	        
+	        blockCanvasLayer.setOneTouchExpandable(true);
+	        blockCanvasLayer.setDividerSize(6);
+	        add(blockCanvasLayer, BLOCK_LAYER);
+	        
+//	        add(blockCanvas.getJComponent(), BLOCK_LAYER);
+	        
+	        validate();
+	        addPageAt(Page.getBlankPage(this), 0, false);
+
+	        this.workspaceWidgets.add(factory);
+		}
+
+		/**
 	     * Loads the workspace with the following content:
 	     * - RenderableBlocks and their associated Block instances that reside
 	     *   within the BlockCanvas

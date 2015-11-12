@@ -10,8 +10,8 @@ import edu.mit.blocks.workspace.WorkspaceEnvironment;
 
 public class OB_WorkspaceEnvironment extends WorkspaceEnvironment{
 	
-
-	OB_WorkspaceEnvironment(){
+	// 2015/11/11 N.Inaba ADD Shelfの実装 publicに
+	public OB_WorkspaceEnvironment(){
 		super();
 	}
 

@@ -222,11 +222,11 @@ public class ConsoleWindow implements ActionListener{
 		OB_Block start = null;
 		// 2015/10/27 N.Inaba ADD ブロック(単品)の複製 型の調査
 		// コピー元: OB_Block型 コピー:Block型になっているのが原因
-		int block_cnt = 0;
-		for(Block block: this.ws.getBlocks()) {
-			System.out.println("" + block_cnt + block);
-			block_cnt++;
-		}
+//		int block_cnt = 0;
+//		for(Block block: this.ws.getBlocks()) {
+//			System.out.println("" + block_cnt + block);
+//			block_cnt++;
+//		}
 		
 		for(Block block: this.ws.getBlocks()){
 			if(block.getGenusName().equals("start")){
