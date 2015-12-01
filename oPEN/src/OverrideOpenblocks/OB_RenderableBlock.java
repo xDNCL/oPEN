@@ -185,15 +185,15 @@ public class OB_RenderableBlock extends RenderableBlock{
     
     // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
     public void putOnTheShelf() {
-    	// ここでShelfのFrameに対象ブロックをコピーする
-    	OB_RenderableBlock newRB = OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
+    	// ここでShelfのFrameに対象ブロックをコピーする (workspace = ob_ws_shelf)
+    	OB_RenderableBlock newRB = OB_BlockUtilities.cloneBlockToShelf(workspace.getEnv().getBlock(this.getBlockID()));
     	newRB.ignoreDefaultArguments();
-    	newRB.setLocation(100, 100);
+    	newRB.setLocation(0, 0);
     	
 //    	OB_WorkspaceController.ob_ws_shelf.addToBlockLayer(newRB);
     	OB_WorkspaceController.shelf_page.addBlock(newRB);
     	OB_WorkspaceController.ob_ws_shelf.repaint();
-    	
+    	OB_WorkspaceController.ob_ws_shelf.getBlockCanvas().arrangeAllBlocks();
     }
     
     // 2015/10/29 N.Inaba ADD defaultArgをOB_Block型に

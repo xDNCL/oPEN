@@ -60,6 +60,9 @@ public class OB_Workspace extends Workspace {
 	    // the environment wrapps all the components of a workspace (Blocks, RenderableBlocks, BlockStubs, BlockGenus)
 	    protected static final OB_WorkspaceEnvironment env = new OB_WorkspaceEnvironment();
 	    
+	    // 2015/11/11 N.Inaba ADD Shelfの実装
+	    private boolean is_shelf = false;
+	    
 	    @Override
 	    public OB_WorkspaceEnvironment getEnv() {
 	        return this.env;
@@ -121,7 +124,8 @@ public class OB_Workspace extends Workspace {
 	    public OB_Workspace(boolean is_shelf) {
 	    	super();
 		    super.blockCanvas = new OB_BlockCanvas(this);
-	        
+	        this.is_shelf = is_shelf;
+		    
 		    setLayout(null);
 	        setBackground(Color.yellow);
 	        setPreferredSize(new Dimension(300, 600));
@@ -136,7 +140,7 @@ public class OB_Workspace extends Workspace {
 	            exp.addListener(this);
 	        }
 
-//	        this.miniMap = new MiniMap(this);
+	        this.miniMap = new MiniMap(this);
 //	        this.addWidget(this.miniMap, true, true);
 	        this.addComponentListener(new ComponentAdapter() {
 	            public void componentResized(ComponentEvent e) {
@@ -355,7 +359,12 @@ public class OB_Workspace extends Workspace {
 	    
 	    @Override
 	    public String toString(){
-	    	return "m9(^Д^)";
+//	    	return "m9(^Д^)";
+	    	if (is_shelf) {
+	    		return "Shelf";
+	    	} else {
+	    		return "oPEN";
+	    	}
 	    }
 
 	    
