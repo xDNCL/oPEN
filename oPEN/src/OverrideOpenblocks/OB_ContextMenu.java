@@ -122,7 +122,7 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
      * none, returns null.
      */
     public static PopupMenu getContextMenuFor(Object o) {
-        // 2015/10/28 N.Inaba ADD ブロック(単品)の複製 OB_RenderableBlockに修正
+        // 2015/10/28 N.Inaba MOD ブロック(単品)の複製 OB_RenderableBlockに修正
         if (o instanceof OB_RenderableBlock) {
             if (((OB_RenderableBlock) o).hasComment()) {
                 if (!removeCommentMenuInit) {
@@ -168,14 +168,14 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
         } else if (a.getActionCommand() == DUPLICATE_A_BLOCK) {
             //notify the renderableblock componenet that lauched the conetxt menu
             if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
-            	((OB_RenderableBlock) activeComponent).copyBlock();
+            	((OB_RenderableBlock) activeComponent).duplicateABlock();
             }
         
-        // 2015/10/13 N.Inaba ADD ブロック(単品)の複製
+        // 2015/11/11 N.Inaba ADD Shelfの実装
         } else if (a.getActionCommand() == PUT_ON_THE_SHELF) {
             //notify the renderableblock componenet that lauched the conetxt menu
         	if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
-        		((OB_RenderableBlock) activeComponent).copyBlock();
+        		((OB_RenderableBlock) activeComponent).putOnTheShelf();
         	}
         }
     }

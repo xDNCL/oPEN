@@ -48,6 +48,7 @@ import edu.mit.blocks.codeblocks.CommandRule;
 import edu.mit.blocks.codeblocks.SocketRule;
 import edu.mit.blocks.controller.WorkspaceController;
 import edu.mit.blocks.workspace.FactoryCanvas;
+import edu.mit.blocks.workspace.Page;
 import edu.mit.blocks.workspace.SearchBar;
 import edu.mit.blocks.workspace.SearchableContainer;
 import edu.mit.blocks.workspace.Workspace;
@@ -92,6 +93,12 @@ public class OB_WorkspaceController extends WorkspaceController{
 	private File selectedFile;
 	// Reference kept to be able to update frame title with current loaded file
 	private JFrame frame;
+	
+	// 2015/11/11 N.Inaba ADD Shelfの実装
+	public static JFrame shelfFrame;
+//	public static FactoryCanvas canvas = new FactoryCanvas("");
+	public static OB_Workspace ob_ws_shelf = new OB_Workspace(true);
+	public static OB_Page shelf_page;
 
 	//追加
 	private static ConsoleWindow console = new ConsoleWindow(workspace, false);    
@@ -358,11 +365,11 @@ public class OB_WorkspaceController extends WorkspaceController{
 		frame.setVisible(true);
 		
 		// 2015/11/11 N.Inaba ADD Shelfの実装 テスト
-		FactoryCanvas canvas = new FactoryCanvas("");
-		JFrame shelfFrame = new JFrame("Shelf");
+		shelfFrame = new JFrame("Shelf");
 		shelfFrame.setBounds(800, 200, 300, 600);
 		shelfFrame.setAlwaysOnTop(true);
-		shelfFrame.add(canvas, BorderLayout.CENTER);
+//		shelfFrame.add(canvas, BorderLayout.CENTER);
+		shelfFrame.add(ob_ws_shelf, BorderLayout.CENTER);
 		shelfFrame.setVisible(true);
 	}
 

@@ -148,19 +148,23 @@ public class OB_Workspace extends Workspace {
 	            }
 	        });
 
-	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
-	                factory.getJComponent(), blockCanvas.getJComponent());
-
+	        // 2015/11/25 N.Inaba MOD Shelfの実装 不要なDrawer群用パネルの不可視化
+//	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, factory.getJComponent(), blockCanvas.getJComponent());
+	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, blockCanvas.getJComponent(), null);
 	        
 	        blockCanvasLayer.setOneTouchExpandable(true);
 	        blockCanvasLayer.setDividerSize(6);
 	        add(blockCanvasLayer, BLOCK_LAYER);
-	        
 //	        add(blockCanvas.getJComponent(), BLOCK_LAYER);
-	        
 	        validate();
-	        addPageAt(Page.getBlankPage(this), 0, false);
 
+	        // 2015/11/25 N.Inaba MOD Shelfの実装 Shelfにpageをadd
+//	        addPageAt(Page.getBlankPage(this), 0, false);
+//	    	OB_WorkspaceController.shelf_page = new OB_Page(this, "Shelf");
+	    	OB_WorkspaceController.shelf_page = new OB_Page(this, "Shelf", 600, 0, null, true, new Color(255,255,204), true);
+
+	        addPageAt(OB_WorkspaceController.shelf_page, 0, false);
+	        
 	        this.workspaceWidgets.add(factory);
 		}
 
