@@ -177,10 +177,53 @@ public class OB_RenderableBlock extends RenderableBlock{
 
     // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
     public void duplicateABlock() {
-    	OB_RenderableBlock newRB = OB_BlockUtilities.cloneBlock(workspace.getEnv().getBlock(this.getBlockID()));
-    	newRB.ignoreDefaultArguments();
-    	newRB.setLocation(this.getX() + 200, this.getY());
-    	this.getParent().add(newRB);
+    	// 親ブロック複製
+    	Block orgParentBlock = workspace.getEnv().getBlock(this.getBlockID());
+    	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlock(orgParentBlock);
+    	parentRB.ignoreDefaultArguments();
+    	parentRB.setLocation(this.getX() + 200, this.getY());
+    	
+    	this.getParent().add(parentRB);
+    	
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+//    	System.out.println("before while");
+//    	System.out.println("hasNext(): " + sockets.hasNext());
+    	int bi = 0;
+    	if (sockets.hasNext()) {
+    		while (sockets.hasNext()) {
+//    			System.out.println("enter while");
+    			socket = sockets.next();
+    			
+    			if (socket.connBlockID == Block.NULL) {
+//    				System.out.println("continue");
+    				bi++;
+    				continue;
+    			}
+    			
+    			Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    			OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
+    			childRB.ignoreDefaultArguments();
+    			Point myLocation = getLocation();
+    			Point2D socketPt = getSocketPixelPoint(socket);
+    			Point2D plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
+    			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + 200, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
+    			this.getConnectorTag(socket).setDimension(new Dimension(
+    					childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+    					childRB.getBlockHeight()));
+
+    			// 親子を接続
+//    			System.out.println(bi);
+//    			System.out.println(parentRB.getBlock().getSocketAt(bi));
+    			parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    			bi++;
+    			childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+    			
+    			// 描画
+    			getParentWidget().addBlock(childRB);
+    		}
+    	}
+    	
     }
     
     // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 

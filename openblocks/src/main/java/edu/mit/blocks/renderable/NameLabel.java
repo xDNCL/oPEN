@@ -34,12 +34,12 @@ class NameLabel extends BlockLabel {
                 x += 4 + BlockConnectorShape.getConnectorDimensions(rb.getBlock().getPlug()).width;
             }
             if (rb.getBlock().isInfix()) {
-                if (!rb.getBlock().getSocketAt(0).hasBlock()) {
+            	// 2015/12/09 N.Inaba MOD ブロック(群)の複製 調査
+                if (!rb.getBlock().getSocketAt(0).hasBlock() || rb.getSocketSpaceDimension(rb.getBlock().getSocketAt(0)) == null) {
                     x += 30;
                 } else {
-                    x += rb.getSocketSpaceDimension(rb.getBlock().getSocketAt(0)).width;
+                	x += rb.getSocketSpaceDimension(rb.getBlock().getSocketAt(0)).width;
                 }
-
             }
 
             if (rb.getBlockWidget() == null) {

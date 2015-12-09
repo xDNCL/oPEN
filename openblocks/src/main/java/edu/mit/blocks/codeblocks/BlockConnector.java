@@ -29,7 +29,7 @@ public class BlockConnector implements ISupportMemento {
     private String label;
     
     // 2015/10/29 N.Inaba MOD defaultArgをOB_Block型に
-    protected Long connBlockID = Block.NULL;
+    public Long connBlockID = Block.NULL;
     protected DefArgument arg = null;
     protected boolean hasDefArg = false;
     
