@@ -33,6 +33,7 @@ import edu.mit.blocks.workspace.WorkspaceWidget;
 
 public class OB_RenderableBlock extends RenderableBlock{
 
+	private static final int POS_LEFT = 200; // 複製元ブロックを基準とした、複製先ブロックの相対位置
 	private static final long serialVersionUID = 1L;
 
 	
@@ -177,84 +178,95 @@ public class OB_RenderableBlock extends RenderableBlock{
 
     // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
     public void duplicateABlock() {
-    	// 親ブロック複製
-    	Block orgParentBlock = workspace.getEnv().getBlock(this.getBlockID());
+    	// 親ブロックをコピペ
+    	Block orgParentBlock = this.getBlock();
     	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlock(orgParentBlock);
     	parentRB.ignoreDefaultArguments();
-    	parentRB.setLocation(this.getX() + 200, this.getY());
-    	
+    	parentRB.setLocation(this.getX() + POS_LEFT, this.getY());
     	this.getParent().add(parentRB);
-    	
+
+    	// 親ブロックのソケットを設定
     	BlockConnector socket;
     	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
     	int bi = 0;
-    	if (sockets.hasNext()) {
-    		while (sockets.hasNext()) {
-    			socket = sockets.next();
-    			
-    			if (socket.connBlockID == Block.NULL) {
-    				bi++;
-    				continue;
-    			}
-    			
-    			Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
-    			OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
-    			childRB.ignoreDefaultArguments();
-    			Point myLocation = getLocation();
-    			Point2D socketPt = getSocketPixelPoint(socket);
-    			Point2D plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
-    			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + 200, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
-
-    			// 親子を接続
-    			parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
     			bi++;
-    			childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
-    			
-    			// 描画
-    			getParentWidget().addBlock(childRB);
-    			
-    			if (childRB.getBlock().hasPlug()) {
-    				duplicateABlock(orgChildBlock, childRB);
-    			}
+    			continue;
     		}
+
+    		// 子ブロックをコピー
+    		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
+    		childRB.ignoreDefaultArguments();
+    		Point myLocation = this.getLocation();
+    		this.getConnectorTag(socket).setDimension(new Dimension(
+    				childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+    				childRB.getBlockHeight()));
+
+    		// sumなどの大きさが変化するブロック用
+    		Point2D socketPt = getSocketPixelPoint(socket);
+    		Point2D plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
+			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + 200, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
+			
+    		// 親子を接続
+    		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    		bi++;
+    		childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+
+    		if (childRB.getBlock().hasPlug()) {
+    			childRB = duplicateABlock(orgChildBlock, childRB);
+    		}
+
+    		// 子ブロックをペースト
+    		getParentWidget().addBlock(childRB);
     	}
     }
     
     // 2015/12/09 N.Inaba ADD ブロック(群)の複製 親子接続(再帰)
-    public void duplicateABlock(Block orgParentBlock, OB_RenderableBlock parentRB) {
+    public OB_RenderableBlock duplicateABlock(Block orgParentBlock, OB_RenderableBlock parentRB) {
+    	// 親ブロックのソケットを設定
     	BlockConnector socket;
     	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
     	int bi = 0;
-    	if (sockets.hasNext()) {
-    		while (sockets.hasNext()) {
-    			socket = sockets.next();
-    			if (socket.connBlockID == Block.NULL) {
-    				bi++;
-    				continue;
-    			}
-    			
-    			Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
-    			OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
-    			childRB.ignoreDefaultArguments();
-    			Point myLocation = getLocation();
-    			Point2D socketPt = getSocketPixelPoint(socket);
-    			Point2D plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
-    			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + 200, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
-
-    			// 親子を接続
-    			parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
     			bi++;
-    			childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
-    			
-    			// 描画
-    			getParentWidget().addBlock(childRB);
-
-    			if (childRB.getBlock().hasPlug()) {
-    				duplicateABlock(orgChildBlock, childRB);
-    			}
-    			
+    			continue;
     		}
+
+    		// 子ブロックをコピー
+    		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
+    		childRB.ignoreDefaultArguments();
+
+    		workspace.getEnv().getRenderableBlock(orgParentBlock.getBlockID()).getConnectorTag(socket).setDimension(new Dimension(
+    				childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+    				childRB.getBlockHeight()));
+
+    		// 親子を接続
+    		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    		bi++;
+    		childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+    		
+    		if (childRB.getBlock().hasPlug()) {
+    			childRB = duplicateABlock(orgChildBlock, childRB);
+    		}
+
+    		// 子ブロックをペースト
+    		getParentWidget().addBlock(childRB);
     	}
+    	return parentRB;
     }
     
     // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
