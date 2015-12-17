@@ -344,7 +344,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 
     		// 子ブロックをコピー
     		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
-    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToShelf(orgChildBlock);
     		childRB.ignoreDefaultArguments();
     		
     		// 位置関係
@@ -444,7 +444,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     	
     	// 弟の複製
     	Block orgOtotoBlock = workspace.getEnv().getBlock(orgAniBlock.getAfterBlockID());
-    	OB_RenderableBlock ototoRB = OB_BlockUtilities.cloneBlock(orgOtotoBlock);
+    	OB_RenderableBlock ototoRB = OB_BlockUtilities.cloneBlockToShelf(orgOtotoBlock);
 		ototoRB.ignoreDefaultArguments();
 		addGrandchildToShelf(orgOtotoBlock, ototoRB);
 		
