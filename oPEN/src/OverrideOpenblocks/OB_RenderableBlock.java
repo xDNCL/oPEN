@@ -176,7 +176,7 @@ public class OB_RenderableBlock extends RenderableBlock{
         workspace.getMiniMap().repaint();
     }
 
-    // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
+    // 2015/12/16 N.Inaba ADD ブロック群の複製 
     public void duplicateABlock() {
     	// 親ブロックをコピペ
     	Block orgParentBlock = this.getBlock();
@@ -245,7 +245,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     	}
     }
     
-    // 2015/12/09 N.Inaba ADD ブロック(群)の複製 孫の複製(再帰)
+    // 2015/12/16 N.Inaba ADD ブロック(群)の複製 孫の複製(再帰)
     public OB_RenderableBlock addGrandchild(Block orgParentBlock, OB_RenderableBlock parentRB) {
     	// 親ブロックのソケットを設定
     	BlockConnector socket;
@@ -315,17 +315,152 @@ public class OB_RenderableBlock extends RenderableBlock{
 		return aniRB;
     }
     
-    // 2015/10/13 N.Inaba ADD ブロック(単品)の複製 
+    // 2015/12/17 N.Inaba ADD ブロック(単品)の複製
+    // ほぼduplicateABlockで、ob_ws_shelfに貼り付けている部分が異なる 冗長かも
     public void putOnTheShelf() {
-    	// ここでShelfのFrameに対象ブロックをコピーする (workspace = ob_ws_shelf)
-    	OB_RenderableBlock newRB = OB_BlockUtilities.cloneBlockToShelf(workspace.getEnv().getBlock(this.getBlockID()));
-    	newRB.ignoreDefaultArguments();
-    	newRB.setLocation(0, 0);
-    	
-//    	OB_WorkspaceController.ob_ws_shelf.addToBlockLayer(newRB);
-    	OB_WorkspaceController.shelf_page.addBlock(newRB);
-    	OB_WorkspaceController.ob_ws_shelf.repaint();
+    	// 親ブロックをコピペ
+    	Block orgParentBlock = this.getBlock();
+    	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlockToShelf(orgParentBlock);
+    	parentRB.ignoreDefaultArguments();
+    	parentRB.setLocation(0, 0);
+		OB_WorkspaceController.shelf_page.addBlock(parentRB);
+		OB_WorkspaceController.ob_ws_shelf.repaint();
     	OB_WorkspaceController.ob_ws_shelf.getBlockCanvas().arrangeAllBlocks();
+
+    	// 親ブロックのソケットを設定
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+    	int bi = 0;
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
+    			bi++;
+    			continue;
+    		}
+
+    		// 子ブロックをコピー
+    		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlock(orgChildBlock);
+    		childRB.ignoreDefaultArguments();
+    		
+    		// 位置関係
+    		Point myLocation = this.getLocation();
+    		this.getConnectorTag(socket).setDimension(new Dimension(
+    				childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+    				childRB.getBlockHeight()));
+
+    		// sumなどの大きさが変わる部品の位置調整
+    		Point2D socketPt = getSocketPixelPoint(socket);
+    		Point2D plugPt = new Point(0, 0);
+    		// 親ブロックが条件分岐などの場合
+    		if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getBeforeConnector());
+    		} else {
+    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
+    		}
+			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + POS_LEFT, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
+			
+    		// 親子を接続
+    		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    		// 親ブロックが条件分岐などの場合
+			if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+				childRB.getBlock().getBeforeConnector().setConnectorBlockID(parentRB.getBlockID());
+			} else {
+				childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+			}
+			
+			// 孫を複製
+			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
+				childRB = addBrotherToShelf(orgChildBlock, childRB);
+			}
+			else if (orgChildBlock.getNumSockets() > 0) {
+    			childRB = addGrandchildToShelf(orgChildBlock, childRB);
+    		}
+
+    		// 子ブロックをペースト
+    		OB_WorkspaceController.shelf_page.addBlock(childRB);
+    		OB_WorkspaceController.ob_ws_shelf.repaint();
+        	OB_WorkspaceController.ob_ws_shelf.getBlockCanvas().arrangeAllBlocks();
+    		bi++;
+    	}
+    }
+    
+    // 2015/12/09 N.Inaba ADD ブロック(群)の複製 孫の複製(再帰)
+    public OB_RenderableBlock addGrandchildToShelf(Block orgParentBlock, OB_RenderableBlock parentRB) {
+    	// 親ブロックのソケットを設定
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+    	int bi = 0;
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
+    			bi++;
+    			continue;
+    		}
+
+    		// 子ブロックをコピー
+    		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToShelf(orgChildBlock);
+    		childRB.ignoreDefaultArguments();
+
+    		// 親子を接続
+    		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    		// 親ブロックが条件分岐などの場合
+			if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+				childRB.getBlock().getBeforeConnector().setConnectorBlockID(parentRB.getBlockID());
+			} else {
+				childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+			}
+			
+			// 孫を複製
+			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
+				childRB = addBrotherToShelf(orgChildBlock, childRB);
+			}
+			else if (orgChildBlock.getNumSockets() > 0) {
+    			childRB = addGrandchildToShelf(orgChildBlock, childRB);
+    		}
+    		
+    		// 子ブロックをペースト
+			OB_WorkspaceController.shelf_page.addBlock(childRB);
+    		OB_WorkspaceController.ob_ws_shelf.repaint();
+        	OB_WorkspaceController.ob_ws_shelf.getBlockCanvas().arrangeAllBlocks();
+    		bi++;
+    	}
+    	return parentRB;
+    }
+    
+    // 2015/12/16 N.Inaba ADD ブロック(群)の複製 孫たちの複製(再帰)
+    public OB_RenderableBlock addBrotherToShelf(Block orgAniBlock, OB_RenderableBlock aniRB) {
+    	// 子の複製
+    	addGrandchildToShelf(orgAniBlock, aniRB);
+    	
+    	// 弟の複製
+    	Block orgOtotoBlock = workspace.getEnv().getBlock(orgAniBlock.getAfterBlockID());
+    	OB_RenderableBlock ototoRB = OB_BlockUtilities.cloneBlock(orgOtotoBlock);
+		ototoRB.ignoreDefaultArguments();
+		addGrandchildToShelf(orgOtotoBlock, ototoRB);
+		
+		// 兄弟接続
+		aniRB.getBlock().getAfterConnector().setConnectorBlockID(ototoRB.getBlockID());
+		ototoRB.getBlock().getBeforeConnector().setConnectorBlockID(aniRB.getBlockID());
+		
+		if (orgOtotoBlock.getAfterBlockID() != Block.NULL) {
+			ototoRB = addBrotherToShelf(orgOtotoBlock, ototoRB);
+		}
+		
+		// 弟ブロックをペースト
+		OB_WorkspaceController.shelf_page.addBlock(ototoRB);
+		OB_WorkspaceController.ob_ws_shelf.repaint();
+    	OB_WorkspaceController.ob_ws_shelf.getBlockCanvas().arrangeAllBlocks();
+		return aniRB;
     }
     
     // 2015/10/29 N.Inaba ADD defaultArgをOB_Block型に
