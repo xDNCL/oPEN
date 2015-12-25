@@ -108,4 +108,31 @@ public class OB_Page extends Page{
 
         this.pageJComponent.setComponentZOrder(block, 0);
     }
+    
+    // 2015/12/17 N.Inaba ADD Shelfの実装 調査
+//    @Override
+//    public void blockEntered(RenderableBlock block) {
+//    	if (workspace.toString().equals("Shelf")) {
+//    		System.out.println("Shelf!!");
+//    	} else {
+//    		// ここにあれ
+//    	}
+//    	System.out.println("blorckEntered is called.");
+//        if (mouseIsInPage == false) {
+//            mouseIsInPage = true;
+//            this.pageJComponent.repaint();
+//        }
+//    }
+
+    // 2015/12/24 N.Inaba MOD Shelfの実装 調査
+    /** @overrides WorkspaceWidget.blockExited() */
+    @Override
+    public void blockExited(RenderableBlock block) {
+    	if (workspace.toString().equals("Shelf")) {
+    		System.out.println("Shelf!!");
+    	}
+    	System.out.println("blockExited is called.");
+        mouseIsInPage = false;
+        this.pageJComponent.repaint();
+    }
 }

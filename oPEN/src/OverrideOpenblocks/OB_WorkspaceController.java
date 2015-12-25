@@ -56,7 +56,8 @@ import edu.mit.blocks.workspace.Workspace;
 
 public class OB_WorkspaceController extends WorkspaceController{
 
-	private static OB_Workspace workspace = new OB_Workspace();
+	// privateからpublicに変更
+	public static OB_Workspace workspace = new OB_Workspace();
 
 	private final Color saveButtonBGC = new Color(255, 255, 200);//(237, 237, 237); // //(255, 255, 19);
 	private final Color stageButtonBGC = new Color(200, 255, 200);//(237, 237 ,237); ////(136, 224, 46);

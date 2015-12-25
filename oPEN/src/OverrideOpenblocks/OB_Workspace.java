@@ -63,6 +63,10 @@ public class OB_Workspace extends Workspace {
 	    // 2015/11/11 N.Inaba ADD Shelfの実装
 	    private boolean is_shelf = false;
 	    
+	    public OB_Workspace getWorkspace() {
+	        return this;
+	    }
+	    
 	    @Override
 	    public OB_WorkspaceEnvironment getEnv() {
 	        return this.env;
@@ -153,11 +157,17 @@ public class OB_Workspace extends Workspace {
 	        });
 
 	        // 2015/11/25 N.Inaba MOD Shelfの実装 不要なDrawer群用パネルの不可視化
-//	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, factory.getJComponent(), blockCanvas.getJComponent());
-	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, blockCanvas.getJComponent(), null);
+	        // 2016/12/17 N.Inaba MOD Shelfの実装 ワークスペースに書き出すために復活
+	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, factory.getJComponent(), blockCanvas.getJComponent());
+//	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, blockCanvas.getJComponent(), null);
 	        
-	        blockCanvasLayer.setOneTouchExpandable(true);
-	        blockCanvasLayer.setDividerSize(6);
+	        blockCanvasLayer.setOneTouchExpandable(false);
+	        blockCanvasLayer.setDividerSize(0);
+	        
+	        // スライダー位置調整 loc = 0だとブロックが消えてくれない
+	        int loc = blockCanvasLayer.getMaximumDividerLocation();
+	        blockCanvasLayer.setDividerLocation(loc);
+	        
 	        add(blockCanvasLayer, BLOCK_LAYER);
 //	        add(blockCanvas.getJComponent(), BLOCK_LAYER);
 	        validate();

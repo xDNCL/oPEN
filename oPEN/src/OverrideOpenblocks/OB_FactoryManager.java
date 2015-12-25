@@ -1,6 +1,7 @@
 package OverrideOpenblocks;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -156,6 +157,28 @@ public class OB_FactoryManager extends FactoryManager{
 //		return super.getJComponent();
 //	}
 	
+	// 2015/12/17 N.Inaba ADD Shelfの実装 workspaceに貼り付け
+	@Override
+    public void blockDropped(RenderableBlock block) {
+        //remove block
+        WorkspaceWidget oldParent = block.getParentWidget();
+        if (oldParent != null) {
+            oldParent.removeBlock(block);
+        }
+
+        Container parent = block.getParent();
+        if (parent != null) {
+            parent.remove(block);
+            parent.validate();
+            parent.repaint();
+            block.setParentWidget(null);
+        }
+
+        //fire to workspace that block was removed
+        //DO FIRE AN EVENT IF BLOCK IS REMOVED BY USER!!!!
+        //NOTE however that we do not throw na event for adding internally
+        workspace.notifyListeners(new WorkspaceEvent(workspace, this, block.getBlockID(), WorkspaceEvent.BLOCK_REMOVED));
+    }
 	
 	public void debug(){
 		Collection<RenderableBlock> collection;

@@ -6,7 +6,7 @@ import javax.swing.JComponent;
 
 import edu.mit.blocks.renderable.RenderableBlock;
 import edu.mit.blocks.workspace.WorkspaceWidget;
-
+// 使ってないかも
 public interface OB_WorkspaceWidget extends WorkspaceWidget{
     public void blockDropped(OB_RenderableBlock block);
     public void blockDragged(OB_RenderableBlock block);

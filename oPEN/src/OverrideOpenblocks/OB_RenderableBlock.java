@@ -320,7 +320,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     public void putOnTheShelf() {
     	// 親ブロックをコピペ
     	Block orgParentBlock = this.getBlock();
-    	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlockToShelf(orgParentBlock);
+    	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlockToWorkspace(orgParentBlock, OB_WorkspaceController.ob_ws_shelf);
     	parentRB.ignoreDefaultArguments();
     	parentRB.setLocation(0, 0);
 		OB_WorkspaceController.shelf_page.addBlock(parentRB);
@@ -344,7 +344,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 
     		// 子ブロックをコピー
     		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
-    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToShelf(orgChildBlock);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToWorkspace(orgChildBlock, OB_WorkspaceController.ob_ws_shelf);
     		childRB.ignoreDefaultArguments();
     		
     		// 位置関係
@@ -408,7 +408,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 
     		// 子ブロックをコピー
     		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
-    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToShelf(orgChildBlock);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToWorkspace(orgChildBlock, OB_WorkspaceController.ob_ws_shelf);
     		childRB.ignoreDefaultArguments();
 
     		// 親子を接続
@@ -444,7 +444,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     	
     	// 弟の複製
     	Block orgOtotoBlock = workspace.getEnv().getBlock(orgAniBlock.getAfterBlockID());
-    	OB_RenderableBlock ototoRB = OB_BlockUtilities.cloneBlockToShelf(orgOtotoBlock);
+    	OB_RenderableBlock ototoRB = OB_BlockUtilities.cloneBlockToWorkspace(orgOtotoBlock, OB_WorkspaceController.ob_ws_shelf);
 		ototoRB.ignoreDefaultArguments();
 		addGrandchildToShelf(orgOtotoBlock, ototoRB);
 		
@@ -460,6 +460,152 @@ public class OB_RenderableBlock extends RenderableBlock{
 		OB_WorkspaceController.shelf_page.addBlock(ototoRB);
 		OB_WorkspaceController.ob_ws_shelf.repaint();
     	OB_WorkspaceController.ob_ws_shelf.getBlockCanvas().arrangeAllBlocks();
+		return aniRB;
+    }
+    
+    // 2015/12/18 N.Inaba ADD Shelfの実装
+    // ほぼduplicateABlockで、ob_ws_shelfに貼り付けている部分が異なる 冗長かも
+    public void putOnWorkspace() {
+    	// 親ブロックをコピペ
+    	Block orgParentBlock = this.getBlock();
+    	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlockToWorkspace(orgParentBlock, OB_WorkspaceController.workspace);
+    	parentRB.ignoreDefaultArguments();
+    	
+    	parentRB.setLocation(200, 200);
+    	
+    	OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(parentRB);
+		OB_WorkspaceController.workspace.repaint();
+    	
+    	// 親ブロックのソケットを設定
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+    	int bi = 0;
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
+    			bi++;
+    			continue;
+    		}
+
+    		// 子ブロックをコピー
+    		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToWorkspace(orgChildBlock, OB_WorkspaceController.workspace);
+    		childRB.ignoreDefaultArguments();
+    		
+    		// 位置関係
+    		Point myLocation = this.getLocation();
+    		this.getConnectorTag(socket).setDimension(new Dimension(
+    				childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+    				childRB.getBlockHeight()));
+
+    		// sumなどの大きさが変わる部品の位置調整
+    		Point2D socketPt = getSocketPixelPoint(socket);
+    		Point2D plugPt = new Point(0, 0);
+    		// 親ブロックが条件分岐などの場合
+    		if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getBeforeConnector());
+    		} else {
+    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
+    		}
+			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + POS_LEFT, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
+			
+    		// 親子を接続
+    		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    		// 親ブロックが条件分岐などの場合
+			if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+				childRB.getBlock().getBeforeConnector().setConnectorBlockID(parentRB.getBlockID());
+			} else {
+				childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+			}
+			
+			// 孫を複製
+			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
+				childRB = addBrotherToWorkspace(orgChildBlock, childRB);
+			}
+			else if (orgChildBlock.getNumSockets() > 0) {
+    			childRB = addGrandchildToWorkspace(orgChildBlock, childRB);
+    		}
+
+    		// 子ブロックをペースト
+			OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(childRB);
+			OB_WorkspaceController.workspace.repaint();
+    		bi++;
+    	}
+    }
+    
+    // 2015/12/09 N.Inaba ADD ブロック(群)の複製 孫の複製(再帰)
+    public OB_RenderableBlock addGrandchildToWorkspace(Block orgParentBlock, OB_RenderableBlock parentRB) {
+    	// 親ブロックのソケットを設定
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+    	int bi = 0;
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
+    			bi++;
+    			continue;
+    		}
+
+    		// 子ブロックをコピー
+    		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
+    		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToWorkspace(orgChildBlock, OB_WorkspaceController.workspace);
+    		childRB.ignoreDefaultArguments();
+
+    		// 親子を接続
+    		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
+    		// 親ブロックが条件分岐などの場合
+			if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+				childRB.getBlock().getBeforeConnector().setConnectorBlockID(parentRB.getBlockID());
+			} else {
+				childRB.getBlock().getPlug().setConnectorBlockID(parentRB.getBlockID());
+			}
+			
+			// 孫を複製
+			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
+				childRB = addBrotherToWorkspace(orgChildBlock, childRB);
+			}
+			else if (orgChildBlock.getNumSockets() > 0) {
+    			childRB = addGrandchildToWorkspace(orgChildBlock, childRB);
+    		}
+    		
+    		// 子ブロックをペースト
+			OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(childRB);
+			OB_WorkspaceController.workspace.repaint();
+			bi++;
+    	}
+    	return parentRB;
+    }
+    
+    // 2015/12/16 N.Inaba ADD ブロック(群)の複製 孫たちの複製(再帰)
+    public OB_RenderableBlock addBrotherToWorkspace(Block orgAniBlock, OB_RenderableBlock aniRB) {
+    	// 子の複製
+    	addGrandchildToWorkspace(orgAniBlock, aniRB);
+    	
+    	// 弟の複製
+    	Block orgOtotoBlock = workspace.getEnv().getBlock(orgAniBlock.getAfterBlockID());
+    	OB_RenderableBlock ototoRB = OB_BlockUtilities.cloneBlockToWorkspace(orgOtotoBlock, OB_WorkspaceController.workspace);
+		ototoRB.ignoreDefaultArguments();
+		addGrandchildToWorkspace(orgOtotoBlock, ototoRB);
+		
+		// 兄弟接続
+		aniRB.getBlock().getAfterConnector().setConnectorBlockID(ototoRB.getBlockID());
+		ototoRB.getBlock().getBeforeConnector().setConnectorBlockID(aniRB.getBlockID());
+		
+		if (orgOtotoBlock.getAfterBlockID() != Block.NULL) {
+			ototoRB = addBrotherToWorkspace(orgOtotoBlock, ototoRB);
+		}
+		
+		// 弟ブロックをペースト
+		OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(ototoRB);
+		OB_WorkspaceController.workspace.repaint();
 		return aniRB;
     }
     
@@ -539,6 +685,13 @@ public class OB_RenderableBlock extends RenderableBlock{
     
     // 2015/11/02 N.Inaba ADD defaultArgをOB_Block型に
     public static void stopDragging(OB_RenderableBlock renderable, WorkspaceWidget widget) {
+    	
+    	// 2015/12/17 N.Inaba ADD Shelfの実装 調査
+    	if (renderable.getWorkspace().toString().equals("Shelf")) {
+        	renderable.putOnTheShelf();
+        	renderable.putOnWorkspace();
+    	}
+    	
         if (!renderable.dragging) {
             throw new RuntimeException("dropping without prior dragging?");
         }
@@ -565,39 +718,4 @@ public class OB_RenderableBlock extends RenderableBlock{
             renderable.comment.getArrow().updateArrow();
         }
     }
-
-    // 2015/11/02 N.Inaba ADD defaultArgをOB_Block型に
-    private void drag(OB_RenderableBlock renderable, int dx, int dy, WorkspaceWidget widget, boolean isTopLevelBlock) {
-        if (!renderable.pickedUp) {
-            throw new RuntimeException("dragging without prior pickup");
-        }
-        //mark this as being dragged
-        renderable.dragging = true;
-        // move the block by drag amount
-        if (!isTopLevelBlock) {
-            renderable.setLocation(renderable.getX() + dx, renderable.getY() + dy);
-        }
-        // send blockEntered/blockExited/blogDragged as appropriate
-        if (widget != null) {
-            if (!widget.equals(renderable.lastDragWidget)) {
-                widget.blockEntered(renderable);
-                if (renderable.lastDragWidget != null) {
-                    renderable.lastDragWidget.blockExited(renderable);
-                }
-            }
-            widget.blockDragged(renderable);
-            renderable.lastDragWidget = widget;
-        }
-
-        // translate highlight along with the block - this would happen automatically,
-        // but putting the call here takes out any lag.
-        renderable.highlighter.repaint();
-        // Propagate the drag event to anything plugged into this block
-        for (BlockConnector socket : BlockLinkChecker.getSocketEquivalents(renderable.getBlock())) {
-            if (socket.hasBlock()) {
-                drag(workspace.getEnv().getRenderableBlock(socket.getBlockID()), dx, dy, widget, false);
-            }
-        }
-    }
-
 }

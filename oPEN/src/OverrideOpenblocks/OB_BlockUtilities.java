@@ -88,11 +88,11 @@ public class OB_BlockUtilities extends BlockUtilities{
     }
 	
 	// 2015/12/01 N.Inaba MOD Shelfの実装 ob_ws_shelfに複製
-	public static OB_RenderableBlock cloneBlockToShelf(Block myblock) {
+	public static OB_RenderableBlock cloneBlockToWorkspace(Block myblock, Workspace workspace) {
+//		System.out.println("cloneBlockToWokspace is called. workspace : " + workspace.toString());
         String mygenusname = myblock.getGenusName();
         String label = myblock.getBlockLabel();
-        Workspace workspace = OB_WorkspaceController.ob_ws_shelf;
-        
+
         //sometimes the factory block will have an assigned label different
         //from its genus label.
         if (!myblock.getInitialLabel().equals(myblock.getBlockLabel())) {

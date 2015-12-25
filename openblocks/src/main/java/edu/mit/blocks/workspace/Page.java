@@ -121,7 +121,8 @@ public class Page implements WorkspaceWidget, SearchableContainer, ISupportMemen
     /** The default page color.  OVERRIDED BY BLOCK CANVAS */
     private final Color defaultColor;
     /** MouseIn Flag: true if and only if the mouse is in this page */
-    private boolean mouseIsInPage = false;
+    // 2015/12/22 N.Inaba ADD Shelfの実装 private->protected
+    protected boolean mouseIsInPage = false;
     /** The minimum width of the page in pixels */
     private int minimumPixelWidth = 0;
     /** The minimum height of the page in pixels */

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblocks.BlockGenus;
+import edu.mit.blocks.renderable.RenderableBlock;
 import edu.mit.blocks.workspace.WorkspaceEnvironment;
 
 public class OB_WorkspaceEnvironment extends WorkspaceEnvironment{
@@ -25,7 +26,7 @@ public class OB_WorkspaceEnvironment extends WorkspaceEnvironment{
 //    	System.out.println("Env get block is"+this.allBlocks.get(blockID));
         return this.allBlocks.get(blockID);
     }
-
+    
     @Override
     public void addBlock(Block block) {
 
