@@ -46,6 +46,10 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
     private static MenuItem  putOnTheShelfItem;
     private final static String PUT_ON_THE_SHELF = "PUTONTHESHELF";
     
+    // 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
+    private static MenuItem deleteABlockItem;
+    private final static String DELETE_A_BLOCK = "DELETEABLOCK";
+    
     //privatize the constructor
     OB_ContextMenu() {
 //    	super();
@@ -72,6 +76,12 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
     	putOnTheShelfItem.addActionListener(rndBlockMenu);
     	addCommentMenu.add(putOnTheShelfItem);
     	
+    	// 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
+        deleteABlockItem = new MenuItem("Delete a Block");
+        deleteABlockItem.setActionCommand(DELETE_A_BLOCK);
+        deleteABlockItem.addActionListener(rndBlockMenu);
+    	addCommentMenu.add(deleteABlockItem);
+    	
         addCommentMenuInit = true;
     }
 
@@ -97,6 +107,12 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
     	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
     	putOnTheShelfItem.addActionListener(rndBlockMenu);
     	removeCommentMenu.add(putOnTheShelfItem);
+    	
+    	// 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
+        deleteABlockItem = new MenuItem("Delete a Block");
+        deleteABlockItem.setActionCommand(DELETE_A_BLOCK);
+        deleteABlockItem.addActionListener(rndBlockMenu);
+        removeCommentMenu.add(deleteABlockItem);
     	
         removeCommentMenuInit = true;
     }
@@ -176,6 +192,13 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
             //notify the renderableblock componenet that lauched the conetxt menu
         	if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
         		((OB_RenderableBlock) activeComponent).putOnTheShelf();
+        	}
+        	
+        // 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
+        } else if (a.getActionCommand() == DELETE_A_BLOCK) {
+        	//notify the renderableblock componenet that lauched the conetxt menu
+        	if (activeComponent != null && activeComponent instanceof OB_RenderableBlock) {
+        		((OB_RenderableBlock) activeComponent).deleteABlock();
         	}
         }
     }

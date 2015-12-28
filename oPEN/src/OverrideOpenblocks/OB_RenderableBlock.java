@@ -1,5 +1,6 @@
 package OverrideOpenblocks;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.PopupMenu;
@@ -471,7 +472,10 @@ public class OB_RenderableBlock extends RenderableBlock{
     	OB_RenderableBlock parentRB = OB_BlockUtilities.cloneBlockToWorkspace(orgParentBlock, OB_WorkspaceController.workspace);
     	parentRB.ignoreDefaultArguments();
     	
-    	parentRB.setLocation(200, 200);
+    	parentRB.setLocation(POS_LEFT, POS_LEFT);
+    	
+    	// 調査
+//    	System.out.println("x: " + parentRB.getX() + "y: " + parentRB.getY());
     	
     	OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(parentRB);
 		OB_WorkspaceController.workspace.repaint();
@@ -495,6 +499,8 @@ public class OB_RenderableBlock extends RenderableBlock{
     		Block orgChildBlock = workspace.getEnv().getBlock(socket.connBlockID);
     		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToWorkspace(orgChildBlock, OB_WorkspaceController.workspace);
     		childRB.ignoreDefaultArguments();
+
+    		System.out.println("調整前 x: " + childRB.getX() + "y: " + childRB.getY());
     		
     		// 位置関係
     		Point myLocation = this.getLocation();
@@ -511,7 +517,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     		} else {
     			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
     		}
-			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + POS_LEFT, (int) (socketPt.getY() + myLocation.y - plugPt.getY()));
+			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + POS_LEFT, (int) (socketPt.getY() + myLocation.y - plugPt.getY()) + POS_LEFT);
 			
     		// 親子を接続
     		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
@@ -530,10 +536,20 @@ public class OB_RenderableBlock extends RenderableBlock{
     			childRB = addGrandchildToWorkspace(orgChildBlock, childRB);
     		}
 
+			System.out.println("調整後 x: " + childRB.getX() + "y: " + childRB.getY());
+			
     		// 子ブロックをペースト
 			OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(childRB);
 			OB_WorkspaceController.workspace.repaint();
-    		bi++;
+			
+			// 整数<x>の親子の表示がずれる
+        	Container parent = parentRB.getParent();
+            if (parent != null) {
+            	parentRB.moveConnectedBlocks(); // これで直った
+            	parent.validate();
+            	parent.repaint();
+            }
+			bi++;
     	}
     }
     
@@ -606,6 +622,119 @@ public class OB_RenderableBlock extends RenderableBlock{
 		// 弟ブロックをペースト
 		OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(ototoRB);
 		OB_WorkspaceController.workspace.repaint();
+		return aniRB;
+    }
+    
+    // 2015/12/28 N.Inaba ADD ブロック群の削除
+    public void deleteABlock() {
+   	 	// Pageの設定
+        Container parent = this.getParent();
+    	
+    	// 親ブロックを設定
+    	OB_RenderableBlock parentRB = this;
+    	Block orgParentBlock = parentRB.getBlock();
+    	
+    	// 親ブロックのソケットを設定
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
+    			continue;
+    		}
+
+    		// 子ブロックを設定
+    		RenderableBlock childRB = workspace.getEnv().getRenderableBlock(socket.connBlockID);
+    		Block orgChildBlock = childRB.getBlock();
+			
+			// 孫を削除
+			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
+				childRB = deleteBrother(orgChildBlock, childRB);
+			}
+			else if (orgChildBlock.getNumSockets() > 0) {
+    			childRB = deleteGrandchild(orgChildBlock, childRB);
+    		}
+
+            if (parent != null) {
+            	parent.remove(childRB);
+            	parent.validate();
+                parent.repaint();
+                this.setParentWidget(null);
+            }
+    	}
+        if (parent != null) {
+        	parent.remove(this);
+        	parent.validate();
+            parent.repaint();
+            this.setParentWidget(null);
+        }
+    }
+    
+    // 2015/12/28 N.Inaba ADD ブロック群の削除 孫の削除(再帰)
+    public RenderableBlock deleteGrandchild(Block orgParentBlock, RenderableBlock parentRB) {
+    	// 親ブロックのソケットを設定
+    	BlockConnector socket;
+    	Iterator<BlockConnector> sockets = orgParentBlock.getSockets().iterator();
+    	
+    	// ソケットの数だけループ
+    	while (sockets.hasNext()) {
+    		socket = sockets.next();
+    		
+    		// ソケットに子ブロックがない
+    		if (socket.connBlockID == Block.NULL) {
+    			continue;
+    		}
+
+    		// 子ブロックを設定
+    		RenderableBlock childRB = workspace.getEnv().getRenderableBlock(socket.connBlockID);
+    		Block orgChildBlock = childRB.getBlock();
+			
+			// 孫を削除
+			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
+				childRB = deleteBrother(orgChildBlock, childRB);
+			}
+			else if (orgChildBlock.getNumSockets() > 0) {
+    			childRB = deleteGrandchild(orgChildBlock, childRB);
+    		}
+    		
+       	 	//remove block
+            Container parent = this.getParent();
+            if (parent != null) {
+            	parent.remove(childRB);
+            	parent.validate();
+                parent.repaint();
+                this.setParentWidget(null);
+            }
+    	}
+    	return parentRB;
+    }
+    
+    // 2015/12/28 N.Inaba ADD ブロック群の削除 孫たちの削除(再帰)
+    public RenderableBlock deleteBrother(Block orgAniBlock, RenderableBlock aniRB) {
+    	// 子の削除
+    	deleteGrandchild(orgAniBlock, aniRB);
+    	
+    	// 弟の設定
+    	RenderableBlock ototoRB = workspace.getEnv().getRenderableBlock(orgAniBlock.getAfterBlockID());
+    	Block orgOtotoBlock = ototoRB.getBlock();
+		deleteGrandchild(orgOtotoBlock, ototoRB);
+		
+		if (orgOtotoBlock.getAfterBlockID() != Block.NULL) {
+			ototoRB = deleteBrother(orgOtotoBlock, ototoRB);
+		}
+		
+		//remove block
+        Container parent = this.getParent();
+        if (parent != null) {
+        	parent.remove(aniRB);
+        	parent.remove(ototoRB);
+        	parent.validate();
+            parent.repaint();
+            this.setParentWidget(null);
+        }
 		return aniRB;
     }
     

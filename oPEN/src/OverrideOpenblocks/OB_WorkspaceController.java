@@ -137,10 +137,38 @@ public class OB_WorkspaceController extends WorkspaceController{
 		SaveAsAction saveAsAction = new SaveAsAction(saveAction);
 		buttonPanel.add(new JButton(saveAsAction));
 
+		// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
+		// OpenShelf
+		OpenShelfAction openShelfAction = new OpenShelfAction();
+		buttonPanel.add(new JButton(openShelfAction));
+		
+		// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
+		// CloseShelf
+		CloseShelfAction closeShelfAction = new CloseShelfAction();
+		buttonPanel.add(new JButton(closeShelfAction));
+		
 		return buttonPanel;
 	}
 
+	// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf保存
+	public JComponent getButtonPanelShelf() {
 
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(this.saveButtonBGC);
+
+		// Save
+		SaveActionShelf saveActionShelf = new SaveActionShelf();
+		buttonPanel.add(new JButton(saveActionShelf));
+
+		// Save as
+		SaveAsActionShelf saveAsActionShelf = new SaveAsActionShelf(saveActionShelf);
+		buttonPanel.add(new JButton(saveAsActionShelf));
+		
+		return buttonPanel;
+	}
+
+	
+	
 	public JComponent getOutputButtonPanel(){
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(outputButtonBGC);
@@ -253,6 +281,136 @@ public class OB_WorkspaceController extends WorkspaceController{
 		}
 	}
 
+	/**
+	 * Action bound to "Save" button.
+	 */
+	public class SaveActionShelf extends AbstractAction {
+		public static final long serialVersionUID = -5540588250535739852L;
+		SaveActionShelf() {
+			super("保存");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			if (selectedFile == null) {
+				JFileChooser fileChooser = new JFileChooser(lastDirectory);
+				if (fileChooser.showSaveDialog((Component) evt.getSource()) == JFileChooser.APPROVE_OPTION) {
+					setSelectedFile(fileChooser.getSelectedFile());
+					lastDirectory = selectedFile.getParentFile();
+				}
+			}
+			try {
+				// 2015/10/07 N.Inaba MOD NormalizeIDs 従来のセーブファイルを仮セーブファイルとして扱う
+				File preFile = new File(selectedFile.getParent() + "/pre_" + selectedFile.getName());
+				saveToFile(preFile);
+				// 2015/10/07 N.Inaba ADD NormalizeIDs 呼び出し
+				NormalizeIDs nid = new NormalizeIDs(preFile);
+			}
+			catch (IOException e) {
+				JOptionPane.showMessageDialog((Component) evt.getSource(),
+						e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * Action bound to "Save As..." button.
+	 */
+	public class SaveAsActionShelf extends AbstractAction {
+		public static final long serialVersionUID = 3981294764824307472L;
+		public final SaveActionShelf saveActionShelf;
+
+		SaveAsActionShelf(SaveActionShelf saveActionShelf) {
+			super("名前をつけて保存");
+			this.saveActionShelf = saveActionShelf;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			selectedFile = null;
+			// delegate to save action
+			saveActionShelf.actionPerformed(e);
+		}
+	}
+	
+	/**
+	 * Action bound to "Open Shelf" action.
+	 */
+	// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
+	public class OpenShelfAction extends AbstractAction {
+
+		public static final long serialVersionUID = -2119679269613495704L;
+
+		OpenShelfAction() {
+			super("Shelfを開く");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser fileChooser = new JFileChooser(lastDirectory);
+			if (fileChooser.showOpenDialog((Component)e.getSource()) == JFileChooser.APPROVE_OPTION) {
+				setSelectedFile(fileChooser.getSelectedFile());
+				lastDirectory = selectedFile.getParentFile();
+				String selectedPath = selectedFile.getPath();
+				changeStage();
+				
+				// 2015/09/29 N.Inaba ADD NormalizeIDs changeStage()の調査
+//				clearStage(); /* changeStageを変更したもの */
+//				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
+//				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
+//				System.out.println(selectedPath);
+				
+				try{
+					loadProjectFromPath(selectedPath);
+					// 2015/09/29 N.Inaba ADD NormalizeIDs Load後のNextBlockID更新
+					workspace.getEnv().addNextBlockID();
+					System.out.println("ロードが完了しました。");
+				}catch(Exception err){
+					System.out.println("ロードに失敗しました。");
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Action bound to "Open Shelf" action.
+	 */
+	// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
+	public class CloseShelfAction extends AbstractAction {
+
+		public static final long serialVersionUID = -2119679269613495704L;
+
+		CloseShelfAction() {
+			super("Shelfを閉じる");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser fileChooser = new JFileChooser(lastDirectory);
+			if (fileChooser.showOpenDialog((Component)e.getSource()) == JFileChooser.APPROVE_OPTION) {
+				setSelectedFile(fileChooser.getSelectedFile());
+				lastDirectory = selectedFile.getParentFile();
+				String selectedPath = selectedFile.getPath();
+				changeStage();
+				
+				// 2015/09/29 N.Inaba ADD NormalizeIDs changeStage()の調査
+//				clearStage(); /* changeStageを変更したもの */
+//				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
+//				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
+//				System.out.println(selectedPath);
+				
+				try{
+					loadProjectFromPath(selectedPath);
+					// 2015/09/29 N.Inaba ADD NormalizeIDs Load後のNextBlockID更新
+					workspace.getEnv().addNextBlockID();
+					System.out.println("ロードが完了しました。");
+				}catch(Exception err){
+					System.out.println("ロードに失敗しました。");
+				}
+			}
+		}
+	}
+	
 	public void setSelectedFile(File selectedFile) {
 		this.selectedFile = selectedFile;
 		//        System.out.println(selectedFile.getPath());
@@ -365,11 +523,14 @@ public class OB_WorkspaceController extends WorkspaceController{
 		frame.add(console.getBody(), BorderLayout.EAST);
 		frame.setVisible(true);
 		
-		// 2015/11/11 N.Inaba ADD Shelfの実装 テスト
+		// 2015/12/27 N.Inaba ADD Shelfの実装 保存ボタン
 		shelfFrame = new JFrame("Shelf");
 		shelfFrame.setBounds(800, 200, 300, 600);
 		shelfFrame.setAlwaysOnTop(true);
-//		shelfFrame.add(canvas, BorderLayout.CENTER);
+		JPanel northPanelShelf = new JPanel();
+		northPanelShelf.setLayout(new BorderLayout());
+		northPanelShelf.add(getButtonPanelShelf(), BorderLayout.WEST);
+		shelfFrame.add(northPanelShelf, BorderLayout.NORTH);
 		shelfFrame.add(ob_ws_shelf, BorderLayout.CENTER);
 		shelfFrame.setVisible(true);
 	}

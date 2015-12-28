@@ -128,10 +128,10 @@ public class OB_Page extends Page{
     /** @overrides WorkspaceWidget.blockExited() */
     @Override
     public void blockExited(RenderableBlock block) {
-    	if (workspace.toString().equals("Shelf")) {
-    		System.out.println("Shelf!!");
-    	}
-    	System.out.println("blockExited is called.");
+//    	if (workspace.toString().equals("Shelf")) {
+//    		System.out.println("Shelf!!");
+//    	}
+//    	System.out.println("blockExited is called.");
         mouseIsInPage = false;
         this.pageJComponent.repaint();
     }
