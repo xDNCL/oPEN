@@ -629,7 +629,8 @@ public class OB_Block extends Block{
 						getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 			}
 			if(this.getGenusName().equals("not-equals")){
-				return this.notEquals(getBlock(this.getSocketAt(0).getBlockID()).evaluateValue());
+				return this.notEquals(getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
+						getBlock(this.getSocketAt(1).getBlockID()).evaluateValue());
 			}
 			if(this.getGenusName().equals("lessthan")){
 				return this.lessthan(getBlock(this.getSocketAt(0).getBlockID()).evaluateValue(),
@@ -772,18 +773,39 @@ public class OB_Block extends Block{
 			return Long.valueOf(a.toString()) == Long.valueOf(b.toString());
 		}
 		else if(a instanceof Integer || b instanceof Integer){
-			//return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
-			return a==b;
+			// 2016/02/05 N.Inaba FIX equalバグ
+			return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
+//			return a==b;
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
 	}
 
-	private boolean notEquals(Object a)throws BlockRunException{
-		if(a == null){
+//	private boolean notEquals(Object a)throws BlockRunException{
+//		if(a == null){
+//			throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
+//		}
+//		if(a instanceof Boolean){
+//			return !(Boolean)a;
+//		}
+//		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
+//	}
+	private boolean notEquals(Object a, Object b)throws BlockRunException{
+		if(a == null || b == null){
 			throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
 		}
-		if(a instanceof Boolean){
-			return !(Boolean)a;
+		if(a instanceof String || b instanceof String){
+			return !(a.toString().equals(b.toString()));
+		}
+		else if(a instanceof Double || b instanceof Double) {
+			return Double.valueOf(a.toString()) != Double.valueOf(b.toString());
+		}
+		else if(a instanceof Long || b instanceof Long){
+			return Long.valueOf(a.toString()) != Long.valueOf(b.toString());
+		}
+		else if(a instanceof Integer || b instanceof Integer){
+			// 2016/02/05 N.Inaba FIX equalバグ
+			return Integer.valueOf(a.toString()) != Integer.valueOf(b.toString());
+//			return a==b;
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
 	}

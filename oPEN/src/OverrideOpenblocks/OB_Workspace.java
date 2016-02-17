@@ -63,6 +63,9 @@ public class OB_Workspace extends Workspace {
 	    // 2015/11/11 N.Inaba ADD Shelfの実装
 	    private boolean is_shelf = false;
 	    
+	    // 2016/02/05 N.Inaba ADD drawerUI改善
+	    JSplitPane blockListLayer;
+	    
 	    public OB_Workspace getWorkspace() {
 	        return this;
 	    }
@@ -105,15 +108,44 @@ public class OB_Workspace extends Workspace {
             }
         });
 
-        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
-                factory.getJComponent(), blockCanvas.getJComponent());
+		// 2016/02/05 N.Inaba MOD drawerUI改善
+//        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
+//                factory.getJComponent(), blockCanvas.getJComponent());
+        blockListLayer = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        // drawer一覧
+        blockListLayer.setLeftComponent(factory.getJComponent());
 
         
+        // ここからちょっとアレ
+//        JSplitPane blockListLayer2;
+//        blockListLayer2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+//        blockListLayer2.setLeftComponent(blockCanvas.getJComponent());
+//        blockListLayer2.setRightComponent(null);
+//        blockListLayer2.setOneTouchExpandable(false);
+//        blockListLayer2.setDividerSize(0);
+//        
+//        // スライダー位置調整 loc = 0だとブロックが消えてくれない
+//        int loc = blockListLayer2.getMaximumDividerLocation();
+//        blockListLayer2.setDividerLocation(loc);
+//        
+//        add(blockListLayer2, BLOCK_LAYER);
+//        validate();
+//
+//        // add page
+//    	OB_WorkspaceController.blocklist_page = new OB_Page(this, "Blocklist", 600, 0, null, true, new Color(255,255,204), true);
+//        addPageAt(OB_WorkspaceController.blocklist_page, 0, false);
+        // ここまでちょっとアレ
+        blockListLayer.setRightComponent(new JPanel());
+//        blockListLayer.setRightComponent(OB_WorkspaceController.ob_ws_drawer); // TODO ここにdrawerの中身のPageオブジェクトを渡す
+        blockListLayer.setOneTouchExpandable(false);
+        blockListLayer.setDividerSize(6);
+        // キャンバスと合体
+        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
+                blockListLayer, blockCanvas.getJComponent());
         blockCanvasLayer.setOneTouchExpandable(true);
         blockCanvasLayer.setDividerSize(6);
-        add(blockCanvasLayer, BLOCK_LAYER);
         
-//        add(blockCanvas.getJComponent(), BLOCK_LAYER);
+        add(blockCanvasLayer, BLOCK_LAYER);
         
         validate();
         addPageAt(Page.getBlankPage(this), 0, false);
@@ -182,6 +214,54 @@ public class OB_Workspace extends Workspace {
 	        this.workspaceWidgets.add(factory);
 		}
 
+	    // 2016/02/05 N.Inaba ADD drawerUIの改善
+	    public OB_Workspace(int a) {
+	    	super();
+		    super.blockCanvas = new OB_BlockCanvas(this);
+		    
+		    setLayout(null);
+	        setBackground(Color.yellow);
+	        setPreferredSize(new Dimension(300, 600));
+
+	        this.factory = new OB_FactoryManager(this);
+	        super.factory = this.factory;
+	        
+	        this.addWorkspaceListener(this.factory);
+	        blockCanvas.getHorizontalModel().addChangeListener(this);
+	        for (final Explorer exp : factory.getNavigator().getExplorers()) {
+	            exp.addListener(this);
+	        }
+
+	        this.miniMap = new MiniMap(this);
+//	        this.addWidget(this.miniMap, true, true);
+	        this.addComponentListener(new ComponentAdapter() {
+	            public void componentResized(ComponentEvent e) {
+//	                miniMap.repositionMiniMap();
+	                blockCanvas.reformBlockCanvas();
+	                blockCanvasLayer.setSize(getSize());
+//	                blockCanvasLayer.setSize(300, 500);
+	                blockCanvasLayer.validate();
+	            }
+	        });
+
+	        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, blockCanvas.getJComponent(), factory.getJComponent());
+	        blockCanvasLayer.setOneTouchExpandable(false);
+	        blockCanvasLayer.setDividerSize(0);
+	        
+	        // スライダー位置調整 loc = 0だとブロックが消えてくれない
+	        int loc = blockCanvasLayer.getMaximumDividerLocation();
+	        blockCanvasLayer.setDividerLocation(loc);
+	        
+	        add(blockCanvasLayer, BLOCK_LAYER);
+	        validate();
+
+	        OB_WorkspaceController.blocklist_page = new OB_Page(this, "Blocklist", 600, 0, null, true, new Color(255,255,204), true);
+
+	        addPageAt(OB_WorkspaceController.blocklist_page, 0, false);
+	        
+	        this.workspaceWidgets.add(factory);
+		}
+	    
 		/**
 	     * Loads the workspace with the following content:
 	     * - RenderableBlocks and their associated Block instances that reside

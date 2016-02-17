@@ -100,7 +100,11 @@ public class OB_WorkspaceController extends WorkspaceController{
 //	public static FactoryCanvas canvas = new FactoryCanvas("");
 	public static OB_Workspace ob_ws_shelf = new OB_Workspace(true);
 	public static OB_Page shelf_page;
+	public static OB_Page blocklist_page;
 
+	// 2016/02/05 N.Inaba ADD drawerUIの改善
+	public static OB_Workspace ob_ws_drawer = new OB_Workspace(1);
+	
 	//追加
 	private static ConsoleWindow console = new ConsoleWindow(workspace, false);    
 
@@ -142,10 +146,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 		OpenShelfAction openShelfAction = new OpenShelfAction();
 		buttonPanel.add(new JButton(openShelfAction));
 		
-		// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
-		// CloseShelf
-		CloseShelfAction closeShelfAction = new CloseShelfAction();
-		buttonPanel.add(new JButton(closeShelfAction));
+		// 2016/02/05 N.Inaba DEL Shelfの実装 Shelf開閉
+//		// CloseShelf
+//		CloseShelfAction closeShelfAction = new CloseShelfAction();
+//		buttonPanel.add(new JButton(closeShelfAction));
 		
 		return buttonPanel;
 	}
@@ -156,9 +160,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(this.saveButtonBGC);
 
-		// Save
 		SaveActionShelf saveActionShelf = new SaveActionShelf();
-		buttonPanel.add(new JButton(saveActionShelf));
+		// 2016/02/05 N.Inaba DEL Save
+//		buttonPanel.add(new JButton(saveActionShelf));
 
 		// Save as
 		SaveAsActionShelf saveAsActionShelf = new SaveAsActionShelf(saveActionShelf);
@@ -321,7 +325,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		public final SaveActionShelf saveActionShelf;
 
 		SaveAsActionShelf(SaveActionShelf saveActionShelf) {
-			super("名前をつけて保存");
+			super("Shelfを保存");
 			this.saveActionShelf = saveActionShelf;
 		}
 
@@ -375,41 +379,41 @@ public class OB_WorkspaceController extends WorkspaceController{
 	/**
 	 * Action bound to "Open Shelf" action.
 	 */
-	// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
-	public class CloseShelfAction extends AbstractAction {
-
-		public static final long serialVersionUID = -2119679269613495704L;
-
-		CloseShelfAction() {
-			super("Shelfを閉じる");
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JFileChooser fileChooser = new JFileChooser(lastDirectory);
-			if (fileChooser.showOpenDialog((Component)e.getSource()) == JFileChooser.APPROVE_OPTION) {
-				setSelectedFile(fileChooser.getSelectedFile());
-				lastDirectory = selectedFile.getParentFile();
-				String selectedPath = selectedFile.getPath();
-				changeStage();
-				
-				// 2015/09/29 N.Inaba ADD NormalizeIDs changeStage()の調査
-//				clearStage(); /* changeStageを変更したもの */
-//				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
-//				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
-//				System.out.println(selectedPath);
-				
-				try{
-					loadProjectFromPath(selectedPath);
-					// 2015/09/29 N.Inaba ADD NormalizeIDs Load後のNextBlockID更新
-					workspace.getEnv().addNextBlockID();
-					System.out.println("ロードが完了しました。");
-				}catch(Exception err){
-					System.out.println("ロードに失敗しました。");
-				}
-			}
-		}
-	}
+//	// 2015/12/17 N.Inaba DEL Shelfの実装 Shelfを閉じる
+//	public class CloseShelfAction extends AbstractAction {
+//
+//		public static final long serialVersionUID = -2119679269613495704L;
+//
+//		CloseShelfAction() {
+//			super("Shelfを閉じる");
+//		}
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			JFileChooser fileChooser = new JFileChooser(lastDirectory);
+//			if (fileChooser.showOpenDialog((Component)e.getSource()) == JFileChooser.APPROVE_OPTION) {
+//				setSelectedFile(fileChooser.getSelectedFile());
+//				lastDirectory = selectedFile.getParentFile();
+//				String selectedPath = selectedFile.getPath();
+//				changeStage();
+//				
+//				// 2015/09/29 N.Inaba ADD NormalizeIDs changeStage()の調査
+////				clearStage(); /* changeStageを変更したもの */
+////				stageDrawerFilePath = resourcesFolderName + "/" + "stage4" + ".xml";
+////				stageDrawerFilePath = "/Users/Natsuki/git/oPEN/oPEN/Stage/PEN/stage4.xml";
+////				System.out.println(selectedPath);
+//				
+//				try{
+//					loadProjectFromPath(selectedPath);
+//					// 2015/09/29 N.Inaba ADD NormalizeIDs Load後のNextBlockID更新
+//					workspace.getEnv().addNextBlockID();
+//					System.out.println("ロードが完了しました。");
+//				}catch(Exception err){
+//					System.out.println("ロードに失敗しました。");
+//				}
+//			}
+//		}
+//	}
 	
 	public void setSelectedFile(File selectedFile) {
 		this.selectedFile = selectedFile;

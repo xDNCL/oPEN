@@ -500,25 +500,33 @@ public class OB_RenderableBlock extends RenderableBlock{
     		OB_RenderableBlock childRB = OB_BlockUtilities.cloneBlockToWorkspace(orgChildBlock, OB_WorkspaceController.workspace);
     		childRB.ignoreDefaultArguments();
 
-    		System.out.println("調整前 x: " + childRB.getX() + "y: " + childRB.getY());
-    		
-    		// 位置関係
-    		Point myLocation = this.getLocation();
-    		this.getConnectorTag(socket).setDimension(new Dimension(
-    				childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
-    				childRB.getBlockHeight()));
+    		// 2016/02/12 N.Inaba DEL Shelfの実装
+//    		System.out.println("調整前 x: " + childRB.getX() + "y: " + childRB.getY());
+//    		// 位置関係
+//    		Point myLocation = this.getLocation();
+//    		this.getConnectorTag(socket).setDimension(new Dimension(
+//    				childRB.getBlockWidth() - (int) BlockConnectorShape.NORMAL_DATA_PLUG_WIDTH,
+//    				childRB.getBlockHeight()));
+//
+//    		// sumなどの大きさが変わる部品の位置調整
+//    		Point2D socketPt = getSocketPixelPoint(socket);
+//    		Point2D plugPt = new Point(0, 0);
+//    		
+//    		// 親ブロックが条件分岐などの場合
+//    		if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
+//    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getBeforeConnector());
+//    		} else {
+//    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
+//    		}
+//			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + POS_LEFT, (int) (socketPt.getY() + myLocation.y - plugPt.getY()) + POS_LEFT);
 
-    		// sumなどの大きさが変わる部品の位置調整
-    		Point2D socketPt = getSocketPixelPoint(socket);
-    		Point2D plugPt = new Point(0, 0);
-    		// 親ブロックが条件分岐などの場合
-    		if (orgParentBlock.getSocketAt(bi).getKind().equals("cmd")) {
-    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getBeforeConnector());
-    		} else {
-    			plugPt = childRB.getSocketPixelPoint(childRB.getBlock().getPlug());
-    		}
-			childRB.setLocation((int) (socketPt.getX() + myLocation.x - plugPt.getX()) + POS_LEFT, (int) (socketPt.getY() + myLocation.y - plugPt.getY()) + POS_LEFT);
-			
+    		parentRB.moveConnectedBlocks();
+    		parentRB.validate();
+        	parentRB.repaint();
+    		childRB.moveConnectedBlocks();
+    		childRB.validate();
+        	childRB.repaint();
+        	
     		// 親子を接続
     		parentRB.getBlock().getSocketAt(bi).setConnectorBlockID(childRB.getBlockID());
     		// 親ブロックが条件分岐などの場合
@@ -536,7 +544,7 @@ public class OB_RenderableBlock extends RenderableBlock{
     			childRB = addGrandchildToWorkspace(orgChildBlock, childRB);
     		}
 
-			System.out.println("調整後 x: " + childRB.getX() + "y: " + childRB.getY());
+//			System.out.println("調整後 x: " + childRB.getX() + "y: " + childRB.getY());
 			
     		// 子ブロックをペースト
 			OB_WorkspaceController.workspace.getPageNamed("oPEN").addBlock(childRB);
@@ -657,7 +665,6 @@ public class OB_RenderableBlock extends RenderableBlock{
 			else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = deleteGrandchild(orgChildBlock, childRB);
     		}
-
             if (parent != null) {
             	parent.remove(childRB);
             	parent.validate();
@@ -665,6 +672,17 @@ public class OB_RenderableBlock extends RenderableBlock{
                 this.setParentWidget(null);
             }
     	}
+    	
+        // TODO 親に親がいる場合
+        if (parentRB.getBlock().getPlugBlockID() != Block.NULL) {
+        	System.out.println("親の親がいる！");
+        }
+    	
+    	
+        WorkspaceWidget oldParent = parentRB.getParentWidget();
+        if (oldParent != null) {
+            oldParent.removeBlock(parentRB);
+        }
         if (parent != null) {
         	parent.remove(this);
         	parent.validate();
@@ -701,6 +719,10 @@ public class OB_RenderableBlock extends RenderableBlock{
     		}
     		
        	 	//remove block
+	        WorkspaceWidget oldParent = childRB.getParentWidget();
+	        if (oldParent != null) {
+	            oldParent.removeBlock(childRB);
+	        }
             Container parent = this.getParent();
             if (parent != null) {
             	parent.remove(childRB);
@@ -727,6 +749,10 @@ public class OB_RenderableBlock extends RenderableBlock{
 		}
 		
 		//remove block
+        WorkspaceWidget oldParent = ototoRB.getParentWidget();
+        if (oldParent != null) {
+            oldParent.removeBlock(ototoRB);
+        }
         Container parent = this.getParent();
         if (parent != null) {
         	parent.remove(aniRB);
