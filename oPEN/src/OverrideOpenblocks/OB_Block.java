@@ -773,22 +773,11 @@ public class OB_Block extends Block{
 			return Long.valueOf(a.toString()) == Long.valueOf(b.toString());
 		}
 		else if(a instanceof Integer || b instanceof Integer){
-			// 2016/02/05 N.Inaba FIX equalバグ
 			return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
-//			return a==b;
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
 	}
 
-//	private boolean notEquals(Object a)throws BlockRunException{
-//		if(a == null){
-//			throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
-//		}
-//		if(a instanceof Boolean){
-//			return !(Boolean)a;
-//		}
-//		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-//	}
 	private boolean notEquals(Object a, Object b)throws BlockRunException{
 		if(a == null || b == null){
 			throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
@@ -803,9 +792,7 @@ public class OB_Block extends Block{
 			return Long.valueOf(a.toString()) != Long.valueOf(b.toString());
 		}
 		else if(a instanceof Integer || b instanceof Integer){
-			// 2016/02/05 N.Inaba FIX equalバグ
 			return Integer.valueOf(a.toString()) != Integer.valueOf(b.toString());
-//			return a==b;
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
 	}
