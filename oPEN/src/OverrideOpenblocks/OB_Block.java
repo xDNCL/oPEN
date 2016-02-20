@@ -779,22 +779,7 @@ public class OB_Block extends Block{
 	}
 
 	private boolean notEquals(Object a, Object b)throws BlockRunException{
-		if(a == null || b == null){
-			throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
-		}
-		if(a instanceof String || b instanceof String){
-			return !(a.toString().equals(b.toString()));
-		}
-		else if(a instanceof Double || b instanceof Double) {
-			return Double.valueOf(a.toString()) != Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
-			return Long.valueOf(a.toString()) != Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
-			return Integer.valueOf(a.toString()) != Integer.valueOf(b.toString());
-		}
-		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
+		return !equals(a ,b);
 	}
 
 	private boolean lessthan(Object a, Object b)throws BlockRunException{
