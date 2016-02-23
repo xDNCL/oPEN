@@ -141,15 +141,11 @@ public class OB_WorkspaceController extends WorkspaceController{
 		SaveAsAction saveAsAction = new SaveAsAction(saveAction);
 		buttonPanel.add(new JButton(saveAsAction));
 
-		// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
-		// OpenShelf
-		OpenShelfAction openShelfAction = new OpenShelfAction();
-		buttonPanel.add(new JButton(openShelfAction));
-		
-		// 2016/02/05 N.Inaba DEL Shelfの実装 Shelf開閉
-//		// CloseShelf
-//		CloseShelfAction closeShelfAction = new CloseShelfAction();
-//		buttonPanel.add(new JButton(closeShelfAction));
+		// 2016/02/23 N.Inaba DEL 配布用コメントアウト
+//		// 2015/12/17 N.Inaba ADD Shelfの実装 Shelf開閉
+//		// OpenShelf
+//		OpenShelfAction openShelfAction = new OpenShelfAction();
+//		buttonPanel.add(new JButton(openShelfAction));
 		
 		return buttonPanel;
 	}
@@ -536,7 +532,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 		northPanelShelf.add(getButtonPanelShelf(), BorderLayout.WEST);
 		shelfFrame.add(northPanelShelf, BorderLayout.NORTH);
 		shelfFrame.add(ob_ws_shelf, BorderLayout.CENTER);
-		shelfFrame.setVisible(true);
+		
+		// 2016/02/23 N.Inaba DEL 配布用コメントアウト
+//		shelfFrame.setVisible(true);
 	}
 
 	protected JComponent topPane(){

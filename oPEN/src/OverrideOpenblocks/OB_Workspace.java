@@ -108,42 +108,19 @@ public class OB_Workspace extends Workspace {
             }
         });
 
+        // 2016/02/23 N.Inaba DEL 配布用コメントアウト
 		// 2016/02/05 N.Inaba MOD drawerUI改善
-//        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
-//                factory.getJComponent(), blockCanvas.getJComponent());
-        blockListLayer = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        // drawer一覧
-        blockListLayer.setLeftComponent(factory.getJComponent());
-
-        
-        // ここからちょっとアレ
-//        JSplitPane blockListLayer2;
-//        blockListLayer2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-//        blockListLayer2.setLeftComponent(blockCanvas.getJComponent());
-//        blockListLayer2.setRightComponent(null);
-//        blockListLayer2.setOneTouchExpandable(false);
-//        blockListLayer2.setDividerSize(0);
-//        
-//        // スライダー位置調整 loc = 0だとブロックが消えてくれない
-//        int loc = blockListLayer2.getMaximumDividerLocation();
-//        blockListLayer2.setDividerLocation(loc);
-//        
-//        add(blockListLayer2, BLOCK_LAYER);
-//        validate();
-//
-//        // add page
-//    	OB_WorkspaceController.blocklist_page = new OB_Page(this, "Blocklist", 600, 0, null, true, new Color(255,255,204), true);
-//        addPageAt(OB_WorkspaceController.blocklist_page, 0, false);
-        // ここまでちょっとアレ
-        blockListLayer.setRightComponent(new JPanel());
-//        blockListLayer.setRightComponent(OB_WorkspaceController.ob_ws_drawer); // TODO ここにdrawerの中身のPageオブジェクトを渡す
-        blockListLayer.setOneTouchExpandable(false);
-        blockListLayer.setDividerSize(6);
-        // キャンバスと合体
-        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
-                blockListLayer, blockCanvas.getJComponent());
-        blockCanvasLayer.setOneTouchExpandable(true);
-        blockCanvasLayer.setDividerSize(6);
+        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, factory.getJComponent(), blockCanvas.getJComponent());
+//        blockListLayer = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+//        // drawer一覧
+//        blockListLayer.setLeftComponent(factory.getJComponent());
+//        blockListLayer.setRightComponent(new JPanel());
+//        blockListLayer.setOneTouchExpandable(false);
+//        blockListLayer.setDividerSize(6);
+//        // キャンバスと合体
+//        blockCanvasLayer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, blockListLayer, blockCanvas.getJComponent());
+//        blockCanvasLayer.setOneTouchExpandable(true);
+//        blockCanvasLayer.setDividerSize(6);
         
         add(blockCanvasLayer, BLOCK_LAYER);
         

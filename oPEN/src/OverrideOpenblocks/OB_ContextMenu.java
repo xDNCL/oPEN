@@ -59,28 +59,30 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
      * Initializes the context menu for adding Comments.
      */
     private static void initAddCommentMenu() {
-        addCommentItem = new MenuItem("Add Comment");
+//    	addCommentItem = new MenuItem("Add Comment");
+    	addCommentItem = new MenuItem("コメントを挿入");
         addCommentItem.setActionCommand(ADD_COMMENT_BLOCK);
         addCommentItem.addActionListener(rndBlockMenu);
         addCommentMenu.add(addCommentItem);
 
         // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
-        duplicateABlockItem = new MenuItem("Duplicate a Block");
+//        duplicateABlockItem = new MenuItem("Duplicate a Block");
+        duplicateABlockItem = new MenuItem("複製");
         duplicateABlockItem.setActionCommand(DUPLICATE_A_BLOCK);
         duplicateABlockItem.addActionListener(rndBlockMenu);
     	addCommentMenu.add(duplicateABlockItem);
     	
-    	// 2015/11/12 N.Inaba ADD Shelfの実装 Shelfメニュー
-    	putOnTheShelfItem = new MenuItem("Put on the Shelf");
-    	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
-    	putOnTheShelfItem.addActionListener(rndBlockMenu);
-    	addCommentMenu.add(putOnTheShelfItem);
-    	
-    	// 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
-        deleteABlockItem = new MenuItem("Delete a Block");
-        deleteABlockItem.setActionCommand(DELETE_A_BLOCK);
-        deleteABlockItem.addActionListener(rndBlockMenu);
-    	addCommentMenu.add(deleteABlockItem);
+    	// 2016/02/23 N.Inaba DEL 配布用コメントアウト
+//    	// 2015/11/12 N.Inaba ADD Shelfの実装 Shelfメニュー
+//    	putOnTheShelfItem = new MenuItem("Put on the Shelf");
+//    	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
+//    	putOnTheShelfItem.addActionListener(rndBlockMenu);
+//    	addCommentMenu.add(putOnTheShelfItem);
+//    	// 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
+//        deleteABlockItem = new MenuItem("Delete a Block");
+//        deleteABlockItem.setActionCommand(DELETE_A_BLOCK);
+//        deleteABlockItem.addActionListener(rndBlockMenu);
+//    	addCommentMenu.add(deleteABlockItem);
     	
         addCommentMenuInit = true;
     }
@@ -90,29 +92,32 @@ public class OB_ContextMenu extends ContextMenu implements ActionListener {
      */
     private static void initRemoveCommentMenu() {
 
-        removeCommentItem = new MenuItem("Delete Comment");
+    	// 2016/02/23 N.Inaba MOD メニューを日本語化
+//      removeCommentItem = new MenuItem("Delete Comment");
+        removeCommentItem = new MenuItem("コメントを削除");
         removeCommentItem.setActionCommand(REMOVE_COMMENT_BLOCK);
         removeCommentItem.addActionListener(rndBlockMenu);
         removeCommentMenu.add(removeCommentItem);
         //rndBlockMenu.add(runBlockItem);
 
         // 2015/02/26 N.Inaba ADD ブロック(単品)の複製 コピーブロックメニュー
-    	duplicateABlockItem = new MenuItem("Duplicate a Block");
+//      duplicateABlockItem = new MenuItem("Duplicate a Block");
+        duplicateABlockItem = new MenuItem("複製");
         duplicateABlockItem.setActionCommand(DUPLICATE_A_BLOCK);
         duplicateABlockItem.addActionListener(rndBlockMenu);
         removeCommentMenu.add(duplicateABlockItem);
     	
-    	// 2015/11/12 N.Inaba ADD Shelfの実装 Shelfメニュー
-    	putOnTheShelfItem = new MenuItem("Put on the Shelf");
-    	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
-    	putOnTheShelfItem.addActionListener(rndBlockMenu);
-    	removeCommentMenu.add(putOnTheShelfItem);
-    	
-    	// 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
-        deleteABlockItem = new MenuItem("Delete a Block");
-        deleteABlockItem.setActionCommand(DELETE_A_BLOCK);
-        deleteABlockItem.addActionListener(rndBlockMenu);
-        removeCommentMenu.add(deleteABlockItem);
+        // 2016/02/23 N.Inaba DEL 配布用コメントアウト
+//    	// 2015/11/12 N.Inaba ADD Shelfの実装 Shelfメニュー
+//    	putOnTheShelfItem = new MenuItem("Put on the Shelf");
+//    	putOnTheShelfItem.setActionCommand(PUT_ON_THE_SHELF);
+//    	putOnTheShelfItem.addActionListener(rndBlockMenu);
+//    	removeCommentMenu.add(putOnTheShelfItem);
+//    	// 2015/12/25 N.Inaba ADD Shelfの実装 Shelfから削除
+//      deleteABlockItem = new MenuItem("Delete a Block");
+//      deleteABlockItem.setActionCommand(DELETE_A_BLOCK);
+//      deleteABlockItem.addActionListener(rndBlockMenu);
+//      removeCommentMenu.add(deleteABlockItem);
     	
         removeCommentMenuInit = true;
     }
