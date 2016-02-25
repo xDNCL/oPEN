@@ -107,7 +107,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	public static OB_Workspace ob_ws_drawer = new OB_Workspace(1);
 	
 	//追加
-	private static ConsoleWindow console = new ConsoleWindow(workspace, false);    
+	private static ConsoleWindow console = new ConsoleWindow(workspace, false);	
 
 	//プロパティファイル
 	private static LoadProperty lp = new LoadProperty(PROPERTY_PATH);
@@ -413,7 +413,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	
 	public void setSelectedFile(File selectedFile) {
 		this.selectedFile = selectedFile;
-		//        System.out.println(selectedFile.getPath());
+		//		System.out.println(selectedFile.getPath());
 		frame.setTitle("BlockEducation - "+selectedFile.getPath());
 	}
 
@@ -425,7 +425,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	@Override
 	public void loadBlockLanguage(final Element root) {
 		/* MUST load shapes before genuses in order to initialize
-         connectors within each block correctly */
+		 connectors within each block correctly */
 		BlockConnectorShape.loadBlockConnectorShapes(root);
 
 		//load genuses
@@ -476,30 +476,30 @@ public class OB_WorkspaceController extends WorkspaceController{
 		}
 	}
 
-	//    /**
-	//     * This method creates and lays out the entire workspace panel with its
-	//     * different components.  Workspace and language data not loaded in
-	//     * this function.
-	//     * Should be call only once at application startup.
-	//     */
-	//    private void initWorkspacePanel() {
-	//        ob_workspacePanel = new JPanel();
-	//        ob_workspacePanel.setLayout(new BorderLayout());
-	//        ob_workspacePanel.add(workspace, BorderLayout.CENTER);
-	//        isWorkspacePanelInitialized = true;
-	//    }
-	//    
-	//    /**
-	//     * Returns the JComponent of the entire workspace.
-	//     * @return the JComponent of the entire workspace.
-	//     */
-	//    @Override
-	//    public JComponent getWorkspacePanel() {
-	//        if (!isWorkspacePanelInitialized) {
-	//            initWorkspacePanel();
-	//        }
-	//        return ob_workspacePanel;
-	//    }
+	//	/**
+	//	 * This method creates and lays out the entire workspace panel with its
+	//	 * different components.  Workspace and language data not loaded in
+	//	 * this function.
+	//	 * Should be call only once at application startup.
+	//	 */
+	//	private void initWorkspacePanel() {
+	//		ob_workspacePanel = new JPanel();
+	//		ob_workspacePanel.setLayout(new BorderLayout());
+	//		ob_workspacePanel.add(workspace, BorderLayout.CENTER);
+	//		isWorkspacePanelInitialized = true;
+	//	}
+	//	
+	//	/**
+	//	 * Returns the JComponent of the entire workspace.
+	//	 * @return the JComponent of the entire workspace.
+	//	 */
+	//	@Override
+	//	public JComponent getWorkspacePanel() {
+	//		if (!isWorkspacePanelInitialized) {
+	//			initWorkspacePanel();
+	//		}
+	//		return ob_workspacePanel;
+	//	}
 
 	/**
 	 * Create the GUI and show it.  For thread safety, this method should be
@@ -517,9 +517,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 		northPanel.add(getButtonPanel(), BorderLayout.WEST);
 		northPanel.add(getOutputButtonPanel(), BorderLayout.EAST);
 		frame.add(northPanel, BorderLayout.NORTH);
-		//        frame.add(topPane(), BorderLayout.PAGE_START);
+		//		frame.add(topPane(), BorderLayout.PAGE_START);
 		frame.add(getWorkspacePanel(), BorderLayout.CENTER);
-		//        frame.add(getButtonPanel(), BorderLayout.SOUTH);
+		//		frame.add(getButtonPanel(), BorderLayout.SOUTH);
 		frame.add(console.getBody(), BorderLayout.EAST);
 		frame.setVisible(true);
 		
@@ -555,14 +555,14 @@ public class OB_WorkspaceController extends WorkspaceController{
 						//警告文の非表示
 						@SuppressWarnings("all")
 
-						//        		    	  String save = "";
-						//        		    	  try {
-						//        		    		save = new String (getSaveString().getBytes("UTF-8"), "UTF-8");
+						//						  String save = "";
+						//						  try {
+						//							save = new String (getSaveString().getBytes("UTF-8"), "UTF-8");
 						//						} catch (UnsupportedEncodingException e1) {
 						//							// TODO Auto-generated catch block
 						////							e1.printStackTrace();
 						//						}
-						//        		    	  if(!justSaveString.equals(save)){
+						//						  if(!justSaveString.equals(save)){
 						//セーブするか聞く
 						int option = JOptionPane.showConfirmDialog(frame, "保存しますか？", 
 								"保存確認", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -578,7 +578,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 						case CANCEL:
 							return;
 						}
-						//        		    	  }
+						//						  }
 					stageDrawerFilePath = resourcesFolderName + "/" + cb.getSelectedItem().toString() + ".xml";
 					changeStage();
 					}
@@ -664,7 +664,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 						}else{
 							this.outputLanguagePath = (languageFolderName + "/") + this.outputLanguagePath;
 						}
-						//			    		System.out.println(this.outputLanguagePath);
+						//						System.out.println(this.outputLanguagePath);
 					}
 
 					if(properties.getNodeName().equals("FileNameExtention")){
@@ -731,10 +731,10 @@ public class OB_WorkspaceController extends WorkspaceController{
 	private static OB_WorkspaceController wc;
 
 	public static void main(final String[] args) {
-		//        if (args.length < 1) {
-			//            System.err.println("usage: WorkspaceController lang_def.xml");
-			//            System.exit(1);
-		//        }
+		//		if (args.length < 1) {
+			//			System.err.println("usage: WorkspaceController lang_def.xml");
+			//			System.exit(1);
+		//		}
 		newWindow();
 	}
 	
@@ -768,8 +768,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 	private static void newWindow(){
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			@Override public void run() {            	
-				//                try {
+			@Override public void run() {				
+				//				try {
 					// 					wait();
 				// 				} catch (InterruptedException e) {
 				// 					// TODO Auto-generated catch block
@@ -787,7 +787,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 				}else{
 					stageDrawerFilePath = lp.getBlockDrawerListAddress();
 				}
-				//                wc.setLangDefFilePath(args[0]);
+				//				wc.setLangDefFilePath(args[0]);
 
 				wc.setLangDefFilePath(lp.getBlockAllDataAddress());
 				wc.loadFreshWorkspace();
@@ -857,7 +857,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		public void actionPerformed(ActionEvent e) {
 
 			// 2014/11/17 N.Inaba DEL oPEN
-//	    	String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
+//			String value = JOptionPane.showInputDialog(frame, "出力するファイル名を入力してください。");
 
 			// 2014/11/17 N.Inaba ADD oPEN 保存先の指定
 			String value = null;
@@ -895,7 +895,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 						outputCode.writteCode(path,value+outputDomain);
 					}
 					//debugできあがったコードを吐く
-					//		        System.err.println(outputCode.getCode());
+					//				System.err.println(outputCode.getCode());
 
 				}catch(Exception err){
 					System.out.println("出力言語に関するファイルが見つかりません");

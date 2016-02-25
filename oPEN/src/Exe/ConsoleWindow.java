@@ -94,11 +94,11 @@ public class ConsoleWindow implements ActionListener{
 		
 		if(isWindow){
 			frame = new JFrame("コンソール");
-		    frame.setBounds(200, 200, 300, 400);
-		    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		    body = init();
-		    frame.add(body);
-		    frame.setVisible(true);
+			frame.setBounds(200, 200, 300, 400);
+			frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			body = init();
+			frame.add(body);
+			frame.setVisible(true);
 		}else{
 			frame = null;
 			body = init();
@@ -326,30 +326,30 @@ public class ConsoleWindow implements ActionListener{
 	
 	public class JTextAreaStream extends OutputStream {
 
-	    private JTextArea _area;
-	    private ByteArrayOutputStream _buf;
+		private JTextArea _area;
+		private ByteArrayOutputStream _buf;
 
-	    public JTextAreaStream(JTextArea area) {
-	        _area = area;
-	        _buf = new ByteArrayOutputStream();
-	    }
-	    
-	    @Override
-	    public void write(int b) throws IOException {
-	        _buf.write(b);
-	    }
-	    
-	    @Override
-	    public void flush() throws IOException {
+		public JTextAreaStream(JTextArea area) {
+			_area = area;
+			_buf = new ByteArrayOutputStream();
+		}
+		
+		@Override
+		public void write(int b) throws IOException {
+			_buf.write(b);
+		}
+		
+		@Override
+		public void flush() throws IOException {
 
-	        // Swing のイベントスレッドにのせる
-	        SwingUtilities.invokeLater(new Runnable() {
-	            public void run() {
-	                _area.append(_buf.toString());
-	                _buf.reset();
-	            }
-	        });
-	    }
+			// Swing のイベントスレッドにのせる
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					_area.append(_buf.toString());
+					_buf.reset();
+				}
+			});
+		}
 	
 	}
 	

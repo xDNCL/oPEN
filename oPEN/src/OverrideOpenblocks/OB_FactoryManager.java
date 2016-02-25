@@ -37,59 +37,59 @@ public class OB_FactoryManager extends FactoryManager{
 	}
 	
 	@Override
-    public void workspaceEventOccurred(WorkspaceEvent event) {
-        //THIS ENTIRE METHOD IS A HACK!
-        //PLEASE CHANGE WITH CAUTION
-        //IT DOES SOME PREETY STRANGE THINGS
-        if (event.getEventType() == WorkspaceEvent.BLOCK_ADDED) {
-            if (event.getSourceWidget() instanceof Page) {
-                Page page = (Page) event.getSourceWidget();
-                Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
-                //block may not be null if this is a block added event
-                if (block.hasStubs()) {
-                    for (BlockStub stub : block.getFreshStubs()) {
-                        this.addDynamicBlock(
-                                new OB_FactoryRenderableBlock(event.getWorkspace(), this, stub.getBlockID()),
-                                page.getPageDrawer());
-                    }
-                }
-            }
-        } else if (event.getEventType() == WorkspaceEvent.BLOCK_REMOVED) {
-            //may not be removing a null stanc eof block, so DO NOT check for it
-            Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
-            if (block.hasStubs()) {
-                for (Long stub : BlockStub.getStubsOfParent(event.getWorkspace(), block)) {
-                    RenderableBlock rb = workspace.getEnv().getRenderableBlock(stub);
-                    if (rb != null && !rb.getBlockID().equals(Block.NULL)
-                            && rb.getParentWidget() != null && rb.getParentWidget().equals(this)) {
-                        //rb.getParent() should not be null
-                        rb.getParent().remove(rb);
-                        rb.setParentWidget(null);
+	public void workspaceEventOccurred(WorkspaceEvent event) {
+		//THIS ENTIRE METHOD IS A HACK!
+		//PLEASE CHANGE WITH CAUTION
+		//IT DOES SOME PREETY STRANGE THINGS
+		if (event.getEventType() == WorkspaceEvent.BLOCK_ADDED) {
+			if (event.getSourceWidget() instanceof Page) {
+				Page page = (Page) event.getSourceWidget();
+				Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
+				//block may not be null if this is a block added event
+				if (block.hasStubs()) {
+					for (BlockStub stub : block.getFreshStubs()) {
+						this.addDynamicBlock(
+								new OB_FactoryRenderableBlock(event.getWorkspace(), this, stub.getBlockID()),
+								page.getPageDrawer());
+					}
+				}
+			}
+		} else if (event.getEventType() == WorkspaceEvent.BLOCK_REMOVED) {
+			//may not be removing a null stanc eof block, so DO NOT check for it
+			Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
+			if (block.hasStubs()) {
+				for (Long stub : BlockStub.getStubsOfParent(event.getWorkspace(), block)) {
+					RenderableBlock rb = workspace.getEnv().getRenderableBlock(stub);
+					if (rb != null && !rb.getBlockID().equals(Block.NULL)
+							&& rb.getParentWidget() != null && rb.getParentWidget().equals(this)) {
+						//rb.getParent() should not be null
+						rb.getParent().remove(rb);
+						rb.setParentWidget(null);
 
-                    }
-                }
-            }
-            this.relayoutBlocks();
-        } else if (event.getEventType() == WorkspaceEvent.BLOCK_MOVED) {
-            Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
-            if (block != null && block.hasStubs()) {
-                for (Long stub : BlockStub.getStubsOfParent(event.getWorkspace() ,block)) {
-                    RenderableBlock rb = workspace.getEnv().getRenderableBlock(stub);
-                    if (rb != null && !rb.getBlockID().equals(Block.NULL)
-                            && rb.getParentWidget() != null && rb.getParentWidget().equals(this)) {
-                        //rb.getParent() should not be null
-                        rb.getParent().remove(rb);
-                        rb.setParentWidget(null);
+					}
+				}
+			}
+			this.relayoutBlocks();
+		} else if (event.getEventType() == WorkspaceEvent.BLOCK_MOVED) {
+			Block block = workspace.getEnv().getBlock(event.getSourceBlockID());
+			if (block != null && block.hasStubs()) {
+				for (Long stub : BlockStub.getStubsOfParent(event.getWorkspace() ,block)) {
+					RenderableBlock rb = workspace.getEnv().getRenderableBlock(stub);
+					if (rb != null && !rb.getBlockID().equals(Block.NULL)
+							&& rb.getParentWidget() != null && rb.getParentWidget().equals(this)) {
+						//rb.getParent() should not be null
+						rb.getParent().remove(rb);
+						rb.setParentWidget(null);
 
-                    }
-                }
-                this.relayoutBlocks();
-            }
+					}
+				}
+				this.relayoutBlocks();
+			}
 
-        } else if (event.getEventType() == WorkspaceEvent.PAGE_RENAMED) {
-            //this.relayoutBlocks();
-        }
-    }
+		} else if (event.getEventType() == WorkspaceEvent.PAGE_RENAMED) {
+			//this.relayoutBlocks();
+		}
+	}
 	
 	@Override
 	public JComponent getJComponent(){
@@ -100,20 +100,20 @@ public class OB_FactoryManager extends FactoryManager{
 	
 //	//ボタン配置
 //	@Override
-//    public void addStaticDrawer(String name, Color color) {
-//    	System.out.println(name);
-//    }
+//	public void addStaticDrawer(String name, Color color) {
+//		System.out.println(name);
+//	}
 	
 	/* SuperClass Method
-    public void addStaticDrawer(String name, int position, Color color) {
-        if (isValidDrawer(true, false, name, position)) {
-            FactoryCanvas canvas = new FactoryCanvas(name, color);
-            this.staticCanvases.add(position, canvas);
-            this.navigator.setCanvas(staticCanvases, STATIC_NAME);
-        } else {
-            this.printError("Invalid Drawer: trying to add a drawer that already exists: " + name);
-        }
-    }
+	public void addStaticDrawer(String name, int position, Color color) {
+		if (isValidDrawer(true, false, name, position)) {
+			FactoryCanvas canvas = new FactoryCanvas(name, color);
+			this.staticCanvases.add(position, canvas);
+			this.navigator.setCanvas(staticCanvases, STATIC_NAME);
+		} else {
+			this.printError("Invalid Drawer: trying to add a drawer that already exists: " + name);
+		}
+	}
 	*/
 	
 	//ブロック表示メソッド
@@ -126,25 +126,25 @@ public class OB_FactoryManager extends FactoryManager{
 //		debug(blocks);
 //	}
 	/* superClasws Method
-    public void addStaticBlocks(Collection<RenderableBlock> blocks, String drawer) {
-        //find canvas
-        for (FactoryCanvas canvas : this.staticCanvases) {
-            if (canvas.getName().equals(drawer)) {
-                for (RenderableBlock block : blocks) {
-                    if (block == null || Block.NULL.equals(block.getBlockID())) {
-                        continue;
-                    }
-                    canvas.addBlock(block);
-                    workspace.notifyListeners(new WorkspaceEvent(workspace, this, block.getBlockID(), WorkspaceEvent.BLOCK_ADDED));
+	public void addStaticBlocks(Collection<RenderableBlock> blocks, String drawer) {
+		//find canvas
+		for (FactoryCanvas canvas : this.staticCanvases) {
+			if (canvas.getName().equals(drawer)) {
+				for (RenderableBlock block : blocks) {
+					if (block == null || Block.NULL.equals(block.getBlockID())) {
+						continue;
+					}
+					canvas.addBlock(block);
+					workspace.notifyListeners(new WorkspaceEvent(workspace, this, block.getBlockID(), WorkspaceEvent.BLOCK_ADDED));
 
-                }
-                canvas.layoutBlocks();
-                return;
-            }
-        }
-        this.printError("Drawer not found: " + drawer);
-        return;
-    }
+				}
+				canvas.layoutBlocks();
+				return;
+			}
+		}
+		this.printError("Drawer not found: " + drawer);
+		return;
+	}
 	*/
 	
 //	@Override
@@ -159,26 +159,26 @@ public class OB_FactoryManager extends FactoryManager{
 	
 	// 2015/12/17 N.Inaba ADD Shelfの実装 workspaceに貼り付け
 	@Override
-    public void blockDropped(RenderableBlock block) {
-        //remove block
-        WorkspaceWidget oldParent = block.getParentWidget();
-        if (oldParent != null) {
-            oldParent.removeBlock(block);
-        }
+	public void blockDropped(RenderableBlock block) {
+		//remove block
+		WorkspaceWidget oldParent = block.getParentWidget();
+		if (oldParent != null) {
+			oldParent.removeBlock(block);
+		}
 
-        Container parent = block.getParent();
-        if (parent != null) {
-            parent.remove(block);
-            parent.validate();
-            parent.repaint();
-            block.setParentWidget(null);
-        }
+		Container parent = block.getParent();
+		if (parent != null) {
+			parent.remove(block);
+			parent.validate();
+			parent.repaint();
+			block.setParentWidget(null);
+		}
 
-        //fire to workspace that block was removed
-        //DO FIRE AN EVENT IF BLOCK IS REMOVED BY USER!!!!
-        //NOTE however that we do not throw na event for adding internally
-        workspace.notifyListeners(new WorkspaceEvent(workspace, this, block.getBlockID(), WorkspaceEvent.BLOCK_REMOVED));
-    }
+		//fire to workspace that block was removed
+		//DO FIRE AN EVENT IF BLOCK IS REMOVED BY USER!!!!
+		//NOTE however that we do not throw na event for adding internally
+		workspace.notifyListeners(new WorkspaceEvent(workspace, this, block.getBlockID(), WorkspaceEvent.BLOCK_REMOVED));
+	}
 	
 	public void debug(){
 		Collection<RenderableBlock> collection;
