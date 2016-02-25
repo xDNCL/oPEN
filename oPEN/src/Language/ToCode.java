@@ -121,23 +121,23 @@ public class ToCode {
 				}
 				connectorNum++;
 			}
-			//ラベルの値取得	
 			else if(code.equals(LABEL)){
+				//ラベルの値取得
 				result += block.getBlockLabel();
 			}
 			
-			//改行コマンド処理
 			else if(code.equals(BR)){
+				//改行コマンド処理
 				codeLine.add(result);
 				result = "";
 			}
 			
-			//スペース処理
 			else if(code.equals(SPACE)){
+				//スペース処理
 				result += " ";
 			}
-			//通常コードとして処理
 			else{
+				//通常コードとして処理
 				result += code;
 			}
 		}
