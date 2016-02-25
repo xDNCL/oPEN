@@ -34,8 +34,7 @@ public class PropertyFile extends Properties{
 		
 		if(inputStream == null){
 			this.setDefault();
-		}
-		else{
+		}else{
 			this.loadProperties(inputStream);
 		}
 		

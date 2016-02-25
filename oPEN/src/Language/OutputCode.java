@@ -148,8 +148,7 @@ public class OutputCode {
     							
     	    					if(codeInfo.getNodeName().equals("CodeText")){
     	    						code = codeInfo.getTextContent();
-    	    					}
-    	    					else if(codeInfo.getNodeName().equals("PreText")){
+    	    					}else if(codeInfo.getNodeName().equals("PreText")){
     	    						preText = codeInfo.getTextContent();
     	    					}
     						}

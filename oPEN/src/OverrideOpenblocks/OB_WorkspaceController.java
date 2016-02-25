@@ -183,8 +183,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 				language = createComboBox(languageFolderName);
 				outputAction = new OutputAction(language);
 				buttonPanel.add(language);
-			}
-			else{
+			}else{
 				outputAction = new OutputAction();
 			}
 			buttonPanel.add(new JButton(outputAction));
@@ -664,8 +663,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 						if(this.outputLanguagePath.equals("FREE")){
 							selectLanguage = true;
-						}
-						else{
+						}else{
 							this.outputLanguagePath = (languageFolderName + "/") + this.outputLanguagePath;
 						}
 						//			    		System.out.println(this.outputLanguagePath);
@@ -678,8 +676,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 					if(properties.getNodeName().equals("OutputButton")){
 						if(properties.getTextContent().equals("ON")){
 							showButton = true;
-						}
-						else{
+						}else{
 							showButton = false;
 						}
 					}
@@ -790,8 +787,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 					File file = new File(resourcesFolderName);
 					File[] files = file.listFiles(new FileFilter());
 					stageDrawerFilePath = resourcesFolderName + "/" + files[0].getName();
-				}
-				else{
+				}else{
 					stageDrawerFilePath = lp.getBlockDrawerListAddress();
 				}
 				//                wc.setLangDefFilePath(args[0]);
@@ -836,8 +832,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		}
 		if(value.equals("Default")){
 			return DEFAULT_DRAWER_INFO;
-		}
-		else{
+		}else{
 			return resourcesFolderName + "/" +(String)value;
 		}
 	}
@@ -899,8 +894,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 					//拡張子補完
 					if(value.contains(".")){
 						outputCode.writteCode(path,value);
-					}
-					else{
+					}else{
 						outputCode.writteCode(path,value+outputDomain);
 					}
 					//debugできあがったコードを吐く

@@ -128,8 +128,7 @@ public class OB_Block extends Block{
 					if(next != null){
 						runList.add(next);
 					}
-				}
-				else{
+				}else{
 					//nothing
 				}
 			}
@@ -140,8 +139,7 @@ public class OB_Block extends Block{
 					if(nextTrue != null){
 						runList.add(nextTrue);
 					}
-				}
-				else{
+				}else{
 					OB_Block nextFalse = this.getBlock(this.getSocketAt(2).getBlockID());
 					if(nextFalse != null){
 						runList.add(nextFalse);
@@ -669,8 +667,7 @@ public class OB_Block extends Block{
 		//
 		if(block instanceof OB_Block){
 			return (OB_Block)workspace.getEnv().getBlock(id);
-		}
-		else{
+		}else{
 			OB_Block newBlock = new OB_Block(block);
 			return newBlock;
 		}
@@ -704,34 +701,26 @@ public class OB_Block extends Block{
 	   			//String variable
 	   			if(oldValue instanceof String){
 	   				variableTable.put(name, new String(value.toString()));
-	   			}
-	   			else if(value instanceof Double){
+	   			}else if(value instanceof Double){
 	   				if(oldValue instanceof Double){
 	   					variableTable.put(name, Double.valueOf(value.toString()));
-	   				}
-	   				else{
+	   				}else{
 	   					throw new BlockRunException(this, "--");
 	   				}
-	   			}
-	   			else if(value instanceof Long){
+	   			}else if(value instanceof Long){
 	   				if(oldValue instanceof Long){
 	   					variableTable.put(name, Long.valueOf(value.toString()));
-	   				}
-	   				else if(oldValue instanceof Double){
+	   				}else if(oldValue instanceof Double){
 	   					variableTable.put(name, Double.valueOf(value.toString()));
-	   				}
-	   				else{
+	   				}else{
 	   					throw new BlockRunException(this, "--");
 	   				}
-	   			}
-	   			else if(value instanceof Integer){
+	   			}else if(value instanceof Integer){
 	   				if(oldValue instanceof Integer){
 	   					variableTable.put(name, Integer.valueOf(value.toString()));
-	   				}
-	   				else if(oldValue instanceof Double){
+	   				}else if(oldValue instanceof Double){
 	   					variableTable.put(name, Double.valueOf(value.toString()));
-	   				}
-	   				else if(oldValue instanceof Long){
+	   				}else if(oldValue instanceof Long){
 	   					variableTable.put(name, Long.valueOf(value.toString()));
 	   				}
 	   			}
@@ -742,8 +731,7 @@ public class OB_Block extends Block{
 	   		catch(Exception e){
 	   			throw new BlockRunException(this, BlockRunException.UNEXPECTED);
 	   		}
-		}
-		else{
+		}else{
 			throw new BlockRunException(this, BlockRunException.NO_VARIABLE);
 		}
 	}
@@ -761,14 +749,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			return a.toString().equals(b.toString());
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) == Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) == Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) == Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -785,14 +770,11 @@ public class OB_Block extends Block{
 		if(a instanceof String || b instanceof String){
 			//
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) < Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) < Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) < Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -804,14 +786,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) <= Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) <= Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) <= Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -823,14 +802,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) > Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) > Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) > Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -842,14 +818,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) >= Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) >= Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) >= Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -866,14 +839,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			return a.toString() + b.toString();
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) + Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) + Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) + Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -885,14 +855,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) - Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) - Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) - Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -904,14 +871,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) * Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) * Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) * Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -923,14 +887,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) / Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) / Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) / Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
@@ -942,14 +903,11 @@ public class OB_Block extends Block{
 		}
 		if(a instanceof String || b instanceof String){
 			throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);
-		}
-		else if(a instanceof Double || b instanceof Double) {
+		}else if(a instanceof Double || b instanceof Double) {
 			return Double.valueOf(a.toString()) % Double.valueOf(b.toString());
-		}
-		else if(a instanceof Long || b instanceof Long){
+		}else if(a instanceof Long || b instanceof Long){
 			return Long.valueOf(a.toString()) % Long.valueOf(b.toString());
-		}
-		else if(a instanceof Integer || b instanceof Integer){
+		}else if(a instanceof Integer || b instanceof Integer){
 			return Integer.valueOf(a.toString()) % Integer.valueOf(b.toString());
 		}
 		throw new BlockRunException(this, BlockRunException.TRANSLATION_MISSING);

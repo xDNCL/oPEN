@@ -99,8 +99,7 @@ public class ConsoleWindow implements ActionListener{
 		    body = init();
 		    frame.add(body);
 		    frame.setVisible(true);
-		}
-		else{
+		}else{
 			frame = null;
 			body = init();
 		}
@@ -202,8 +201,7 @@ public class ConsoleWindow implements ActionListener{
 //					if(block instanceof OB_Block){
 //						if(start == null){
 //							start = (OB_Block)block;
-//						}
-//						else{
+//						}else{
 //							throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
 //						}
 //					}
@@ -233,8 +231,7 @@ public class ConsoleWindow implements ActionListener{
 				if(block instanceof OB_Block){
 					if(start == null){
 						start = (OB_Block)block;
-					}
-					else{
+					}else{
 						throw new BlockRunException(block, "プログラム開始ブロックが2つ以上存在しています。");
 					}
 				}
@@ -242,8 +239,7 @@ public class ConsoleWindow implements ActionListener{
 		}
 		if(start != null){
 			return start;
-		}
-		else{
+		}else{
 			throw new BlockRunException("プログラム開始ブロックが見つかりません。");
 		}
 	}

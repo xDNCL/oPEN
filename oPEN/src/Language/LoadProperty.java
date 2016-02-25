@@ -22,8 +22,7 @@ public class LoadProperty {
 	
 		if(inputStream == null){
 			System.err.println("not found "+ filePath );
-		}
-		else{
+		}else{
 			load();
 		}
 	}
@@ -59,8 +58,7 @@ public class LoadProperty {
 	public boolean isSelected(){
 		if(select_BlockDrawerList_Address.equals("FREE")){
 			return true;
-		}
-		else{
+		}else{
 			return false;
 		}
 	}

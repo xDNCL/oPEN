@@ -275,8 +275,7 @@ public class OB_Workspace extends Workspace {
 	    	if(newRoot != null){
 	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, blockDrawerRoot, factory);
 	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, newRoot, factory);
-	    	}
-	    	else{
+	    	}else{
 	            OB_PageDrawerLoadingUtils.loadBlockDrawerSets(this, blockDrawerRoot, factory);
 	    	}
 	    	

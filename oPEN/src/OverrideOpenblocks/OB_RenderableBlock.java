@@ -235,8 +235,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を複製
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = addBrother(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = addGrandchild(orgChildBlock, childRB);
     		}
 
@@ -280,8 +279,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を複製
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = addBrother(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = addGrandchild(orgChildBlock, childRB);
     		}
     		
@@ -377,8 +375,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を複製
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = addBrotherToShelf(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = addGrandchildToShelf(orgChildBlock, childRB);
     		}
 
@@ -424,8 +421,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を複製
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = addBrotherToShelf(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = addGrandchildToShelf(orgChildBlock, childRB);
     		}
     		
@@ -539,8 +535,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を複製
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = addBrotherToWorkspace(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = addGrandchildToWorkspace(orgChildBlock, childRB);
     		}
 
@@ -595,8 +590,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を複製
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = addBrotherToWorkspace(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = addGrandchildToWorkspace(orgChildBlock, childRB);
     		}
     		
@@ -661,8 +655,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を削除
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = deleteBrother(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = deleteGrandchild(orgChildBlock, childRB);
     		}
             if (parent != null) {
@@ -713,8 +706,7 @@ public class OB_RenderableBlock extends RenderableBlock{
 			// 孫を削除
 			if(orgChildBlock.getAfterBlockID() != Block.NULL) {
 				childRB = deleteBrother(orgChildBlock, childRB);
-			}
-			else if (orgChildBlock.getNumSockets() > 0) {
+			}else if (orgChildBlock.getNumSockets() > 0) {
     			childRB = deleteGrandchild(orgChildBlock, childRB);
     		}
     		

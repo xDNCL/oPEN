@@ -46,8 +46,7 @@ public class ToCode {
 			if(block.getGenusName().equals(this.firstSearchBlockName)){
 				if(first == null){
 					first = block;
-				}
-				else{
+				}else{
 					throw new BlockRunException(block, "プログラム開始のブロックが重複しています。");
 				}	
 			}
@@ -103,9 +102,7 @@ public class ToCode {
 					result += line;
 				}
 				connectorNum++;
-			}
-			
-			else if(code.equals(PREVAL)){
+			}else if(code.equals(PREVAL)){
 				String indent = translationForPreCode(matchBlock.getPreCode());
 				//スタートブロック専用。後で消す
 				if(matchBlock.getName().equals("start")){
@@ -120,23 +117,17 @@ public class ToCode {
 					}
 				}
 				connectorNum++;
-			}
-			else if(code.equals(LABEL)){
+			}else if(code.equals(LABEL)){
 				//ラベルの値取得
 				result += block.getBlockLabel();
-			}
-			
-			else if(code.equals(BR)){
+			}else if(code.equals(BR)){
 				//改行コマンド処理
 				codeLine.add(result);
 				result = "";
-			}
-			
-			else if(code.equals(SPACE)){
+			}else if(code.equals(SPACE)){
 				//スペース処理
 				result += " ";
-			}
-			else{
+			}else{
 				//通常コードとして処理
 				result += code;
 			}
@@ -168,11 +159,9 @@ public class ToCode {
 		for(String indent: indents){
 			if(indent.equals(SPACE)){
 				result += " ";
-			}
-			else if(indent.equals(TAB)){
+			}else if(indent.equals(TAB)){
 				result += tab();
-			}
-			else{
+			}else{
 				result += indent;
 			}
 		}
