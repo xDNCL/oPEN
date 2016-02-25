@@ -250,10 +250,12 @@ public class OB_WorkspaceController extends WorkspaceController{
 			}
 			try {
 				// 2015/10/07 N.Inaba MOD NormalizeIDs 従来のセーブファイルを仮セーブファイルとして扱う
-				File preFile = new File(selectedFile.getParent() + "/pre_" + selectedFile.getName());
-				saveToFile(preFile);
-				// 2015/10/07 N.Inaba ADD NormalizeIDs 呼び出し
-				NormalizeIDs nid = new NormalizeIDs(preFile);
+				if(selectedFile != null) {
+					File preFile = new File(selectedFile.getParent() + "/pre_" + selectedFile.getName());
+					saveToFile(preFile);
+					// 2015/10/07 N.Inaba ADD NormalizeIDs 呼び出し
+					new NormalizeIDs(preFile);
+				}
 			}
 			catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
