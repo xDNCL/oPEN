@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 import save.NormalizeIDs;
 import Exe.ConsoleWindow;
 import Language.*;
+import System.FileFilter;
 import edu.mit.blocks.codeblocks.BlockConnectorShape;
 import edu.mit.blocks.codeblocks.BlockGenus;
 import edu.mit.blocks.codeblocks.BlockLinkChecker;
@@ -592,7 +593,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 	private JComboBox createComboBox(String filePath){
 		//コンボボックス作成のためのファイル一覧読み込み
 		File file = new File(filePath);
-		File[] files = file.listFiles();
+		File[] files = file.listFiles(new FileFilter());
 		String[] fileNames = new String[files.length];
 
 		//開いているファイルを予め選択しておく
@@ -785,8 +786,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 
 				if(lp.isSelected()){
 					File file = new File(resourcesFolderName);
-					File[] files = file.listFiles();
-					stageDrawerFilePath = resourcesFolderName + "/" + files[1].getName();
+					File[] files = file.listFiles(new FileFilter());
+					stageDrawerFilePath = resourcesFolderName + "/" + files[0].getName();
 				}
 				else{
 					stageDrawerFilePath = lp.getBlockDrawerListAddress();
