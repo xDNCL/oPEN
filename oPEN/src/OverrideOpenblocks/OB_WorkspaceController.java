@@ -784,9 +784,12 @@ public class OB_WorkspaceController extends WorkspaceController{
 				resourcesFolderName = lp.getResourcesFolderPath();
 
 				if(lp.isSelected()){
-					stageDrawerFilePath = selectFile();
-				}
-				else{
+					// 2016/02/25 N.Inaba MOD select_BlockDrawerListがFREEの時は聞かない
+//					stageDrawerFilePath = selectFile();
+					File file = new File(resourcesFolderName);
+					File[] files = file.listFiles();
+					stageDrawerFilePath = resourcesFolderName + "/" + files[1].getName();
+				} else{
 					stageDrawerFilePath = lp.getBlockDrawerListAddress();
 				}
 				//                wc.setLangDefFilePath(args[0]);
