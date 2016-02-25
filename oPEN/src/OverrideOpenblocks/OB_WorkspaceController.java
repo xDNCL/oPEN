@@ -255,8 +255,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 					// 2015/10/07 N.Inaba ADD NormalizeIDs 呼び出し
 					new NormalizeIDs(preFile);
 				}
-			}
-			catch (IOException e) {
+			}catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
 						e.getMessage());
 			}
@@ -307,8 +306,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 				saveToFile(preFile);
 				// 2015/10/07 N.Inaba ADD NormalizeIDs 呼び出し
 				NormalizeIDs nid = new NormalizeIDs(preFile);
-			}
-			catch (IOException e) {
+			}catch (IOException e) {
 				JOptionPane.showMessageDialog((Component) evt.getSource(),
 						e.getMessage());
 			}
@@ -703,8 +701,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 					in.close();
 					// 2015/10/06 N.Inaba DEL oPEN ここでfalseにすると2回目以降のステージ切り替えができない
 //					blockDrawerDirty = false;
-				}
-				catch (IOException e) {
+				}catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			}

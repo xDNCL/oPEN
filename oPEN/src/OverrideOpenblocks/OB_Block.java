@@ -727,8 +727,7 @@ public class OB_Block extends Block{
 	   			ConsoleWindow.setVariableTable(variableTable);
 	   		}catch(BlockRunException e){
 	   			throw new BlockRunException(this, BlockRunException.CAST_ERROR);
-	   		}
-	   		catch(Exception e){
+	   		}catch(Exception e){
 	   			throw new BlockRunException(this, BlockRunException.UNEXPECTED);
 	   		}
 		}else{
