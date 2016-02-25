@@ -39,6 +39,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import save.NormalizeIDs;
+import System.FileFilter;
 import Exe.ConsoleWindow;
 import Language.*;
 import edu.mit.blocks.codeblocks.BlockConnectorShape;
@@ -592,7 +593,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 	private JComboBox createComboBox(String filePath){
 		//コンボボックス作成のためのファイル一覧読み込み
 		File file = new File(filePath);
-		File[] files = file.listFiles();
+		// 2016/02/25 N.Inaba MOD xml以外のファイルは無視
+		File[] files = file.listFiles(new FileFilter());
 		String[] fileNames = new String[files.length];
 
 		//開いているファイルを予め選択しておく
@@ -787,8 +789,8 @@ public class OB_WorkspaceController extends WorkspaceController{
 					// 2016/02/25 N.Inaba MOD select_BlockDrawerListがFREEの時は聞かない
 //					stageDrawerFilePath = selectFile();
 					File file = new File(resourcesFolderName);
-					File[] files = file.listFiles();
-					stageDrawerFilePath = resourcesFolderName + "/" + files[1].getName();
+					File[] files = file.listFiles(new FileFilter());
+					stageDrawerFilePath = resourcesFolderName + "/" + files[0].getName();
 				} else{
 					stageDrawerFilePath = lp.getBlockDrawerListAddress();
 				}
