@@ -784,7 +784,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 				resourcesFolderName = lp.getResourcesFolderPath();
 
 				if(lp.isSelected()){
-					stageDrawerFilePath = selectFile();
+					File file = new File(resourcesFolderName);
+					File[] files = file.listFiles();
+					stageDrawerFilePath = resourcesFolderName + "/" + files[1].getName();
 				}
 				else{
 					stageDrawerFilePath = lp.getBlockDrawerListAddress();

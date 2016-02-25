@@ -42,10 +42,10 @@ public class LoadProperty {
 			select_BlockAllData_Address = DEFAULT_PATH;
 		}
 		
-		try{
+		if (configuration.getProperty("select_BlockDrawerList") == null) {
+			select_BlockDrawerList_Address = "FREE";
+		} else {
 			select_BlockDrawerList_Address = configuration.getProperty("select_BlockDrawerList").toString();
-		}catch(Exception e){
-			select_BlockDrawerList_Address = "";
 		}
 		
 		try{
