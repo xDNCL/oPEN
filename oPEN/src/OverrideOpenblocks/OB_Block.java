@@ -705,7 +705,6 @@ public class OB_Block extends Block{
 	   			if(oldValue instanceof String){
 	   				variableTable.put(name, new String(value.toString()));
 	   			}
-	   			//Number variable
 	   			else if(value instanceof Double){
 	   				if(oldValue instanceof Double){
 	   					variableTable.put(name, Double.valueOf(value.toString()));
@@ -722,7 +721,6 @@ public class OB_Block extends Block{
 	   					variableTable.put(name, Double.valueOf(value.toString()));
 	   				}
 	   				else{
-	   					//
 	   					throw new BlockRunException(this, "--");
 	   				}
 	   			}
@@ -737,12 +735,10 @@ public class OB_Block extends Block{
 	   					variableTable.put(name, Long.valueOf(value.toString()));
 	   				}
 	   			}
-	   			//
 	   			ConsoleWindow.setVariableTable(variableTable);
 	   		}catch(BlockRunException e){
 	   			throw new BlockRunException(this, BlockRunException.CAST_ERROR);
 	   		}
-	   		//
 	   		catch(Exception e){
 	   			throw new BlockRunException(this, BlockRunException.UNEXPECTED);
 	   		}
