@@ -888,5 +888,108 @@ CodeText = コードそのもの
 		<CodeText>no code</CodeText>
 		<PreText/>
 		</BlockCode>
+		
+		<!-- 追記コード 描画関連  (松本)-->
+		<BlockCode name="xy">
+		<CodeText>@_val @, @_val</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gOpenWindow">
+		<CodeText>@gOpenWindow( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gCloseWindow">
+		<CodeText>@gCloseWindow()</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gClearWindow">
+		<CodeText>@gClearWindow()</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSaveWindow">
+		<CodeText>@gSaveWindow( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetLineColor">
+		<CodeText>@gSetLineColor( @_val @, @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetLineShape">
+		<CodeText>@gSetLineShape( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetLineWidth">
+		<CodeText>@gSetLineWidth( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFillColor">
+		<CodeText>@gSetFillColor( @_val @, @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetDotShape">
+		<CodeText>@gSetDotShape( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetTextColor">
+		<CodeText>@gSetTextColor( @_val @, @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFont">
+		<CodeText>@gSetFont( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFontType">
+		<CodeText>@gSetFontType( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFontSize">
+		<CodeText>@gSetFontSize( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetArrowType">
+		<CodeText>@gSetArrowType( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetArrowDir">
+		<CodeText>@gSetArrowDir( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawText">
+		<CodeText>@gDrawText( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawPoint">
+		<CodeText>@gDrawPoint( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawLine">
+		<CodeText>@gDrawLine( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawBox">
+		<CodeText>@gDrawBox( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawOval">
+		<CodeText>@gDrawOval( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawCircle">
+		<CodeText>@gDrawCircle(@_val @ , @_val @)</CodeText>
+		</BlockCode>
+				
+		<BlockCode name="gFillBox">
+		<CodeText>@gFillBox( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gFillOval">
+		<CodeText>@gFillOval( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gFillCircle">
+		<CodeText>@gFillCircle( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		<!-- ここまで -->
+		
 	</BlockCodes>
 </BlockEducationCode>
