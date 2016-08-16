@@ -4309,6 +4309,627 @@ BlockGenuses are first loaded.
 			</LangSpecProperties>
 		</BlockGenus>
 		<!-- 2014/12/09 N.Inaba ADD end -->
+		
+		<!-- 2016/08/01 MatsumotoTakahiro ADD ePEN -->
+		<!-- 英語表記のブロック群です．ePEN/stage4までを対応しています． -->
+		<BlockGenus name="e-keyboard-input-number" kind="data" initlabel="input value" color="255 242 0">
+			<description>
+				<text>
+					input value with keyboard
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="keybord-input-number"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-keyboard-input-string" kind="data" initlabel="input string" color="255 242 0">
+			<description>
+				<text>
+					input string with keyboard
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="string" position-type="mirror"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="keybord-input-string"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-println-number" kind="command" initlabel="display value" color="255 255 255">
+			<description>
+				<text>
+					display value
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="socket" connector-type="number"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="print-number"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+		<BlockGenus name="e-println-string" kind="command" initlabel="display string" color="255 255 255">
+			<description>
+				<text>
+					display string
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="socket" connector-type="string">
+				    <DefaultArg genus-name="string" label="input text"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="print-string"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>	
+
+		<!-- 使ってない？ -->
+		<!--BlockGenus name="println-string2" kind="command" initlabel="display string" color="255 255 255">
+			<description>
+				<text>
+					文字列を表示します。
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="socket" connector-type="string">
+				    <DefaultArg genus-name="string" label="テキスト入力"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="print-string"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus-->	
+
+		<BlockGenus name="e-print-number" kind="command" initlabel="display without a newline" color="255 255 255">
+			<description>
+				<text>
+					Display value without a newline
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="socket" connector-type="number">
+				    <DefaultArg genus-name="variable-Number" label="x"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="print-number"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>	
+
+		<BlockGenus name="e-print-string" kind="command" initlabel="display without a newline" color="255 255 255">
+			<description>
+				<text>
+					Display string without a newline
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="socket" connector-type="string">
+				    <DefaultArg genus-name="string" label="input text"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="print-string"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>		
+
+		<BlockGenus name="e-substitution-number" kind="command" initlabel="x" editable-label="yes" is-label-value="yes" color="126 206 244">
+		    <description>
+				<text>Substitution number</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="←" connector-kind="socket" connector-type="number"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="substitution-number"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+	    <BlockGenus name="e-substitution-string" kind="command" initlabel="text" editable-label="yes" is-label-value="yes" color="126 206 244">
+		    <description>
+				<text>Substitution string</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="←" connector-kind="socket" connector-type="string"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="substitution-string"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-number" kind="data" initlabel="1" editable-label="yes" is-label-value="yes" color="255 0 255">
+			<description>
+				<text>
+					number
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="eval-num"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-string" kind="data" initlabel="text" editable-label="yes" is-label-value="yes" color="255 0 255">
+			<description>
+				<text>
+					string
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="string" position-type="mirror"></BlockConnector>		
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="eval-num"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-variable-Number" kind="data" initlabel="x" editable-label="yes" is-label-value="yes" color="177 10 255">
+			<description>
+				<text>
+					Variable number
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="variable-Number"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-variable-String" kind="data" initlabel="str" editable-label="yes" is-label-value="yes" color="177 10 255">
+			<description>
+				<text>
+					Variable string
+				</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="string" position-type="mirror"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="variable-String"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+	    <BlockGenus name="e-setInt" kind="command" initlabel="Integer" color="132 204 201">
+		    <description>
+				<text>Declare integer</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				    <DefaultArg genus-name="variable-Number" label="x"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="setInt"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+	   	 <BlockGenus name="e-setDouble" kind="command" initlabel="real value" color="132 204 201">
+		    <description>
+				<text>Declare real value</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="socket" connector-type="number">
+				    <DefaultArg genus-name="variable-Number" label="x"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+			    
+				<LangSpecProperty key="vm-cmd-name" value="setDouble"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+	   	 <BlockGenus name="e-setString" kind="command" initlabel="string" color="132 204 201">
+		    <description>
+				<text>Declare string</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="socket" connector-type="string">
+				    <DefaultArg genus-name="variable-String" label="str"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="setString"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<!-- 使ってないかも -->
+	   	<!--BlockGenus name="print" kind="command" initlabel="表示" color="132 204 201">
+		    <description>
+				<text>文字列を宣言します。</text>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="socket" connector-type="string">
+				    <DefaultArg genus-name="variable-String" label="str"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="print"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="breed"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus-->
+		
+		<BlockGenus name="e-random" kind="function" initlabel="random value" color="15 20 220">
+			<description>
+				<text>
+					Returns 1 or more and <arg n="1"/> or less of an integer value.
+				</text>
+				<arg-description n="1" doc-name="number">
+					The upper limit of the range of random number.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="number"></BlockConnector>
+				<BlockConnector connector-kind="socket" connector-type="number">
+					<DefaultArg genus-name="number" label="10" />
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="random"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-surplus" kind="function" initlabel="％" color="15 20 220">
+			<description>
+				<text>
+					Returns the surplus of two values. (<arg n="1"/> % <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left number">
+				</arg-description>
+				<arg-description n="2" doc-name="right number">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="surplus"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-sum" kind="function" initlabel="+" color="15 20 220">
+			<description>
+				<text>
+					Returns the sum of two values. (<arg n="1"/> + <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left number">
+				</arg-description>
+				<arg-description n="2" doc-name="right number">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror">
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="sum"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-difference" kind="function" initlabel="-" color="15 20 220">
+			<description>
+				<text>
+					Returns the defference of two values. (<arg n="1"/> - <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left number">
+				</arg-description>
+				<arg-description n="2" doc-name="right number">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="difference"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-product" kind="function" initlabel="x" color="15 20 220">
+			<description>
+				<text>
+					Returns the product of two values.(<arg n="1"/> x <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left value">
+				</arg-description>
+				<arg-description n="2" doc-name="right value">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="product"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-quotient" kind="function" initlabel="÷" color="15 20 220">
+			<description>
+				<text>
+					Returns the quotient of two values. (<arg n="1"/> ÷ <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left value">
+				</arg-description>
+				<arg-description n="2" doc-name="right value">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="quotient"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-equals-s" kind="function" initlabel="=" color="15 20 220">
+			<description>
+				<text>
+					Check the equals of two values.(<arg n="1"/> = <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left value">
+				</arg-description>
+				<arg-description n="2" doc-name="right value">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="string" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="string" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="equals-s"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-equals" kind="function" initlabel="=" color="15 20 220">
+			<description>
+				<text>
+					Check the equals of two values.(<arg n="1"/> = <arg n="2"/>)。
+				</text>
+				<arg-description n="1" doc-name="left value">
+				</arg-description>
+				<arg-description n="2" doc-name="right value">
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+				<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="equals"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-start" kind="command" initlabel="Starting point" is-starter="yes" color="255 255 255">
+			<description>
+				<text>
+					The Starting point of the program.
+				</text>
+			</description>
+			<BlockConnectors>
+		
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="is-setup" value="yes"></LangSpecProperty>
+				<LangSpecProperty key="has-runtime-equiv" value="yes"></LangSpecProperty>
+				<LangSpecProperty key="stack-type" value="setup"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+				<BlockGenus name="e-if" kind="command" initlabel="Branching" color="255 80 0">
+			<description>
+				<text>
+					If <arg n="1"/> is true , do <arg n="2"/> .
+				</text>
+				<arg-description n="1" name="test">
+					Conditional of test.
+				</arg-description>
+				
+				<arg-description n="2" name="then">
+					To do if true.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="conditional" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="true" connector-kind="socket" connector-type="cmd"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="if"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+
+		<BlockGenus name="e-ifelse" kind="command" initlabel="Branching" color="255 80 0">
+			<description>
+				<text>
+					If <arg n="1"/> is true , do <arg n="2"/> .If <arg n="1"/> is false , do <arg n="3"/> .
+				</text>
+				<arg-description n="1" name="test">
+					Conditional of test.
+				</arg-description>
+				
+				<arg-description n="2" name="then">
+					To do if true.
+				</arg-description>
+				
+				<arg-description n="3" name="else">
+					To do if false.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="conditional" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="true" connector-kind="socket" connector-type="cmd"></BlockConnector>
+				<BlockConnector label="false" connector-kind="socket" connector-type="cmd"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="ifelse"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-or" kind="function" initlabel="or" color="15 20 220">
+			<description>
+				<text>
+					On the other hand one of the two conditions , or if both are true, it returns true.
+				</text>
+				<arg-description n="2" doc-name="condition 1">
+					The first of conditions.
+				</arg-description>
+				<arg-description n="3" doc-name="condition 2">
+					The second of conditions.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="boolean" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="boolean" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="or"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-and" kind="function" initlabel="and" color="15 20 220">
+			<description>
+				<text>
+					Both of the two conditions is in the case of a true , returns true.
+				</text>
+				<arg-description n="2" doc-name="condition 1">
+					The first of conditions.
+				</arg-description>
+					<arg-description n="3" doc-name="condition 2">
+					The second of conditions.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="boolean" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="boolean" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="and"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+	    <BlockGenus name="e-repeat-if" kind="command" initlabel="repeat" color="255 80 0">
+			<description>
+				<text>
+					 While a condition is true , it will continue to run.
+				</text>
+				<arg-description n="1" name="times">
+					The conditon.
+				</arg-description>
+				
+				<arg-description n="2" name="do">
+					To do.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="conditional" connector-kind="socket" connector-type="boolean"></BlockConnector>
+				<BlockConnector label="to do" connector-kind="socket" connector-type="cmd"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="repeat"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-lessthan" kind="function" initlabel="&lt;" color="15 20 220">
+			<description>
+				<text>
+					 <arg n="1"/> Check to see less than <arg n="2"/>.
+				</text>
+				<arg-description n="1" doc-name="left value">
+				The first value.
+				</arg-description>
+				<arg-description n="2" doc-name="right value">
+				The second value.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="less-than"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<BlockGenus name="e-greaterthan" kind="function" initlabel="&gt;" color="15 20 220">
+			<description>
+				<text>
+					 <arg n="1"/> Check to see more than <arg n="2"/>.
+				</text>
+				<arg-description n="1" doc-name="left value">
+				The first value.
+				</arg-description>
+				<arg-description n="2" doc-name="right value">
+				The second value.
+				</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="boolean" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="greater-than"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<!-- 2016/08/01 MatsumotoTakahiro ADD end -->
 	</BlockGenuses>
 
 
