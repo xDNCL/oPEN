@@ -1795,6 +1795,56 @@ BlockGenuses are first loaded.
 		</BlockGenus>
 <!-- xyブロック追加ここまで -->
 
+<!-- xyzブロック追加 ver.1 -->
+		<BlockGenus name="xyz" kind="data" initlabel=",," color="105 176 118">
+			<description>
+				<text>
+					xとyとzの値を入れて下さい。
+				</text>
+				<arg-description n="1" doc-name="x"></arg-description>
+				<arg-description n="2" doc-name="y"></arg-description>
+				<arg-description n="3" doc-name="z"></arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number-list" position-type="mirror"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom">
+					<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number" position-type="bottom"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="xyz"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+<!-- xyzブロック追加ここまで -->
+
+<!-- xyzブロック追加 ver.2 ->
+		<BlockGenus name="xyz" kind="data" initlabel="(x, y, z)の値を入力" color="105 176 118">
+			<description>
+				<text>
+					xとyとzの値を入れて下さい。
+				</text>
+				<arg-description n="1" doc-name="x">xの値</arg-description>
+				<arg-description n="2" doc-name="y">yの値</arg-description>
+				<arg-description n="3" doc-name="z">zの値</arg-description>
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="" connector-kind="plug" connector-type="number-list" position-type="left"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number">
+					<DefaultArg genus-name="number" label="100"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number"></BlockConnector>
+				<BlockConnector label="" connector-kind="socket" connector-type="number"></BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="xyz"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+<!- xyzブロック ver.2 追加ここまで -->
+
 		<BlockGenus name="not-equals" kind="function" initlabel="≠" color="15 20 220">
 			<description>
 				<text>
@@ -4930,8 +4980,183 @@ BlockGenuses are first loaded.
 		</BlockGenus>
 		
 		<!-- 2016/08/01 MatsumotoTakahiro ADD end -->
-	</BlockGenuses>
+		
+		<!-- 2016/ MatsumotoTakahiro ADD arduino -->
+		<!-- LillyPad用のブロック群です -->
+		
+		<!-- pinModeInput -->
+		<BlockGenus name="pinModeInput" kind="command" initlabel="入力設定" color="0 255 0">
+			<description>
+				<text>
+					入力設定
+				</text>
+				
+				<arg-description n="1" name="x">
+					ピン番号
+				</arg-description>
 
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="pinModeInput"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<!-- pinModeOutput -->
+		<BlockGenus name="pinModeOutput" kind="command" initlabel="出力設定" color="0 255 0">
+			<description>
+				<text>
+					出力設定
+				</text>
+				
+				<arg-description n="1" name="x">
+					ピン番号
+				</arg-description>
+
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="pinModeOutput"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+		
+		<!-- digitalRead -->
+		<BlockGenus name="digitalRead" kind="command" initlabel="ディジタル読込" color="0 255 0">
+			<description>
+				<text>
+					ディジタル読込
+				</text>
+				
+				<arg-description n="1" name="x">
+					ピン番号
+				</arg-description>
+			</description>
+			
+			<BlockConnectors>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="digitalRead"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<!-- analogRead -->
+		<BlockGenus name="analogRead" kind="command" initlabel="アナログ読込" color="0 255 0">
+			<description>
+				<text>
+					アナログ読込
+				</text>
+				
+				<arg-description n="1" name="x">
+					ピン
+				</arg-description>
+			</description>
+			
+			<BlockConnectors>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="analogRead"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<!-- digitalWrite -->
+		<BlockGenus name="digitalWrite" kind="command" initlabel="ディジタル書込" color="0 255 0">
+			<description>
+				<text>
+					ディジタル書込
+				</text>
+				
+				<arg-description n="1" name="x">
+					ピン番号
+				</arg-description>
+
+				<arg-description n="2" name="x">
+					式
+				</arg-description>
+
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="式" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="0"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="digitalWrite"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+		
+		<!--  analogWrite -->
+		<BlockGenus name="analogWrite" kind="command" initlabel="アナログ書込" color="0 255 0">
+			<description>
+				<text>
+					アナログ書込
+				</text>
+				
+				<arg-description n="1" name="x">
+					ピン番号
+				</arg-description>
+
+				<arg-description n="2" name="x">
+					式
+				</arg-description>
+
+			</description>
+			<BlockConnectors>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				</BlockConnector>
+				<BlockConnector label="式" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="0"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="analogWrite"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+		<!-- delay -->
+		<BlockGenus name="delay" kind="command" initlabel="一時停止" color="0 255 0">
+			<description>
+				<text>
+					一時停止
+				</text>
+				
+				<arg-description n="1" name="x">
+					式
+				</arg-description>
+			</description>
+			
+			<BlockConnectors>
+				<BlockConnector label="式" connector-kind="socket" connector-type="number">
+				<DefaultArg genus-name="number" label="10"></DefaultArg>
+				</BlockConnector>
+			</BlockConnectors>
+			<LangSpecProperties>
+				<LangSpecProperty key="vm-cmd-name" value="delay"></LangSpecProperty>
+			</LangSpecProperties>
+		</BlockGenus>
+
+
+		<!-- 2016/ MatsumotoTakahiro ADD end -->
+		
+	</BlockGenuses>
 
 <!--プルダウン追加 -->
 	<BlockFamilies>

@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import LilyPadSimulatorGUI_Level1.bin.LilyPadSimulatorGUI_Level1;
 import pen.IntVgOutputWindow.IntVgOutputWindow;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.renderable.RenderableBlock;
@@ -36,6 +37,7 @@ import OverrideOpenblocks.OB_Workspace;
 
 public class ConsoleWindow implements ActionListener{
 	private IntVgOutputWindow ivw = new IntVgOutputWindow();
+	private LilyPadSimulatorGUI_Level1 lps = new LilyPadSimulatorGUI_Level1();
 	private OB_Workspace ws;
 	
 	private final Color actionButtonBGC = new Color(255, 80, 0);
@@ -399,7 +401,7 @@ public class ConsoleWindow implements ActionListener{
 					
 					ArrayList<OB_Block> results = null;
 					try {
-						results = run.runBlock(ivw);
+						results = run.runBlock(ivw,lps);
 					} catch (BlockRunException e) {
 						//エラー処理はBlock側で表示されるのでここではしない。
 						return;
