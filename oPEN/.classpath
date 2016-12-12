@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="../openblocks/target/openblocks-1.1-SNAPSHOT.jar" sourcepath="/openblocks"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LilyPadSimulatorGUI_Level1"/>
+	<classpathentry kind="lib" path="/Users/takahiro91687716/git/penPluginDev"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
