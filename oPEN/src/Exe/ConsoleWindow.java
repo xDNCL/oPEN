@@ -27,8 +27,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import LilyPadSimulatorGUI_Level1.bin.LilyPadSimulatorGUI_Level1;
 import pen.IntVgOutputWindow.IntVgOutputWindow;
+import pen.LilyPadSimulatorGUI_Level1.LilyPadSimulatorGUI_Level1;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.renderable.RenderableBlock;
 import OverrideOpenblocks.OB_Block;

@@ -10,13 +10,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import pen.IntVgOutputWindow.IntVgOutputWindow;
+import pen.LilyPadSimulatorGUI_Level1.LilyPadSimulatorGUI_Level1;
 import Exe.BlockRunException;
 import Exe.ConsoleWindow;
 import edu.mit.blocks.codeblocks.Block;
 import edu.mit.blocks.codeblocks.BlockConnector;
 import edu.mit.blocks.workspace.Workspace;
-
-import LilyPadSimulatorGUI_Level1.bin.LilyPadSimulatorGUI_Level1;
 
 public class OB_Block extends Block{
 
