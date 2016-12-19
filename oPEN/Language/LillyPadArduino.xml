@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+CodeText = コードそのもの
+
+<CodeText>専用タグ
+@param _val		接続先の値を取得する
+@param _label	自身のラベル（ブロック本体のラベル）の値を取得する
+@param _preval 	<PreText> を各行頭につけた状態で、接続先の値を取得する
+@param _br		任意の場所で改行
+
+<PreCode>専用タグ
+@param _t		タブ挿入
+
+共通タグ
+@param _space	半角スペース挿入
+
+@param @ 区切り文字
+
+ -->
+
+<BlockEducationCode>
+	<BlockCodes>
+		<BlockCode name="test">
+			<CodeText>no code</CodeText>
+			<PreText/>
+		</BlockCode>
+		
+		 <BlockCode name="start">
+	        <CodeText>
+	            @void @_space @setup() @_space @{ @_br
+	            @_preval
+	            @} @_br
+	            @void @_space @loop() @_space @{}
+	        </CodeText>
+	        <PreText>
+	            @_t
+	        </PreText>
+	    </BlockCode>
+		
+	    <BlockCode name="keyboard-input-number">
+	        <CodeText>
+	            @input()
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="keyboard-input-string">
+	        <CodeText>
+	            @input()
+	        </CodeText>
+	    </BlockCode>
+		
+	    <BlockCode name="print-number">
+	        <CodeText>
+	            @_val @を改行なしで表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="print-string">
+	        <CodeText>
+	            @「 @_val @」を改行無しで表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="println-number">
+	        <CodeText>
+	            @_val @ を表示する
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="println-string">
+	        <CodeText>
+	            @「 @_val @」を表示する
+	        </CodeText>
+	    </BlockCode>
+		
+	    <BlockCode name="substitution-number">
+	        <CodeText>
+	            @_label @← @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="substitution-string">
+	        <CodeText>
+	            @_label @← @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="variable-Number">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="variable-String">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+		
+	    <BlockCode name="setInt">
+	        <CodeText>
+	            @整数 @_space @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="setDouble">
+	        <CodeText>
+	            @実数 @_space @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="setString">
+	        <CodeText>
+	            @文字列 @_space @_val
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="setLong">
+	        <CodeText>
+	            @長整数 @_space @_val
+	        </CodeText>
+	    </BlockCode>	
+	    
+	
+		<BlockCode name="print">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="out-a">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="out-b">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="out-c">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="motor-on-fwd">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="motor-on-rev">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="motor-on-left">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="motor-on-right">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="motor-off">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="wait">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sensor-input-port1">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sensor-input-port3">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sensor-input-port4">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sensor-input-port2">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="connectorTester">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+		<BlockCode name="start">
+			<CodeText>@_preval</CodeText>
+			<PreText></PreText>
+		</BlockCode>
+		
+		<BlockCode name="setter">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="special">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="repeat-forever">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+
+		<BlockCode name="repeat-if">
+	        <CodeText>
+	            @_val @の間, @_br
+	            @_preval
+	            @を繰り返す
+	        </CodeText>
+	       	<PreText>
+	       	    @_space @_space @| @_space
+	       	</PreText>
+	    </BlockCode>
+		
+		<BlockCode name="getter">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="caller">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="inc">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="agent">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+	    <BlockCode name="number">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="string">
+	        <CodeText>
+	            @_label
+	        </CodeText>
+	    </BlockCode>
+	    
+		<BlockCode name="true">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="false">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="random-color">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="red">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="black">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="white">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="gray">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="orange">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="brown">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="yellow">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="green">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="lime">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="turquoise">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="cyan">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="purple">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="magenta">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sky">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="blue">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="pink">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="fd">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="bk">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="lt">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="rt">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="up">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="down">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="setxy">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+	    <BlockCode name="if">
+	        <CodeText>
+	            @もし @_val @ならば @_br
+	            @_preval
+	            @を実行する
+	        </CodeText>
+	        <PreText>
+	            @_space @_space @| @_space
+	        </PreText>
+	    </BlockCode>
+	    
+	   	<BlockCode name="ifelse">
+	        <CodeText>
+	            @もし @_val @ならば @_br
+	            @_preval 
+	            @を実行し、そうでなければ @_br
+	            @_preval
+	            @を実行する
+	        </CodeText>
+	        <PreText>
+	            @_space @_space @| @_space
+	        </PreText>
+	    </BlockCode>
+	    
+		<BlockCode name="repeat">
+		<CodeText></CodeText>
+		<PreText/>
+		</BlockCode>
+		
+		<BlockCode name="or">
+			<CodeText>@_val @または @_val</CodeText>
+			<PreText/>
+		</BlockCode>
+		
+		<BlockCode name="and">
+			<CodeText>@_val @かつ @_val</CodeText>
+			<PreText/>
+		</BlockCode>
+		
+		<BlockCode name="not">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="count-everyone-with">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="count-everyone">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="say">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="set-status">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="play">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="to-string">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="string-append">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="pi">
+		<CodeText>Math.PI()</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="e">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+	    <BlockCode name="sum">
+	        <CodeText>
+	            @( @_val @+ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="difference">
+	        <CodeText>
+     	        @( @_val @- @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="quotient">
+	        <CodeText>
+ 	       		@( @_val @/ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="product">
+	        <CodeText>
+	            @( @_val @* @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="surplus">
+	        <CodeText>
+	            @( @_val @% @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+	    <BlockCode name="equals">
+	        <CodeText>
+	            @( @_val @= @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+		<BlockCode name="not-equals">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+	    <BlockCode name="lessthan">
+	        <CodeText>
+	            @( @_val @＜ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+		<BlockCode name="lessthanorequalto">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+	    <BlockCode name="greaterthan">
+	        <CodeText>
+	            @( @_val @＞ @_val @)
+	        </CodeText>
+	    </BlockCode>
+	    
+		<BlockCode name="greaterthanorequalto">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="atan">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="random">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="round">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="int">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="remainder">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="min">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="max">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="power">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="abs">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sqrt">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="sin">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="cos">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="tan">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="asin">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="acos">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="log">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="ln">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="pc">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="stamp">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="patch-height">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="stomp">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="yank">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="setc">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="color">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="seth">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="heading">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="xcor">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="ycor">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="scale">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="setscale">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="who">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="penup">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="pendown">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="pendown?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="shape">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="breed">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="setshape">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="setbreed">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="keyboard-up">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="keyboard-down">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="keyboard-left">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="keyboard-right">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="keyboard-space">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-xaxis">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-yaxis">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-radius">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-angle">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="dpad-angle">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-button1?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-button2?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-button3?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="joy-button4?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="set-agent-camera">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="who-of-agent-camera">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="over-shoulder?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="over-shoulder-on">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="agent-eye?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="agent-eye-on">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="aerial?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="aerial-on">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="overhead?">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="overhead-on">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="overhead-off">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="procedure">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="proc-param-number">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="proc-param-boolean">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="proc-param-string">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="proc-param-list">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="forever">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-forever">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runonce">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-once">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runforsometime">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-sometime">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="setup">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-setup">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="monitor">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-monitor">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="slider">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-slider">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="table">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-table">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="line-graph">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-line-graph">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="bar-graph">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="runtime-bar-graph">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="clear-all">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="clear-everyone">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="clear-patches">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="scatter-everyone">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="set-score">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="score">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="create-agents">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="create-and-do">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="breed-string">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="count-breeds">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="count-breeds-with">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="scatter-breeds">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="clear-breeds">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="collision">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="random-shape">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="ashape">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		<BlockCode name="bshape">
+		<CodeText>no code</CodeText>
+		<PreText/>
+		</BlockCode>
+		
+		<!-- 追記コード 描画関連  (松本)-->
+		<BlockCode name="xy">
+		<CodeText>@_val @, @_val</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gOpenWindow">
+		<CodeText>@gOpenWindow( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gCloseWindow">
+		<CodeText>@gCloseWindow()</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gClearWindow">
+		<CodeText>@gClearWindow()</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSaveWindow">
+		<CodeText>@gSaveWindow( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetLineColor">
+		<CodeText>@gSetLineColor( @_val @, @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetLineShape">
+		<CodeText>@gSetLineShape( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetLineWidth">
+		<CodeText>@gSetLineWidth( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFillColor">
+		<CodeText>@gSetFillColor( @_val @, @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetDotShape">
+		<CodeText>@gSetDotShape( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetTextColor">
+		<CodeText>@gSetTextColor( @_val @, @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFont">
+		<CodeText>@gSetFont( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFontType">
+		<CodeText>@gSetFontType( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetFontSize">
+		<CodeText>@gSetFontSize( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetArrowType">
+		<CodeText>@gSetArrowType( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gSetArrowDir">
+		<CodeText>@gSetArrowDir( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawText">
+		<CodeText>@gDrawText( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawPoint">
+		<CodeText>@gDrawPoint( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawLine">
+		<CodeText>@gDrawLine( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawBox">
+		<CodeText>@gDrawBox( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawOval">
+		<CodeText>@gDrawOval( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gDrawCircle">
+		<CodeText>@gDrawCircle(@_val @ , @_val @)</CodeText>
+		</BlockCode>
+				
+		<BlockCode name="gFillBox">
+		<CodeText>@gFillBox( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gFillOval">
+		<CodeText>@gFillOval( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="gFillCircle">
+		<CodeText>@gFillCircle( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		<!-- ここまで -->
+		
+		<!-- 追記コード LillyPad関連  (松本)-->
+		<BlockCode name="pinModeInput">
+		<CodeText>@pinMode( @_val @, "INPUT_PULLUP" )</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="pinModeOutput">
+		<CodeText>@pinMode( @_val @, "OUTPUT" )</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="digitalRead">
+		<CodeText>@digitalRead( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="analogRead">
+		<CodeText>@analogRead( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="digitalWrite">
+		<CodeText>@digitalWrite( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="analogWrite">
+		<CodeText>@analogWrite( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="delay">
+		<CodeText>@delay( @_val @)</CodeText>
+		</BlockCode>
+		<!-- ここまで -->
+
+		
+	</BlockCodes>
+</BlockEducationCode>
