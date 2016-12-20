@@ -426,7 +426,7 @@ public class OB_Block extends Block{
 				}
 			}
 			
-			if(this.getGenusName().equals("wait")){
+			if(this.getGenusName().equals("wait")||this.getGenusName().equals("delay")){
 				Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 				if(type instanceof Integer) {
 					//ivw.gSetDotShape(((Integer) type).intValue());
