@@ -3,7 +3,7 @@
 <Output>
       <!-- 出力言語の設定ファイルへのパス
     	出力現をを設定しないならば(NULL)を記載 -->
-    <Language>LillyPadArduino.xml</Language>
+    <Language>LilyPadArduino.xml</Language>
     
     <!-- 拡張子 -->
     <FileNameExtention>.ino</FileNameExtention>
