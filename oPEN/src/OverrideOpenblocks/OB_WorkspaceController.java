@@ -190,6 +190,7 @@ public class OB_WorkspaceController extends WorkspaceController{
 		}
 		return buttonPanel;
 	}
+	
 
 	/**
 	 * Action bound to "Open" action.
@@ -896,12 +897,54 @@ public class OB_WorkspaceController extends WorkspaceController{
 					}
 					//debugできあがったコードを吐く
 					//				System.err.println(outputCode.getCode());
+					
+					//12/25松本
+					commandLineArduino(lp.getArduinoIDE_PATH(),path+value+".ino");
 
 				}catch(Exception err){
 					System.out.println("出力言語に関するファイルが見つかりません");
 				}
 			}
 		}
+		
+		/**
+		* ArduinoIDEをキックするためのメソッド
+		*
+		* @param arduinoIDE_PATH
+		* ArduinoIDEのパス
+		*
+		* @param inoTempFilePath
+		* 変換＆保存した .ino ファイルのパス
+		*/
+		public void commandLineArduino(String arduinoIDE_PATH, String inoTempFilePath){
+		    try {
+		        String osName = System.getProperty("os.name");
+		        String commandLine = "";
+		        Runtime r = Runtime.getRuntime();
+
+		        if(osName.indexOf("Windows")>=0){
+		            commandLine = arduinoIDE_PATH;
+		        } else if(osName.indexOf("Linux")>=0){
+		        } else if(osName.indexOf("Mac")>=0){
+		            commandLine = "/usr/bin/open -W "
+		                    + arduinoIDE_PATH
+		                    + " --args";
+		        } else {
+		        }
+
+		        commandLine = commandLine + " --upload " + inoTempFilePath;
+		        Process p = r.exec(commandLine);
+		        int ret = p.waitFor();
+
+		        //System.out.println("command: " + commandLine);
+		        //System.out.println("Retun: " + ret);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    } catch (InterruptedException e) {
+		        e.printStackTrace();
+		    }
+		}
+
 	}
 
 }

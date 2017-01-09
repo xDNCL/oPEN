@@ -5027,10 +5027,8 @@ BlockGenuses are first loaded.
 				<LangSpecProperty key="vm-cmd-name" value="pinModeOutput"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
-
 		
-		<!-- digitalRead -->
-		<BlockGenus name="digitalRead" kind="command" initlabel="ディジタル読込" color="0 255 0">
+		<BlockGenus name="digitalRead" kind="data" initlabel="ディジタル読込" color="255 0 255">
 			<description>
 				<text>
 					ディジタル読込
@@ -5039,37 +5037,40 @@ BlockGenuses are first loaded.
 				<arg-description n="1" name="x">
 					ピン番号
 				</arg-description>
+				
 			</description>
-			
 			<BlockConnectors>
-				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+			<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="left"></BlockConnector>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number"<!-- position-type="bottom"-->>
 				<DefaultArg genus-name="number" label="3"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="digitalRead"></LangSpecProperty>
+				<LangSpecProperty key="vm-cmd-name" value="eval-num"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 		
-		<!-- analogRead -->
-		<BlockGenus name="analogRead" kind="command" initlabel="アナログ読込" color="0 255 0">
+		<BlockGenus name="analogRead" kind="data" initlabel="アナログ読込" color="255 0 255">
 			<description>
 				<text>
 					アナログ読込
 				</text>
 				
 				<arg-description n="1" name="x">
-					ピン
+					ピン番号
 				</arg-description>
+				
 			</description>
-			
 			<BlockConnectors>
-				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+			<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="left"></BlockConnector>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number"<!-- position-type="bottom"-->>
 				<DefaultArg genus-name="number" label="3"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
-				<LangSpecProperty key="vm-cmd-name" value="analogRead"></LangSpecProperty>
+				<LangSpecProperty key="vm-cmd-name" value="eval-num"></LangSpecProperty>
+				<LangSpecProperty key="is-monitorable" value="yes"></LangSpecProperty>
 			</LangSpecProperties>
 		</BlockGenus>
 		
