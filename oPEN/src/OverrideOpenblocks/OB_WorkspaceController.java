@@ -899,7 +899,9 @@ public class OB_WorkspaceController extends WorkspaceController{
 					//				System.err.println(outputCode.getCode());
 					
 					//12/25松本
-					commandLineArduino(lp.getArduinoIDE_PATH(),path+value+".ino");
+					if(select.getSelectedItem().toString().equals("LilyPadArduino")){
+						commandLineArduino(lp.getArduinoIDE_PATH(),path+value+".ino");
+					}
 
 				}catch(Exception err){
 					System.out.println("出力言語に関するファイルが見つかりません");
