@@ -32,6 +32,9 @@ public class LoadProperty {
 	private String select_BlockDrawerList_Address;
 	private String select_BlockDrawerList_Folder;
 	
+	//12/25松本
+	private String arduinoIDE_PATH;
+	
 	
 	private void load(){
 		
@@ -53,6 +56,12 @@ public class LoadProperty {
 			select_BlockDrawerList_Folder = DEFAULT_FOLDER;
 		}
 		
+		//12/25松本
+		try{
+			arduinoIDE_PATH = configuration.getProperty("arduinoIDE_PATH").toString();
+		}catch(Exception e){
+			arduinoIDE_PATH = "";
+		}
 	}
 	
 	public boolean isSelected(){
@@ -69,6 +78,10 @@ public class LoadProperty {
 	
 	public String getResourcesFolderPath(){
 		return this.select_BlockDrawerList_Folder;
+	}
+	
+	public String getArduinoIDE_PATH(){
+		return this.arduinoIDE_PATH;
 	}
 	
 //	public String getStageNam(){
