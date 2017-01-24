@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import pen.IntVgOutputWindow.IntVgOutputWindow;
+import pen.LilyPadSimulatorGUI_Level1.LilyPadSimulatorGUI_Level1;
 import Exe.BlockRunException;
 import Exe.ConsoleWindow;
 import edu.mit.blocks.codeblocks.Block;
@@ -64,7 +65,7 @@ public class OB_Block extends Block{
 	//exe//
 	///////
 
-	public ArrayList<OB_Block> runBlock(IntVgOutputWindow ivw) throws BlockRunException{
+	public ArrayList<OB_Block> runBlock(IntVgOutputWindow ivw,LilyPadSimulatorGUI_Level1 lps) throws BlockRunException{
 		// System.out.println("now:"+this.getGenusName());
 		ArrayList<OB_Block> runList = new ArrayList<OB_Block>();
 
@@ -425,7 +426,7 @@ public class OB_Block extends Block{
 				}
 			}
 			
-			if(this.getGenusName().equals("wait")){
+			if(this.getGenusName().equals("wait")||this.getGenusName().equals("delay")){
 				Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
 				if(type instanceof Integer) {
 					//ivw.gSetDotShape(((Integer) type).intValue());
@@ -462,6 +463,8 @@ public class OB_Block extends Block{
 				ivw.gClearWindow();
 			}
 			
+			//LillyPadBlock用
+			runLilyPadSimulatorBlock(lps);
 			//add other...
 			
 			//
@@ -476,6 +479,74 @@ public class OB_Block extends Block{
 			throw new BlockRunException(this, BlockRunException.BLOCK_IS_NULL);
 		}
 
+	}
+	
+	public void runLilyPadSimulatorBlock(LilyPadSimulatorGUI_Level1 lps) throws BlockRunException{
+		
+		// pinModeInput
+		if(this.getGenusName().equals("pinModeInput")){
+			Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+			if(type instanceof Integer) {
+				lps.pinMode(((Integer) type).intValue(),"INPUT_PULLUP"); 
+			} else {
+				throw new BlockRunException(this, "引数は整数型しか認められません。");
+			}
+		}
+		
+		//pinModeOutput
+		if(this.getGenusName().equals("pinModeOutput")){
+			Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+			if(type instanceof Integer) {
+				lps.pinMode(((Integer) type).intValue(),"OUTPUT"); 
+			} else {
+				throw new BlockRunException(this, "引数は整数型しか認められません。");
+			}
+		}
+		
+		//digitalRead
+		if(this.getGenusName().equals("digitalRead")){
+			Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+			if(type instanceof Integer) {
+				lps.digitalRead(((Integer) type).intValue()); 
+			} else {
+				throw new BlockRunException(this, "引数は整数型しか認められません。");
+			}
+		}
+		
+		//analogRead
+		if(this.getGenusName().equals("analogRead")){
+			Object type = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+			if(type instanceof Integer) {
+				lps.analogRead(((Integer) type).intValue()); 
+			} else {
+				throw new BlockRunException(this, "引数は整数型しか認められません。");
+			}
+		}
+		
+		//digitalWrite
+		if(this.getGenusName().equals("digitalWrite")){
+			
+			Object pin = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+			Object formula = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+
+			if(!(pin instanceof Integer && formula instanceof Integer)) {
+				throw new BlockRunException(this, "ピン番号 及び 式 は整数型しか認められません。");
+			} else {
+				lps.digitalWrite(((Integer) pin).intValue(), ((Integer) formula).intValue());
+			}
+		}
+		
+		//analogWrite
+		if(this.getGenusName().equals("analogWrite")){
+			Object pin = this.getBlock(this.getSocketAt(0).getBlockID()).evaluateValue();
+			Object formula = this.getBlock(this.getSocketAt(1).getBlockID()).evaluateValue();
+
+			if(!(pin instanceof Integer && formula instanceof Integer)) {
+				throw new BlockRunException(this, "ピン番号 及び 式 は整数型しか認められません。");
+			} else {
+				lps.analogWrite(((Integer) pin).intValue(), ((Integer) formula).intValue());
+			}		}
+		
 	}
 
 	/**

@@ -39,6 +39,7 @@ oPEN は 大阪市立大学 大学院創造都市研究科 松浦研究室のプ
 * **赤井 昭仁** ( *Akihito Akai* )
 * **稲葉 夏希** ( *Natsuki Inaba* )
 * **青谷 太志** ( *Futoshi Aotani* )
+* **松本 嵩大** ( *Takahiro Matsumoto* )
 * **中村 亮太** ( *Ryota Nakamura* )
 * **松浦 敏雄** ( *Toshio Matsuura* )
 

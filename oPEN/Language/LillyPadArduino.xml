@@ -25,51 +25,63 @@ CodeText = コードそのもの
 			<PreText/>
 		</BlockCode>
 		
+		 <BlockCode name="start">
+	        <CodeText>
+	            @void @_space @setup() @_space @{ @_br
+	            @_preval
+	            @} @_br
+	            @void @_space @loop() @_space @{}
+	        </CodeText>
+	        <PreText>
+	            @_t
+	        </PreText>
+	    </BlockCode>
+		
 	    <BlockCode name="keyboard-input-number">
 	        <CodeText>
-	            @input()
+	            no code
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="keyboard-input-string">
 	        <CodeText>
-	            @input()
+	            no code
 	        </CodeText>
 	    </BlockCode>
 		
 	    <BlockCode name="print-number">
 	        <CodeText>
-	            @_val @を改行なしで表示する
+	            no code
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="print-string">
 	        <CodeText>
-	            @「 @_val @」を改行無しで表示する
+	            no code
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="println-number">
 	        <CodeText>
-	            @_val @ を表示する
+	            no code
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="println-string">
 	        <CodeText>
-	            @「 @_val @」を表示する
+	            no code
 	        </CodeText>
 	    </BlockCode>
 		
 	    <BlockCode name="substitution-number">
 	        <CodeText>
-	            @_label @← @_val
+	            @_label @= @_val@;
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="substitution-string">
 	        <CodeText>
-	            @_label @← @_val
+	            @_label @= @_val@;
 	        </CodeText>
 	    </BlockCode>
 	    
@@ -87,25 +99,25 @@ CodeText = コードそのもの
 		
 	    <BlockCode name="setInt">
 	        <CodeText>
-	            @整数 @_space @_val
+	            @int @_space @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
 	   	<BlockCode name="setDouble">
 	        <CodeText>
-	            @実数 @_space @_val
+	            @double @_space @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="setString">
 	        <CodeText>
-	            @文字列 @_space @_val
+	            @string @_space @_val @;
 	        </CodeText>
 	    </BlockCode>
 	    
 	    <BlockCode name="setLong">
 	        <CodeText>
-	            @長整数 @_space @_val
+	            @long @_space @_val @;
 	        </CodeText>
 	    </BlockCode>	
 	    
@@ -191,9 +203,9 @@ CodeText = コードそのもの
 
 		<BlockCode name="repeat-if">
 	        <CodeText>
-	            @_val @の間, @_br
+	            @while(@_val @) {@_br
 	            @_preval
-	            @を繰り返す
+	            @}
 	        </CodeText>
 	       	<PreText>
 	       	    @_space @_space @| @_space
@@ -336,9 +348,9 @@ CodeText = コードそのもの
 		
 	    <BlockCode name="if">
 	        <CodeText>
-	            @もし @_val @ならば @_br
+	            @if( @_val @) { @_br
 	            @_preval
-	            @を実行する
+	            @}
 	        </CodeText>
 	        <PreText>
 	            @_space @_space @| @_space
@@ -347,11 +359,11 @@ CodeText = コードそのもの
 	    
 	   	<BlockCode name="ifelse">
 	        <CodeText>
-	            @もし @_val @ならば @_br
+	            @if( @_val @) { @_br
 	            @_preval 
-	            @を実行し、そうでなければ @_br
+	            @else {@_br
 	            @_preval
-	            @を実行する
+	            @}
 	        </CodeText>
 	        <PreText>
 	            @_space @_space @| @_space
@@ -364,12 +376,12 @@ CodeText = コードそのもの
 		</BlockCode>
 		
 		<BlockCode name="or">
-			<CodeText>@_val @または @_val</CodeText>
+			<CodeText>@_val @|| @_val</CodeText>
 			<PreText/>
 		</BlockCode>
 		
 		<BlockCode name="and">
-			<CodeText>@_val @かつ @_val</CodeText>
+			<CodeText>@_val @&& @_val</CodeText>
 			<PreText/>
 		</BlockCode>
 		
@@ -457,7 +469,7 @@ CodeText = コードそのもの
 		
 	    <BlockCode name="lessthan">
 	        <CodeText>
-	            @( @_val @＜ @_val @)
+	            @( @_val @< @_val @)
 	        </CodeText>
 	    </BlockCode>
 	    
@@ -468,7 +480,7 @@ CodeText = コードそのもの
 		
 	    <BlockCode name="greaterthan">
 	        <CodeText>
-	            @( @_val @＞ @_val @)
+	            @( @_val @> @_val @)
 	        </CodeText>
 	    </BlockCode>
 	    
@@ -888,108 +900,37 @@ CodeText = コードそのもの
 		<CodeText>no code</CodeText>
 		<PreText/>
 		</BlockCode>
-		
-		<!-- 追記コード 描画関連  (松本)-->
-		<BlockCode name="xy">
-		<CodeText>@_val @, @_val</CodeText>
+
+		<!-- 追記コード LillyPad関連  (松本)-->
+		<BlockCode name="pinModeInput">
+		<CodeText>@pinMode( @_val @, "INPUT_PULLUP" );</CodeText>
 		</BlockCode>
 		
-		<BlockCode name="gOpenWindow">
-		<CodeText>@gOpenWindow( @_val @)</CodeText>
+		<BlockCode name="pinModeOutput">
+		<CodeText>@pinMode( @_val @, "OUTPUT" );</CodeText>
 		</BlockCode>
 		
-		<BlockCode name="gCloseWindow">
-		<CodeText>@gCloseWindow()</CodeText>
+		<BlockCode name="digitalRead">
+		<CodeText>@digitalRead( @_val @);</CodeText>
 		</BlockCode>
 		
-		<BlockCode name="gClearWindow">
-		<CodeText>@gClearWindow()</CodeText>
+		<BlockCode name="analogRead">
+		<CodeText>@analogRead( @_val @);</CodeText>
 		</BlockCode>
 		
-		<BlockCode name="gSaveWindow">
-		<CodeText>@gSaveWindow( @_val @)</CodeText>
+		<BlockCode name="digitalWrite">
+		<CodeText>@digitalWrite( @_val @, @_val @);</CodeText>
 		</BlockCode>
 		
-		<BlockCode name="gSetLineColor">
-		<CodeText>@gSetLineColor( @_val @, @_val @, @_val @)</CodeText>
+		<BlockCode name="analogWrite">
+		<CodeText>@analogWrite( @_val @, @_val @);</CodeText>
 		</BlockCode>
 		
-		<BlockCode name="gSetLineShape">
-		<CodeText>@gSetLineShape( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetLineWidth">
-		<CodeText>@gSetLineWidth( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetFillColor">
-		<CodeText>@gSetFillColor( @_val @, @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetDotShape">
-		<CodeText>@gSetDotShape( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetTextColor">
-		<CodeText>@gSetTextColor( @_val @, @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetFont">
-		<CodeText>@gSetFont( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetFontType">
-		<CodeText>@gSetFontType( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetFontSize">
-		<CodeText>@gSetFontSize( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetArrowType">
-		<CodeText>@gSetArrowType( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gSetArrowDir">
-		<CodeText>@gSetArrowDir( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gDrawText">
-		<CodeText>@gDrawText( @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gDrawPoint">
-		<CodeText>@gDrawPoint( @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gDrawLine">
-		<CodeText>@gDrawLine( @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gDrawBox">
-		<CodeText>@gDrawBox( @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gDrawOval">
-		<CodeText>@gDrawOval( @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gDrawCircle">
-		<CodeText>@gDrawCircle(@_val @ , @_val @)</CodeText>
-		</BlockCode>
-				
-		<BlockCode name="gFillBox">
-		<CodeText>@gFillBox( @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gFillOval">
-		<CodeText>@gFillOval( @_val @, @_val @)</CodeText>
-		</BlockCode>
-		
-		<BlockCode name="gFillCircle">
-		<CodeText>@gFillCircle( @_val @, @_val @)</CodeText>
+		<BlockCode name="delay">
+		<CodeText>@delay( @_val @);</CodeText>
 		</BlockCode>
 		<!-- ここまで -->
+
 		
 	</BlockCodes>
 </BlockEducationCode>

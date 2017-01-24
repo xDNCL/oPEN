@@ -991,5 +991,36 @@ CodeText = コードそのもの
 		</BlockCode>
 		<!-- ここまで -->
 		
+		<!-- 追記コード LillyPad関連  (松本)-->
+		<BlockCode name="pinModeInput">
+		<CodeText>@pinMode( @_val @, "INPUT_PULLUP" )</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="pinModeOutput">
+		<CodeText>@pinMode( @_val @, "OUTPUT" )</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="digitalRead">
+		<CodeText>@digitalRead( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="analogRead">
+		<CodeText>@analogRead( @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="digitalWrite">
+		<CodeText>@digitalWrite( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="analogWrite">
+		<CodeText>@analogWrite( @_val @, @_val @)</CodeText>
+		</BlockCode>
+		
+		<BlockCode name="delay">
+		<CodeText>@delay( @_val @)</CodeText>
+		</BlockCode>
+		<!-- ここまで -->
+
+		
 	</BlockCodes>
 </BlockEducationCode>
