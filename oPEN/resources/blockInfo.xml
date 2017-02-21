@@ -5020,7 +5020,7 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
-				<DefaultArg genus-name="number" label="3"></DefaultArg>
+					<DefaultArg genus-name="number" label="3"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -5040,9 +5040,9 @@ BlockGenuses are first loaded.
 				
 			</description>
 			<BlockConnectors>
-			<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="left"></BlockConnector>
-				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number"<!-- position-type="bottom"-->>
-				<DefaultArg genus-name="number" label="3"></DefaultArg>
+				<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="left"></BlockConnector>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
+					<DefaultArg genus-name="number" label="3"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
 			<LangSpecProperties>
@@ -5064,7 +5064,7 @@ BlockGenuses are first loaded.
 			</description>
 			<BlockConnectors>
 			<BlockConnector label="" connector-kind="plug" connector-type="number" position-type="left"></BlockConnector>
-				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number"<!-- position-type="bottom"-->>
+				<BlockConnector label="ピン番号" connector-kind="socket" connector-type="number">
 				<DefaultArg genus-name="number" label="3"></DefaultArg>
 				</BlockConnector>
 			</BlockConnectors>
